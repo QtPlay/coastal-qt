@@ -1,0 +1,15 @@
+This package is being developed as a series of generic and fully cross-platform
+usable QT desktop applications.  Most interface work is done directly in QT
+Designer.
+
+Qfind is intended to become a QT version of "catfish", although the ui suggests
+it may end up with substantially more functionality for selecting, searching,
+and using groups of files than catfish originally had.  Qman is a QT version of
+"gman" and will likely make use of man2html as a backend engine.  Other things,
+like qscope, will also be added over time.
+
+All our software is licensed per the GNU General Public License, Version 3 or
+later.
+
+
+
