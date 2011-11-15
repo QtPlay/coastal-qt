@@ -24,12 +24,15 @@
 #include <QApplication>
 #include <QMainWindow>
 #include <QTranslator>
+#include <QSettings>
 
 class Main : public QMainWindow
 {
 Q_OBJECT
 
 public:
+    QStringList manpaths;
+
     Main(QWidget *parent = NULL);
     virtual ~Main();
 };

@@ -23,6 +23,20 @@ static Ui::MainWindow ui;
 Main::Main(QWidget *parent) :
 QMainWindow(parent)
 {
+    QSettings settings;
+    QString manpath = getenv("MANPATH");
+
+    manpath = settings.value(manpath, "manpath").toString();
+#ifdef  _MSC_VER
+    if(manpath.isEmpty())
+        manpath = "c:\\tools\\man";
+#else
+    if(manpath.isEmpty())
+        manpath = "/usr/share/man:/usr/local/share/man";
+#endif
+
+    manpaths = manpath.split(":", QString::SkipEmptyParts);
+
     ui.setupUi((QMainWindow *)this);
 
     connect(ui.actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
