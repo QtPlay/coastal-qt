@@ -227,7 +227,6 @@ void Main::images(void)
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    Main w(argv[1]);
 
     QCoreApplication::setOrganizationName("GNU Telephony");
     QCoreApplication::setOrganizationDomain("gnutelephony.org");
@@ -240,6 +239,7 @@ int main(int argc, char *argv[])
     if(!QIcon::hasThemeIcon("reload"))
         QIcon::setThemeName("coastal");
 
+    Main w(argv[1]);
     w.show();
     return app.exec();
 }

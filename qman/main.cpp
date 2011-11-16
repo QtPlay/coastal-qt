@@ -64,7 +64,6 @@ Main::~Main()
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    Main w;
 
     QCoreApplication::setOrganizationName("GNU Telephony");
     QCoreApplication::setOrganizationDomain("gnutelephony.org");
@@ -77,6 +76,7 @@ int main(int argc, char *argv[])
     if(!QIcon::hasThemeIcon("reload"))
         QIcon::setThemeName("coastal");
 
+    Main w;
     w.show();
     return app.exec();
 }
