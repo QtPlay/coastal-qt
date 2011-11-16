@@ -26,6 +26,8 @@ QMainWindow(parent)
     ui.setupUi((QMainWindow *)this);
     ui.statusbar->showMessage(tr("loading..."));
 
+    setWindowIcon(QIcon(":/manpager.png"));
+
     QSettings settings;
     const char *separator = ":";
 #ifdef  _MSC_VER
@@ -52,6 +54,7 @@ QMainWindow(parent)
 
     ui.actionQuit->setIcon(QIcon::fromTheme("exit"));
     ui.actionReload->setIcon(QIcon::fromTheme("reload"));
+    ui.actionAbout->setIcon(QIcon::fromTheme("help-about"));
 
     connect(ui.actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
 

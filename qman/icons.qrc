@@ -4,5 +4,9 @@
 
     <file alias="16x16/exit.png">../icons/exit.png</file>
     <file alias="16x16/reload.png">../icons/reload.png</file>
+    <file alias="16x16/help-about.png">../icons/help-about.png</file>
+</qresource>
+<qresource>
+    <file alias="manpager.png">../icons/coastal-manpager.png</file>
 </qresource>
 </RCC>

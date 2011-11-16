@@ -37,6 +37,8 @@ QMainWindow(NULL)
     ui.setupUi((QMainWindow *)this);
     ui.statusbar->showMessage(tr("loading..."));
 
+    setWindowIcon(QIcon(":/search.png"));
+
     map[0] = ui.documents;
     map[1] = ui.applications;
     map[2] = ui.audioFiles;
@@ -66,6 +68,7 @@ QMainWindow(NULL)
     ui.actionQuit->setIcon(QIcon::fromTheme("exit"));
     ui.actionReload->setIcon(QIcon::fromTheme("reload"));
     ui.actionClear->setIcon(QIcon::fromTheme("editclear"));
+    ui.actionAbout->setIcon(QIcon::fromTheme("help-about"));
 
     ui.applications->setIcon(QIcon::fromTheme("application-x-executable"));
     ui.documents->setIcon(QIcon::fromTheme("text-x-generic"));
