@@ -19,24 +19,32 @@
 #define MAIN_H_
 
 #include <config.h>
-#include <cstdio>
 #include <QWidget>
 #include <QObject>
 #include <QApplication>
 #include <QMainWindow>
 #include <QTranslator>
+#include <QDir>
+#include <QSettings>
+#include <QFileDialog>
+#include <QDebug>
 
 class Main : public QMainWindow
 {
 Q_OBJECT
 
 public:
-    Main(QWidget *parent = NULL);
+    QStringList history;
+    QDir dir;
+
+    Main(const char *prefix);
     virtual ~Main();
 
     void all();
 
 public slots:
+    void changeDir(void);
+    void selectDir(int index);
     void docs(void);
     void apps(void);
     void audio(void);

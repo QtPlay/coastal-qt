@@ -31,8 +31,8 @@ static void uncheck(QToolButton *source)
     }
 }
 
-Main::Main(QWidget *parent) :
-QMainWindow(parent)
+Main::Main(const char *prefix) :
+QMainWindow(NULL)
 {
     ui.setupUi((QMainWindow *)this);
     map[0] = ui.documents;
@@ -40,6 +40,26 @@ QMainWindow(parent)
     map[2] = ui.audioFiles;
     map[3] = ui.imageFiles;
     map[4] = ui.videoFiles;
+
+    if(prefix)
+        QDir::setCurrent(prefix);
+
+    dir.setPath(QDir::currentPath());
+    history.append(dir.path());
+
+    QSettings settings;
+
+    int paths = settings.beginReadArray("paths");
+//  qDebug() << "SIZE " << paths << endl;
+    for(int path = 0; path < paths; ++path) {
+        settings.setArrayIndex(path);
+        QString temp = settings.value("path").toString();
+//      qDebug() << "STR " << path << " VALUE " << temp << endl;
+        if(temp == dir.path())
+            continue;
+        history.append(temp);
+    }
+    settings.endArray();
 
     connect(ui.actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
 
@@ -69,12 +89,68 @@ QMainWindow(parent)
         ui.imageFiles, SLOT(toggle()));
 
     connect(ui.actionClear, SIGNAL(triggered()), this, SLOT(clear()));
+    connect(ui.pathButton, SIGNAL(clicked()), this, SLOT(changeDir()));
+    connect(ui.pathBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectDir(int)));
 
+    // adding history triggers selectDir...
+    ui.pathBox->addItems(history);
     ui.searchText->setFocus();
 }
 
 Main::~Main()
 {
+    QSettings settings;
+    int pos = 0;
+
+    settings.beginWriteArray("paths");
+    while(pos < history.size()) {
+        settings.setArrayIndex(pos);
+        settings.setValue("path", history[pos++]);
+    }
+    settings.endArray();
+}
+
+void Main::selectDir(int index)
+{
+    if(index < 0)
+        return;
+
+    QString path = history.takeAt(index);
+    QDir::setCurrent(path);
+    dir.setPath(QDir::currentPath());
+//  qDebug() << "SELECT PATH " << path << " DIR " << dir.path() << endl;
+    history.insert(0, dir.path());
+    clear();
+}
+
+void Main::changeDir(void)
+{
+    QString path = QFileDialog::getExistingDirectory(this, tr("Directory"), dir.path());
+
+    if(path.isNull() == false) {
+        QDir::setCurrent(path);
+        dir.setPath(QDir::currentPath());
+
+//      qDebug() << "CHANGE PATH " << path << " DIR " << dir.path() << endl;
+        unsigned pos = history.size();
+        while(pos > 0) {
+            --pos;
+            if(dir.path() == history[pos])
+                history.takeAt(pos);
+        }
+
+        // no more than 10 elements...
+        while(history.size() > 9)
+            history.takeLast();
+
+        history.insert(0, dir.path());
+
+        // triggers select dir...
+        ui.pathBox->clear();
+        ui.pathBox->addItems(history);
+
+        // rest in selectDir
+    }
 }
 
 void Main::clear(void)
@@ -135,7 +211,7 @@ void Main::images(void)
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    Main w;
+    Main w(argv[1]);
 
     QCoreApplication::setOrganizationName("GNU Telephony");
     QCoreApplication::setOrganizationDomain("gnutelephony.org");
