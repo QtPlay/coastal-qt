@@ -24,7 +24,17 @@ Main::Main(QWidget *parent) :
 QMainWindow(parent)
 {
     QSettings settings;
+    const char *separator = ":";
+#ifdef  _MSC_VER
+    char buffer[256];
+    buffer[0] = 0;
+    GetEnvironmentVariable("MANPATH", buffer, sizeof(buffer));
+    QString manpath = buffer;
+    if(strchr(buffer, ';'))
+        separator = ";";
+#else
     QString manpath = getenv("MANPATH");
+#endif
 
     manpath = settings.value(manpath, "manpath").toString();
 #ifdef  _MSC_VER
@@ -35,7 +45,7 @@ QMainWindow(parent)
         manpath = "/usr/share/man:/usr/local/share/man";
 #endif
 
-    manpaths = manpath.split(":", QString::SkipEmptyParts);
+    manpaths = manpath.split(separator, QString::SkipEmptyParts);
 
     ui.setupUi((QMainWindow *)this);
 

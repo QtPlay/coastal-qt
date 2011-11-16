@@ -12,4 +12,8 @@
 #define PACKAGE "${PROJECT_NAME}"
 #define VERSION "${VERSION}"
 #define TRANSLATIONS "${DEFAULT_TRANSLATIONS}"
+#cmakedefine    HAVE_WINDOWS_H  1
 
+#ifdef  HAVE_WINDOWS_H
+#include <windows.h>
+#endif

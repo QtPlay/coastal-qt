@@ -12,6 +12,7 @@
 cmake_minimum_required(VERSION 2.6)
 PROJECT("Coastal Qt")
 INCLUDE(FindPkgConfig)
+INCLUDE(CheckIncludeFiles)
 set (VERSION 0.1.0)
 
 set(INSTALL_BINDIR bin)
@@ -44,6 +45,8 @@ if(QT4_FOUND)
 else()
     message(ERROR "Building without QT")
 endif()
+
+check_include_files(windows.h HAVE_WINDOWS_H)
 
 configure_file(config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
