@@ -23,6 +23,9 @@ static Ui::MainWindow ui;
 Main::Main(QWidget *parent) :
 QMainWindow(parent)
 {
+    ui.setupUi((QMainWindow *)this);
+    ui.statusbar->showMessage(tr("loading..."));
+
     QSettings settings;
     const char *separator = ":";
 #ifdef  _MSC_VER
@@ -47,14 +50,13 @@ QMainWindow(parent)
 
     manpaths = manpath.split(separator, QString::SkipEmptyParts);
 
-    ui.setupUi((QMainWindow *)this);
-
     ui.actionQuit->setIcon(QIcon::fromTheme("exit"));
     ui.actionReload->setIcon(QIcon::fromTheme("reload"));
 
     connect(ui.actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
 
     ui.searchBox->setFocus();
+    ui.statusbar->showMessage(tr("ready"));
 }
 
 Main::~Main()
@@ -67,7 +69,7 @@ int main(int argc, char *argv[])
 
     QCoreApplication::setOrganizationName("GNU Telephony");
     QCoreApplication::setOrganizationDomain("gnutelephony.org");
-    QCoreApplication::setApplicationName("qman");
+    QCoreApplication::setApplicationName("coastal-manpager");
 
     QTranslator translator;
     translator.load(QLocale::system().name(), TRANSLATIONS);

@@ -35,6 +35,8 @@ Main::Main(const char *prefix) :
 QMainWindow(NULL)
 {
     ui.setupUi((QMainWindow *)this);
+    ui.statusbar->showMessage(tr("loading..."));
+
     map[0] = ui.documents;
     map[1] = ui.applications;
     map[2] = ui.audioFiles;
@@ -110,7 +112,6 @@ QMainWindow(NULL)
 
     // adding history triggers selectDir...
     ui.pathBox->addItems(history);
-    ui.searchText->setFocus();
 }
 
 Main::~Main()
@@ -136,7 +137,12 @@ void Main::selectDir(int index)
     dir.setPath(QDir::currentPath());
 //  qDebug() << "SELECT PATH " << path << " DIR " << dir.path() << endl;
     history.insert(0, dir.path());
-    clear();
+
+    uncheck(NULL);
+
+    ui.listFiles->clear();
+    ui.searchText->setFocus();
+    ui.statusbar->showMessage(tr("ready"));
 }
 
 void Main::changeDir(void)
@@ -177,12 +183,20 @@ void Main::clear(void)
 
 void Main::all(void)
 {
+    if(!ui.listFiles->count()) {
+        ui.searchText->setFocus();
+        ui.statusbar->showMessage(tr("ready"));
+        return;
+    }
+
+    ui.statusbar->showMessage(tr("selected"));
 }
 
 void Main::docs(void)
 {
     if(!ui.documents->isChecked()) {
         uncheck(ui.documents);
+        ui.statusbar->showMessage(tr("documents"));
     }
     else
         all();
@@ -192,6 +206,7 @@ void Main::apps(void)
 {
     if(!ui.applications->isChecked()) {
         uncheck(ui.applications);
+        ui.statusbar->showMessage(tr("applications"));
     }
     else
         all();
@@ -201,6 +216,7 @@ void Main::audio(void)
 {
     if(!ui.audioFiles->isChecked()) {
         uncheck(ui.audioFiles);
+        ui.statusbar->showMessage(tr("audio files"));
     }
     else
         all();
@@ -210,6 +226,7 @@ void Main::video(void)
 {
     if(!ui.videoFiles->isChecked()) {
         uncheck(ui.videoFiles);
+        ui.statusbar->showMessage(tr("video files"));
     }
     else
         all();
@@ -219,6 +236,7 @@ void Main::images(void)
 {
     if(!ui.imageFiles->isChecked()) {
         uncheck(ui.imageFiles);
+        ui.statusbar->showMessage(tr("image files"));
     }
     else
         all();
