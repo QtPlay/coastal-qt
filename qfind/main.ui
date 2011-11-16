@@ -200,7 +200,7 @@
            <bool>true</bool>
           </property>
           <property name="arrowType">
-           <enum>Qt::RightArrow</enum>
+           <enum>Qt::NoArrow</enum>
           </property>
          </widget>
         </item>
@@ -228,7 +228,7 @@
            <bool>true</bool>
           </property>
           <property name="arrowType">
-           <enum>Qt::RightArrow</enum>
+           <enum>Qt::NoArrow</enum>
           </property>
          </widget>
         </item>
@@ -253,7 +253,7 @@
            <bool>true</bool>
           </property>
           <property name="arrowType">
-           <enum>Qt::RightArrow</enum>
+           <enum>Qt::NoArrow</enum>
           </property>
          </widget>
         </item>
@@ -278,7 +278,7 @@
            <bool>true</bool>
           </property>
           <property name="arrowType">
-           <enum>Qt::RightArrow</enum>
+           <enum>Qt::NoArrow</enum>
           </property>
          </widget>
         </item>
@@ -303,7 +303,7 @@
            <bool>true</bool>
           </property>
           <property name="arrowType">
-           <enum>Qt::RightArrow</enum>
+           <enum>Qt::NoArrow</enum>
           </property>
          </widget>
         </item>
@@ -361,7 +361,6 @@
     <addaction name="actionAudioFiles"/>
     <addaction name="actionImageFiles"/>
     <addaction name="actionVideoFiles"/>
-    <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menuOptions">
     <property name="title">
@@ -403,10 +402,16 @@
    <property name="text">
     <string>Documents</string>
    </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
   </action>
   <action name="actionApplications">
    <property name="text">
     <string>Applications</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
    </property>
   </action>
   <action name="actionAudioFiles">
@@ -416,6 +421,9 @@
    <property name="text">
     <string>Audio Files</string>
    </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
   </action>
   <action name="actionImageFiles">
    <property name="checkable">
@@ -424,6 +432,9 @@
    <property name="text">
     <string>Image Files</string>
    </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
   </action>
   <action name="actionVideoFiles">
    <property name="checkable">
@@ -431,6 +442,9 @@
    </property>
    <property name="text">
     <string>Video Files</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
    </property>
   </action>
   <action name="actionShuffle">
@@ -452,6 +466,9 @@
   <action name="actionClear">
    <property name="text">
     <string>&amp;Clear All</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
    </property>
   </action>
   <action name="actionAbout">

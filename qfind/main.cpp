@@ -63,6 +63,19 @@ QMainWindow(NULL)
 
     ui.actionQuit->setIcon(QIcon::fromTheme("exit"));
     ui.actionReload->setIcon(QIcon::fromTheme("reload"));
+    ui.actionClear->setIcon(QIcon::fromTheme("editclear"));
+
+    ui.applications->setIcon(QIcon::fromTheme("application-x-executable"));
+    ui.documents->setIcon(QIcon::fromTheme("text-x-generic"));
+    ui.audioFiles->setIcon(QIcon::fromTheme("audio-x-generic"));
+    ui.imageFiles->setIcon(QIcon::fromTheme("image-x-generic"));
+    ui.videoFiles->setIcon(QIcon::fromTheme("video-x-generic"));
+
+    ui.actionApplications->setIcon(QIcon::fromTheme("application-x-executable"));
+    ui.actionDocuments->setIcon(QIcon::fromTheme("text-x-generic"));
+    ui.actionAudioFiles->setIcon(QIcon::fromTheme("audio-x-generic"));
+    ui.actionImageFiles->setIcon(QIcon::fromTheme("image-x-generic"));
+    ui.actionVideoFiles->setIcon(QIcon::fromTheme("video-x-generic"));
 
     connect(ui.actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
 

@@ -4,5 +4,12 @@
 
     <file alias="16x16/exit.png">../icons/exit.png</file>
     <file alias="16x16/reload.png">../icons/reload.png</file>
+    <file alias="16x16/editclear.png">../icons/editclear.png</file>
+
+    <file alias="16x16/application-x-executable.png">../icons/application-x-executable.png</file>
+    <file alias="16x16/text-x-generic.png">../icons/text-x-generic.png</file>
+    <file alias="16x16/audio-x-generic.png">../icons/audio-x-generic.png</file>
+    <file alias="16x16/image-x-generic.png">../icons/image-x-generic.png</file>
+    <file alias="16x16/video-x-generic.png">../icons/video-x-generic.png</file>
 </qresource>
 </RCC>
