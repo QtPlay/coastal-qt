@@ -12,8 +12,9 @@
 file(GLOB qt_src *.cpp)
 file(GLOB qt_inc *.h)
 file(GLOB ui_src *.ui)
+file(GLOB rc_src *.qrc)
 
-#QT4_ADD_RESOURCES(qt_qrc sfrd.qrc)
+QT4_ADD_RESOURCES(qt_qrc ${rc_src})
 QT4_WRAP_CPP(qt_moc program.h)
 QT4_WRAP_UI(qt_ui ${ui_src})
 

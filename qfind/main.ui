@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
-  <comment>** Copyright (C) 2011 David Sugar, Tycho Softworks
+ <author>David Sugar</author>
+ <comment>** Copyright (C) 2011 David Sugar, Tycho Softworks
 **
 ** This file is part of coastal-qt.
 **
@@ -16,7 +17,6 @@
 **
 ** You should have received a copy of the GNU General Public License
 ** along with coastal-qt.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</comment>
- <author>David Sugar</author>
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
@@ -340,7 +340,7 @@
      <x>0</x>
      <y>0</y>
      <width>877</width>
-     <height>25</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -387,10 +387,16 @@
    <property name="text">
     <string>&amp;Reload</string>
    </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
   </action>
   <action name="actionQuit">
    <property name="text">
     <string>&amp;Quit</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
    </property>
   </action>
   <action name="actionDocuments">

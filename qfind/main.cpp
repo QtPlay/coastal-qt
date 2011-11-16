@@ -61,6 +61,9 @@ QMainWindow(NULL)
     }
     settings.endArray();
 
+    ui.actionQuit->setIcon(QIcon::fromTheme("exit"));
+    ui.actionReload->setIcon(QIcon::fromTheme("reload"));
+
     connect(ui.actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
 
     connect(ui.documents, SIGNAL(pressed()), this, SLOT(docs()));
@@ -220,6 +223,9 @@ int main(int argc, char *argv[])
     QTranslator translator;
     translator.load(QLocale::system().name(), TRANSLATIONS);
     app.installTranslator(&translator);
+
+    if(!QIcon::hasThemeIcon("reload"))
+        QIcon::setThemeName("coastal");
 
     w.show();
     return app.exec();

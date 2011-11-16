@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
+ <author>David Sugar</author>
  <comment>** Copyright (C) 2011 David Sugar, Tycho Softworks
 **
 ** This file is part of coastal-qt.
@@ -16,7 +17,6 @@
 **
 ** You should have received a copy of the GNU General Public License
 ** along with coastal-qt.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</comment>
- <author>David Sugar</author>
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
@@ -125,14 +125,14 @@
      <x>0</x>
      <y>0</y>
      <width>794</width>
-     <height>25</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>&amp;File</string>
     </property>
-    <addaction name="action_Reload"/>
+    <addaction name="actionReload"/>
     <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuSections">
@@ -143,23 +143,23 @@
     <addaction name="actionOnly"/>
     <addaction name="actionBut"/>
     <addaction name="separator"/>
-    <addaction name="action_section1"/>
-    <addaction name="action_section2"/>
-    <addaction name="action_section3"/>
-    <addaction name="action_section4"/>
-    <addaction name="action_section5"/>
-    <addaction name="action_section6"/>
-    <addaction name="action_section7"/>
-    <addaction name="action_section8"/>
-    <addaction name="action_sectionl"/>
-    <addaction name="action_sectionn"/>
+    <addaction name="actionSection1"/>
+    <addaction name="actionSection2"/>
+    <addaction name="actionSection3"/>
+    <addaction name="actionSection4"/>
+    <addaction name="actionSection5"/>
+    <addaction name="actionSection6"/>
+    <addaction name="actionSection7"/>
+    <addaction name="actionSection8"/>
+    <addaction name="actionSectionl"/>
+    <addaction name="actionSectionn"/>
    </widget>
    <widget class="QMenu" name="menuOptions">
     <property name="title">
      <string>Options</string>
     </property>
-    <addaction name="action_Index"/>
-    <addaction name="action_Keywords"/>
+    <addaction name="actionIndex"/>
+    <addaction name="actionKeywords"/>
     <addaction name="separator"/>
     <addaction name="actionPaths"/>
    </widget>
@@ -178,6 +178,9 @@
   <action name="actionQuit">
    <property name="text">
     <string>&amp;Quit</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
    </property>
   </action>
   <action name="actionAll">
@@ -204,7 +207,7 @@
     <string>Selected &amp;Only</string>
    </property>
   </action>
-  <action name="action_section1">
+  <action name="actionSection1">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -215,7 +218,7 @@
     <string>&amp;1: User Commands</string>
    </property>
   </action>
-  <action name="action_section2">
+  <action name="actionSection2">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -226,7 +229,7 @@
     <string>&amp;2: System Calls</string>
    </property>
   </action>
-  <action name="action_section3">
+  <action name="actionSection3">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -237,7 +240,7 @@
     <string>&amp;3: Subroutines</string>
    </property>
   </action>
-  <action name="action_section4">
+  <action name="actionSection4">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -245,7 +248,7 @@
     <string>&amp;4: Devices</string>
    </property>
   </action>
-  <action name="action_section5">
+  <action name="actionSection5">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -253,7 +256,7 @@
     <string>&amp;5: File Formats</string>
    </property>
   </action>
-  <action name="action_section6">
+  <action name="actionSection6">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -261,7 +264,7 @@
     <string>&amp;6: Games</string>
    </property>
   </action>
-  <action name="action_section7">
+  <action name="actionSection7">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -269,7 +272,7 @@
     <string>&amp;7: Miscellaneous</string>
    </property>
   </action>
-  <action name="action_section8">
+  <action name="actionSection8">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -277,7 +280,7 @@
     <string>&amp;8: Administration</string>
    </property>
   </action>
-  <action name="action_sectionl">
+  <action name="actionSectionl">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -285,12 +288,12 @@
     <string>&amp;l: Local</string>
    </property>
   </action>
-  <action name="action_sectionn">
+  <action name="actionSectionn">
    <property name="text">
     <string>&amp;n: New</string>
    </property>
   </action>
-  <action name="action_Index">
+  <action name="actionIndex">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -301,7 +304,7 @@
     <string>&amp;Index Search</string>
    </property>
   </action>
-  <action name="action_Keywords">
+  <action name="actionKeywords">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -322,9 +325,12 @@
     <string>Change Search Mode</string>
    </property>
   </action>
-  <action name="action_Reload">
+  <action name="actionReload">
    <property name="text">
     <string>&amp;Reload</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
    </property>
   </action>
   <action name="actionAbout">
