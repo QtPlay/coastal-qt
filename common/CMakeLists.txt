@@ -10,8 +10,10 @@
 #
 
 file(GLOB qt_src *.cpp)
-file(GLOB qt_inc coastal.h)
+file(GLOB qt_inc *.h)
 file(GLOB ui_src *.ui)
+
+set (ts_common ${ts_src} ${qt_src} ${ui_src} ${qt_inc} PARENT_SCOPE)
 
 QT4_WRAP_CPP(qt_moc coastal.h)
 QT4_WRAP_UI(qt_ui ${ui_src})

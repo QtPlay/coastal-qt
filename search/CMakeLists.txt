@@ -14,12 +14,14 @@ file(GLOB qt_inc program.h)
 file(GLOB ui_src *.ui)
 file(GLOB rc_src *.qrc)
 
+set (ts_search ${ts_common} ${qt_src} ${ui_src} ${qt_inc} PARENT_SCOPE)
+set (ts_out ../translations/coastal-search.ts)
+
 QT4_ADD_RESOURCES(qt_qrc ${rc_src})
 QT4_WRAP_CPP(qt_moc program.h)
 QT4_WRAP_UI(qt_ui ${ui_src})
 
-add_executable(coastal-search ${qt_src} ${qt_inc} ${qt_moc} ${qt_qrc} ${qt_ui})
+add_executable(coastal-search ${qt_src} ${qt_inc} ${qt_moc} ${qt_qrc} ${qt_ui} ${qm_out})
 target_link_libraries(coastal-search coastal ${QT_LIBRARIES})
 add_dependencies(coastal-search coastal)
 install(TARGETS coastal-search DESTINATION ${INSTALL_BINDIR})
-
