@@ -51,6 +51,6 @@ check_include_files(windows.h HAVE_WINDOWS_H)
 configure_file(config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
-add_subdirectory(qman)
-add_subdirectory(qfind)
+add_subdirectory(manpager)
+add_subdirectory(search)
 
