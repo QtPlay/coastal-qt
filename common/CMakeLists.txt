@@ -10,16 +10,19 @@
 #
 
 file(GLOB qt_src *.cpp)
-file(GLOB qt_inc program.h)
+file(GLOB qt_inc coastal.h)
 file(GLOB ui_src *.ui)
-file(GLOB rc_src *.qrc)
 
-QT4_ADD_RESOURCES(qt_qrc ${rc_src})
-QT4_WRAP_CPP(qt_moc program.h)
+QT4_WRAP_CPP(qt_moc coastal.h)
 QT4_WRAP_UI(qt_ui ${ui_src})
 
-add_executable(coastal-search ${qt_src} ${qt_inc} ${qt_moc} ${qt_qrc} ${qt_ui})
-target_link_libraries(coastal-search coastal ${QT_LIBRARIES})
-add_dependencies(coastal-search coastal)
-install(TARGETS coastal-search DESTINATION ${INSTALL_BINDIR})
+if(WIN32)
+    set(LIBRARY_TYPE STATIC)
+else()
+    set(LIBRARY_TYPE SHARED)
+endif()
+
+add_library(coastal ${LIBRARY_TYPE} ${qt_src} ${qt_inc} ${qt_moc} ${qt_ui})
+set_target_properties(coastal PROPERTIES VERSION ${VERSION} SOVERSION ${SOVERSION})
+target_link_libraries(coastal ${QT_LIBRARIES})
 

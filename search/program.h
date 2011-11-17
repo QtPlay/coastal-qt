@@ -19,6 +19,7 @@
 #define MAIN_H_
 
 #include <config.h>
+#include <coastal.h>
 #include <QWidget>
 #include <QObject>
 #include <QApplication>
@@ -29,7 +30,7 @@
 #include <QFileDialog>
 #include <QDebug>
 
-class Main : public QMainWindow
+class Main : public CoastalMain
 {
 Q_OBJECT
 

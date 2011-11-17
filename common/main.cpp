@@ -15,28 +15,29 @@
 // You should have received a copy of the GNU General Public License
 // along with coastal-qt.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef MAIN_H_
-#define MAIN_H_
-
 #include <config.h>
 #include <coastal.h>
-#include <QWidget>
-#include <QObject>
-#include <QApplication>
-#include <QMainWindow>
-#include <QTranslator>
-#include <QSettings>
+#include <ui_about.h>
 
-class Main : public CoastalMain
+CoastalMain::CoastalMain() :
+QMainWindow(NULL)
 {
-Q_OBJECT
+    program_version = VERSION;
+    program_name = "Coastal Application";
+    program_copyright = "2011 David Sugar";
+}
 
-public:
-    QStringList manpaths;
-
-    Main(QWidget *parent = NULL);
-    virtual ~Main();
-};
-
-#endif
-
+void CoastalMain::about(void)
+{
+    CoastalAbout info(this);
+    info.setVersion(tr("Version: ") + program_version);
+    info.setName(tr(program_name));
+    info.setCopyright(tr("Copyright (c)") + program_copyright);
+    QIcon icon = windowIcon();
+    QPixmap image = icon.pixmap(48, 48, QIcon::Normal, QIcon::On);
+    QGraphicsScene scene;
+    QGraphicsPixmapItem *item = scene.addPixmap(image);
+    item->setVisible(true);
+    info.setImage(scene);
+    info.exec();
+}

@@ -21,7 +21,7 @@
 static Ui::MainWindow ui;
 
 Main::Main(QWidget *parent) :
-QMainWindow(parent)
+CoastalMain()
 {
     ui.setupUi((QMainWindow *)this);
     ui.statusbar->showMessage(tr("loading..."));
@@ -56,6 +56,7 @@ QMainWindow(parent)
     ui.actionReload->setIcon(QIcon::fromTheme("reload"));
     ui.actionAbout->setIcon(QIcon::fromTheme("help-about"));
 
+    connect(ui.actionAbout, SIGNAL(triggered()), this, SLOT(about()));
     connect(ui.actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
 
     ui.searchBox->setFocus();

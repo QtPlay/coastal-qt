@@ -32,7 +32,7 @@ static void uncheck(QToolButton *source)
 }
 
 Main::Main(const char *prefix) :
-QMainWindow(NULL)
+CoastalMain()
 {
     ui.setupUi((QMainWindow *)this);
     ui.statusbar->showMessage(tr("loading..."));
@@ -83,6 +83,7 @@ QMainWindow(NULL)
     ui.actionVideoFiles->setIcon(QIcon::fromTheme("video-x-generic"));
 
     connect(ui.actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
+    connect(ui.actionAbout, SIGNAL(triggered()), this, SLOT(about()));
 
     connect(ui.documents, SIGNAL(pressed()), this, SLOT(docs()));
     connect(ui.actionDocuments, SIGNAL(triggered()), this, SLOT(docs()));
