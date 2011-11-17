@@ -31,7 +31,7 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../frameworks")
     link_directories(${LOCAL_LIBS})
     include_directories(${LOCAL_INCLUDES} "${CMAKE_CURRENT_SOURCE_DIR}/common")
 else()
-    include_directories("${CMAKE_CURRENT_SOURCR_DIR}/common")
+    include_directories("${CMAKE_CURRENT_SOURCE_DIR}/common")
 endif()
 
 if(LOCAL_FRAMEWORKS AND EXISTS "${LOCAL_FRAMEWORKS}/qt")
