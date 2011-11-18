@@ -13,3 +13,10 @@ QT4_CREATE_TRANSLATION(qm_search ${ts_search} coastal-search.ts)
 QT4_CREATE_TRANSLATION(qm_manpager ${ts_manpager} coastal-manpager.ts)
 
 add_custom_target(translate DEPENDS ${qm_search} ${qm_manpager})
+
+if(APPLE)
+    add_custom_command(TARGET translate POST_BUILD
+        COMMAND cp ARGS coastal-search.qm ${SEARCH_RESOURCES}
+        COMMAND cp ARGS coastal-manpager.qm ${MANPAGER_RESOURCES}
+    )
+endif()
