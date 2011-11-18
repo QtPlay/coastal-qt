@@ -96,23 +96,37 @@
        </layout>
       </item>
       <item>
-       <widget class="QTableWidget" name="indexTable">
-        <attribute name="horizontalHeaderStretchLastSection">
-         <bool>true</bool>
-        </attribute>
-        <attribute name="horizontalHeaderStretchLastSection">
-         <bool>true</bool>
-        </attribute>
-        <column>
-         <property name="text">
-          <string>Section</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Name</string>
-         </property>
-        </column>
+       <widget class="QTabWidget" name="tabs">
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <widget class="QWidget" name="indexTab">
+         <attribute name="title">
+          <string>Index</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout_2">
+          <item row="0" column="0">
+           <widget class="QTableWidget" name="indexTable">
+            <attribute name="horizontalHeaderStretchLastSection">
+             <bool>true</bool>
+            </attribute>
+            <attribute name="horizontalHeaderStretchLastSection">
+             <bool>true</bool>
+            </attribute>
+            <column>
+             <property name="text">
+              <string>Section</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Name</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+         </layout>
+        </widget>
        </widget>
       </item>
      </layout>
@@ -125,7 +139,7 @@
      <x>0</x>
      <y>0</y>
      <width>794</width>
-     <height>23</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
