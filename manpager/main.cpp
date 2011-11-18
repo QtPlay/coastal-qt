@@ -27,7 +27,7 @@ Main::Main(QWidget *parent) :
 CoastalMain()
 {
     ui.setupUi((QMainWindow *)this);
-    ui.statusbar->showMessage(tr("loading..."));
+    status(tr("loading..."));
 
     setWindowIcon(QIcon(":/manpager.png"));
 
@@ -79,8 +79,6 @@ CoastalMain()
     connect(ui.actionAbout, SIGNAL(triggered()), this, SLOT(about()));
     connect(ui.actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(ui.actionReload, SIGNAL(triggered()), this, SLOT(reload()));
-
-    reload();
 }
 
 Main::~Main()
@@ -119,24 +117,40 @@ Main::~Main()
     settings.endGroup();
 }
 
+void Main::status(const QString& text)
+{
+    ui.statusbar->showMessage(text);
+    ui.statusbar->update();
+    ui.statusbar->repaint();
+}
+
 void Main::scan(void)
 {
-    ui.statusbar->showMessage(tr("scanning..."));
+    status(tr("scanning..."));
 
+    ui.indexTable->setEnabled(true);
+    ui.searchBox->setEnabled(true);
     ui.searchBox->setFocus();
-    ui.statusbar->showMessage(tr("ready"));
+    ui.searchBox->repaint();
+    status(tr("ready"));
 }
 
 void Main::reload(void)
 {
-    ui.statusbar->showMessage(tr("loading..."));
+    ui.searchBox->setEnabled(false);
+    status(tr("loading..."));
 
-    ui.indexTable->clearContents();
+    Index::set(ui.indexTable);
+    ui.indexTable->setEnabled(false);
 
     for(unsigned section = 0; section < 10; ++section) {
-        ui.statusbar->showMessage(tr("loading ") + cmap[section] + "...");
+        update();
+        status(tr("loading ") + cmap[section] + "...");
         for(unsigned path = 0; path < manpaths.size(); ++path) {
-            QString dirpath = manpaths[path] + "/" + sections[section];
+            QDir dir(manpaths[path] + "/" + sections[section]);
+            if(!dir.exists())
+                continue;
+            Index::add(dir, cmap[section]);
         }
     }
 
@@ -160,6 +174,7 @@ int main(int argc, char *argv[])
 
     Main w;
     w.show();
+    w.reload();
     return app.exec();
 }
 

@@ -27,6 +27,9 @@
 #include <QTranslator>
 #include <QSettings>
 #include <QAction>
+#include <QDir>
+#include <QTableWidget>
+#include <QTableWidgetItem>
 
 class Main : public CoastalMain
 {
@@ -38,9 +41,34 @@ public:
     Main(QWidget *parent = NULL);
     virtual ~Main();
 
+    void status(const QString& text);
+
 public slots:
     void reload(void);
     void scan(void);
+};
+
+class Index
+{
+public:
+    class NameItem : public QTableWidgetItem
+    {
+    public:
+        QString path;
+
+        NameItem(QString& name, QString& fullpath);
+    };
+
+    class SectionItem : public QTableWidgetItem
+    {
+    public:
+        char id;
+
+        SectionItem(QString& section, char group);
+    };
+
+    static void set(QTableWidget *table);
+    static void add(QDir& dir, char group);
 };
 
 #endif
