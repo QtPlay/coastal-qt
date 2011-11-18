@@ -26,6 +26,7 @@
 #include <QMainWindow>
 #include <QTranslator>
 #include <QSettings>
+#include <QAction>
 
 class Main : public CoastalMain
 {

@@ -30,27 +30,33 @@ CoastalMain()
 
     QSettings settings;
     const char *separator = ":";
-#ifdef  _MSC_VER
-    char buffer[256];
-    buffer[0] = 0;
-    GetEnvironmentVariable("MANPATH", buffer, sizeof(buffer));
-    QString manpath = buffer;
-    if(strchr(buffer, ';'))
-        separator = ";";
+#ifdef WIN32
+    manpath = settings.value("manpath").toString();
+    if(manpath.isEmpty())
+        manpath = "C:\\tools\\man";
 #else
     QString manpath = getenv("MANPATH");
-#endif
-
-    manpath = settings.value("manpath", manpath).toString();
-#ifdef  _MSC_VER
     if(manpath.isEmpty())
-        manpath = "c:\\tools\\man";
-#else
+        manpath = settings.value("manpath").toString();
+
     if(manpath.isEmpty())
         manpath = "/usr/share/man:/usr/local/share/man";
 #endif
 
     manpaths = manpath.split(separator, QString::SkipEmptyParts);
+
+    settings.beginGroup("Sections");
+    ui.actionSection1->setChecked(settings.value("1", ui.actionSection1->isChecked()).toBool());
+    ui.actionSection2->setChecked(settings.value("2", ui.actionSection2->isChecked()).toBool());
+    ui.actionSection3->setChecked(settings.value("3", ui.actionSection3->isChecked()).toBool());
+    ui.actionSection4->setChecked(settings.value("4", ui.actionSection4->isChecked()).toBool());
+    ui.actionSection5->setChecked(settings.value("5", ui.actionSection5->isChecked()).toBool());
+    ui.actionSection6->setChecked(settings.value("6", ui.actionSection6->isChecked()).toBool());
+    ui.actionSection7->setChecked(settings.value("7", ui.actionSection7->isChecked()).toBool());
+    ui.actionSection8->setChecked(settings.value("8", ui.actionSection8->isChecked()).toBool());
+    ui.actionSectionl->setChecked(settings.value("l", ui.actionSectionl->isChecked()).toBool());
+    ui.actionSectionn->setChecked(settings.value("n", ui.actionSectionn->isChecked()).toBool());
+    settings.endGroup();
 
     ui.actionQuit->setIcon(QIcon::fromTheme("exit"));
     ui.actionReload->setIcon(QIcon::fromTheme("reload"));
@@ -65,6 +71,38 @@ CoastalMain()
 
 Main::~Main()
 {
+#ifdef  WIN32
+    QString sep = ";";
+#else
+    QString sep = ":";
+#endif
+
+    QSettings settings;
+    QString manpath = "";
+    unsigned count = manpaths.size();
+    unsigned pos = 0;
+
+    while(pos < count) {
+        if(pos)
+            manpath += sep + manpaths[pos++];
+        else
+            manpath = manpaths[pos++];
+    }
+
+    settings.setValue("manpath", manpath);
+
+    settings.beginGroup("Sections");
+    settings.setValue("1", ui.actionSection1->isChecked());
+    settings.setValue("2", ui.actionSection2->isChecked());
+    settings.setValue("3", ui.actionSection3->isChecked());
+    settings.setValue("4", ui.actionSection4->isChecked());
+    settings.setValue("5", ui.actionSection5->isChecked());
+    settings.setValue("6", ui.actionSection6->isChecked());
+    settings.setValue("7", ui.actionSection7->isChecked());
+    settings.setValue("8", ui.actionSection8->isChecked());
+    settings.setValue("l", ui.actionSectionl->isChecked());
+    settings.setValue("n", ui.actionSectionn->isChecked());
+    settings.endGroup();
 }
 
 int main(int argc, char *argv[])
@@ -95,52 +133,52 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
     argc = 1;
     size_t len = strlen(lpCmdLine);
 
-    for (unsigned i = 0; i < len; i++) { 
+    for (unsigned i = 0; i < len; i++) {
         while (lpCmdLine[i] == ' ' && i < len)
             ++i;
         if (lpCmdLine[i] == '\"') {
-            ++i; 
+            ++i;
             while (lpCmdLine[i] != '\"' && i < len)
-                ++i;  
-        } 
+                ++i;
+        }
         else while (lpCmdLine[i] != ' ' && i < len)
-            ++i;  
+            ++i;
         ++argc;
-    } 
+    }
 
     argv = (char **)malloc(sizeof(char *) * (argc + 1));
-    argv[0] = (char*)malloc(1024); 
-    ::GetModuleFileName(0, argv[0], 1024); 
+    argv[0] = (char*)malloc(1024);
+    ::GetModuleFileName(0, argv[0], 1024);
 
-    for(unsigned i = 1; i < (unsigned)argc; i++) 
-        argv[i] = (char*)malloc(len + 10); 
+    for(unsigned i = 1; i < (unsigned)argc; i++)
+        argv[i] = (char*)malloc(len + 10);
 
-    argv[argc] = 0; 
+    argv[argc] = 0;
 
     pos = 0;
     argc = 1;
-    for (unsigned i = 0; i < len; i++) { 
+    for (unsigned i = 0; i < len; i++) {
         while (lpCmdLine[i] == ' ' && i < len)
             ++i;
         if (lpCmdLine[i] == '\"') {
-            ++i; 
-            while (lpCmdLine[i] != '\"' && i < len) { 
+            ++i;
+            while (lpCmdLine[i] != '\"' && i < len) {
                 argv[argc][pos] = lpCmdLine[i];
-                ++i; 
-                ++pos; 
-            } 
-        } 
-        else { 
-            while (lpCmdLine[i] != ' ' && i < len) { 
+                ++i;
+                ++pos;
+            }
+        }
+        else {
+            while (lpCmdLine[i] != ' ' && i < len) {
                 argv[argc][pos] = lpCmdLine[i];
-                ++i; 
-                ++pos; 
-            } 
+                ++i;
+                ++pos;
+            }
         }
         argv[argc][pos] = 0;
-        argc++; 
-        pos = 0;  
-    } 
+        argc++;
+        pos = 0;
+    }
     return main(argc, argv);
 }
 #endif
