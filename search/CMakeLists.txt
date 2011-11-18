@@ -21,7 +21,7 @@ QT4_ADD_RESOURCES(qt_qrc ${rc_src})
 QT4_WRAP_CPP(qt_moc program.h)
 QT4_WRAP_UI(qt_ui ${ui_src})
 
-add_executable(coastal-search ${qt_src} ${qt_inc} ${qt_moc} ${qt_qrc} ${qt_ui} ${qm_out})
+add_executable(coastal-search WIN32 ${qt_src} ${qt_inc} ${qt_moc} ${qt_qrc} ${qt_ui} ${qm_out})
 target_link_libraries(coastal-search coastal ${QT_LIBRARIES})
 add_dependencies(coastal-search coastal)
 install(TARGETS coastal-search DESTINATION ${INSTALL_BINDIR})
