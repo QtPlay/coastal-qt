@@ -37,6 +37,10 @@ public:
 
     Main(QWidget *parent = NULL);
     virtual ~Main();
+
+public slots:
+    void reload(void);
+    void scan(void);
 };
 
 #endif

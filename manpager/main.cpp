@@ -19,6 +19,9 @@
 #include "ui_main.h"
 
 static Ui::MainWindow ui;
+static QStringList sections = QStringList() << "man1" << "man2" << "man3" << "man4" << "man5" << "man6" << "man7" << "man8" << "manl" << "mann";
+static QAction *amap[10];
+static const char *cmap = "12345678ln";
 
 Main::Main(QWidget *parent) :
 CoastalMain()
@@ -45,6 +48,17 @@ CoastalMain()
 
     manpaths = manpath.split(separator, QString::SkipEmptyParts);
 
+    amap[0] = ui.actionSection1;
+    amap[1] = ui.actionSection2;
+    amap[2] = ui.actionSection3;
+    amap[3] = ui.actionSection4;
+    amap[4] = ui.actionSection5;
+    amap[5] = ui.actionSection6;
+    amap[6] = ui.actionSection7;
+    amap[7] = ui.actionSection8;
+    amap[8] = ui.actionSectionl;
+    amap[9] = ui.actionSectionn;
+
     settings.beginGroup("Sections");
     ui.actionSection1->setChecked(settings.value("1", ui.actionSection1->isChecked()).toBool());
     ui.actionSection2->setChecked(settings.value("2", ui.actionSection2->isChecked()).toBool());
@@ -64,9 +78,9 @@ CoastalMain()
 
     connect(ui.actionAbout, SIGNAL(triggered()), this, SLOT(about()));
     connect(ui.actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
+    connect(ui.actionReload, SIGNAL(triggered()), this, SLOT(reload()));
 
-    ui.searchBox->setFocus();
-    ui.statusbar->showMessage(tr("ready"));
+    reload();
 }
 
 Main::~Main()
@@ -103,6 +117,30 @@ Main::~Main()
     settings.setValue("l", ui.actionSectionl->isChecked());
     settings.setValue("n", ui.actionSectionn->isChecked());
     settings.endGroup();
+}
+
+void Main::scan(void)
+{
+    ui.statusbar->showMessage(tr("scanning..."));
+
+    ui.searchBox->setFocus();
+    ui.statusbar->showMessage(tr("ready"));
+}
+
+void Main::reload(void)
+{
+    ui.statusbar->showMessage(tr("loading..."));
+
+    ui.indexTable->clearContents();
+
+    for(unsigned section = 0; section < 10; ++section) {
+        ui.statusbar->showMessage(tr("loading ") + cmap[section] + "...");
+        for(unsigned path = 0; path < manpaths.size(); ++path) {
+            QString dirpath = manpaths[path] + "/" + sections[section];
+        }
+    }
+
+    scan();
 }
 
 int main(int argc, char *argv[])
