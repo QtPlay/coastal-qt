@@ -45,7 +45,6 @@ public:
 
 public slots:
     void reload(void);
-    void scan(void);
 };
 
 class Index
@@ -54,21 +53,20 @@ public:
     class NameItem : public QTableWidgetItem
     {
     public:
-        QString path;
+        char secid;
+        unsigned pathid;
 
-        NameItem(QString& name, QString& fullpath);
+        NameItem(QString& name, char sec, unsigned path);
     };
 
     class SectionItem : public QTableWidgetItem
     {
     public:
-        char id;
-
-        SectionItem(QString& section, char group);
+        SectionItem(QString& section);
     };
 
     static void set(QTableWidget *table);
-    static void add(QDir& dir, char group);
+    static void add(QDir& dir, char group, unsigned path);
 };
 
 #endif

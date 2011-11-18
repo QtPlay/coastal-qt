@@ -124,17 +124,6 @@ void Main::status(const QString& text)
     ui.statusbar->repaint();
 }
 
-void Main::scan(void)
-{
-    status(tr("scanning..."));
-
-    ui.indexTable->setEnabled(true);
-    ui.searchBox->setEnabled(true);
-    ui.searchBox->setFocus();
-    ui.searchBox->repaint();
-    status(tr("ready"));
-}
-
 void Main::reload(void)
 {
     ui.searchBox->setEnabled(false);
@@ -150,11 +139,15 @@ void Main::reload(void)
             QDir dir(manpaths[path] + "/" + sections[section]);
             if(!dir.exists())
                 continue;
-            Index::add(dir, cmap[section]);
+            Index::add(dir, cmap[section], path);
         }
     }
 
-    scan();
+    ui.indexTable->setEnabled(true);
+    ui.searchBox->setEnabled(true);
+    ui.searchBox->setFocus();
+    ui.searchBox->repaint();
+    status(tr("ready"));
 }
 
 int main(int argc, char *argv[])

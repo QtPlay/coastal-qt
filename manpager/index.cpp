@@ -20,17 +20,17 @@
 static QTableWidget *table;
 static int line = 0;
 
-Index::NameItem::NameItem(QString& name, QString& dirpath)
+Index::NameItem::NameItem(QString& name, char group, unsigned path)
 {
-    path = dirpath;
+    pathid = path;
+    secid = group;
     setText(name);
     setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
     table->setItem(line, 1, (QTableWidgetItem *)this);
 }
 
-Index::SectionItem::SectionItem(QString& section, char group)
+Index::SectionItem::SectionItem(QString& section)
 {
-    id = group;
     setText(section);
     setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
     table->setItem(line, 0, (QTableWidgetItem *)this);
@@ -44,13 +44,12 @@ void Index::set(QTableWidget *t)
     line = 0;
 }
 
-void Index::add(QDir& dir, char group)
+void Index::add(QDir& dir, char group, unsigned path)
 {
     int last;
     QStringList list = dir.entryList(QDir::Files);
     for(unsigned pos = 0; pos < list.size(); ++pos) {
         QString entry = list[pos];
-        QString path = dir.path() + "/" + entry;
 
         last = entry.lastIndexOf('.');
         if(last < 2)
@@ -69,8 +68,8 @@ void Index::add(QDir& dir, char group)
             continue;
 
         table->insertRow(line);
-        new SectionItem(section, group);
-        new NameItem(name, path);
+        new SectionItem(section);
+        new NameItem(name, group, path);
         ++line;
     }
     table->sortByColumn(1, Qt::AscendingOrder);
