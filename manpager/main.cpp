@@ -90,6 +90,8 @@ CoastalMain()
     connect(ui.actionReload, SIGNAL(triggered()), this, SLOT(reload()));
     connect(this, SIGNAL(startup()), this, SLOT(reload()), Qt::QueuedConnection);
 
+    connect(ui.indexTable, SIGNAL(cellClicked(int,int)), this, SLOT(load(int,int)));
+
     emit startup();
 }
 
@@ -134,6 +136,17 @@ void Main::status(const QString& text)
     ui.statusbar->showMessage(text);
     ui.statusbar->update();
     ui.statusbar->repaint();
+}
+
+void Main::load(int row, int col)
+{
+    Index::NameItem *item = (Index::NameItem*)ui.indexTable->item(row, 1);
+    Index::SectionItem *section = (Index::SectionItem *)ui.indexTable->item(row, 0);
+    QString path = manpaths[item->pathid] + "/man" + item->secid + "/" + item->text() + "." + section->text();
+    if(item->fmode == Index::GZIP)
+            path += ".gz";
+    qDebug() << "selected " << item->text();
+    qDebug() << "file path " << path;
 }
 
 void Main::reload(void)

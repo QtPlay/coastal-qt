@@ -33,7 +33,7 @@ Index::NameItem::NameItem(QString& name, char group, unsigned path, fmode_t mode
 Index::SectionItem::SectionItem(QString& section)
 {
     setText(section);
-    setFlags(Qt::ItemIsEnabled);
+    setFlags(Qt::NoItemFlags);
     table->setItem(line, 0, (QTableWidgetItem *)this);
 }
 

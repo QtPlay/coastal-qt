@@ -49,6 +49,7 @@ signals:
 
 public slots:
     void reload(void);
+    void load(int row, int col);
 };
 
 class Index
