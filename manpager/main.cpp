@@ -79,6 +79,9 @@ CoastalMain()
     connect(ui.actionAbout, SIGNAL(triggered()), this, SLOT(about()));
     connect(ui.actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(ui.actionReload, SIGNAL(triggered()), this, SLOT(reload()));
+    connect(this, SIGNAL(startup()), this, SLOT(reload()), Qt::QueuedConnection);
+
+    emit startup();
 }
 
 Main::~Main()
@@ -168,7 +171,6 @@ int main(int argc, char *argv[])
 
     Main w;
     w.show();
-    w.reload();
     return app.exec();
 }
 

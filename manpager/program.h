@@ -43,6 +43,9 @@ public:
 
     void status(const QString& text);
 
+signals:
+    void startup(void);
+
 public slots:
     void reload(void);
 };
