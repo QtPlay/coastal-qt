@@ -34,7 +34,7 @@ CoastalMain()
     QSettings settings;
     const char *separator = ":";
 #ifdef WIN32
-    manpath = settings.value("manpath").toString();
+    QString manpath = settings.value("manpath").toString();
     if(manpath.isEmpty())
         manpath = "C:\\tools\\man";
 #else
@@ -136,14 +136,14 @@ void Main::reload(void)
     ui.indexTable->setEnabled(false);
     ui.indexTable->setShowGrid(false);
 
-    for(unsigned section = 0; section < 10; ++section) {
+    for(int section = 0; section < 10; ++section) {
         update();
         status(tr("loading ") + cmap[section] + "...");
-        for(unsigned path = 0; path < manpaths.size(); ++path) {
+        for(int path = 0; path < manpaths.size(); ++path) {
             QDir dir(manpaths[path] + "/" + sections[section]);
             if(!dir.exists())
                 continue;
-            Index::add(dir, cmap[section], path);
+            Index::add(dir, cmap[section], (unsigned)path);
         }
     }
 
