@@ -131,6 +131,7 @@ void Main::reload(void)
 
     Index::set(ui.indexTable);
     ui.indexTable->setEnabled(false);
+    ui.indexTable->setShowGrid(false);
 
     for(unsigned section = 0; section < 10; ++section) {
         update();

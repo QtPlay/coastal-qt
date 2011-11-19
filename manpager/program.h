@@ -50,13 +50,16 @@ public slots:
 class Index
 {
 public:
+    typedef enum {NORMAL, GZIP} fmode_t;
+
     class NameItem : public QTableWidgetItem
     {
     public:
         char secid;
         unsigned pathid;
+        fmode_t fmode;
 
-        NameItem(QString& name, char sec, unsigned path);
+        NameItem(QString& name, char sec, unsigned path, fmode_t mode);
     };
 
     class SectionItem : public QTableWidgetItem

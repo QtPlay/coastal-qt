@@ -20,19 +20,20 @@
 static QTableWidget *table;
 static int line = 0;
 
-Index::NameItem::NameItem(QString& name, char group, unsigned path)
+Index::NameItem::NameItem(QString& name, char group, unsigned path, fmode_t mode)
 {
     pathid = path;
     secid = group;
+    fmode = mode;
     setText(name);
-    setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
+    setFlags(Qt::ItemIsEnabled);
     table->setItem(line, 1, (QTableWidgetItem *)this);
 }
 
 Index::SectionItem::SectionItem(QString& section)
 {
     setText(section);
-    setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
+    setFlags(Qt::ItemIsEnabled);
     table->setItem(line, 0, (QTableWidgetItem *)this);
 }
 
@@ -47,10 +48,11 @@ void Index::set(QTableWidget *t)
 void Index::add(QDir& dir, char group, unsigned path)
 {
     int last;
+    fmode_t mode = NORMAL;
     QStringList list = dir.entryList(QDir::Files);
     for(unsigned pos = 0; pos < list.size(); ++pos) {
         QString entry = list[pos];
-
+        mode = GZIP;
         last = entry.lastIndexOf('.');
         if(last < 2)
             continue;
@@ -69,7 +71,7 @@ void Index::add(QDir& dir, char group, unsigned path)
 
         table->insertRow(line);
         new SectionItem(section);
-        new NameItem(name, group, path);
+        new NameItem(name, group, path, mode);
         ++line;
     }
     table->sortByColumn(1, Qt::AscendingOrder);
