@@ -37,6 +37,7 @@ Q_OBJECT
 
 public:
     QStringList manpaths;
+    QActionGroup *searchGroup, *selectGroup;
 
     Main(QWidget *parent = NULL);
     virtual ~Main();

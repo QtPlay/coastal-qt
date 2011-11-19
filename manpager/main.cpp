@@ -76,6 +76,15 @@ CoastalMain()
     ui.actionReload->setIcon(QIcon::fromTheme("reload"));
     ui.actionAbout->setIcon(QIcon::fromTheme("help-about"));
 
+    searchGroup = new QActionGroup(this);
+    ui.actionIndex->setActionGroup(searchGroup);
+    ui.actionKeywords->setActionGroup(searchGroup);
+
+    selectGroup = new QActionGroup(this);
+    ui.actionAll->setActionGroup(selectGroup);
+    ui.actionBut->setActionGroup(selectGroup);
+    ui.actionOnly->setActionGroup(selectGroup);
+
     connect(ui.actionAbout, SIGNAL(triggered()), this, SLOT(about()));
     connect(ui.actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(ui.actionReload, SIGNAL(triggered()), this, SLOT(reload()));
