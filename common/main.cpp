@@ -23,16 +23,18 @@ CoastalMain::CoastalMain() :
 QMainWindow(NULL)
 {
     program_version = VERSION;
-    program_name = "Coastal Application";
+    program_about = program_name = "Coastal Application";
     program_copyright = "2011 David Sugar";
 }
 
 void CoastalMain::about(void)
 {
+    QString title = tr("About ") + program_name;
     CoastalAbout info(this);
+    info.setWindowTitle(title);
     info.setVersion(tr("Version: ") + program_version);
-    info.setName(tr(program_name));
-    info.setCopyright(tr("Copyright (c)") + program_copyright);
+    info.setAbout(tr(program_about));
+    info.setCopyright(tr("Copyright (c) ") + program_copyright);
     QIcon icon = windowIcon();
     QPixmap image = icon.pixmap(48, 48, QIcon::Normal, QIcon::On);
     QGraphicsScene scene;

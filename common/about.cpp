@@ -30,9 +30,9 @@ void CoastalAbout::setVersion(const QString& version)
     ui.labelVersion->setText(version);
 }
 
-void CoastalAbout::setName(const QString& name)
+void CoastalAbout::setAbout(const QString& about)
 {
-    ui.labelName->setText(name);
+    ui.labelAbout->setText(about);
 }
 
 void CoastalAbout::setCopyright(const QString& copyright)

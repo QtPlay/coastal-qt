@@ -29,7 +29,10 @@ CoastalMain()
     ui.setupUi((QMainWindow *)this);
     status(tr("loading..."));
 
+    program_name = "Coastal Manpager";
+    program_about = "Coastal Manual Page Viewer";
     setWindowIcon(QIcon(":/manpager.png"));
+    setWindowTitle(program_name);
 
     QSettings settings;
     const char *separator = ":";

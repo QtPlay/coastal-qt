@@ -37,7 +37,10 @@ CoastalMain()
     ui.setupUi((QMainWindow *)this);
     ui.statusbar->showMessage(tr("loading..."));
 
+    program_name = "Coastal Search";
+    program_about = "Coastal File Search Utility";
     setWindowIcon(QIcon(":/search.png"));
+    setWindowTitle(program_name);
 
     map[0] = ui.documents;
     map[1] = ui.applications;
@@ -274,52 +277,52 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
     argc = 1;
     size_t len = strlen(lpCmdLine);
 
-    for (unsigned i = 0; i < len; i++) { 
+    for (unsigned i = 0; i < len; i++) {
         while (lpCmdLine[i] == ' ' && i < len)
             ++i;
         if (lpCmdLine[i] == '\"') {
-            ++i; 
+            ++i;
             while (lpCmdLine[i] != '\"' && i < len)
-                ++i;  
-        } 
+                ++i;
+        }
         else while (lpCmdLine[i] != ' ' && i < len)
-            ++i;  
+            ++i;
         ++argc;
-    } 
+    }
 
     argv = (char **)malloc(sizeof(char *) * (argc + 1));
-    argv[0] = (char*)malloc(1024); 
-    ::GetModuleFileName(0, argv[0], 1024); 
+    argv[0] = (char*)malloc(1024);
+    ::GetModuleFileName(0, argv[0], 1024);
 
-    for(unsigned i = 1; i < (unsigned)argc; i++) 
-        argv[i] = (char*)malloc(len + 10); 
+    for(unsigned i = 1; i < (unsigned)argc; i++)
+        argv[i] = (char*)malloc(len + 10);
 
-    argv[argc] = 0; 
+    argv[argc] = 0;
 
     pos = 0;
     argc = 1;
-    for (unsigned i = 0; i < len; i++) { 
+    for (unsigned i = 0; i < len; i++) {
         while (lpCmdLine[i] == ' ' && i < len)
             ++i;
         if (lpCmdLine[i] == '\"') {
-            ++i; 
-            while (lpCmdLine[i] != '\"' && i < len) { 
+            ++i;
+            while (lpCmdLine[i] != '\"' && i < len) {
                 argv[argc][pos] = lpCmdLine[i];
-                ++i; 
-                ++pos; 
-            } 
-        } 
-        else { 
-            while (lpCmdLine[i] != ' ' && i < len) { 
+                ++i;
+                ++pos;
+            }
+        }
+        else {
+            while (lpCmdLine[i] != ' ' && i < len) {
                 argv[argc][pos] = lpCmdLine[i];
-                ++i; 
-                ++pos; 
-            } 
+                ++i;
+                ++pos;
+            }
         }
         argv[argc][pos] = 0;
-        argc++; 
-        pos = 0;  
-    } 
+        argc++;
+        pos = 0;
+    }
     return main(argc, argv);
 }
 #endif
