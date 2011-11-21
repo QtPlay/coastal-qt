@@ -30,6 +30,8 @@
 #include <QDir>
 #include <QTableWidget>
 #include <QTableWidgetItem>
+#include <QFile>
+#include <QProcess>
 
 class Main : public CoastalMain
 {
@@ -43,12 +45,14 @@ public:
     virtual ~Main();
 
     void status(const QString& text);
+    void error(const QString& text);
 
 signals:
     void startup(void);
 
 public slots:
     void reload(void);
+    void load(QIODevice& io);
     void load(int row, int col);
 };
 

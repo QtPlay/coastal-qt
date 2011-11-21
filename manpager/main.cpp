@@ -136,9 +136,31 @@ Main::~Main()
 
 void Main::status(const QString& text)
 {
+    ui.statusbar->setStyleSheet("color: black");
     ui.statusbar->showMessage(text);
     ui.statusbar->update();
     ui.statusbar->repaint();
+}
+
+void Main::error(const QString& text)
+{
+    ui.statusbar->setStyleSheet("color: red");
+    ui.statusbar->showMessage(text);
+    ui.statusbar->update();
+    ui.statusbar->repaint();
+}
+
+void Main::load(QIODevice& input)
+{
+    char buf[1024];
+    qint64 len;
+
+    for(;;) {
+        len = input.readLine(buf, (qint64)sizeof(buf));
+        qDebug() << "LEN " << len << " text " << buf;
+        if(len < 1)
+            break;
+    }
 }
 
 void Main::load(int row, int col)
@@ -146,10 +168,39 @@ void Main::load(int row, int col)
     Index::NameItem *item = (Index::NameItem*)ui.indexTable->item(row, 1);
     Index::SectionItem *section = (Index::SectionItem *)ui.indexTable->item(row, 0);
     QString path = manpaths[item->pathid] + "/man" + item->secid + "/" + item->text() + "." + section->text();
-    if(item->fmode == Index::GZIP)
-            path += ".gz";
+    QString name = item->text() + "." + section->text();
+    status(tr("loading ") + name);
     qDebug() << "selected " << item->text();
     qDebug() << "file path " << path;
+
+    if(item->fmode == Index::GZIP) {
+        path += ".gz";
+        qDebug() << "file path " << path;
+        QString cmd = "gunzip";
+        QStringList args;
+        args << "-c" << path;
+        QProcess gunzip(this);
+        gunzip.start(cmd, args);
+        gunzip.setReadChannel(QProcess::StandardOutput);
+        if(!gunzip.waitForStarted()) {
+            error(tr("failed to load ") + name);
+            return;
+        }
+        qDebug() << "waiting...";
+        gunzip.waitForReadyRead();
+        qDebug() << "loading text";
+        load(gunzip);
+        gunzip.waitForFinished();
+    }
+    else {
+        QFile file(path);
+        if(!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            error(tr("failed to load ") + name);
+            return;
+        }
+        load(file);
+        file.close();
+    }
 }
 
 void Main::reload(void)
