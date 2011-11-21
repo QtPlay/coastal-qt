@@ -150,28 +150,21 @@ void Main::error(const QString& text)
     ui.statusbar->repaint();
 }
 
-void Main::load(QIODevice& input)
-{
-    char buf[1024];
-    qint64 len;
-
-    for(;;) {
-        len = input.readLine(buf, (qint64)sizeof(buf));
-        qDebug() << "LEN " << len << " text " << buf;
-        if(len < 1)
-            break;
-    }
-}
-
 void Main::load(int row, int col)
 {
+    View *view;
     Index::NameItem *item = (Index::NameItem*)ui.indexTable->item(row, 1);
     Index::SectionItem *section = (Index::SectionItem *)ui.indexTable->item(row, 0);
-    QString path = manpaths[item->pathid] + "/man" + item->secid + "/" + item->text() + "." + section->text();
     QString name = item->text() + "." + section->text();
-    status(tr("loading ") + name);
+    QString path = manpaths[item->pathid] + "/man" + item->secid + "/" + name;
     qDebug() << "selected " << item->text();
     qDebug() << "file path " << path;
+
+    // if already loaded, select existing tab and exit...
+    if(View::find(ui.tabs, name))
+        return;
+
+    status(tr("loading ") + name);
 
     if(item->fmode == Index::GZIP) {
         path += ".gz";
@@ -189,7 +182,7 @@ void Main::load(int row, int col)
         qDebug() << "waiting...";
         gunzip.waitForReadyRead();
         qDebug() << "loading text";
-        load(gunzip);
+        view = new View(ui.tabs, gunzip, name);
         gunzip.waitForFinished();
     }
     else {
@@ -198,9 +191,10 @@ void Main::load(int row, int col)
             error(tr("failed to load ") + name);
             return;
         }
-        load(file);
+        view = new View(ui.tabs, file, name);
         file.close();
     }
+    delete view;
 }
 
 void Main::reload(void)

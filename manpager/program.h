@@ -52,7 +52,6 @@ signals:
 
 public slots:
     void reload(void);
-    void load(QIODevice& io);
     void load(int row, int col);
 };
 
@@ -81,5 +80,14 @@ public:
     static void add(QDir& dir, char group, unsigned path);
 };
 
+class View : public QWidget
+{
+Q_OBJECT
+
+public:
+    View(QTabWidget *tabs, QIODevice& source, QString& title);
+
+    static bool find(QTabWidget *tabs, QString& title);
+};
 #endif
 
