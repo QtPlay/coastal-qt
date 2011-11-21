@@ -93,6 +93,7 @@ CoastalMain()
     connect(ui.actionReload, SIGNAL(triggered()), this, SLOT(reload()));
     connect(this, SIGNAL(startup()), this, SLOT(reload()), Qt::QueuedConnection);
 
+    connect(ui.tabs, SIGNAL(tabCloseRequested(int)), this, SLOT(close(int)));
     connect(ui.indexTable, SIGNAL(cellClicked(int,int)), this, SLOT(load(int,int)));
 
     emit startup();
@@ -150,6 +151,22 @@ void Main::error(const QString& text)
     ui.statusbar->repaint();
 }
 
+void Main::close(int tab)
+{
+    if(tab == 0)
+        return;
+
+    View *view = (View *)ui.tabs->widget(tab);
+    if(!view)
+        return;
+
+    ui.tabs->removeTab(tab);
+    delete view;
+
+    if(ui.tabs->count() < 2)
+        ui.tabs->setTabsClosable(false);
+}
+
 void Main::load(int row, int col)
 {
     View *view;
@@ -194,7 +211,6 @@ void Main::load(int row, int col)
         view = new View(ui.tabs, file, name);
         file.close();
     }
-    delete view;
 }
 
 void Main::reload(void)

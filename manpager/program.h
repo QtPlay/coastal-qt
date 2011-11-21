@@ -32,6 +32,7 @@
 #include <QTableWidgetItem>
 #include <QFile>
 #include <QProcess>
+#include <QTextEdit>
 
 class Main : public CoastalMain
 {
@@ -53,6 +54,7 @@ signals:
 public slots:
     void reload(void);
     void load(int row, int col);
+    void close(int tab);
 };
 
 class Index
@@ -80,7 +82,7 @@ public:
     static void add(QDir& dir, char group, unsigned path);
 };
 
-class View : public QWidget
+class View : public QTextEdit
 {
 Q_OBJECT
 

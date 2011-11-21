@@ -18,8 +18,10 @@
 #include "program.h"
 #include "ui_main.h"
 
+static unsigned views = 0;
+
 View::View(QTabWidget *tabs, QIODevice& input, QString& title) :
-QWidget()
+QTextEdit()
 {
     char buf[1024];
     qint64 len;
@@ -30,9 +32,21 @@ QWidget()
         if(len < 1)
             break;
     }
+    setReadOnly(true);
+    setEnabled(true);
+
+    tabs->addTab(this, title);
+    tabs->setCurrentIndex(++views);
+    tabs->setTabsClosable(true);
 }
 
 bool View::find(QTabWidget *tabs, QString& title)
 {
+    for(int tab = 1; tab < tabs->count(); ++tab) {
+        if(tabs->tabText(tab) == title) {
+            tabs->setCurrentIndex(tab);
+            return true;
+        }
+    }
     return false;
 }
