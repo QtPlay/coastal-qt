@@ -49,6 +49,10 @@ void Index::add(QDir& dir, char group, unsigned path)
 {
     int last;
     fmode_t mode = NORMAL;
+
+    table->verticalHeader()->setUpdatesEnabled(false);
+    table->setUpdatesEnabled(false);
+
     QStringList list = dir.entryList(QDir::Files);
     for(unsigned pos = 0; pos < list.size(); ++pos) {
         QString entry = list[pos];
@@ -72,9 +76,11 @@ void Index::add(QDir& dir, char group, unsigned path)
         table->insertRow(line);
         new SectionItem(section);
         new NameItem(name, group, path, mode);
+        table->verticalHeader()->resizeSection(line, 16);
         ++line;
     }
     table->sortByColumn(1, Qt::AscendingOrder);
-    table->update();
+    table->setUpdatesEnabled(true);
+    table->verticalHeader()->setUpdatesEnabled(true);
 }
 

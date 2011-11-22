@@ -33,6 +33,7 @@
 #include <QFile>
 #include <QProcess>
 #include <QTextEdit>
+#include <QHeaderView>
 
 class Main : public CoastalMain
 {

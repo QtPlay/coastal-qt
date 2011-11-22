@@ -55,6 +55,7 @@ CoastalMain()
     history.append(dir.path());
 
     QSettings settings;
+    resize(settings.value("size", QSize(760, 540)).toSize());
 
     int paths = settings.beginReadArray("paths");
 //  qDebug() << "SIZE " << paths << endl;
@@ -125,6 +126,8 @@ Main::~Main()
 {
     QSettings settings;
     int pos = 0;
+
+    settings.setValue("size", size());
 
     settings.beginWriteArray("paths");
     while(pos < history.size()) {

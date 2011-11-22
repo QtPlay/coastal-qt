@@ -35,12 +35,15 @@ CoastalMain()
     setWindowTitle(program_name);
 
     QSettings settings;
-    const char *separator = ":";
+    resize(settings.value("size", QSize(760, 540)).toSize());
+
 #ifdef WIN32
+    const char *separator = ";";
     QString manpath = settings.value("manpath").toString();
     if(manpath.isEmpty())
         manpath = "C:\\tools\\man";
 #else
+    const char *separator = ":";
     QString manpath = getenv("MANPATH");
     if(manpath.isEmpty())
         manpath = settings.value("manpath").toString();
@@ -120,6 +123,7 @@ Main::~Main()
     }
 
     settings.setValue("manpath", manpath);
+    settings.setValue("size", size());
 
     settings.beginGroup("Sections");
     settings.setValue("1", ui.actionSection1->isChecked());
