@@ -183,8 +183,6 @@ void Main::load(int row, int col)
     Index::SectionItem *section = (Index::SectionItem *)ui.indexTable->item(row, 0);
     QString name = item->text() + "." + section->text();
     QString path = manpaths[item->pathid] + "/man" + item->secid + "/" + name;
-    qDebug() << "selected " << item->text();
-    qDebug() << "file path " << path;
 
     // if already loaded, select existing tab and exit...
     if(View::find(ui.tabs, name))
@@ -194,7 +192,6 @@ void Main::load(int row, int col)
 
     if(item->fmode == Index::GZIP) {
         path += ".gz";
-        qDebug() << "file path " << path;
         QString cmd = "gunzip";
         QStringList args;
         args << "-c" << path;
@@ -205,9 +202,7 @@ void Main::load(int row, int col)
             error(tr("failed to load ") + name);
             return;
         }
-        qDebug() << "waiting...";
         gunzip.waitForReadyRead();
-        qDebug() << "loading text";
         view = new View(ui.tabs, gunzip, name);
         gunzip.waitForFinished();
     }
