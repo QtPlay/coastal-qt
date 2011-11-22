@@ -18,8 +18,6 @@
 #include "program.h"
 #include "ui_main.h"
 
-static unsigned views = 0;
-
 View::View(QTabWidget *tabs, QIODevice& input, QString& title) :
 QTextEdit()
 {
@@ -35,8 +33,9 @@ QTextEdit()
     setReadOnly(true);
     setEnabled(true);
 
+    int views = tabs->count();
     tabs->addTab(this, title);
-    tabs->setCurrentIndex(++views);
+    tabs->setCurrentIndex(views);
     tabs->setTabsClosable(true);
 }
 

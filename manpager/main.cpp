@@ -153,8 +153,13 @@ void Main::error(const QString& text)
 
 void Main::close(int tab)
 {
-    if(tab == 0)
+    // close of index tab actually closes all other open manpages
+    if(tab == 0) {
+        int count = ui.tabs->count();
+        for(tab = 1; tab < count; ++tab)
+            close(1);
         return;
+    }
 
     View *view = (View *)ui.tabs->widget(tab);
     if(!view)
