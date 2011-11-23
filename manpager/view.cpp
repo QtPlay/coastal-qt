@@ -20,9 +20,9 @@
 #include <cstring>
 #include <cctype>
 
-#ifdef  WIN32
-#define strnicmp    strncasecmp
-#endif
+#define BOLD        0x01
+#define ITALIC      0x02
+#define UNDERLINE   0x04
 
 static char *skip(char *text)
 {
@@ -31,39 +31,58 @@ static char *skip(char *text)
     return text;
 }
 
-static char *get(char *text, char **result = NULL)
+static void getargs(char *text, char **result)
 {
+    unsigned count = 0;
     char *out;
 
-    if(result)
-        *result = NULL;
+    // lower case dot commands...
 
     if(*text == '.') {
-        while(*text && !isspace(*text))
+        while(*text && !isspace(*text)) {
+            *text = tolower(*text);
             ++text;
+        }
     }
+    *(text++) = 0;
 
     while(*text && isspace(*text))
-        ++text;
+            ++text;
 
-    out = text;
-    if(*text == '\"') {
-        out = ++text;
-        while(out && *out != '\"')
-            ++out;
+    if(*text == 0) {
+        result[0] = NULL;
+        return;
     }
-    else while(!isspace(*out))
-        ++out;
 
-    *(out++) = 0;
+    while(*text && count < 31) {
+        if(*text == '\"') {
+            out = ++text;
+            while(*out && *out != '\"') {
+                if(out[0] == '\\' && out[1] == '\"')
+                    out += 2;
+                else
+                    ++out;
+            }
+            if(*out)
+                *(out++) = 0;
+        }
+        else {
+            out = text;
+            while(!isspace(*out))
+                ++out;
+            if(*out)
+                *(out++) = 0;
+        }
+        result[count++] = text;
+        text = out;
 
-    while(isspace(*out))
-        ++out;
-
-    if(result && out && *out)
-        *result = out;
-
-    return text;
+        while(*text && isspace(*text))
+            ++text;
+    }
+    if(*(++out) = '\n');
+    out[1] = 0;
+    result[count++] = out;
+    result[count] = NULL;
 }
 
 View::View(QTabWidget *tabs, QIODevice& input, QString& title) :
@@ -72,132 +91,136 @@ QTextEdit()
     char buf[512];
     qint64 len;
     QString text;
-    int count;
-    char *body, *next, *tail;
+    int count, argc;
+    char *argv[32];
+    unsigned format[9];
     unsigned indent = 0;
+    bool blank = false;
     bool bold, underline, italic;
-    bool next_bold, next_underline, next_italic;
-    bool blank;
+    char *body, *tail;
 
     for(;;) {
         len = input.readLine(buf, (qint64)sizeof(buf));
         if(len < 1)
             break;
 
-        next = NULL;
-        body = NULL;
         bold = underline = italic = false;
-        next_bold = next_underline = next_italic = false;
+        argv[0] = argv[1] = NULL;
+        memset(format, 0, sizeof(format));
+        argc = 0;
 
         if(buf[0] != '\n')
             blank = false;
-
-        // skip comments...
-        if(!strncmp(buf, ".\\", 3))
-            continue;
-
-        if(!strncasecmp(buf, ".TH ", 4))
-            text = text + "<h1 align=\"center\">" + get(buf) + "</h1>\n\n";
-        else if(!strncasecmp(buf, ".SH ", 4)) {
-            while(indent--)
-                text = text + "</p></blockquote>\n";
-            text = text + "<h2>" + get(buf) + "</h2><blockquote><p>\n";
-            indent = 1;
-        }
-        else if(!strncasecmp(buf, ".pp", 3))
-            text = text + "</p><p>\n";
-        else if(!strncasecmp(buf, ".br ", 4)) {
-            body = get(buf, &next);
-            bold = true;
-            text = text + "<b>";
-        }
-        else if(!strncasecmp(buf, ".br", 3))
-            text = text + "<br>\n";
-        else if(!strncasecmp(buf, ".B ", 3)) {
-            body = skip(buf);
-            bold = true;
-            text = text + "<b>";
-        }
-        else {
-            if(buf[0] != '.')
-                body = buf;
-        }
-
-        if(body && *body == '\n' && indent && !blank) {
+        else if(buf[0] == '\n' && indent && !blank) {
             text = text + "</p><p>";
             blank = true;
             continue;
         }
 
+        // skip comments...
+        if(!strncmp(buf, ".\\\"", 3))
+            continue;
+
+        if(*buf == '.')
+            getargs(buf, argv);
+        else
+            argv[0] = buf;
+
+        if(!strcmp(buf, ".th")) {
+            text = text + "<h1 align=\"center\">" + argv[0] + "</h1>\n\n";
+            continue;
+        }
+        if(!strcmp(buf, ".sh")) {
+            while(indent--)
+                text = text + "</p></blockquote>\n";
+            text = text + "<h2>" + argv[0] + "</h2><blockquote><p>\n";
+            indent = 1;
+            continue;
+        }
+
+        if(!strcmp(buf, ".pp")) {
+            text = text + "</p><p>\n";
+            continue;
+        }
+
+        if(!strcmp(buf, ".br") && !argv[0]) {
+            text = text + "<br>\n";
+            continue;
+        }
+
+        if(!strcmp(buf, ".b") || !strcmp(buf, ".br"))
+            format[0] = BOLD;
+        else if(!strcmp(buf, ".ib")) {
+            format[0] = ITALIC;
+            format[1] = BOLD;
+        }
+        else if(!strcmp(buf, ".bi")) {
+            format[0] = BOLD;
+            format[1] = ITALIC;
+        }
+        else if(buf[0] == '.')              // if unknown, skip
+            continue;
+
         if(!indent)
             continue;
 
-body:
-        if(!body)
-            continue;
-
-        tail = body + strlen(body);
-        while(tail > body && isspace(*(--tail)))
-            *tail = 0;
-
-        blank = false;
-        while(body && *body) {
-            switch(*body) {
-            case '>':
-                text = text + "&gt;";
-                break;
-            case '<':
-                text = text + "&lt;";
-                break;
-            case '\"':
-                text = text + "&quot;";
-                break;
-            case '&':
-                text = text + "&amp;";
-                break;
-            default:
-                text = text + QChar(*body);
-            }
-            ++body;
-        }
-        if(italic)
-            text = text + "</i>";
-        if(underline)
-            text = text + "</u>";
-        if(bold)
-            text = text + "</b>";
-        bold = italic = underline = false;
-
-        if(!next)
-            text = text + "\n";
-
-        if(next) {
-            body = next;
-            next = NULL;
-            if(next_italic) {
-                italic = true;
-                text = text + " <i>";
-                goto body;
-            }
-            if(next_underline) {
-                underline = true;
-                text = text + " <u>";
-                goto body;
-            }
-
-            if(next_bold) {
+        while((body = argv[argc]) != NULL) {
+            if(format[argc] & BOLD) {
                 bold = true;
-                text = text + " <b>";
-                goto body;
+                text = text + "<b>";
+            }
+            if(format[argc] & ITALIC) {
+                text = text + "<i>";
+                italic = true;
+            }
+            if(format[argc] & UNDERLINE) {
+                text = text + "<U>";
+                underline = true;
             }
 
-            text = text + " ";
-            goto body;
+            bool nl = false;
+
+            tail = body + strlen(body);
+
+            while(tail > body && isspace(*(--tail))) {
+                if(*tail == '\n')
+                    nl = true;
+                *tail = 0;
+            }
+
+            while(body && *body) {
+                switch(*body) {
+                case '>':
+                    text = text + "&gt;";
+                    break;
+                case '<':
+                    text = text + "&lt;";
+                    break;
+                case '\"':
+                    text = text + "&quot;";
+                    break;
+                case '&':
+                    text = text + "&amp;";
+                    break;
+                default:
+                    text = text + QChar(*body);
+                }
+                ++body;
+            }
+            if(italic)
+                text = text + "</i>";
+            if(underline)
+                text = text + "</u>";
+            if(bold)
+                text = text + "</b>";
+            bold = italic = underline = false;
+            ++argc;
+            if(nl)
+                text = text + QChar('\n');
         }
     }
     setReadOnly(true);
     setEnabled(true);
-
     setHtml(text);
 
     int views = tabs->count();

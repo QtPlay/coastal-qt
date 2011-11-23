@@ -16,6 +16,10 @@ INCLUDE(CheckIncludeFiles)
 set (VERSION 0.1.0)
 set (SOVERSION 0)
 
+if (NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Debug CACHE STRING "Choose the type of build, options are: None Debug Release RelWithDebInfo MinSizeRel." FORCE)
+endif ()
+
 if( APPLE )
     SET( MACOSX_BUNDLE_SHORT_VERSION_STRING ${VERSION} )
     SET( MACOSX_BUNDLE_VERSION ${VERSION} )
