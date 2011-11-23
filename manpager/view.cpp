@@ -158,6 +158,10 @@ QTextEdit()
             format[0] = BOLD;
             format[1] = ITALIC;
         }
+        else if(!strcmp(buf, ".i") || !strcmp(buf, ".ir"))
+            format[0] = ITALIC;
+        else if(!strcmp(buf, ".u") || !strcmp(buf, ".ur"))
+            format[0] = UNDERLINE;
         else if(buf[0] == '.')              // if unknown, skip
             continue;
 
@@ -202,6 +206,54 @@ QTextEdit()
                 case '&':
                     text = text + "&amp;";
                     break;
+                case '\\':
+                    if(body[1] == 'f' || body[1] == 'F') {
+                        if(body[2] == 'u' || body[2] == 'U') {
+                            if(!underline) {
+                                text = text + "<u>";
+                                underline = true;
+                            }
+                            body += 2;
+                            break;
+                        }
+
+                        if(body[2] == 'i' || body[2] == 'I') {
+                            if(!italic) {
+                                text = text + "<i>";
+                                italic = true;
+                            }
+                            body += 2;
+                            break;
+                        }
+
+                        if(body[2] == 'b' || body[2] == 'B') {
+                            if(!bold) {
+                                text = text + "<b>";
+                                bold = true;
+                            }
+                            body += 2;
+                            break;
+                        }
+
+                        if(body[2] == 'r' || body[2] == 'R') {
+                            if(underline)
+                                text = text + "</u>";
+                            if(italic)
+                                text = text + "</i>";
+                            if(bold)
+                                text = text + "</b>";
+                            italic = underline = bold = false;
+                            body += 2;
+                            break;
+                        }
+
+                    }
+                    if(body[1])             // fallthrough
+                        ++body;
+                    else {                  // backslash can glue lines...
+                        nl = false;
+                        break;
+                    }
                 default:
                     text = text + QChar(*body);
                 }
