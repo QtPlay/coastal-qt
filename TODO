@@ -1,0 +1,8 @@
+Likely issues to remain at initial release:
+
+Manpager
+
+	Viewer rendering still too limited a subset of nroff for some pages
+
+	Viewer could add hyperlink support for urls and internal links for
+	page references
