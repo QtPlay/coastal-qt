@@ -96,7 +96,7 @@ QTextEdit()
     unsigned format[9];
     unsigned indent = 0;
     bool blank = false;
-    bool pre = false;
+    bool pre = false, pnl = false;
     bool bold, underline, italic;
     char *body, *tail;
 
@@ -189,10 +189,10 @@ QTextEdit()
         else if(buf[0] == '.')              // if unknown, skip
             continue;
 
+body:
         if(!indent)
             continue;
 
-body:
         while((body = argv[argc]) != NULL) {
             if(pre) {
                 text = text + body;
@@ -208,7 +208,7 @@ body:
                 italic = true;
             }
             if(format[argc] & UNDERLINE) {
-                text = text + "<U>";
+                text = text + "<u>";
                 underline = true;
             }
 
@@ -237,8 +237,40 @@ body:
                     text = text + "&amp;";
                     break;
                 case '\\':
-                    if(body[1] == 'f' || body[1] == 'F') {
-                        if(body[2] == 'u' || body[2] == 'U') {
+                    if(body[1] == '&' || body[1] == ':') {
+                        if(!pnl) {
+                            text = text + "<pre>";
+                            pnl = true;
+                        }
+                        else
+                            text = text + "\n";
+                        ++body;
+                        break;
+                    }
+                    if(tolower(body[1]) == 'p') {
+                        text = text + "</p><p>";
+                        ++body;
+                        break;
+                    }
+                    if(tolower(body[1]) == 't') {
+                        text = text + QChar((char)9);
+                        ++body;
+                        break;
+                    }
+                    if(body[1] == '/' || body[1] == ',') {
+                        ++body;
+                        break;
+                    }
+                    if(tolower(body[1]) == 'f') {
+                        if(body[2] == '(') {
+                            body += 3;
+                            break;
+                        }
+                        if(body[2] == 'P') {
+                            ++body;
+                            break;
+                        }
+                        if(tolower(body[2]) == 'u') {
                             if(!underline) {
                                 text = text + "<u>";
                                 underline = true;
@@ -247,7 +279,7 @@ body:
                             break;
                         }
 
-                        if(body[2] == 'i' || body[2] == 'I') {
+                        if(tolower(body[2]) == 'i') {
                             if(!italic) {
                                 text = text + "<i>";
                                 italic = true;
@@ -256,7 +288,7 @@ body:
                             break;
                         }
 
-                        if(body[2] == 'b' || body[2] == 'B') {
+                        if(tolower(body[2]) == 'b') {
                             if(!bold) {
                                 text = text + "<b>";
                                 bold = true;
@@ -265,7 +297,7 @@ body:
                             break;
                         }
 
-                        if(body[2] == 'r' || body[2] == 'R') {
+                        if(tolower(body[2]) == 'r') {
                             if(underline)
                                 text = text + "</u>";
                             if(italic)
@@ -297,7 +329,11 @@ body:
                 text = text + "</b>";
             bold = italic = underline = false;
             ++argc;
-            if(nl)
+            if(pnl) {
+                pnl = false;
+                text = text + "</pre>";
+            }
+            else if(nl)
                 text = text + QChar('\n');
         }
     }
