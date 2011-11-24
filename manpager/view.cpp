@@ -96,6 +96,7 @@ QTextEdit()
     unsigned format[9];
     unsigned indent = 0;
     bool blank = false;
+    bool pre = false;
     bool bold, underline, italic;
     char *body, *tail;
 
@@ -138,8 +139,29 @@ QTextEdit()
             continue;
         }
 
-        if(!strcmp(buf, ".pp")) {
+        if(!strcmp(buf, ".fi")) {
+            text = text + "</pre>";
+            pre = false;
+            continue;
+        }
+
+        if(!strcmp(buf, ".nf") && !pre) {
+            text = text + "<pre>";
+            pre = true;
+            continue;
+        }
+
+        if(pre)
+            goto body;
+
+        if(!strcmp(buf, ".pp") && !argv[0]) {
             text = text + "</p><p>\n";
+            continue;
+        }
+
+        if(!strcmp(buf, ".tp")) {
+            text = text + "</p><p>\n";
+            argv[0] = NULL;
             continue;
         }
 
@@ -162,13 +184,21 @@ QTextEdit()
             format[0] = ITALIC;
         else if(!strcmp(buf, ".u") || !strcmp(buf, ".ur"))
             format[0] = UNDERLINE;
+        else if(!strcmp(buf, ".ip") || !strcmp(buf, ".hp") || !strcmp(buf, ".de"))
+            text = text + "</p><p>";
         else if(buf[0] == '.')              // if unknown, skip
             continue;
 
         if(!indent)
             continue;
 
+body:
         while((body = argv[argc]) != NULL) {
+            if(pre) {
+                text = text + body;
+                ++argc;
+                continue;
+            }
             if(format[argc] & BOLD) {
                 bold = true;
                 text = text + "<b>";
