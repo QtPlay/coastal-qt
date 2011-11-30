@@ -27,14 +27,14 @@ Index::NameItem::NameItem(QString& name, char group, unsigned path, fmode_t mode
     fmode = mode;
     setText(name);
     setFlags(Qt::ItemIsEnabled);
-    table->setItem(line, 1, (QTableWidgetItem *)this);
+    table->setItem(line, COL_NAME, (QTableWidgetItem *)this);
 }
 
 Index::SectionItem::SectionItem(QString& section)
 {
     setText(section);
     setFlags(Qt::NoItemFlags);
-    table->setItem(line, 0, (QTableWidgetItem *)this);
+    table->setItem(line, COL_SECTION, (QTableWidgetItem *)this);
 }
 
 void Index::set(QTableWidget *t)

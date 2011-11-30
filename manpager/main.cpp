@@ -91,9 +91,25 @@ CoastalMain()
     ui.actionBut->setActionGroup(selectGroup);
     ui.actionOnly->setActionGroup(selectGroup);
 
+    QString selection = settings.value("selection", "all").toString();
+    if(selection == "all")
+        ui.actionAll->setChecked(true);
+    else if(selection == "only")
+        ui.actionOnly->setChecked(true);
+    else if(selection == "but")
+        ui.actionBut->setChecked(true);
+
     connect(ui.actionAbout, SIGNAL(triggered()), this, SLOT(about()));
     connect(ui.actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(ui.actionReload, SIGNAL(triggered()), this, SLOT(reload()));
+
+    connect(ui.actionAll, SIGNAL(triggered()), this, SLOT(reload()));
+    connect(ui.actionBut, SIGNAL(triggered()), this, SLOT(reload()));
+    connect(ui.actionOnly, SIGNAL(triggered()), this, SLOT(reload()));
+
+    for(unsigned pos = 0; pos < 10; ++pos)
+        connect(amap[pos], SIGNAL(triggered()), this, SLOT(reload()));
+
     connect(this, SIGNAL(startup()), this, SLOT(reload()), Qt::QueuedConnection);
 
     connect(ui.tabs, SIGNAL(tabCloseRequested(int)), this, SLOT(close(int)));
@@ -137,6 +153,13 @@ Main::~Main()
     settings.setValue("l", ui.actionSectionl->isChecked());
     settings.setValue("n", ui.actionSectionn->isChecked());
     settings.endGroup();
+
+    if(ui.actionAll->isChecked())
+        settings.setValue("selection", "all");
+    else if(ui.actionOnly->isChecked())
+        settings.setValue("selection", "only");
+    else if(ui.actionBut->isChecked())
+        settings.setValue("selection", "but");
 }
 
 void Main::status(const QString& text)
@@ -179,8 +202,8 @@ void Main::close(int tab)
 void Main::load(int row, int col)
 {
     View *view;
-    Index::NameItem *item = (Index::NameItem*)ui.indexTable->item(row, 1);
-    Index::SectionItem *section = (Index::SectionItem *)ui.indexTable->item(row, 0);
+    Index::NameItem *item = (Index::NameItem*)ui.indexTable->item(row, COL_NAME);
+    Index::SectionItem *section = (Index::SectionItem *)ui.indexTable->item(row, COL_SECTION);
     QString name = item->text() + "." + section->text();
     QString path = manpaths[item->pathid] + "/man" + item->secid + "/" + name;
 
@@ -219,8 +242,23 @@ void Main::load(int row, int col)
 
 void Main::reload(void)
 {
+    bool hidden[10];
+
     ui.searchBox->setEnabled(false);
     status(tr("loading..."));
+
+    if(ui.actionAll->isChecked()) {
+        for(unsigned pos = 0; pos < 10; ++pos)
+            hidden[pos] = false;
+    }
+    else if(ui.actionOnly->isChecked()) {
+        for(unsigned pos = 0; pos < 10; ++pos)
+            hidden[pos] = !amap[pos]->isChecked();
+    }
+    else if(ui.actionBut->isChecked()) {
+        for(unsigned pos = 0; pos < 10; ++pos)
+            hidden[pos] = amap[pos]->isChecked();
+    }
 
     Index::set(ui.indexTable);
     ui.indexTable->setEnabled(false);
@@ -233,7 +271,8 @@ void Main::reload(void)
             QDir dir(manpaths[path] + "/" + sections[section]);
             if(!dir.exists())
                 continue;
-            Index::add(dir, cmap[section], (unsigned)path);
+            if(!hidden[section])
+                Index::add(dir, cmap[section], (unsigned)path);
         }
     }
 

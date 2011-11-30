@@ -35,6 +35,9 @@
 #include <QTextEdit>
 #include <QHeaderView>
 
+#define COL_NAME    1
+#define COL_SECTION 0
+
 class Main : public CoastalMain
 {
 Q_OBJECT
