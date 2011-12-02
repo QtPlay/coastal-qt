@@ -34,6 +34,8 @@
 #include <QProcess>
 #include <QTextEdit>
 #include <QHeaderView>
+#include <QAbstractTableModel>
+#include <QSortFilterProxyModel>
 
 #define COL_NAME    1
 #define COL_SECTION 0
@@ -52,37 +54,40 @@ public:
     void status(const QString& text);
     void error(const QString& text);
 
+    void resizeEvent(QResizeEvent *e);
+
 signals:
     void startup(void);
+    void resized(void);
 
 public slots:
     void reload(void);
-    void load(int row, int col);
+    void load(const QModelIndex& index);
     void close(int tab);
+    void columns(void);
 };
 
-class Index
+class Index : public QAbstractTableModel
 {
+    Q_OBJECT
+
 public:
-    typedef enum {NORMAL, GZIP} fmode_t;
+    typedef struct {
+        enum {NORMAL, GZIP} mode;
+        unsigned path;
+        char id;
+    }   fileinfo;
 
-    class NameItem : public QTableWidgetItem
-    {
-    public:
-        char secid;
-        unsigned pathid;
-        fmode_t fmode;
+    Index(QObject *parent = NULL);
+    int rowCount(const QModelIndex& parent) const;
+    int columnCount(const QModelIndex& parent) const;
+    QVariant data(const QModelIndex &index, int role) const;
+    QVariant headerData(int section, Qt::Orientation orientation, int role) const;
 
-        NameItem(QString& name, char sec, unsigned path, fmode_t mode);
-    };
-
-    class SectionItem : public QTableWidgetItem
-    {
-    public:
-        SectionItem(QString& section);
-    };
-
-    static void set(QTableWidget *table);
+    static QString name(int row);
+    static fileinfo node(int row);
+    static void clear(QTableView *view);
+    static void set(QTableView *view);
     static void add(QDir& dir, char group, unsigned path);
 };
 

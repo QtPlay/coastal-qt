@@ -99,6 +99,13 @@ CoastalMain()
     else if(selection == "but")
         ui.actionBut->setChecked(true);
 
+    ui.indexView->setEnabled(false);
+    ui.indexView->setShowGrid(false);
+    ui.indexView->setSortingEnabled(true);
+    ui.indexView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui.indexView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui.indexView->setSelectionMode(QAbstractItemView::SingleSelection);
+
     connect(ui.actionAbout, SIGNAL(triggered()), this, SLOT(about()));
     connect(ui.actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(ui.actionReload, SIGNAL(triggered()), this, SLOT(reload()));
@@ -113,7 +120,9 @@ CoastalMain()
     connect(this, SIGNAL(startup()), this, SLOT(reload()), Qt::QueuedConnection);
 
     connect(ui.tabs, SIGNAL(tabCloseRequested(int)), this, SLOT(close(int)));
-    connect(ui.indexTable, SIGNAL(cellClicked(int,int)), this, SLOT(load(int,int)));
+    connect(ui.indexView, SIGNAL(clicked(const QModelIndex&)), this, SLOT(load(const QModelIndex&)));
+
+    connect(this, SIGNAL(resized()), this, SLOT(columns()));
 
     emit startup();
 }
@@ -162,6 +171,11 @@ Main::~Main()
         settings.setValue("selection", "but");
 }
 
+void Main::resizeEvent(QResizeEvent *e)
+{
+    emit resized();
+}
+
 void Main::status(const QString& text)
 {
     ui.statusbar->setStyleSheet("color: black");
@@ -199,13 +213,14 @@ void Main::close(int tab)
         ui.tabs->setTabsClosable(false);
 }
 
-void Main::load(int row, int col)
+void Main::load(const QModelIndex& index)
 {
+    int row = index.row();
     View *view;
-    Index::NameItem *item = (Index::NameItem*)ui.indexTable->item(row, COL_NAME);
-    Index::SectionItem *section = (Index::SectionItem *)ui.indexTable->item(row, COL_SECTION);
-    QString name = item->text() + "." + section->text();
-    QString path = manpaths[item->pathid] + "/man" + item->secid + "/" + name;
+
+    QString name = Index::name(row);
+    Index::fileinfo node = Index::node(row);
+    QString path = manpaths[node.path] + "/man" + node.id + "/" + name;
 
     // if already loaded, select existing tab and exit...
     if(View::find(ui.tabs, name))
@@ -213,7 +228,7 @@ void Main::load(int row, int col)
 
     status(tr("loading ") + name);
 
-    if(item->fmode == Index::GZIP) {
+    if(node.mode == Index::fileinfo::GZIP) {
         path += ".gz";
         QString cmd = "gunzip";
         QStringList args;
@@ -260,9 +275,7 @@ void Main::reload(void)
             hidden[pos] = amap[pos]->isChecked();
     }
 
-    Index::set(ui.indexTable);
-    ui.indexTable->setEnabled(false);
-    ui.indexTable->setShowGrid(false);
+    Index::clear(ui.indexView);
 
     for(int section = 0; section < 10; ++section) {
         update();
@@ -276,11 +289,21 @@ void Main::reload(void)
         }
     }
 
-    ui.indexTable->setEnabled(true);
+    Index::set(ui.indexView);
+
+    columns();
+    ui.indexView->setEnabled(true);
     ui.searchBox->setEnabled(true);
     ui.searchBox->setFocus();
     ui.searchBox->repaint();
     status(tr("ready"));
+}
+
+void Main::columns(void)
+{
+    int size = ui.indexView->width() - ui.indexView->columnWidth(1);
+    ui.indexView->setColumnWidth(0, size);
+    ui.indexView->horizontalHeader()->resizeSection(0, size);
 }
 
 int main(int argc, char *argv[])

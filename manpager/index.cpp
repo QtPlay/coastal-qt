@@ -17,46 +17,100 @@
 
 #include "program.h"
 
-static QTableWidget *table;
-static int line = 0;
+static unsigned rows = 0;
+static Index *table = NULL;
+static QStringList names, sections;
+static QList<Index::fileinfo> infos;
 
-Index::NameItem::NameItem(QString& name, char group, unsigned path, fmode_t mode)
+Index::Index(QObject *parent) :
+QAbstractTableModel(parent)
 {
-    pathid = path;
-    secid = group;
-    fmode = mode;
-    setText(name);
-    setFlags(Qt::ItemIsEnabled);
-    table->setItem(line, COL_NAME, (QTableWidgetItem *)this);
 }
 
-Index::SectionItem::SectionItem(QString& section)
+int Index::rowCount(const QModelIndex& parent) const
 {
-    setText(section);
-    setFlags(Qt::NoItemFlags);
-    table->setItem(line, COL_SECTION, (QTableWidgetItem *)this);
+    Q_UNUSED(parent);
+    return rows;
 }
 
-void Index::set(QTableWidget *t)
+int Index::columnCount(const QModelIndex& parent) const
 {
-    table = t;
-    table->clearContents();
-    table->setSortingEnabled(true);
-    line = 0;
+    Q_UNUSED(parent);
+    return 2;
+}
+
+QVariant Index::data(const QModelIndex& index, int role) const
+{
+    int row = index.row();
+
+    if(row >= rows || row < 0 || role != Qt::DisplayRole)
+        return QVariant();
+
+    switch(index.column()) {
+    case 0:
+        return names[row];
+    case 1:
+        return sections[row];
+    default:
+        return QVariant();
+    }
+}
+
+QVariant Index::headerData(int section, Qt::Orientation orientation, int role) const
+{
+    if(role != Qt::DisplayRole || orientation != Qt::Horizontal)
+        return QVariant();
+
+    switch(section) {
+    case 0:
+        return tr("Name");
+    case 1:
+        return tr("Section");
+    default:
+        return QVariant();
+    }
+}
+
+void Index::set(QTableView *view)
+{
+    if(!table)
+        table = new Index(view);
+
+    view->setModel(table);
+}
+
+QString Index::name(int row)
+{
+    return names[row] + "." + sections[row];
+}
+
+Index::fileinfo Index::node(int row)
+{
+    return infos[row];
+}
+
+void Index::clear(QTableView *view)
+{
+    view->setModel(NULL);
+    rows = 0;
+    names.clear();
+    sections.clear();
+    infos.clear();
 }
 
 void Index::add(QDir& dir, char group, unsigned path)
 {
     int last;
-    fmode_t mode = NORMAL;
+    Index::fileinfo info;
 
-    table->verticalHeader()->setUpdatesEnabled(false);
-    table->setUpdatesEnabled(false);
+    info.path = path;
+    info.mode = fileinfo::NORMAL;
+    info.id = group;
 
     QStringList list = dir.entryList(QDir::Files);
     for(unsigned pos = 0; pos < list.size(); ++pos) {
         QString entry = list[pos];
-        mode = GZIP;
+        info.mode = fileinfo::GZIP;
         last = entry.lastIndexOf('.');
         if(last < 2)
             continue;
@@ -68,19 +122,10 @@ void Index::add(QDir& dir, char group, unsigned path)
                 continue;
         }
 
-        QString name = entry.left(last);
-        QString section = entry.mid(++last);
-        if(section[0] != QChar(group))
-            continue;
-
-        table->insertRow(line);
-        new SectionItem(section);
-        new NameItem(name, group, path, mode);
-        table->verticalHeader()->resizeSection(line, 16);
-        ++line;
+        names << entry.left(last);
+        sections << entry.mid(++last);
+        infos << info;
+        ++rows;
     }
-    table->sortByColumn(1, Qt::AscendingOrder);
-    table->setUpdatesEnabled(true);
-    table->verticalHeader()->setUpdatesEnabled(true);
 }
 
