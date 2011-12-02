@@ -105,6 +105,7 @@ CoastalMain()
     ui.indexView->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui.indexView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui.indexView->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui.indexView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     connect(ui.actionAbout, SIGNAL(triggered()), this, SLOT(about()));
     connect(ui.actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
@@ -301,7 +302,7 @@ void Main::reload(void)
 
 void Main::columns(void)
 {
-    int size = ui.indexView->width() - ui.indexView->columnWidth(1);
+    int size = ui.indexView->width() - ui.indexView->columnWidth(1) - 1;
     ui.indexView->setColumnWidth(0, size);
     ui.indexView->horizontalHeader()->resizeSection(0, size);
 }
