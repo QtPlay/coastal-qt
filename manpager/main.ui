@@ -241,6 +241,9 @@
    <property name="text">
     <string>&amp;All Sections</string>
    </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
   </action>
   <action name="actionBut">
    <property name="checkable">
@@ -256,6 +259,9 @@
    </property>
    <property name="text">
     <string>&amp;Clear</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
    </property>
   </action>
   <action name="actionSection1">

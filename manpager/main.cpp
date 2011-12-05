@@ -84,6 +84,8 @@ CoastalMain()
     ui.actionQuit->setIcon(QIcon::fromTheme("exit"));
     ui.actionReload->setIcon(QIcon::fromTheme("reload"));
     ui.actionAbout->setIcon(QIcon::fromTheme("help-about"));
+    ui.actionAll->setIcon(QIcon::fromTheme("stock_select-all"));
+    ui.actionClear->setIcon(QIcon::fromTheme("editclear"));
 
     searchGroup = new QActionGroup(this);
     ui.actionIndex->setActionGroup(searchGroup);

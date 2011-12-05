@@ -5,6 +5,8 @@
     <file alias="16x16/exit.png">../icons/exit.png</file>
     <file alias="16x16/reload.png">../icons/reload.png</file>
     <file alias="16x16/help-about.png">../icons/help-about.png</file>
+    <file alias="16x16/stock_select-all.png">../icons/stock_select-all.png</file>
+    <file alias="16x16/editclear.png">../icons/editclear.png</file>
 </qresource>
 <qresource>
     <file alias="manpager.png">../icons/coastal-manpager.png</file>
