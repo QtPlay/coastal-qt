@@ -1,12 +1,19 @@
 This package is being developed as a series of generic and fully cross-platform
 usable QT desktop applications.  Most interface work is done directly in QT
-Designer.
+Designer.  A local library is used for common code for all these applications.
+It is the use of a common library and a shared icon theme that ties the
+individual desktop applications into a single source package.
 
-Qfind is intended to become a QT version of "catfish", although the ui suggests
-it may end up with substantially more functionality for selecting, searching,
-and using groups of files than catfish originally had.  Qman is a QT version of
-"gman" and will likely make use of man2html as a backend engine.  Other things,
-like qscope, will also be added over time.
+coastal-search is intended to become a QT version of "catfish", although the ui
+suggests it may end up with substantially more functionality for selecting,
+searching, and using groups of files than catfish originally had.  This is
+still in VERY early development.  
+
+coastal-manpager is a QT version of "gman".  It uses it's own rendering
+engine for manual pages.  This is ready for initial release.
+
+Other things, like coastal-scope (a qt cscope), will also be added to this
+package over time.
 
 All our software is licensed per the GNU General Public License, Version 3 or
 later.

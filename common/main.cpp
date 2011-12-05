@@ -25,6 +25,13 @@ QMainWindow(NULL)
     program_version = VERSION;
     program_about = program_name = "Coastal Application";
     program_copyright = "2011 David Sugar";
+
+    url_support = "https://github.com/dyfet/coastal-qt/issues";
+}
+
+void CoastalMain::support(void)
+{
+    QDesktopServices::openUrl(QUrl(url_support));
 }
 
 void CoastalMain::about(void)

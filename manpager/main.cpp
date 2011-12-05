@@ -104,6 +104,7 @@ CoastalMain()
     connect(ui.actionAbout, SIGNAL(triggered()), this, SLOT(about()));
     connect(ui.actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(ui.actionReload, SIGNAL(triggered()), this, SLOT(reload()));
+    connect(ui.actionSupport, SIGNAL(triggered()), this, SLOT(support()));
 
     connect(ui.actionAll, SIGNAL(triggered()), this, SLOT(all()));
     connect(ui.actionClear, SIGNAL(triggered()), this, SLOT(clear()));

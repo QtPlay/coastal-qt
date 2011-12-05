@@ -191,6 +191,7 @@
      <string>&amp;Help</string>
     </property>
     <addaction name="actionAbout"/>
+    <addaction name="actionSupport"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuSections"/>
@@ -371,6 +372,11 @@
    </property>
    <property name="iconVisibleInMenu">
     <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionSupport">
+   <property name="text">
+    <string>Support</string>
    </property>
   </action>
  </widget>

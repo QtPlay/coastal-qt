@@ -3,6 +3,8 @@
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
+#include <QDesktopServices>
+#include <QUrl>
 #include <QDebug>
 
 class CoastalAbout : public QDialog
@@ -26,10 +28,12 @@ Q_OBJECT
 
 protected:
     const char *program_version, *program_about, *program_copyright, *program_name;
+    const char *url_support;
 
     CoastalMain();
 
 public slots:
     void about(void);
+    void support(void);
 };
 
