@@ -99,6 +99,8 @@ CoastalMain()
     ui.indexView->setSelectionMode(QAbstractItemView::SingleSelection);
     ui.indexView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
+    // menu action signals
+
     connect(ui.actionAbout, SIGNAL(triggered()), this, SLOT(about()));
     connect(ui.actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(ui.actionReload, SIGNAL(triggered()), this, SLOT(reload()));
@@ -109,14 +111,16 @@ CoastalMain()
     for(unsigned pos = 0; pos < 10; ++pos)
         connect(amap[pos], SIGNAL(triggered()), this, SLOT(reload()));
 
+    // forms, tabs, and view signals
+
     connect(ui.searchBox, SIGNAL(editTextChanged(const QString&)), this, SLOT(search(const QString&)));
-
-    connect(this, SIGNAL(startup()), this, SLOT(reload()), Qt::QueuedConnection);
-
     connect(ui.tabs, SIGNAL(tabCloseRequested(int)), this, SLOT(close(int)));
     connect(ui.indexView, SIGNAL(clicked(const QModelIndex&)), this, SLOT(load(const QModelIndex&)));
 
+    // application signals
+
     connect(this, SIGNAL(resized()), this, SLOT(columns()));
+    connect(this, SIGNAL(startup()), this, SLOT(reload()), Qt::QueuedConnection);
 
     emit startup();
 }
@@ -210,6 +214,7 @@ void Main::close(int tab)
 void Main::search(const QString& text)
 {
     int pos;
+    bool select = false;
 
     pos = indexData->find(text);
 
@@ -218,16 +223,22 @@ void Main::search(const QString& text)
     if(text.length() < 1) {
         status(tr("ready"));
         indexData->select(0, text);
+        select = true;
     }
     else if(pos >= 0) {
         status(tr("searching ") + QChar('\"') + text + QChar('\"'));
-//      ui.indexView->selectRow(pos);
         indexData->select(pos, text);
+        select = true;
     }
-    else
+    else {
+        pos = -1;
         error(tr("not found ") + QChar('\"') + text + QChar('\"'));
+    }
 
     ui.indexView->setModel(indexData);
+
+    if(select)
+        ui.indexView->selectRow(0);
 }
 
 void Main::load(const QModelIndex& index)
@@ -306,6 +317,7 @@ void Main::reload(void)
 
     columns();
     ui.indexView->setEnabled(true);
+    ui.indexView->selectRow(0);
     ui.searchBox->setEnabled(true);
     ui.searchBox->setFocus();
     ui.searchBox->repaint();
