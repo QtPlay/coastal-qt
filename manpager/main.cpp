@@ -211,21 +211,23 @@ void Main::search(const QString& text)
 {
     int pos;
 
-    if(text.length() < 1) {
-        status(tr("ready"));
-        pos = 0;
-        return;
-
-    }
-
     pos = indexData->find(text);
 
-    if(pos >= 0) {
+    ui.indexView->setModel(NULL);
+
+    if(text.length() < 1) {
+        status(tr("ready"));
+        indexData->select(0, text);
+    }
+    else if(pos >= 0) {
         status(tr("searching ") + QChar('\"') + text + QChar('\"'));
-        ui.indexView->selectRow(pos);
+//      ui.indexView->selectRow(pos);
+        indexData->select(pos, text);
     }
     else
         error(tr("not found ") + QChar('\"') + text + QChar('\"'));
+
+    ui.indexView->setModel(indexData);
 }
 
 void Main::load(const QModelIndex& index)

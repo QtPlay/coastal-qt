@@ -137,21 +137,47 @@ Index::fileinfo Index::node(int row)
     return infos[map[row + first]];
 }
 
+void Index::select(int pos, const QString& name)
+{
+    int len = name.length();
+
+    if(len < 1) {
+        first = 0;
+        last = rows;
+        return;
+    }
+
+    first = last = pos;
+    while(last < rows && name == names[map[last]].left(len))
+        ++last;
+}
+
 int Index::find(const QString& name)
 {
     unsigned diff = rows / 2;
     unsigned pos = diff;
     unsigned len = name.length();
+    QString check;
 
-    while(diff > 1) {
+    while(diff > 0) {
         diff /= 2;
-        if(name == names[map[pos]].left(len))
+        check = names[map[pos]].left(len);
+
+        if(name == check)
             break;
 
-        if(name < names[map[pos]])
-            pos -= diff;
-        else
-            pos += diff;
+        if(name < check) {
+            if(diff)
+                pos -= diff;
+            else
+                --pos;
+        }
+        else {
+            if(diff)
+                pos += diff;
+            else
+                ++pos;
+        }
     }
 
     if(name != names[map[pos]].left(len))

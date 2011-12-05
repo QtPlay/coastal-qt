@@ -71,6 +71,7 @@ public:
     fileinfo node(int row);
 
     int find(const QString& name);
+    void select(int pos, const QString& name);
 };
 
 class View : public QTextEdit
