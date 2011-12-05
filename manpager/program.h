@@ -69,6 +69,8 @@ public:
 
     QString name(int row);
     fileinfo node(int row);
+
+    int find(const QString& name);
 };
 
 class View : public QTextEdit
@@ -113,6 +115,7 @@ public slots:
     void load(const QModelIndex& index);
     void close(int tab);
     void columns(void);
+    void search(const QString& text);
 };
 
 #endif

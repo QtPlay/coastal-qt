@@ -109,6 +109,8 @@ CoastalMain()
     for(unsigned pos = 0; pos < 10; ++pos)
         connect(amap[pos], SIGNAL(triggered()), this, SLOT(reload()));
 
+    connect(ui.searchBox, SIGNAL(editTextChanged(const QString&)), this, SLOT(search(const QString&)));
+
     connect(this, SIGNAL(startup()), this, SLOT(reload()), Qt::QueuedConnection);
 
     connect(ui.tabs, SIGNAL(tabCloseRequested(int)), this, SLOT(close(int)));
@@ -205,6 +207,27 @@ void Main::close(int tab)
         ui.tabs->setTabsClosable(false);
 }
 
+void Main::search(const QString& text)
+{
+    int pos;
+
+    if(text.length() < 1) {
+        status(tr("ready"));
+        pos = 0;
+        return;
+
+    }
+
+    pos = indexData->find(text);
+
+    if(pos >= 0) {
+        status(tr("searching ") + QChar('\"') + text + QChar('\"'));
+        ui.indexView->selectRow(pos);
+    }
+    else
+        error(tr("not found ") + QChar('\"') + text + QChar('\"'));
+}
+
 void Main::load(const QModelIndex& index)
 {
     int row = index.row();
@@ -265,6 +288,7 @@ void Main::all(void)
 
 void Main::reload(void)
 {
+    ui.searchBox->clear();
     ui.searchBox->setEnabled(false);
     status(tr("loading..."));
 
