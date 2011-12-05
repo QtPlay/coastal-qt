@@ -17,10 +17,51 @@
 
 #include "program.h"
 
+static const char *cmap = "12345678ln";
+static QStringList mandirs = QStringList() << "man1" << "man2" << "man3" << "man4" << "man5" << "man6" << "man7" << "man8" << "manl" << "mann";
+
 Index::Index(QObject *parent) :
 QAbstractTableModel(parent)
 {
+    int last;
+    Index::fileinfo info;
+
     rows = 0;
+    for(int section = 0; section < 10; ++section) {
+        Main::status(tr("loading ") + cmap[section] + "...");
+        for(int path = 0; path < Main::manpaths.size(); ++path) {
+            QDir dir(Main::manpaths[path] + "/" + mandirs[section]);
+            if(!dir.exists())
+                continue;
+            if(Main::hidden[section])
+                continue;
+
+            info.path = path;
+            info.mode = fileinfo::NORMAL;
+            info.id = cmap[section];
+
+            QStringList list = dir.entryList(QDir::Files);
+            for(unsigned pos = 0; pos < list.size(); ++pos) {
+                QString entry = list[pos];
+                info.mode = fileinfo::GZIP;
+                last = entry.lastIndexOf('.');
+                if(last < 2)
+                    continue;
+
+                if(entry.mid(last) == ".gz") {
+                    entry = entry.left(last);
+                    last = entry.lastIndexOf('.');
+                    if(last < 2)
+                        continue;
+                }
+
+                names << entry.left(last);
+                sections << entry.mid(++last);
+                infos << info;
+                ++rows;
+            }
+        }
+    }
 }
 
 int Index::rowCount(const QModelIndex& parent) const
@@ -75,36 +116,5 @@ QString Index::name(int row)
 Index::fileinfo Index::node(int row)
 {
     return infos[row];
-}
-
-void Index::add(QDir& dir, char group, unsigned path)
-{
-    int last;
-    Index::fileinfo info;
-
-    info.path = path;
-    info.mode = fileinfo::NORMAL;
-    info.id = group;
-
-    QStringList list = dir.entryList(QDir::Files);
-    for(unsigned pos = 0; pos < list.size(); ++pos) {
-        QString entry = list[pos];
-        info.mode = fileinfo::GZIP;
-        last = entry.lastIndexOf('.');
-        if(last < 2)
-            continue;
-
-        if(entry.mid(last) == ".gz") {
-            entry = entry.left(last);
-            last = entry.lastIndexOf('.');
-            if(last < 2)
-                continue;
-        }
-
-        names << entry.left(last);
-        sections << entry.mid(++last);
-        infos << info;
-        ++rows;
-    }
 }
 

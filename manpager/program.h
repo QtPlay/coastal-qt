@@ -67,7 +67,6 @@ public:
 
     QString name(int row);
     fileinfo node(int row);
-    void add(QDir& dir, char group, unsigned path);
 };
 
 class View : public QTextEdit
@@ -88,14 +87,16 @@ private:
     Index *indexData;
 
 public:
-    QStringList manpaths;
+    static QStringList manpaths;
+    static bool hidden[10];
+
     QActionGroup *searchGroup, *selectGroup;
 
     Main(QWidget *parent = NULL);
     virtual ~Main();
 
-    void status(const QString& text);
-    void error(const QString& text);
+    static void status(const QString& text);
+    static void error(const QString& text);
 
     void resizeEvent(QResizeEvent *e);
 

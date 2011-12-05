@@ -19,9 +19,10 @@
 #include "ui_main.h"
 
 static Ui::MainWindow ui;
-static QStringList sections = QStringList() << "man1" << "man2" << "man3" << "man4" << "man5" << "man6" << "man7" << "man8" << "manl" << "mann";
 static QAction *amap[10];
-static const char *cmap = "12345678ln";
+
+QStringList Main::manpaths;
+bool Main::hidden[10];
 
 Main::Main(QWidget *parent) :
 CoastalMain()
@@ -181,18 +182,25 @@ void Main::resizeEvent(QResizeEvent *e)
 
 void Main::status(const QString& text)
 {
+    Main *w = (Main *)ui.statusbar->parent();
+
     ui.statusbar->setStyleSheet("color: black");
     ui.statusbar->showMessage(text);
     ui.statusbar->update();
     ui.statusbar->repaint();
+    ui.statusbar->update();
+    w->update();
 }
 
 void Main::error(const QString& text)
 {
+    Main *w = (Main *)ui.statusbar->parent();
+
     ui.statusbar->setStyleSheet("color: red");
     ui.statusbar->showMessage(text);
     ui.statusbar->update();
     ui.statusbar->repaint();
+    w->update();
 }
 
 void Main::close(int tab)
@@ -224,6 +232,7 @@ void Main::load(const QModelIndex& index)
     QString name = indexData->name(row);
     Index::fileinfo node = indexData->node(row);
     QString path = manpaths[node.path] + "/man" + node.id + "/" + name;
+    qDebug() << "PATH " << path;
 
     // if already loaded, select existing tab and exit...
     if(View::find(ui.tabs, name))
@@ -260,8 +269,6 @@ void Main::load(const QModelIndex& index)
 
 void Main::reload(void)
 {
-    bool hidden[10];
-
     ui.searchBox->setEnabled(false);
     status(tr("loading..."));
 
@@ -283,19 +290,6 @@ void Main::reload(void)
         delete indexData;
 
     indexData = new Index(ui.indexView);
-
-    for(int section = 0; section < 10; ++section) {
-        update();
-        status(tr("loading ") + cmap[section] + "...");
-        for(int path = 0; path < manpaths.size(); ++path) {
-            QDir dir(manpaths[path] + "/" + sections[section]);
-            if(!dir.exists())
-                continue;
-            if(!hidden[section])
-                indexData->add(dir, cmap[section], (unsigned)path);
-        }
-    }
-
     ui.indexView->setModel(indexData);
 
     columns();
