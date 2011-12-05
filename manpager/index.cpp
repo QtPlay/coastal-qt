@@ -23,10 +23,13 @@ static QStringList mandirs = QStringList() << "man1" << "man2" << "man3" << "man
 Index::Index(QObject *parent) :
 QAbstractTableModel(parent)
 {
-    int last;
+    int ext;
     Index::fileinfo info;
+    QMap<QString, unsigned> byname;
 
-    rows = 0;
+    rows = first = last = 0;
+    map = NULL;
+
     for(int section = 0; section < 10; ++section) {
         Main::status(tr("loading ") + cmap[section] + "...");
         for(int path = 0; path < Main::manpaths.size(); ++path) {
@@ -44,24 +47,40 @@ QAbstractTableModel(parent)
             for(unsigned pos = 0; pos < list.size(); ++pos) {
                 QString entry = list[pos];
                 info.mode = fileinfo::GZIP;
-                last = entry.lastIndexOf('.');
-                if(last < 2)
+                ext = entry.lastIndexOf('.');
+                if(ext < 2)
                     continue;
 
-                if(entry.mid(last) == ".gz") {
-                    entry = entry.left(last);
-                    last = entry.lastIndexOf('.');
-                    if(last < 2)
+                if(entry.mid(ext) == ".gz") {
+                    entry = entry.left(ext);
+                    ext = entry.lastIndexOf('.');
+                    if(ext < 2)
                         continue;
                 }
 
-                names << entry.left(last);
-                sections << entry.mid(++last);
+                names << entry.left(ext);
+                sections << entry.mid(++ext);
                 infos << info;
+
+                byname.insert(entry, rows);
                 ++rows;
             }
         }
     }
+
+    if(!rows)
+        return;
+
+    map = new unsigned[rows];
+
+    foreach(unsigned value, byname)
+        map[last++] = value;
+}
+
+Index::~Index()
+{
+    if(map)
+        delete[] map;
 }
 
 int Index::rowCount(const QModelIndex& parent) const
@@ -80,14 +99,14 @@ QVariant Index::data(const QModelIndex& index, int role) const
 {
     int row = index.row();
 
-    if(row >= rows || row < 0 || role != Qt::DisplayRole)
+    if(row >= (last - first) || row < 0 || role != Qt::DisplayRole)
         return QVariant();
 
     switch(index.column()) {
     case 0:
-        return names[row];
+        return names[map[row + first]];
     case 1:
-        return sections[row];
+        return sections[map[row + first]];
     default:
         return QVariant();
     }
@@ -110,11 +129,11 @@ QVariant Index::headerData(int section, Qt::Orientation orientation, int role) c
 
 QString Index::name(int row)
 {
-    return names[row] + "." + sections[row];
+    return names[map[row + first]] + "." + sections[map[row + first]];
 }
 
 Index::fileinfo Index::node(int row)
 {
-    return infos[row];
+    return infos[map[row + first]];
 }
 

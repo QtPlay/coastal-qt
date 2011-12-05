@@ -54,7 +54,8 @@ public:
 private:
     QStringList names, sections;
     QList<Index::fileinfo> infos;
-    unsigned rows;
+    unsigned rows, first, last;
+    unsigned *map;
 
 protected:
     virtual int rowCount(const QModelIndex& parent) const;
@@ -64,6 +65,7 @@ protected:
 
 public:
     Index(QObject *parent = NULL);
+    virtual ~Index();
 
     QString name(int row);
     fileinfo node(int row);

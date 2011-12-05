@@ -104,7 +104,7 @@ CoastalMain()
 
     ui.indexView->setEnabled(false);
     ui.indexView->setShowGrid(false);
-    ui.indexView->setSortingEnabled(true);
+    ui.indexView->setSortingEnabled(false);
     ui.indexView->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui.indexView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui.indexView->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -232,7 +232,6 @@ void Main::load(const QModelIndex& index)
     QString name = indexData->name(row);
     Index::fileinfo node = indexData->node(row);
     QString path = manpaths[node.path] + "/man" + node.id + "/" + name;
-    qDebug() << "PATH " << path;
 
     // if already loaded, select existing tab and exit...
     if(View::find(ui.tabs, name))
