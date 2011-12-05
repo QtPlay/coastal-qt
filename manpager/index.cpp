@@ -17,14 +17,10 @@
 
 #include "program.h"
 
-static unsigned rows = 0;
-static Index *table = NULL;
-static QStringList names, sections;
-static QList<Index::fileinfo> infos;
-
 Index::Index(QObject *parent) :
 QAbstractTableModel(parent)
 {
+    rows = 0;
 }
 
 int Index::rowCount(const QModelIndex& parent) const
@@ -71,14 +67,6 @@ QVariant Index::headerData(int section, Qt::Orientation orientation, int role) c
     }
 }
 
-void Index::set(QTableView *view)
-{
-    if(!table)
-        table = new Index(view);
-
-    view->setModel(table);
-}
-
 QString Index::name(int row)
 {
     return names[row] + "." + sections[row];
@@ -87,15 +75,6 @@ QString Index::name(int row)
 Index::fileinfo Index::node(int row)
 {
     return infos[row];
-}
-
-void Index::clear(QTableView *view)
-{
-    view->setModel(NULL);
-    rows = 0;
-    names.clear();
-    sections.clear();
-    infos.clear();
 }
 
 void Index::add(QDir& dir, char group, unsigned path)

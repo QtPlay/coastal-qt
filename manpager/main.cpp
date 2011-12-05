@@ -29,6 +29,8 @@ CoastalMain()
     ui.setupUi((QMainWindow *)this);
     status(tr("loading..."));
 
+    indexData = NULL;
+
     program_name = "Coastal Manpager";
     program_about = "Coastal Manual Page Viewer";
     setWindowIcon(QIcon(":/manpager.png"));
@@ -219,8 +221,8 @@ void Main::load(const QModelIndex& index)
     int row = index.row();
     View *view;
 
-    QString name = Index::name(row);
-    Index::fileinfo node = Index::node(row);
+    QString name = indexData->name(row);
+    Index::fileinfo node = indexData->node(row);
     QString path = manpaths[node.path] + "/man" + node.id + "/" + name;
 
     // if already loaded, select existing tab and exit...
@@ -276,7 +278,11 @@ void Main::reload(void)
             hidden[pos] = amap[pos]->isChecked();
     }
 
-    Index::clear(ui.indexView);
+    ui.indexView->setModel(NULL);
+    if(indexData)
+        delete indexData;
+
+    indexData = new Index(ui.indexView);
 
     for(int section = 0; section < 10; ++section) {
         update();
@@ -286,11 +292,11 @@ void Main::reload(void)
             if(!dir.exists())
                 continue;
             if(!hidden[section])
-                Index::add(dir, cmap[section], (unsigned)path);
+                indexData->add(dir, cmap[section], (unsigned)path);
         }
     }
 
-    Index::set(ui.indexView);
+    ui.indexView->setModel(indexData);
 
     columns();
     ui.indexView->setEnabled(true);

@@ -40,9 +40,52 @@
 #define COL_NAME    1
 #define COL_SECTION 0
 
+class Index : public QAbstractTableModel
+{
+    Q_OBJECT
+
+public:
+    typedef struct {
+        enum {NORMAL, GZIP} mode;
+        unsigned path;
+        char id;
+    }   fileinfo;
+
+private:
+    QStringList names, sections;
+    QList<Index::fileinfo> infos;
+    unsigned rows;
+
+protected:
+    virtual int rowCount(const QModelIndex& parent) const;
+    virtual int columnCount(const QModelIndex& parent) const;
+    virtual QVariant data(const QModelIndex &index, int role) const;
+    virtual QVariant headerData(int section, Qt::Orientation orientation, int role) const;
+
+public:
+    Index(QObject *parent = NULL);
+
+    QString name(int row);
+    fileinfo node(int row);
+    void add(QDir& dir, char group, unsigned path);
+};
+
+class View : public QTextEdit
+{
+Q_OBJECT
+
+public:
+    View(QTabWidget *tabs, QIODevice& source, QString& title);
+
+    static bool find(QTabWidget *tabs, QString& title);
+};
+
 class Main : public CoastalMain
 {
 Q_OBJECT
+
+private:
+    Index *indexData;
 
 public:
     QStringList manpaths;
@@ -67,38 +110,5 @@ public slots:
     void columns(void);
 };
 
-class Index : public QAbstractTableModel
-{
-    Q_OBJECT
-
-public:
-    typedef struct {
-        enum {NORMAL, GZIP} mode;
-        unsigned path;
-        char id;
-    }   fileinfo;
-
-    Index(QObject *parent = NULL);
-    int rowCount(const QModelIndex& parent) const;
-    int columnCount(const QModelIndex& parent) const;
-    QVariant data(const QModelIndex &index, int role) const;
-    QVariant headerData(int section, Qt::Orientation orientation, int role) const;
-
-    static QString name(int row);
-    static fileinfo node(int row);
-    static void clear(QTableView *view);
-    static void set(QTableView *view);
-    static void add(QDir& dir, char group, unsigned path);
-};
-
-class View : public QTextEdit
-{
-Q_OBJECT
-
-public:
-    View(QTabWidget *tabs, QIODevice& source, QString& title);
-
-    static bool find(QTabWidget *tabs, QString& title);
-};
 #endif
 
