@@ -107,6 +107,8 @@ signals:
     void resized(void);
 
 public slots:
+    void all(void);
+    void clear(void);
     void reload(void);
     void load(const QModelIndex& index);
     void close(int tab);

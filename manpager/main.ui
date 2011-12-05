@@ -189,8 +189,7 @@
      <string>Sections</string>
     </property>
     <addaction name="actionAll"/>
-    <addaction name="actionOnly"/>
-    <addaction name="actionBut"/>
+    <addaction name="actionClear"/>
     <addaction name="separator"/>
     <addaction name="actionSection1"/>
     <addaction name="actionSection2"/>
@@ -234,10 +233,10 @@
   </action>
   <action name="actionAll">
    <property name="checkable">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="checked">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="text">
     <string>&amp;All Sections</string>
@@ -251,12 +250,12 @@
     <string>All &amp;But Selected</string>
    </property>
   </action>
-  <action name="actionOnly">
+  <action name="actionClear">
    <property name="checkable">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="text">
-    <string>Selected &amp;Only</string>
+    <string>&amp;Clear</string>
    </property>
   </action>
   <action name="actionSection1">

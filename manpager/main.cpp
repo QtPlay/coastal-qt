@@ -89,19 +89,6 @@ CoastalMain()
     ui.actionIndex->setActionGroup(searchGroup);
     ui.actionKeywords->setActionGroup(searchGroup);
 
-    selectGroup = new QActionGroup(this);
-    ui.actionAll->setActionGroup(selectGroup);
-    ui.actionBut->setActionGroup(selectGroup);
-    ui.actionOnly->setActionGroup(selectGroup);
-
-    QString selection = settings.value("selection", "all").toString();
-    if(selection == "all")
-        ui.actionAll->setChecked(true);
-    else if(selection == "only")
-        ui.actionOnly->setChecked(true);
-    else if(selection == "but")
-        ui.actionBut->setChecked(true);
-
     ui.indexView->setEnabled(false);
     ui.indexView->setShowGrid(false);
     ui.indexView->setSortingEnabled(false);
@@ -114,9 +101,8 @@ CoastalMain()
     connect(ui.actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(ui.actionReload, SIGNAL(triggered()), this, SLOT(reload()));
 
-    connect(ui.actionAll, SIGNAL(triggered()), this, SLOT(reload()));
-    connect(ui.actionBut, SIGNAL(triggered()), this, SLOT(reload()));
-    connect(ui.actionOnly, SIGNAL(triggered()), this, SLOT(reload()));
+    connect(ui.actionAll, SIGNAL(triggered()), this, SLOT(all()));
+    connect(ui.actionClear, SIGNAL(triggered()), this, SLOT(clear()));
 
     for(unsigned pos = 0; pos < 10; ++pos)
         connect(amap[pos], SIGNAL(triggered()), this, SLOT(reload()));
@@ -166,13 +152,6 @@ Main::~Main()
     settings.setValue("l", ui.actionSectionl->isChecked());
     settings.setValue("n", ui.actionSectionn->isChecked());
     settings.endGroup();
-
-    if(ui.actionAll->isChecked())
-        settings.setValue("selection", "all");
-    else if(ui.actionOnly->isChecked())
-        settings.setValue("selection", "only");
-    else if(ui.actionBut->isChecked())
-        settings.setValue("selection", "but");
 }
 
 void Main::resizeEvent(QResizeEvent *e)
@@ -266,23 +245,29 @@ void Main::load(const QModelIndex& index)
     }
 }
 
+void Main::clear(void)
+{
+    for(unsigned pos = 0; pos < 10; ++pos)
+        amap[pos]->setChecked(false);
+
+    reload();
+}
+
+void Main::all(void)
+{
+    for(unsigned pos = 0; pos < 10; ++pos)
+        amap[pos]->setChecked(true);
+
+    reload();
+}
+
 void Main::reload(void)
 {
     ui.searchBox->setEnabled(false);
     status(tr("loading..."));
 
-    if(ui.actionAll->isChecked()) {
-        for(unsigned pos = 0; pos < 10; ++pos)
-            hidden[pos] = false;
-    }
-    else if(ui.actionOnly->isChecked()) {
-        for(unsigned pos = 0; pos < 10; ++pos)
-            hidden[pos] = !amap[pos]->isChecked();
-    }
-    else if(ui.actionBut->isChecked()) {
-        for(unsigned pos = 0; pos < 10; ++pos)
-            hidden[pos] = amap[pos]->isChecked();
-    }
+    for(unsigned pos = 0; pos < 10; ++pos)
+        hidden[pos] = !amap[pos]->isChecked();
 
     ui.indexView->setModel(NULL);
     if(indexData)
