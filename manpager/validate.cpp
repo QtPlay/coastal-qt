@@ -49,7 +49,7 @@ QValidator::State ValidateIndex::validate(QString& input, int& pos) const
     return Acceptable;
 
 invalid:
-    Main::error(tr("Invalid input"));
+    Main::error(tr("Invalid input ") + QChar('\"') + input + QChar('\"'));
     return Invalid;
 }
 

@@ -74,4 +74,5 @@ if(BUILD_UNRELEASED)
     add_subdirectory(search)
 endif()
 
+add_subdirectory(system)
 add_subdirectory(translations)
