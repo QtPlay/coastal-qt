@@ -86,6 +86,7 @@ CoastalMain()
     ui.actionAbout->setIcon(QIcon::fromTheme("help-about"));
     ui.actionAll->setIcon(QIcon::fromTheme("stock_select-all"));
     ui.actionClear->setIcon(QIcon::fromTheme("editclear"));
+    ui.actionSupport->setIcon(QIcon(":/github.png"));
 
     searchGroup = new QActionGroup(this);
     ui.actionIndex->setActionGroup(searchGroup);

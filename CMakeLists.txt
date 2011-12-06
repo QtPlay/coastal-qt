@@ -16,6 +16,8 @@ INCLUDE(CheckIncludeFiles)
 set (VERSION 0.1.0)
 set (SOVERSION 0)
 
+set(BUILD_UNRELEASED False CACHE BOOL "Build unreleased or unready packages?")
+
 if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug CACHE STRING "Choose the type of build, options are: None Debug Release RelWithDebInfo MinSizeRel." FORCE)
 endif ()
@@ -67,5 +69,9 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 add_subdirectory(common)
 add_subdirectory(manpager)
-add_subdirectory(search)
+
+if(BUILD_UNRELEASED)
+    add_subdirectory(search)
+endif()
+
 add_subdirectory(translations)

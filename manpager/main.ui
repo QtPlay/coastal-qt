@@ -112,27 +112,6 @@
             <attribute name="verticalHeaderStretchLastSection">
              <bool>false</bool>
             </attribute>
-            <attribute name="verticalHeaderVisible">
-             <bool>false</bool>
-            </attribute>
-            <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
-             <bool>true</bool>
-            </attribute>
-            <attribute name="verticalHeaderDefaultSectionSize">
-             <number>16</number>
-            </attribute>
-            <attribute name="horizontalHeaderStretchLastSection">
-             <bool>false</bool>
-            </attribute>
-            <attribute name="verticalHeaderCascadingSectionResizes">
-             <bool>true</bool>
-            </attribute>
-            <attribute name="verticalHeaderShowSortIndicator" stdset="0">
-             <bool>false</bool>
-            </attribute>
-            <attribute name="verticalHeaderStretchLastSection">
-             <bool>false</bool>
-            </attribute>
            </widget>
           </item>
          </layout>
@@ -149,10 +128,16 @@
      <x>0</x>
      <y>0</y>
      <width>760</width>
-     <height>23</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
+    <property name="toolTip">
+     <string/>
+    </property>
+    <property name="whatsThis">
+     <string/>
+    </property>
     <property name="title">
      <string>&amp;File</string>
     </property>
@@ -160,6 +145,12 @@
     <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuSections">
+    <property name="toolTip">
+     <string>Select sections to load</string>
+    </property>
+    <property name="whatsThis">
+     <string/>
+    </property>
     <property name="title">
      <string>Sections</string>
     </property>
@@ -178,15 +169,24 @@
     <addaction name="actionSectionn"/>
    </widget>
    <widget class="QMenu" name="menuOptions">
+    <property name="toolTip">
+     <string>Application Options</string>
+    </property>
+    <property name="whatsThis">
+     <string/>
+    </property>
     <property name="title">
      <string>Options</string>
     </property>
-    <addaction name="actionIndex"/>
-    <addaction name="actionKeywords"/>
-    <addaction name="separator"/>
     <addaction name="actionPaths"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
+    <property name="toolTip">
+     <string>Help and support</string>
+    </property>
+    <property name="whatsThis">
+     <string/>
+    </property>
     <property name="title">
      <string>&amp;Help</string>
     </property>
@@ -203,6 +203,12 @@
    <property name="text">
     <string>&amp;Quit</string>
    </property>
+   <property name="toolTip">
+    <string>Quit</string>
+   </property>
+   <property name="whatsThis">
+    <string>Exit Application</string>
+   </property>
    <property name="iconVisibleInMenu">
     <bool>true</bool>
    </property>
@@ -216,6 +222,12 @@
    </property>
    <property name="text">
     <string>&amp;All Sections</string>
+   </property>
+   <property name="toolTip">
+    <string>All Sections</string>
+   </property>
+   <property name="whatsThis">
+    <string>Selects all man page sections</string>
    </property>
    <property name="iconVisibleInMenu">
     <bool>true</bool>
@@ -236,6 +248,12 @@
    <property name="text">
     <string>&amp;Clear</string>
    </property>
+   <property name="toolTip">
+    <string>Clear</string>
+   </property>
+   <property name="whatsThis">
+    <string>Clears all man section selections</string>
+   </property>
    <property name="iconVisibleInMenu">
     <bool>true</bool>
    </property>
@@ -250,6 +268,15 @@
    <property name="text">
     <string>&amp;1: User Commands</string>
    </property>
+   <property name="iconText">
+    <string>&amp;1: User Commands</string>
+   </property>
+   <property name="toolTip">
+    <string>1: User Commands</string>
+   </property>
+   <property name="whatsThis">
+    <string>Select user command pages</string>
+   </property>
   </action>
   <action name="actionSection2">
    <property name="checkable">
@@ -260,6 +287,12 @@
    </property>
    <property name="text">
     <string>&amp;2: System Calls</string>
+   </property>
+   <property name="toolTip">
+    <string>2: System Calls</string>
+   </property>
+   <property name="whatsThis">
+    <string>Select system call pages</string>
    </property>
   </action>
   <action name="actionSection3">
@@ -272,6 +305,15 @@
    <property name="text">
     <string>&amp;3: Subroutines</string>
    </property>
+   <property name="iconText">
+    <string>3: Subroutines</string>
+   </property>
+   <property name="toolTip">
+    <string>3: Subroutines</string>
+   </property>
+   <property name="whatsThis">
+    <string>Select subroutine pages</string>
+   </property>
   </action>
   <action name="actionSection4">
    <property name="checkable">
@@ -279,6 +321,12 @@
    </property>
    <property name="text">
     <string>&amp;4: Devices</string>
+   </property>
+   <property name="toolTip">
+    <string>4: Devices</string>
+   </property>
+   <property name="whatsThis">
+    <string>Select device pages</string>
    </property>
   </action>
   <action name="actionSection5">
@@ -288,6 +336,12 @@
    <property name="text">
     <string>&amp;5: File Formats</string>
    </property>
+   <property name="toolTip">
+    <string>5: File Formats</string>
+   </property>
+   <property name="whatsThis">
+    <string>Select file format pages</string>
+   </property>
   </action>
   <action name="actionSection6">
    <property name="checkable">
@@ -295,6 +349,12 @@
    </property>
    <property name="text">
     <string>&amp;6: Games</string>
+   </property>
+   <property name="toolTip">
+    <string>6: Games</string>
+   </property>
+   <property name="whatsThis">
+    <string>Select games pages</string>
    </property>
   </action>
   <action name="actionSection7">
@@ -304,6 +364,12 @@
    <property name="text">
     <string>&amp;7: Miscellaneous</string>
    </property>
+   <property name="toolTip">
+    <string>7: Miscellaneous</string>
+   </property>
+   <property name="whatsThis">
+    <string>Select miscellaneous pages</string>
+   </property>
   </action>
   <action name="actionSection8">
    <property name="checkable">
@@ -311,6 +377,12 @@
    </property>
    <property name="text">
     <string>&amp;8: Administration</string>
+   </property>
+   <property name="toolTip">
+    <string>8: Administration</string>
+   </property>
+   <property name="whatsThis">
+    <string>Select administration pages</string>
    </property>
   </action>
   <action name="actionSectionl">
@@ -320,10 +392,22 @@
    <property name="text">
     <string>&amp;l: Local</string>
    </property>
+   <property name="toolTip">
+    <string>l: Local</string>
+   </property>
+   <property name="whatsThis">
+    <string>Select locally installed pages</string>
+   </property>
   </action>
   <action name="actionSectionn">
    <property name="text">
     <string>&amp;n: New</string>
+   </property>
+   <property name="toolTip">
+    <string>n: New</string>
+   </property>
+   <property name="whatsThis">
+    <string>Select new pages</string>
    </property>
   </action>
   <action name="actionIndex">
@@ -349,6 +433,12 @@
    <property name="text">
     <string>Man &amp;Paths</string>
    </property>
+   <property name="toolTip">
+    <string>Man Paths</string>
+   </property>
+   <property name="whatsThis">
+    <string>Show and edit search paths</string>
+   </property>
   </action>
   <action name="action_Mode">
    <property name="text">
@@ -362,6 +452,9 @@
    <property name="text">
     <string>&amp;Reload</string>
    </property>
+   <property name="whatsThis">
+    <string>Reload manual sections</string>
+   </property>
    <property name="iconVisibleInMenu">
     <bool>true</bool>
    </property>
@@ -370,6 +463,12 @@
    <property name="text">
     <string>About</string>
    </property>
+   <property name="toolTip">
+    <string>About</string>
+   </property>
+   <property name="whatsThis">
+    <string>Copyright and author information</string>
+   </property>
    <property name="iconVisibleInMenu">
     <bool>true</bool>
    </property>
@@ -377,6 +476,12 @@
   <action name="actionSupport">
    <property name="text">
     <string>Support</string>
+   </property>
+   <property name="toolTip">
+    <string>Support</string>
+   </property>
+   <property name="whatsThis">
+    <string>Access to support and source code</string>
    </property>
   </action>
  </widget>
