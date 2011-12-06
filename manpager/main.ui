@@ -23,7 +23,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>760</width>
+    <width>540</width>
     <height>540</height>
    </rect>
   </property>
@@ -49,25 +49,6 @@
           </property>
          </widget>
         </item>
-        <item>
-         <widget class="QToolButton" name="searchButton">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>&amp;Search</string>
-          </property>
-          <property name="toolButtonStyle">
-           <enum>Qt::ToolButtonIconOnly</enum>
-          </property>
-          <property name="arrowType">
-           <enum>Qt::NoArrow</enum>
-          </property>
-         </widget>
-        </item>
        </layout>
       </item>
       <item>
@@ -83,7 +64,7 @@
           <item row="0" column="0">
            <widget class="QTableView" name="indexView">
             <property name="frameShape">
-             <enum>QFrame::NoFrame</enum>
+             <enum>QFrame::Box</enum>
             </property>
             <property name="dragDropOverwriteMode">
              <bool>false</bool>

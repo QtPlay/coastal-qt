@@ -244,6 +244,7 @@ void Main::search(const QString& entry)
     }
 
     ui.indexView->setModel(indexData);
+    columns();
 
     if(select)
         ui.indexView->selectRow(0);
