@@ -62,7 +62,7 @@ QAbstractTableModel(parent)
                 sections << entry.mid(++ext);
                 infos << info;
 
-                byname.insert(entry, rows);
+                byname[entry] = rows;
                 ++rows;
             }
         }
@@ -75,6 +75,8 @@ QAbstractTableModel(parent)
 
     foreach(unsigned value, byname)
         map[last++] = value;
+
+    rows = last;
 }
 
 Index::~Index()
