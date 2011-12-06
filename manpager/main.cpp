@@ -113,6 +113,10 @@ CoastalMain()
     for(unsigned pos = 0; pos < 10; ++pos)
         connect(amap[pos], SIGNAL(triggered()), this, SLOT(reload()));
 
+    // input validation
+
+    ui.searchBox->setValidator(&index_validator);
+
     // forms, tabs, and view signals
 
     connect(ui.searchBox, SIGNAL(editTextChanged(const QString&)), this, SLOT(search(const QString&)));

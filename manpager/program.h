@@ -36,9 +36,18 @@
 #include <QHeaderView>
 #include <QAbstractTableModel>
 #include <QSortFilterProxyModel>
+#include <QValidator>
 
 #define COL_NAME    1
 #define COL_SECTION 0
+
+class ValidateIndex : public QValidator
+{
+public:
+    ValidateIndex();
+
+    virtual State validate(QString& input, int& pos) const;
+};
 
 class Index : public QAbstractTableModel
 {
@@ -91,6 +100,7 @@ Q_OBJECT
 
 private:
     Index *indexData;
+    ValidateIndex index_validator;
 
     void load(int row);
 

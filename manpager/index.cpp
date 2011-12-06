@@ -183,6 +183,7 @@ int Index::search(const QString& name)
             pos = first;
         if(pos >= last)
             pos = last - 1;
+
         check = names[map[pos]] + "." + sections[map[pos]];
     }
 
@@ -191,8 +192,8 @@ int Index::search(const QString& name)
         check = names[map[pos]] + "." + sections[map[pos]];
     }
 
-    while(name > check.left(len) && pos < last - 1) {
-        --pos;
+    while(name > check.left(len) && pos < (last - 1)) {
+        ++pos;
         check = names[map[pos]] + "." + sections[map[pos]];
     }
 
