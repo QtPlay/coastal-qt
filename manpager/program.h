@@ -63,6 +63,7 @@ public:
 private:
     QStringList names, sections;
     QList<Index::fileinfo> infos;
+    bool triggered;
     unsigned rows, first, last;
     unsigned *map;
 

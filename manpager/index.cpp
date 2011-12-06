@@ -155,8 +155,16 @@ void Index::select(int pos, const QString& name)
 
     // signal input combobox if single entry found
 
-    if(last == first + 1)
-        emit selected(names[map[first]] + "." + sections[map[first]]);
+    if(last != first + 1) {
+        triggered = false;
+        return;
+    }
+
+    if(triggered)
+        return;
+
+    emit selected(names[map[first]] + "." + sections[map[first]]);
+    triggered = true;
 }
 
 int Index::search(const QString& name)
