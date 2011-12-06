@@ -116,8 +116,9 @@ CoastalMain()
     // forms, tabs, and view signals
 
     connect(ui.searchBox, SIGNAL(editTextChanged(const QString&)), this, SLOT(search(const QString&)));
+    connect(ui.searchBox, SIGNAL(activated(const QString&)), this, SLOT(load(const QString&)));
     connect(ui.tabs, SIGNAL(tabCloseRequested(int)), this, SLOT(close(int)));
-    connect(ui.indexView, SIGNAL(clicked(const QModelIndex&)), this, SLOT(load(const QModelIndex&)));
+    connect(ui.indexView, SIGNAL(activated(const QModelIndex&)), this, SLOT(load(const QModelIndex&)));
 
     // application signals
 
@@ -250,9 +251,32 @@ void Main::search(const QString& entry)
         ui.indexView->selectRow(0);
 }
 
+void Main::load(const QString& text)
+{
+    int ext = text.lastIndexOf('.');
+
+    if(ext < 2) {
+        error(tr("specify section in input"));
+        return;
+    }
+
+    int pos = indexData->search(text);
+
+    if (pos < 0) {
+        error(tr("not found ") + QChar('\"') + text + QChar('\"'));
+        return;
+    }
+
+    load(pos);
+}
+
 void Main::load(const QModelIndex& index)
 {
-    int row = index.row();
+    load(index.row());
+}
+
+void Main::load(int row)
+{
     View *view;
 
     QString name = indexData->name(row);
@@ -290,6 +314,7 @@ void Main::load(const QModelIndex& index)
         view = new View(ui.tabs, file, name);
         file.close();
     }
+    status(tr("loaded ") + name);
 }
 
 void Main::clear(void)

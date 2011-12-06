@@ -154,16 +154,64 @@ void Index::select(int pos, const QString& name)
         ++last;
 }
 
+int Index::search(const QString& name)
+{
+    unsigned diff = (last - first) / 2;
+    unsigned pos = first + diff;
+    QString check = names[map[pos]] + "." + sections[map[pos]];
+    unsigned len = name.length();
+
+    while(diff > 0) {
+        diff /= 2;
+
+        if(name == check.left(len))
+            return pos - first;
+
+        if(name < check) {
+            if(diff)
+                pos -= diff;
+            else
+                --pos;
+        }
+        else {
+            if(diff)
+                pos += diff;
+            else
+                ++pos;
+        }
+        if(pos < first)
+            pos = first;
+        if(pos >= last)
+            pos = last - 1;
+        check = names[map[pos]] + "." + sections[map[pos]];
+    }
+
+    while(name < check.left(len) && pos > first) {
+        --pos;
+        check = names[map[pos]] + "." + sections[map[pos]];
+    }
+
+    while(name > check.left(len) && pos < last - 1) {
+        --pos;
+        check = names[map[pos]] + "." + sections[map[pos]];
+    }
+
+    if(name != check.left(len))
+        return -1;
+
+    return pos - first;
+}
+
+
 int Index::find(const QString& name)
 {
     unsigned diff = rows / 2;
     unsigned pos = diff;
     unsigned len = name.length();
-    QString check;
+    QString check = names[map[pos]].left(len);
 
     while(diff > 0) {
         diff /= 2;
-        check = names[map[pos]].left(len);
 
         if(name == check)
             break;
@@ -180,7 +228,21 @@ int Index::find(const QString& name)
             else
                 ++pos;
         }
+
+        if(pos < 0)
+            pos = 0;
+
+        if(pos >= rows)
+            pos = rows - 1;
+
+        check = names[map[pos]].left(len);
     }
+
+    while(name < check && pos > 0)
+        check = names[map[--pos]].left(len);
+
+    while(name > check && pos < rows - 1)
+        check = names[map[++pos]].left(len);
 
     if(name != names[map[pos]].left(len))
         return -1;

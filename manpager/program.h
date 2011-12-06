@@ -70,6 +70,7 @@ public:
     QString name(int row);
     fileinfo node(int row);
 
+    int search(const QString& name);
     int find(const QString& name);
     void select(int pos, const QString& name);
 };
@@ -90,6 +91,8 @@ Q_OBJECT
 
 private:
     Index *indexData;
+
+    void load(int row);
 
 public:
     static QStringList manpaths;
@@ -114,6 +117,7 @@ public slots:
     void clear(void);
     void reload(void);
     void load(const QModelIndex& index);
+    void load(const QString& text);
     void close(int tab);
     void columns(void);
     void search(const QString& text);
