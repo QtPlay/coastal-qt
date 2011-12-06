@@ -32,21 +32,25 @@ QValidator::State ValidateIndex::validate(QString& input, int& pos) const
     QChar last = input[pos - 1];
 
     if(last != QChar(':') && last != QChar('.') && last != QChar('_') && last != QChar(' ') && !last.isLetterOrNumber())
-        return Invalid;
+        goto invalid;
 
     if(input.lastIndexOf('.') == -1)
         return Intermediate;
 
     if(input[0] == '.')
-        return Invalid;
+        goto invalid;
 
     if(input.lastIndexOf('.') != input.indexOf('.'))
-        return Invalid;
+        goto invalid;
 
     if(input[input.length() - 1] == '.')
         return Intermediate;
 
     return Acceptable;
+
+invalid:
+    Main::error(tr("Invalid input"));
+    return Invalid;
 }
 
 

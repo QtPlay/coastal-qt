@@ -347,11 +347,14 @@ void Main::reload(void)
         hidden[pos] = !amap[pos]->isChecked();
 
     ui.indexView->setModel(NULL);
-    if(indexData)
+    if(indexData) {
+        disconnect(indexData, SIGNAL(selected(const QString&)), ui.searchBox, SLOT(setEditText(const QString&)));
         delete indexData;
+    }
 
     indexData = new Index(ui.indexView);
     ui.indexView->setModel(indexData);
+    connect(indexData, SIGNAL(selected(const QString&)), ui.searchBox, SLOT(setEditText(const QString&)));
 
     columns();
     ui.indexView->setEnabled(true);

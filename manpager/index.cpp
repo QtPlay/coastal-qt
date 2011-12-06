@@ -152,6 +152,11 @@ void Index::select(int pos, const QString& name)
     first = last = pos;
     while(last < rows && name == names[map[last]].left(len))
         ++last;
+
+    // signal input combobox if single entry found
+
+    if(last == first + 1)
+        emit selected(names[map[first]] + "." + sections[map[first]]);
 }
 
 int Index::search(const QString& name)

@@ -82,6 +82,9 @@ public:
     int search(const QString& name);
     int find(const QString& name);
     void select(int pos, const QString& name);
+
+signals:
+    void selected(const QString& text);
 };
 
 class View : public QTextEdit
