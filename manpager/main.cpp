@@ -212,10 +212,16 @@ void Main::close(int tab)
         ui.tabs->setTabsClosable(false);
 }
 
-void Main::search(const QString& text)
+void Main::search(const QString& entry)
 {
     int pos;
     bool select = false;
+    QString text = entry;
+
+    int ext = entry.lastIndexOf('.');
+
+    if(ext > 2)
+        text = entry.left(ext);
 
     pos = indexData->find(text);
 
