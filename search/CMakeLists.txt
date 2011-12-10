@@ -31,6 +31,8 @@ if(WIN32)
     set(qt_qrc ${qt_qrc} application.rc)
 endif()
 
+include(${CMAKE_CURRENT_BINARY_DIR})
+
 add_executable(${PROGNAME} WIN32 MACOSX_BUNDLE ${qt_src} ${qt_inc} ${qt_moc} ${qt_qrc} ${qt_ui} ${qm_out})
 target_link_libraries(${PROGNAME} coastal ${QT_LIBRARIES})
 add_dependencies(${PROGNAME} coastal)

@@ -16,8 +16,8 @@ if(UNIX AND NOT APPLE)
 
     add_custom_command(OUTPUT ${MANPAGER_DESKTOP}
         COMMAND touch ${MANPAGER_DESKTOP}
-        COMMAND sh manpager-desktop.sh ${CMAKE_INSTALL_PREFIX} >${MANPAGER_DESKTOP}
-        DEPENDS manpager-desktop.sh
+        COMMAND sh ${CMAKE_CURRENT_SOURCE_DIR}/manpager-desktop.sh ${CMAKE_INSTALL_PREFIX} >${MANPAGER_DESKTOP}
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/manpager-desktop.sh
         COMMENT "Generating desktop entry file"
     )
 
