@@ -26,6 +26,6 @@ if(UNIX AND NOT APPLE)
     )
 
     install(FILES ${ICON_FILES} DESTINATION share/icons)
-    install(FILES ${DESKTOP_FILES} DESTINATION share/applications)
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILES} DESTINATION share/applications)
 endif()
 
