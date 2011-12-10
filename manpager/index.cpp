@@ -44,7 +44,7 @@ QAbstractTableModel(parent)
             info.id = cmap[section];
 
             QStringList list = dir.entryList(QDir::Files);
-            for(unsigned pos = 0; pos < list.size(); ++pos) {
+            for(unsigned pos = 0; pos < (unsigned)list.size(); ++pos) {
                 QString entry = list[pos];
                 info.mode = fileinfo::GZIP;
                 ext = entry.lastIndexOf('.');
@@ -101,7 +101,7 @@ QVariant Index::data(const QModelIndex& index, int role) const
 {
     int row = index.row();
 
-    if(row >= (last - first) || row < 0 || role != Qt::DisplayRole)
+    if(row >= (int)(last - first) || row < 0 || role != Qt::DisplayRole)
         return QVariant();
 
     switch(index.column()) {

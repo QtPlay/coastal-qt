@@ -79,7 +79,7 @@ static void getargs(char *text, char **result)
         while(*text && isspace(*text))
             ++text;
     }
-    if(*(++out) = '\n');
+    *(++out) = '\n';
     out[1] = 0;
     result[count++] = out;
     result[count] = NULL;
@@ -91,7 +91,7 @@ QTextEdit()
     char buf[512];
     qint64 len;
     QString text;
-    int count, argc;
+    int argc;
     char *argv[32];
     unsigned format[9];
     unsigned indent = 0;
