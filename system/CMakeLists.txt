@@ -9,23 +9,16 @@
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 #
 if(UNIX AND NOT APPLE)
-    set(MANPAGER_DESKTOP coastal-manpager.desktop)
-
     set(ICON_FILES ../icons/coastal-manpager.png)
-    set(DESKTOP_FILES ${MANPAGER_DESKTOP})
+    set(DESKTOP_FILES coastal-manpager.desktop)
 
-    add_custom_command(OUTPUT ${MANPAGER_DESKTOP}
-        COMMAND touch ${MANPAGER_DESKTOP}
-        COMMAND sh ${CMAKE_CURRENT_SOURCE_DIR}/manpager-desktop.sh ${CMAKE_INSTALL_PREFIX} >${MANPAGER_DESKTOP}
-        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/manpager-desktop.sh
-        COMMENT "Generating desktop entry file"
-    )
-
-    add_custom_target(BUILD_DESKTOP_FILES ALL
-        DEPENDS ${DESKTOP_FILES}
-    )
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/libcoastal.pc.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/libcoastal.pc)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/coastal-manpager.desktop.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/coastal-manpager.desktop)
 
     install(FILES ${ICON_FILES} DESTINATION share/icons)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILES} DESTINATION share/applications)
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libcoastal.pc DESTINATION ${INSTALL_LIBDIR}/pkgconfig)
 endif()
 
