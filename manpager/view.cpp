@@ -176,6 +176,12 @@ QTextEdit()
             format[0] = ITALIC;
             format[1] = BOLD;
         }
+        else if(!strcmp(buf, ".ri"))
+            format[1] = ITALIC;
+        else if(!strcmp(buf, ".rb"))
+            format[1] = BOLD;
+        else if(!strcmp(buf, ".ru"))
+            format[1] = UNDERLINE;
         else if(!strcmp(buf, ".bi")) {
             format[0] = BOLD;
             format[1] = ITALIC;
