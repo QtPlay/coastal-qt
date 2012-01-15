@@ -13,6 +13,7 @@ cmake_minimum_required(VERSION 2.6)
 PROJECT("Coastal Qt")
 INCLUDE(FindPkgConfig)
 INCLUDE(CheckIncludeFiles)
+set (PACKAGE coastal-qt)
 set (VERSION 0.1.1)
 set (SOVERSION 0)
 

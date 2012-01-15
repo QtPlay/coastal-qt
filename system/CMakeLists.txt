@@ -19,6 +19,6 @@ if(UNIX AND NOT APPLE)
 
     install(FILES ${ICON_FILES} DESTINATION share/icons)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILES} DESTINATION share/applications)
-    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libcoastal.pc DESTINATION ${INSTALL_LIBDIR}/pkgconfig)
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libcoastal.pc DESTINATION lib/pkgconfig)
 endif()
 
