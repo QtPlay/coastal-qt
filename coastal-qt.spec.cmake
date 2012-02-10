@@ -17,7 +17,7 @@ URL: http://www.gnutelephony.org
 Group: Applications/System
 Source: http://www.gnutelephony.org/dist/tarballs/coastal-qt-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
-BuildRequires: qt4-devel
+BuildRequires: qt4-devel cmake
 Requires: %{name}-runtime = %{version}-%{release}
 
 %package runtime
@@ -31,7 +31,8 @@ Group: Development/Libraries
 Summary: Headers for building coastal applications
 
 %description
-Generic QT desktop applications.  Initially only includes coastal-manpager.
+Generic QT desktop system applications.  This initially only includes
+coastal-manpager.
 
 %description devel
 Header files for building applications with coastal library.  Used in
@@ -68,7 +69,7 @@ cd build
 %doc README COPYING TODO NOTES ChangeLog
 %{_bindir}/coastal-manpager
 %{_datadir}/applications/coastal-manpager.desktop
-%{_datadir}/pixmaps/coastal-manpager.png
+%{_datadir}/icons/coastal-manpager.png
 
 %files runtime
 %defattr(-,root,root,-)
@@ -78,6 +79,7 @@ cd build
 %defattr(-,root,root,-)
 %{_libdir}/*.so
 %{_includedir}/coastal.h
+%{_libdir}/pkgconfig/*.pc
 
 %post runtime
 /sbin/ldconfig
