@@ -14,7 +14,7 @@ PROJECT("Coastal Qt")
 INCLUDE(FindPkgConfig)
 INCLUDE(CheckIncludeFiles)
 set (PACKAGE coastal-qt)
-set (VERSION 0.1.1)
+set (VERSION 0.1.2)
 set (SOVERSION 0)
 
 set (COASTAL_VERSION ${VERSION})
@@ -97,6 +97,7 @@ if(CMAKE_GENERATOR MATCHES "Unix Makefiles")
     add_custom_target(dist
         DEPENDS cleandist
         WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+        COMMAND git commit -uno -qam "prep for release ${VERSION}"
         COMMAND git archive --format tar --output="${CMAKE_CURRENT_BINARY_DIR}/${PACKAGE}-${VERSION}.tar" --prefix="${PACKAGE}-${VERSION}/" HEAD
         COMMAND gzip "${CMAKE_CURRENT_BINARY_DIR}/${PACKAGE}-${VERSION}.tar"
     )
