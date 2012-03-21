@@ -5,6 +5,7 @@
 #include <QGraphicsPixmapItem>
 #include <QDesktopServices>
 #include <QUrl>
+#include <QProcess>
 #include <QDebug>
 
 class CoastalAbout : public QDialog
@@ -36,4 +37,15 @@ public slots:
     void about(void);
     void support(void);
 };
+
+class Coastal
+{
+public:
+    static bool env(const char *id, char *buffer, size_t size);
+
+    static void browser(const char *url);
+
+    static QProcess *sudo(const char **args);
+};
+
 
