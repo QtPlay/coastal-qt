@@ -19,6 +19,10 @@
 #include <coastal.h>
 #include <ui_about.h>
 
+#ifndef WIN32
+#include <sys/wait.h>
+#endif
+
 bool Coastal::env(const char *id, char *buffer, size_t size)
 {
     buffer[0] = 0;
@@ -35,9 +39,41 @@ bool Coastal::env(const char *id, char *buffer, size_t size)
 #endif
 }
 
-void Coastal::browser(const char *url)
+bool Coastal::browser(const char *url)
 {
-    QDesktopServices::openUrl(QUrl(url));
+    QUrl web;
+
+    if(!web.isValid() || web.isRelative())
+        return false;
+
+    if(QDesktopServices::openUrl(web))
+        return true;
+
+#ifndef WIN32
+    static const char *open[] = {"xdg-open", "exo-open", "gnome-open", "kde-open", NULL};
+    unsigned index = 0;
+    const char *cp;
+    char *argv[3];
+    int status;
+
+    while(NULL != (cp = open[index++])) {
+        pid_t pid = fork();
+        if(pid) {
+            waitpid(pid, &status, 0);
+            if(WIFEXITED(status) && !WEXITSTATUS(status))
+                return true;
+            continue;
+        }
+        argv[0] = (char *)cp;
+        argv[1] = (char *)url;
+        argv[2] = NULL;
+        execvp(*argv, argv);
+        exit(-1);
+    }
+
+#endif
+
+    return false;
 }
 
 QProcess *Coastal::sudo(const char **argv)
@@ -48,8 +84,13 @@ QProcess *Coastal::sudo(const char **argv)
 #ifdef WIN32
     cmd = *(argv++);
 #else
-    if(geteuid() != 0)
-        cmd = "pkexec";
+    if(geteuid() != 0) {
+        char buf[128];
+        if(env("COASTAL_SUDO", buf, sizeof(buf)))
+            cmd = buf;
+        else
+            cmd = "pkexec";
+    }
     else
         cmd = *(argv++);
 #endif

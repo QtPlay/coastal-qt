@@ -31,7 +31,7 @@ QMainWindow(NULL)
 
 void CoastalMain::support(void)
 {
-    QDesktopServices::openUrl(QUrl(url_support));
+    Coastal::browser(url_support);
 }
 
 void CoastalMain::about(void)
