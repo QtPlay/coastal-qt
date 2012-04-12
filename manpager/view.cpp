@@ -24,13 +24,6 @@
 #define ITALIC      0x02
 #define UNDERLINE   0x04
 
-static char *skip(char *text)
-{
-    while(*text && !isspace(*text))
-        ++text;
-    return text;
-}
-
 static void getargs(char *text, char **result)
 {
     unsigned count = 0;
