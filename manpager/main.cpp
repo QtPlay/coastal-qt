@@ -281,8 +281,6 @@ void Main::load(const QModelIndex& index)
 
 void Main::load(int row)
 {
-    View *view;
-
     QString name = indexData->name(row);
     Index::fileinfo node = indexData->node(row);
     QString path = manpaths[node.path] + "/man" + node.id + "/" + name;
@@ -306,7 +304,7 @@ void Main::load(int row)
             return;
         }
         gunzip.waitForReadyRead();
-        view = new View(ui.tabs, gunzip, name);
+        new View(ui.tabs, gunzip, name);
         gunzip.waitForFinished();
     }
     else {
@@ -315,7 +313,7 @@ void Main::load(int row)
             error(tr("failed to load ") + name);
             return;
         }
-        view = new View(ui.tabs, file, name);
+        new View(ui.tabs, file, name);
         file.close();
     }
     status(tr("loaded ") + name);
