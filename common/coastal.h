@@ -44,8 +44,6 @@ public:
     static bool env(const char *id, char *buffer, size_t size);
 
     static bool browser(const char *url);
-
-    static QProcess *sudo(const char **args);
 };
 
 

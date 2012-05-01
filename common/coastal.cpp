@@ -76,29 +76,3 @@ bool Coastal::browser(const char *url)
     return false;
 }
 
-QProcess *Coastal::sudo(const char **argv)
-{
-    QStringList args;
-    const char *cmd;
-
-#ifdef WIN32
-    cmd = *(argv++);
-#else
-    if(geteuid() != 0) {
-        char buf[128];
-        if(env("COASTAL_SUDO", buf, sizeof(buf)))
-            cmd = buf;
-        else
-            cmd = "pkexec";
-    }
-    else
-        cmd = *(argv++);
-#endif
-
-    while(argv && *argv)
-        args << *(argv++);
-
-    QProcess *p = new QProcess();
-    p->start(cmd, args);
-    return p;
-}
