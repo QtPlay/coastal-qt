@@ -42,12 +42,6 @@ CoastalMain()
     setWindowIcon(QIcon(":/search.png"));
     setWindowTitle(program_name);
 
-    map[0] = ui.documents;
-    map[1] = ui.applications;
-    map[2] = ui.audioFiles;
-    map[3] = ui.imageFiles;
-    map[4] = ui.videoFiles;
-
     if(prefix)
         QDir::setCurrent(prefix);
 
@@ -74,46 +68,8 @@ CoastalMain()
     ui.actionClear->setIcon(QIcon::fromTheme("editclear"));
     ui.actionAbout->setIcon(QIcon::fromTheme("help-about"));
 
-    ui.applications->setIcon(QIcon::fromTheme("application-x-executable"));
-    ui.documents->setIcon(QIcon::fromTheme("text-x-generic"));
-    ui.audioFiles->setIcon(QIcon::fromTheme("audio-x-generic"));
-    ui.imageFiles->setIcon(QIcon::fromTheme("image-x-generic"));
-    ui.videoFiles->setIcon(QIcon::fromTheme("video-x-generic"));
-
-    ui.actionApplications->setIcon(QIcon::fromTheme("application-x-executable"));
-    ui.actionDocuments->setIcon(QIcon::fromTheme("text-x-generic"));
-    ui.actionAudioFiles->setIcon(QIcon::fromTheme("audio-x-generic"));
-    ui.actionImageFiles->setIcon(QIcon::fromTheme("image-x-generic"));
-    ui.actionVideoFiles->setIcon(QIcon::fromTheme("video-x-generic"));
-
     connect(ui.actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(ui.actionAbout, SIGNAL(triggered()), this, SLOT(about()));
-
-    connect(ui.documents, SIGNAL(pressed()), this, SLOT(docs()));
-    connect(ui.actionDocuments, SIGNAL(triggered()), this, SLOT(docs()));
-    connect(ui.actionDocuments, SIGNAL(triggered()),
-        ui.documents, SLOT(toggle()));
-
-    connect(ui.applications, SIGNAL(pressed()), this, SLOT(apps()));
-    connect(ui.actionApplications, SIGNAL(triggered()), this, SLOT(apps()));
-    connect(ui.actionApplications, SIGNAL(triggered()),
-        ui.applications, SLOT(toggle()));
-
-    connect(ui.audioFiles, SIGNAL(pressed()), this, SLOT(audio()));
-    connect(ui.actionAudioFiles, SIGNAL(triggered()), this, SLOT(audio()));
-    connect(ui.actionAudioFiles, SIGNAL(triggered()),
-        ui.audioFiles, SLOT(toggle()));
-
-    connect(ui.videoFiles, SIGNAL(pressed()), this, SLOT(video()));
-    connect(ui.actionVideoFiles, SIGNAL(triggered()), this, SLOT(video()));
-    connect(ui.actionVideoFiles, SIGNAL(triggered()),
-        ui.videoFiles, SLOT(toggle()));
-
-    connect(ui.imageFiles, SIGNAL(pressed()), this, SLOT(images()));
-    connect(ui.actionImageFiles, SIGNAL(triggered()), this, SLOT(images()));
-    connect(ui.actionImageFiles, SIGNAL(triggered()),
-        ui.imageFiles, SLOT(toggle()));
-
     connect(ui.actionClear, SIGNAL(triggered()), this, SLOT(clear()));
     connect(ui.pathButton, SIGNAL(clicked()), this, SLOT(changeDir()));
     connect(ui.pathBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectDir(int)));
@@ -200,56 +156,6 @@ void Main::all(void)
     }
 
     ui.statusbar->showMessage(tr("selected"));
-}
-
-void Main::docs(void)
-{
-    if(!ui.documents->isChecked()) {
-        uncheck(ui.documents);
-        ui.statusbar->showMessage(tr("documents"));
-    }
-    else
-        all();
-}
-
-void Main::apps(void)
-{
-    if(!ui.applications->isChecked()) {
-        uncheck(ui.applications);
-        ui.statusbar->showMessage(tr("applications"));
-    }
-    else
-        all();
-}
-
-void Main::audio(void)
-{
-    if(!ui.audioFiles->isChecked()) {
-        uncheck(ui.audioFiles);
-        ui.statusbar->showMessage(tr("audio files"));
-    }
-    else
-        all();
-}
-
-void Main::video(void)
-{
-    if(!ui.videoFiles->isChecked()) {
-        uncheck(ui.videoFiles);
-        ui.statusbar->showMessage(tr("video files"));
-    }
-    else
-        all();
-}
-
-void Main::images(void)
-{
-    if(!ui.imageFiles->isChecked()) {
-        uncheck(ui.imageFiles);
-        ui.statusbar->showMessage(tr("image files"));
-    }
-    else
-        all();
 }
 
 int main(int argc, char *argv[])

@@ -46,11 +46,6 @@ public:
 public slots:
     void changeDir(void);
     void selectDir(int index);
-    void docs(void);
-    void apps(void);
-    void audio(void);
-    void video(void);
-    void images(void);
     void clear(void);
 };
 
