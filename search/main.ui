@@ -90,7 +90,26 @@
        </layout>
       </item>
       <item>
-       <widget class="QListWidget" name="listFiles"/>
+       <widget class="QTabWidget" name="tabWidget">
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <widget class="QWidget" name="tabFiles">
+         <attribute name="title">
+          <string>Index</string>
+         </attribute>
+         <widget class="QListWidget" name="listFiles">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>740</width>
+            <height>311</height>
+           </rect>
+          </property>
+         </widget>
+        </widget>
+       </widget>
       </item>
      </layout>
     </item>

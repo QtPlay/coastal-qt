@@ -69,6 +69,7 @@ CoastalMain()
 
     connect(ui.searchText, SIGNAL(returnPressed()), this, SLOT(reload()));
     connect(ui.searchName, SIGNAL(returnPressed()), this, SLOT(reload()));
+    connect(ui.filterTypes, SIGNAL(returnPressed()), this, SLOT(reload()));
 
     // adding history triggers selectDir...
     ui.pathBox->addItems(history);
