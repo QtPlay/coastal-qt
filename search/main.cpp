@@ -19,6 +19,7 @@
 #include "ui_main.h"
 
 static Ui::MainWindow ui;
+static const char *types = NULL;
 
 Main::Main(const char *prefix) :
 CoastalMain()
@@ -41,8 +42,14 @@ CoastalMain()
 
     QSettings settings;
     resize(settings.value("size", QSize(760, 540)).toSize());
-    QString filter = settings.value("filter", ".txt;.log").toString();
-    ui.filterTypes->setText(filter);
+    if(types) {
+        ui.filterTypes->setText(types);
+        ui.filterTypes->setEnabled(false);
+    }
+    else {
+        QString filter = settings.value("filter", ".txt;.log").toString();
+        ui.filterTypes->setText(filter);
+    }
 
     int paths = settings.beginReadArray("paths");
 //  qDebug() << "SIZE " << paths << endl;
@@ -86,7 +93,8 @@ Main::~Main()
     int pos = 0;
 
     settings.setValue("size", size());
-    settings.setValue("filter", ui.filterTypes->text());
+    if(!types)
+        settings.setValue("filter", ui.filterTypes->text());
 
     settings.beginWriteArray("paths");
     while(pos < history.size()) {
@@ -184,6 +192,9 @@ int main(int argc, char *argv[])
 
     if(!QIcon::hasThemeIcon("reload"))
         QIcon::setThemeName("coastal");
+
+    if(argv[1] && argv[2])
+        types = argv[2];
 
     Main w(argv[1]);
     w.show();
