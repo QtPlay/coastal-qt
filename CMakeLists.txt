@@ -10,14 +10,16 @@
 #
 
 cmake_minimum_required(VERSION 2.6)
-PROJECT("Coastal Qt")
-INCLUDE(FindPkgConfig)
-INCLUDE(CheckIncludeFiles)
+PROJECT(coastal-qt)
 set (PACKAGE coastal-qt)
 set (VERSION 0.1.2)
 set (SOVERSION 0)
 
 set (COASTAL_VERSION ${VERSION})
+
+INCLUDE(FindPkgConfig)
+INCLUDE(CheckIncludeFiles)
+
 set(BUILD_UNRELEASED False CACHE BOOL "Build unreleased or unready packages?")
 
 if (NOT CMAKE_BUILD_TYPE)
