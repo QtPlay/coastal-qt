@@ -173,7 +173,12 @@ void Main::reload(void)
     if(ind)
         delete ind;
 
-    ind = new Index(ui.indexView);
+    QString filters = ui.filterTypes->text();
+    filters.replace(QChar(','), QChar(';'));
+    filters.remove(QChar('*'));
+    filters.remove(QChar(' '));
+
+    ind = new Index(ui.indexView, ui.searchName->text(), filters.split(";"));
     ui.indexView->setModel(ind);
     ui.statusbar->showMessage(tr("ready"));
 }

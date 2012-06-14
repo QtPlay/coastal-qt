@@ -46,8 +46,10 @@ protected:
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role) const;
 
 public:
-    Index(QObject *parent = NULL);
+    Index(QObject *parent, QString basename, QStringList ext);
     virtual ~Index();
+
+    void scan(QString path);
 
     QString name(int row);
 };
