@@ -137,7 +137,7 @@ void Main::changeDir(void)
 
 void Main::clear(void)
 {
-    ui.listFiles->clear();
+    ui.indexView->setModel(NULL);
     ui.searchText->setText("");
     ui.searchName->setText("*");
     ui.searchText->setFocus();
@@ -147,7 +147,7 @@ void Main::clear(void)
 void Main::reload(void)
 {
     ui.statusbar->showMessage(tr("reloading..."));
-    ui.listFiles->clear();
+    ui.indexView->setModel(NULL);
     ui.statusbar->showMessage(tr("ready"));
 }
 

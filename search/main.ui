@@ -94,11 +94,11 @@
         <property name="currentIndex">
          <number>0</number>
         </property>
-        <widget class="QWidget" name="tabFiles">
+        <widget class="QWidget" name="indexTab">
          <attribute name="title">
           <string>Index</string>
          </attribute>
-         <widget class="QListWidget" name="listFiles">
+         <widget class="QTableView" name="indexView">
           <property name="geometry">
            <rect>
             <x>0</x>
