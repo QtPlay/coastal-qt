@@ -41,12 +41,11 @@ public:
     Main(const char *prefix);
     virtual ~Main();
 
-    void all();
-
 public slots:
     void changeDir(void);
     void selectDir(int index);
     void clear(void);
+    void reload(void);
 };
 
 #endif

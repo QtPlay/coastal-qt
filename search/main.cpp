@@ -19,17 +19,6 @@
 #include "ui_main.h"
 
 static Ui::MainWindow ui;
-static QToolButton *map[5];
-
-static void uncheck(QToolButton *source)
-{
-    for(unsigned j = 0; j < 5; ++j) {
-        if(map[j] == source)
-            continue;
-        map[j]->setChecked(false);
-        map[j]->update();
-    }
-}
 
 Main::Main(const char *prefix) :
 CoastalMain()
@@ -50,6 +39,8 @@ CoastalMain()
 
     QSettings settings;
     resize(settings.value("size", QSize(760, 540)).toSize());
+    QString filter = settings.value("filter", ".txt;.log").toString();
+    ui.filterTypes->setText(filter);
 
     int paths = settings.beginReadArray("paths");
 //  qDebug() << "SIZE " << paths << endl;
@@ -67,12 +58,17 @@ CoastalMain()
     ui.actionReload->setIcon(QIcon::fromTheme("reload"));
     ui.actionClear->setIcon(QIcon::fromTheme("editclear"));
     ui.actionAbout->setIcon(QIcon::fromTheme("help-about"));
+    ui.actionSearch->setIcon(QIcon::fromTheme("search"));
 
     connect(ui.actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(ui.actionAbout, SIGNAL(triggered()), this, SLOT(about()));
     connect(ui.actionClear, SIGNAL(triggered()), this, SLOT(clear()));
+    connect(ui.actionSearch, SIGNAL(triggered()), this, SLOT(reload()));
     connect(ui.pathButton, SIGNAL(clicked()), this, SLOT(changeDir()));
     connect(ui.pathBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectDir(int)));
+
+    connect(ui.searchText, SIGNAL(returnPressed()), this, SLOT(reload()));
+    connect(ui.searchName, SIGNAL(returnPressed()), this, SLOT(reload()));
 
     // adding history triggers selectDir...
     ui.pathBox->addItems(history);
@@ -84,6 +80,7 @@ Main::~Main()
     int pos = 0;
 
     settings.setValue("size", size());
+    settings.setValue("filter", ui.filterTypes->text());
 
     settings.beginWriteArray("paths");
     while(pos < history.size()) {
@@ -104,11 +101,7 @@ void Main::selectDir(int index)
 //  qDebug() << "SELECT PATH " << path << " DIR " << dir.path() << endl;
     history.insert(0, dir.path());
 
-    uncheck(NULL);
-
-    ui.listFiles->clear();
-    ui.searchText->setFocus();
-    ui.statusbar->showMessage(tr("ready"));
+    clear();
 }
 
 void Main::changeDir(void)
@@ -143,19 +136,18 @@ void Main::changeDir(void)
 
 void Main::clear(void)
 {
-    uncheck(NULL);
-    all();
+    ui.listFiles->clear();
+    ui.searchText->setText("");
+    ui.searchName->setText("*");
+    ui.searchText->setFocus();
+    ui.statusbar->showMessage(tr("ready"));
 }
 
-void Main::all(void)
+void Main::reload(void)
 {
-    if(!ui.listFiles->count()) {
-        ui.searchText->setFocus();
-        ui.statusbar->showMessage(tr("ready"));
-        return;
-    }
-
-    ui.statusbar->showMessage(tr("selected"));
+    ui.statusbar->showMessage(tr("reloading..."));
+    ui.listFiles->clear();
+    ui.statusbar->showMessage(tr("ready"));
 }
 
 int main(int argc, char *argv[])
