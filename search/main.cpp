@@ -31,6 +31,8 @@ CoastalMain()
     setWindowIcon(QIcon(":/search.png"));
     setWindowTitle(program_name);
 
+    ind = NULL;
+
     if(prefix)
         QDir::setCurrent(prefix);
 
@@ -73,10 +75,13 @@ CoastalMain()
 
     // adding history triggers selectDir...
     ui.pathBox->addItems(history);
+
+    clear();
 }
 
 Main::~Main()
 {
+    clear();
     QSettings settings;
     int pos = 0;
 
@@ -102,7 +107,11 @@ void Main::selectDir(int index)
 //  qDebug() << "SELECT PATH " << path << " DIR " << dir.path() << endl;
     history.insert(0, dir.path());
 
-    clear();
+    ui.indexView->setModel(NULL);
+    if(ind) {
+        delete ind;
+        ind = NULL;
+    }
 }
 
 void Main::changeDir(void)
@@ -142,12 +151,22 @@ void Main::clear(void)
     ui.searchName->setText("*");
     ui.searchText->setFocus();
     ui.statusbar->showMessage(tr("ready"));
+
+    if(ind) {
+        delete ind;
+        ind = NULL;
+    }
 }
 
 void Main::reload(void)
 {
     ui.statusbar->showMessage(tr("reloading..."));
     ui.indexView->setModel(NULL);
+    if(ind)
+        delete ind;
+
+    ind = new Index(ui.indexView);
+    ui.indexView->setModel(ind);
     ui.statusbar->showMessage(tr("ready"));
 }
 

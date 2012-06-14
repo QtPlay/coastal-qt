@@ -28,7 +28,29 @@
 #include <QDir>
 #include <QSettings>
 #include <QFileDialog>
+#include <QAbstractTableModel>
 #include <QDebug>
+
+class Index : public QAbstractTableModel
+{
+    Q_OBJECT
+
+private:
+    QStringList names;
+    int rows;
+
+protected:
+    virtual int rowCount(const QModelIndex& parent) const;
+    virtual int columnCount(const QModelIndex& parent) const;
+    virtual QVariant data(const QModelIndex &index, int role) const;
+    virtual QVariant headerData(int section, Qt::Orientation orientation, int role) const;
+
+public:
+    Index(QObject *parent = NULL);
+    virtual ~Index();
+
+    QString name(int row);
+};
 
 class Main : public CoastalMain
 {
@@ -37,6 +59,7 @@ Q_OBJECT
 public:
     QStringList history;
     QDir dir;
+    Index *ind;
 
     Main(const char *prefix);
     virtual ~Main();
