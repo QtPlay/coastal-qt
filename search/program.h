@@ -36,6 +36,7 @@ class Index : public QAbstractTableModel
     Q_OBJECT
 
 private:
+    QStringList filters;
     QStringList names;
     int rows;
 

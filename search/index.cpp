@@ -17,8 +17,6 @@
 
 #include "program.h"
 
-static QStringList filters;
-
 Index::Index(QObject *parent, QString basename, QStringList ext) :
 QAbstractTableModel(parent)
 {
