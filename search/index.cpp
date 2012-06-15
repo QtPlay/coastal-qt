@@ -22,6 +22,11 @@ QAbstractTableModel(parent)
 {
     rows = 0;
 
+    if(basename.right(1) == "$")
+        basename.chop(1);
+    else if(basename.right(1) != "*")
+        basename += "*";
+
     for(unsigned pos = 0; pos < (unsigned)ext.size(); ++pos)
         filters << (basename + ext[pos]);
 
