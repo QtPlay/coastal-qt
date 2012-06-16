@@ -29,6 +29,7 @@
 #include <QSettings>
 #include <QFileDialog>
 #include <QAbstractTableModel>
+#include <QTextEdit>
 #include <QDebug>
 
 class Index : public QAbstractTableModel
@@ -55,6 +56,16 @@ public:
     QString name(int row);
 };
 
+class View : public QTextEdit
+{
+Q_OBJECT
+
+public:
+    View(QTabWidget *tabs, QString& title);
+
+    static bool find(QTabWidget *tabs, QString& title);
+};
+
 class Main : public CoastalMain
 {
 Q_OBJECT
@@ -72,6 +83,8 @@ public slots:
     void selectDir(int index);
     void clear(void);
     void reload(void);
+    void open(const QModelIndex& index);
+    void close(int tab);
 };
 
 #endif

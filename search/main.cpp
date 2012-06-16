@@ -80,6 +80,9 @@ CoastalMain()
     connect(ui.searchName, SIGNAL(returnPressed()), this, SLOT(reload()));
     connect(ui.filterTypes, SIGNAL(returnPressed()), this, SLOT(reload()));
 
+    connect(ui.tabs, SIGNAL(tabCloseRequested(int)), this, SLOT(close(int)));
+    connect(ui.indexView, SIGNAL(activated(const QModelIndex&)), this, SLOT(open(const QModelIndex&)));
+
     // adding history triggers selectDir...
     ui.pathBox->addItems(history);
 
@@ -164,6 +167,35 @@ void Main::clear(void)
         delete ind;
         ind = NULL;
     }
+}
+
+void Main::close(int tab)
+{
+    // close of index tab actually closes all other open manpages
+    if(tab == 0) {
+        int count = ui.tabs->count();
+        for(tab = 1; tab < count; ++tab)
+            close(1);
+        return;
+    }
+
+    View *view = (View *)ui.tabs->widget(tab);
+    if(!view)
+        return;
+
+    ui.tabs->removeTab(tab);
+    delete view;
+
+    if(ui.tabs->count() < 2)
+        ui.tabs->setTabsClosable(false);
+}
+
+void Main::open(const QModelIndex& index)
+{
+    QString name = ind->name(index.row());
+    ui.statusbar->showMessage(tr("loading ") + name);
+    new View(ui.tabs, name);
+    ui.statusbar->showMessage(tr("loaded ") + name);
 }
 
 void Main::reload(void)
