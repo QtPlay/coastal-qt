@@ -31,8 +31,8 @@ Group: Development/Libraries
 Summary: Headers for building coastal applications
 
 %description
-Generic QT desktop system applications.  This initially only includes
-coastal-manpager.
+Generic QT desktop system applications.  This includes coastal-manpager
+and coastal-searchl.
 
 %description devel
 Header files for building applications with coastal library.  Used in
@@ -69,8 +69,11 @@ cd build
 %defattr(-,root,root,-)
 %doc README COPYING TODO NOTES ChangeLog
 %{_bindir}/coastal-manpager
+%{_bindir}/coastal-search
 %{_datadir}/applications/coastal-manpager.desktop
+%{_datadir}/applications/coastal-search.desktop
 %{_datadir}/icons/coastal-manpager.png
+%{_datadir}/icons/coastal-search.png
 
 %files runtime
 %defattr(-,root,root,-)
