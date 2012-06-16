@@ -193,6 +193,11 @@ void Main::close(int tab)
 void Main::open(const QModelIndex& index)
 {
     QString name = ind->name(index.row());
+
+    // select tab if already open
+    if(View::find(ui.tabs, name))
+        return;
+
     ui.statusbar->showMessage(tr("loading ") + name);
     new View(ui.tabs, name);
     ui.statusbar->showMessage(tr("loaded ") + name);
