@@ -32,7 +32,7 @@ Summary: Headers for building coastal applications
 
 %description
 Generic QT desktop system applications.  This includes coastal-manpager
-and coastal-searchl.
+and coastal-search.
 
 %description devel
 Header files for building applications with coastal library.  Used in
