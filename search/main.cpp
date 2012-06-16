@@ -215,7 +215,7 @@ void Main::reload(void)
     filters.remove(QChar('*'));
     filters.remove(QChar(' '));
 
-    ind = new Index(ui.indexView, ui.searchName->text(), filters.split(";"));
+    ind = new Index(ui.indexView, ui.searchName->text(), filters.split(";"), ui.searchText->text());
     ui.indexView->setModel(ind);
     ui.statusbar->showMessage(tr("ready"));
 }

@@ -25,25 +25,12 @@ View::View(QTabWidget *tabs, QString& title) :
 QTextEdit()
 {
     QString text;
-    char buf[512];
-    FILE *fp;
-
-    fp = fopen(title.toUtf8().constData(), "r");
-    while(fp) {
-        if(feof(fp))
-            break;
-        if(!fgets(buf, sizeof(buf), fp))
-            continue;
-        char *cp = strchr(buf, '\n');
-        if(cp) {
-            *(cp--) = 0;
-            if(cp >= buf && *cp == '\r')
-                *cp = 0;
+    QFile file(title);
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        while(!file.atEnd()) {
+            text += file.readLine();
         }
-        text = text + buf + "\n";
     }
-    if(fp)
-        fclose(fp);
 
     setReadOnly(true);
     setEnabled(true);

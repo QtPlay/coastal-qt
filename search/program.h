@@ -26,6 +26,7 @@
 #include <QMainWindow>
 #include <QTranslator>
 #include <QDir>
+#include <QFile>
 #include <QSettings>
 #include <QFileDialog>
 #include <QAbstractTableModel>
@@ -48,10 +49,11 @@ protected:
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role) const;
 
 public:
-    Index(QObject *parent, QString basename, QStringList ext);
+    Index(QObject *parent, QString basename, QStringList ext, QString match);
     virtual ~Index();
 
-    void scan(QString path);
+    void scan(QString path, QString match);
+    bool grep(QString& path, QString& match);
 
     QString name(int row);
 };

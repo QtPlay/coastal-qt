@@ -17,7 +17,7 @@
 
 #include "program.h"
 
-Index::Index(QObject *parent, QString basename, QStringList ext) :
+Index::Index(QObject *parent, QString basename, QStringList ext, QString match) :
 QAbstractTableModel(parent)
 {
     rows = 0;
@@ -37,12 +37,32 @@ QAbstractTableModel(parent)
             filters << basename;
     }
 
-    scan("");
+    scan("", match);
 }
 
-void Index::scan(QString path)
+bool Index::grep(QString& path, QString& match)
+{
+    bool result = false;
+
+    QString text;
+    QFile file(path);
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        while(!file.atEnd()) {
+            text = file.readLine();
+            if(text.indexOf(match, 0, Qt::CaseInsensitive) > -1) {
+                result = true;
+                break;
+            }
+        }
+    }
+
+    return result;
+}
+
+void Index::scan(QString path, QString match)
 {
     QString spec;
+    QString name;
     if(path.isEmpty())
         spec = QDir::currentPath();
     else
@@ -60,18 +80,23 @@ void Index::scan(QString path)
         if(dirs[pos][0] == '.')
             continue;
         if(path.isEmpty())
-            scan(dirs[pos]);
+            scan(dirs[pos], match);
         else
-            scan(path + "/" + dirs[pos]);
+            scan(path + "/" + dirs[pos], match);
     }
 
     for(unsigned pos = 0; pos < (unsigned)list.size(); ++pos) {
         if(list[pos][0] == '.')
             continue;
         if(path.isEmpty())
-            names << list[pos];
+            name = list[pos];
         else
-            names << (path + "/" + list[pos]);
+            name = path + "/" + list[pos];
+
+        if(!match.isEmpty() && !grep(name, match))
+            continue;
+
+        names << name;
         ++rows;
     }
 }
