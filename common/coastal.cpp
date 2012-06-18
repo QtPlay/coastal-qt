@@ -21,6 +21,7 @@
 
 #ifndef WIN32
 #include <sys/wait.h>
+#include <unistd.h>
 #endif
 
 bool Coastal::env(const char *id, char *buffer, size_t size)
