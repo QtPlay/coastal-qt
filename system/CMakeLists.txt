@@ -9,7 +9,6 @@
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 #
 if(UNIX AND NOT APPLE)
-    set(DESKTOP_FILES coastal-manpager.desktop coastal-search.desktop)
     set(ICON_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../icons)
     set(DESKTOP_PATH ${CMAKE_CURRENT_BINARY_DIR})
 
@@ -17,8 +16,8 @@ if(UNIX AND NOT APPLE)
         ${CMAKE_CURRENT_BINARY_DIR}/libcoastal.pc)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/coastal-manpager.desktop.cmake
         ${CMAKE_CURRENT_BINARY_DIR}/coastal-manpager.desktop)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/coastal-manpager.desktop.cmake
-        ${CMAKE_CURRENT_BINARY_DIR}/coastal-manpager.desktop)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/coastal-search.desktop.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/coastal-search.desktop)
 
     install(FILES ${ICON_PATH}/coastal-manpager.png DESTINATION share/icons)
     install(FILES ${ICON_PATH}/coastal-search.png DESTINATION share/icons)
