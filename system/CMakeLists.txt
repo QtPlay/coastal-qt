@@ -21,7 +21,7 @@ if(UNIX AND NOT APPLE)
         ${CMAKE_CURRENT_BINARY_DIR}/coastal-manpager.desktop)
 
     install(FILES ${ICON_PATH}/coastal-manpager.png DESTINATION share/icons)
-    install(FILES ${ICON_PATH}coastal-search.png DESTINATION share/icons)
+    install(FILES ${ICON_PATH}/coastal-search.png DESTINATION share/icons)
     install(FILES ${DESKTOP_PATH}/coastal-manpager.desktop DESTINATION share/applications)
     install(FILES ${DESKTOP_PATH}/coastal-search.desktop DESTINATION share/applications)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libcoastal.pc DESTINATION lib/pkgconfig)
