@@ -49,19 +49,19 @@ CoastalMain()
     else {
         QString filter = settings.value("filter", ".txt;.log").toString();
         ui.filterTypes->setText(filter);
-    }
 
-    int paths = settings.beginReadArray("paths");
-//  qDebug() << "SIZE " << paths << endl;
-    for(int path = 0; path < paths; ++path) {
-        settings.setArrayIndex(path);
-        QString temp = settings.value("path").toString();
-//      qDebug() << "STR " << path << " VALUE " << temp << endl;
-        if(temp == dir.path())
-            continue;
-        history.append(temp);
+        int paths = settings.beginReadArray("paths");
+    //  qDebug() << "SIZE " << paths << endl;
+        for(int path = 0; path < paths; ++path) {
+            settings.setArrayIndex(path);
+            QString temp = settings.value("path").toString();
+    //      qDebug() << "STR " << path << " VALUE " << temp << endl;
+            if(temp == dir.path())
+                continue;
+            history.append(temp);
+        }
+        settings.endArray();
     }
-    settings.endArray();
 
     ui.actionQuit->setIcon(QIcon::fromTheme("exit"));
     ui.actionReload->setIcon(QIcon::fromTheme("reload"));
@@ -96,15 +96,16 @@ Main::~Main()
     int pos = 0;
 
     settings.setValue("size", size());
-    if(!types)
+    if(!types) {
         settings.setValue("filter", ui.filterTypes->text());
 
-    settings.beginWriteArray("paths");
-    while(pos < history.size()) {
-        settings.setArrayIndex(pos);
-        settings.setValue("path", history[pos++]);
+        settings.beginWriteArray("paths");
+        while(pos < history.size()) {
+            settings.setArrayIndex(pos);
+            settings.setValue("path", history[pos++]);
+        }
+        settings.endArray();
     }
-    settings.endArray();
 }
 
 void Main::selectDir(int index)
