@@ -42,7 +42,7 @@ bool Coastal::env(const char *id, char *buffer, size_t size)
 
 bool Coastal::browser(const char *url)
 {
-    QUrl web;
+    QUrl web = QString(url);
 
     if(!web.isValid() || web.isRelative())
         return false;
