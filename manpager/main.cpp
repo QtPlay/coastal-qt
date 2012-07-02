@@ -369,28 +369,12 @@ void Main::reload(void)
 void Main::menu(const QPoint& pos)
 {
     QMenu m;
-    QAction _about(ui.actionAbout->icon(), ui.actionAbout->text(), &m);
-    QAction _support(ui.actionSupport->icon(), ui.actionSupport->text(), &m);
-    QAction _reload(ui.actionReload->icon(), ui.actionReload->text(), &m);
-    QAction _quit(ui.actionQuit->icon(), ui.actionQuit->text(), &m);
-    _about.setIconVisibleInMenu(true);
-    _support.setIconVisibleInMenu(true);
-    _reload.setIconVisibleInMenu(true);
-    _quit.setIconVisibleInMenu(true);
-    m.addAction(&_about);
-    m.addAction(&_support);
+    m.addAction(ui.actionAbout);
+    m.addAction(ui.actionSupport);
     m.addSeparator();
-    m.addAction(&_reload);
-    m.addAction(&_quit);
-    QAction *selected = m.exec(mapToGlobal(pos));
-    if(selected == &_about)
-        about();
-    else if(selected == &_support)
-        support();
-    else if(selected == &_reload)
-        reload();
-    else if(selected == &_quit)
-        qApp->quit();
+    m.addAction(ui.actionReload);
+    m.addAction(ui.actionQuit);
+    m.exec(mapToGlobal(pos));
 }
 
 void Main::columns(void)
