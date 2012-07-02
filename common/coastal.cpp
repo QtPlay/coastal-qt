@@ -40,6 +40,36 @@ bool Coastal::env(const char *id, char *buffer, size_t size)
 #endif
 }
 
+bool Coastal::open(const char *url)
+{
+#ifndef WIN32
+    static const char *open[] = {"xdg-open", "exo-open", "gnome-open", "kde-open", NULL};
+    unsigned index = 0;
+    const char *cp;
+    char *argv[3];
+    int status;
+
+    while(NULL != (cp = open[index++])) {
+        pid_t pid = fork();
+        if(pid) {
+            waitpid(pid, &status, 0);
+            if(WIFEXITED(status) && !WEXITSTATUS(status))
+                return true;
+            continue;
+        }
+        argv[0] = (char *)cp;
+        argv[1] = (char *)url;
+        argv[2] = NULL;
+        execvp(*argv, argv);
+        exit(-1);
+    }
+
+#endif
+    // eventually use env EDITOR...
+
+    return false;
+}
+
 bool Coastal::browser(const char *url)
 {
     QUrl web = QString(url);

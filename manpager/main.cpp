@@ -106,6 +106,9 @@ CoastalMain()
     ui.indexView->setSelectionMode(QAbstractItemView::SingleSelection);
     ui.indexView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
+    ui.indexView->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(ui.indexView, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(open(const QPoint&)));
+
     // menu action signals
 
     connect(ui.actionAbout, SIGNAL(triggered()), this, SLOT(about()));
@@ -129,6 +132,8 @@ CoastalMain()
     connect(ui.searchBox, SIGNAL(activated(const QString&)), this, SLOT(load(const QString&)));
     connect(ui.tabs, SIGNAL(tabCloseRequested(int)), this, SLOT(close(int)));
     connect(ui.indexView, SIGNAL(activated(const QModelIndex&)), this, SLOT(load(const QModelIndex&)));
+    connect(ui.actionOpenTab, SIGNAL(triggered()), this, SLOT(load()));
+    connect(ui.actionOpenFile, SIGNAL(triggered()), this, SLOT(open()));
 
     // application signals
 
@@ -289,9 +294,31 @@ void Main::load(const QString& text)
     load(pos);
 }
 
+void Main::load(void)
+{
+    QModelIndex index = ui.indexView->currentIndex();
+    load(index.row());
+}
+
 void Main::load(const QModelIndex& index)
 {
     load(index.row());
+}
+
+void Main::open(void)
+{
+    QModelIndex index = ui.indexView->currentIndex();
+    int row = index.row();
+    QString name = indexData->name(row);
+    Index::fileinfo node = indexData->node(row);
+    QString path = manpaths[node.path] + "/man" + node.id + "/" + name;
+    status(tr("opening ") + name);
+
+    if(node.mode == Index::fileinfo::GZIP)
+        path += ".gz";
+
+    if(!Coastal::open(path.toUtf8().constData()))
+        error(tr("failed to load ") + name);
 }
 
 void Main::load(int row)
@@ -376,6 +403,16 @@ void Main::reload(void)
     ui.searchBox->setFocus();
     ui.searchBox->repaint();
     status(tr("ready"));
+}
+
+void Main::open(const QPoint& pos)
+{
+    QMenu m;
+    m.addAction(ui.actionOpenTab);
+    m.addAction(ui.actionOpenFile);
+    m.addAction(ui.actionOpenWith);
+
+    m.exec(ui.indexView->mapToGlobal(pos));
 }
 
 void Main::menu(const QPoint& pos)

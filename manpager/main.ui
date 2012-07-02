@@ -517,6 +517,21 @@
     <string>Menubar</string>
    </property>
   </action>
+  <action name="actionOpenTab">
+   <property name="text">
+    <string>Open Tab</string>
+   </property>
+  </action>
+  <action name="actionOpenWith">
+   <property name="text">
+    <string>Open With...</string>
+   </property>
+  </action>
+  <action name="actionOpenFile">
+   <property name="text">
+    <string>Open File</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

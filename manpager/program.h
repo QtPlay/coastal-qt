@@ -132,10 +132,13 @@ public slots:
     void reload(void);
     void load(const QModelIndex& index);
     void load(const QString& text);
+    void load(void);
     void close(int tab);
     void columns(void);
     void search(const QString& text);
     void menu(const QPoint& pos);
+    void open(const QPoint& pos);
+    void open(void);
 };
 
 #endif
