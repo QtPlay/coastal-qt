@@ -77,6 +77,9 @@ CoastalMain()
     ui.actionSearch->setIcon(QIcon::fromTheme("search"));
     ui.actionSupport->setIcon(QIcon(":/github.png"));
 
+    ui.indexView->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(ui.indexView, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(open(const QPoint&)));
+
     connect(ui.actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(ui.actionAbout, SIGNAL(triggered()), this, SLOT(about()));
     connect(ui.actionClear, SIGNAL(triggered()), this, SLOT(clear()));
@@ -97,6 +100,9 @@ CoastalMain()
     connect(ui.actionMenubar, SIGNAL(toggled(bool)), ui.menuBar, SLOT(setVisible(bool)));
     connect(ui.actionToolbar, SIGNAL(toggled(bool)), ui.toolBar, SLOT(setVisible(bool)));
     connect(ui.actionStatus, SIGNAL(toggled(bool)), ui.statusbar, SLOT(setVisible(bool)));
+
+    connect(ui.actionOpenTab, SIGNAL(triggered()), this, SLOT(open()));
+    connect(ui.actionOpenFile, SIGNAL(triggered()), this, SLOT(file()));
 
     // adding history triggers selectDir...
     ui.pathBox->addItems(history);
@@ -207,6 +213,31 @@ void Main::close(int tab)
 
     if(ui.tabs->count() < 2)
         ui.tabs->setTabsClosable(false);
+}
+
+void Main::open(void)
+{
+    open(ui.indexView->currentIndex());
+}
+
+void Main::file(void)
+{
+    QModelIndex index = ui.indexView->currentIndex();
+    QString name = ind->name(index.row());
+
+    ui.statusbar->showMessage(tr("opening ") + name);
+
+    Coastal::open(name.toUtf8().constData());
+}
+
+void Main::open(const QPoint& pos)
+{
+    QMenu m;
+    m.addAction(ui.actionOpenTab);
+    m.addAction(ui.actionOpenFile);
+    m.addAction(ui.actionOpenWith);
+
+    m.exec(ui.indexView->mapToGlobal(pos));
 }
 
 void Main::open(const QModelIndex& index)

@@ -86,9 +86,12 @@ public slots:
     void selectDir(int index);
     void clear(void);
     void reload(void);
+    void file(void);
+    void open(void);
     void open(const QModelIndex& index);
     void close(int tab);
     void menu(const QPoint& pos);
+    void open(const QPoint& pos);
 };
 
 #endif
