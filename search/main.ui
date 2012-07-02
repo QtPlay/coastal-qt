@@ -161,6 +161,43 @@
    <addaction name="actionSupport"/>
    <addaction name="actionQuit"/>
   </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>760</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_File">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="actionSearch"/>
+    <addaction name="actionReload"/>
+    <addaction name="actionClear"/>
+    <addaction name="actionQuit"/>
+   </widget>
+   <widget class="QMenu" name="menu_View">
+    <property name="title">
+     <string>&amp;View</string>
+    </property>
+    <addaction name="actionMenubar"/>
+    <addaction name="actionToolbar"/>
+    <addaction name="actionStatus"/>
+   </widget>
+   <widget class="QMenu" name="menu_Help">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+    <addaction name="actionSupport"/>
+   </widget>
+   <addaction name="menu_File"/>
+   <addaction name="menu_View"/>
+   <addaction name="menu_Help"/>
+  </widget>
   <action name="actionReload">
    <property name="text">
     <string>&amp;Reload</string>
@@ -223,6 +260,14 @@
    </property>
    <property name="text">
     <string>Status</string>
+   </property>
+  </action>
+  <action name="actionMenubar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Menubar</string>
    </property>
   </action>
  </widget>

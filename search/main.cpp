@@ -42,8 +42,10 @@ CoastalMain()
 
     QSettings settings;
     resize(settings.value("size", QSize(760, 540)).toSize());
+    ui.actionMenubar->setChecked(settings.value("menubar", false).toBool());
     ui.actionToolbar->setChecked(settings.value("toolbar", true).toBool());
     ui.actionStatus->setChecked(settings.value("stats", true).toBool());
+    ui.menuBar->setVisible(ui.actionMenubar->isChecked());
     ui.toolBar->setVisible(ui.actionToolbar->isChecked());
     ui.statusbar->setVisible(ui.actionStatus->isChecked());
 
@@ -92,6 +94,7 @@ CoastalMain()
 
     setContextMenuPolicy(Qt::CustomContextMenu);
     connect(this, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(menu(const QPoint&)));
+    connect(ui.actionMenubar, SIGNAL(toggled(bool)), ui.menuBar, SLOT(setVisible(bool)));
     connect(ui.actionToolbar, SIGNAL(toggled(bool)), ui.toolBar, SLOT(setVisible(bool)));
     connect(ui.actionStatus, SIGNAL(toggled(bool)), ui.statusbar, SLOT(setVisible(bool)));
 
@@ -108,6 +111,7 @@ Main::~Main()
     int pos = 0;
 
     settings.setValue("size", size());
+    settings.setValue("menubar", ui.actionMenubar->isChecked());
     settings.setValue("toolbar", ui.actionToolbar->isChecked());
     settings.setValue("status", ui.actionStatus->isChecked());
     if(!types) {
@@ -244,11 +248,13 @@ void Main::menu(const QPoint& pos)
 
     m.addSeparator();
     QMenu *view = m.addMenu(tr("View"));
+    view->addAction(ui.actionMenubar);
     view->addAction(ui.actionToolbar);
     view->addAction(ui.actionStatus);
 
     m.addSeparator();
     m.addAction(ui.actionReload);
+    m.addAction(ui.actionClear);
     m.addAction(ui.actionQuit);
     m.exec(mapToGlobal(pos));
 }
