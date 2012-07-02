@@ -68,11 +68,13 @@ CoastalMain()
     ui.actionClear->setIcon(QIcon::fromTheme("editclear"));
     ui.actionAbout->setIcon(QIcon::fromTheme("help-about"));
     ui.actionSearch->setIcon(QIcon::fromTheme("search"));
+    ui.actionSupport->setIcon(QIcon(":/github.png"));
 
     connect(ui.actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(ui.actionAbout, SIGNAL(triggered()), this, SLOT(about()));
     connect(ui.actionClear, SIGNAL(triggered()), this, SLOT(clear()));
     connect(ui.actionSearch, SIGNAL(triggered()), this, SLOT(reload()));
+    connect(ui.actionSupport, SIGNAL(triggered()), this, SLOT(support()));
     connect(ui.pathButton, SIGNAL(clicked()), this, SLOT(changeDir()));
     connect(ui.pathBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectDir(int)));
 

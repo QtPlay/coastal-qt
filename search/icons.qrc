@@ -10,5 +10,6 @@
 </qresource>
 <qresource>
     <file alias="search.png">../icons/coastal-search.png</file>
+    <file alias="github.png">../icons/github.png</file>
 </qresource>
 </RCC>

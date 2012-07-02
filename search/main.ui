@@ -158,6 +158,7 @@
    <addaction name="actionSearch"/>
    <addaction name="actionClear"/>
    <addaction name="actionAbout"/>
+   <addaction name="actionSupport"/>
    <addaction name="actionQuit"/>
   </widget>
   <action name="actionReload">
@@ -195,6 +196,14 @@
   <action name="actionSearch">
    <property name="text">
     <string>&amp;Search</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionSupport">
+   <property name="text">
+    <string>Support</string>
    </property>
    <property name="iconVisibleInMenu">
     <bool>true</bool>
