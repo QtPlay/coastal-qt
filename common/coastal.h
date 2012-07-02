@@ -5,6 +5,7 @@
 #include <QGraphicsPixmapItem>
 #include <QDesktopServices>
 #include <QUrl>
+#include <QDir>
 #include <QProcess>
 #include <QDebug>
 

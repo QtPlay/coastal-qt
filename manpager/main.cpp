@@ -311,7 +311,7 @@ void Main::open(void)
     int row = index.row();
     QString name = indexData->name(row);
     Index::fileinfo node = indexData->node(row);
-    QString path = manpaths[node.path] + "/man" + node.id + "/" + name;
+    QString path = manpaths[node.path] + QDir::separator() + "man" + node.id + QDir::separator() + name;
     status(tr("opening ") + name);
 
     if(node.mode == Index::fileinfo::GZIP)
@@ -325,7 +325,7 @@ void Main::load(int row)
 {
     QString name = indexData->name(row);
     Index::fileinfo node = indexData->node(row);
-    QString path = manpaths[node.path] + "/man" + node.id + "/" + name;
+    QString path = manpaths[node.path] + QDir::separator() + "man" + node.id + QDir::separator() + name;
 
     // if already loaded, select existing tab and exit...
     if(View::find(ui.tabs, name))

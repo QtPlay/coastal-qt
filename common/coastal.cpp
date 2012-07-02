@@ -42,7 +42,16 @@ bool Coastal::env(const char *id, char *buffer, size_t size)
 
 bool Coastal::open(const char *url)
 {
-    QUrl uri = QUrl::fromLocalFile(QString(url));
+    QUrl uri;
+
+    if(*url == '/')
+        uri = QUrl::fromLocalFile(QString(url));
+#ifdef WIN32
+    else if((url[1] == ':') || (*url == '\\'))
+        uri = QUrl::fromLocalFile(QString(url));
+#endif
+    else
+        uri = QUrl::fromLocalFile(QDir::currentPath() + QDir::separator() + url);
 
     if(QDesktopServices::openUrl(uri))
         return true;

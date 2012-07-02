@@ -33,7 +33,7 @@ QAbstractTableModel(parent)
     for(int section = 0; section < 10; ++section) {
         Main::status(tr("loading ") + cmap[section] + "...");
         for(int path = 0; path < Main::manpaths.size(); ++path) {
-            QDir dir(Main::manpaths[path] + "/" + mandirs[section]);
+            QDir dir(Main::manpaths[path] + QDir::separator() + mandirs[section]);
             if(!dir.exists())
                 continue;
             if(Main::hidden[section])

@@ -66,7 +66,7 @@ void Index::scan(QString path, QString match)
     if(path.isEmpty())
         spec = QDir::currentPath();
     else
-        spec = QDir::currentPath() + "/" + path;
+        spec = QDir::currentPath() + QDir::separator() + path;
 
     QDir dir(spec);
     if(!dir.exists())
@@ -82,7 +82,7 @@ void Index::scan(QString path, QString match)
         if(path.isEmpty())
             scan(dirs[pos], match);
         else
-            scan(path + "/" + dirs[pos], match);
+            scan(path + QDir::separator() + dirs[pos], match);
     }
 
     for(unsigned pos = 0; pos < (unsigned)list.size(); ++pos) {
@@ -91,7 +91,7 @@ void Index::scan(QString path, QString match)
         if(path.isEmpty())
             name = list[pos];
         else
-            name = path + "/" + list[pos];
+            name = path + QDir::separator() + list[pos];
 
         if(!match.isEmpty() && !grep(name, match))
             continue;
