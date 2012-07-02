@@ -42,6 +42,11 @@ bool Coastal::env(const char *id, char *buffer, size_t size)
 
 bool Coastal::open(const char *url)
 {
+    QUrl uri = QUrl::fromLocalFile(QString(url));
+
+    if(QDesktopServices::openUrl(uri))
+        return true;
+
 #ifndef WIN32
     static const char *open[] = {"xdg-open", "exo-open", "gnome-open", "kde-open", NULL};
     unsigned index = 0;

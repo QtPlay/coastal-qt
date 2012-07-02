@@ -226,6 +226,7 @@ void Main::file(void)
     QString name = ind->name(index.row());
 
     ui.statusbar->showMessage(tr("opening ") + name);
+    name = ui.pathBox->currentText() + "/" + name;
 
     Coastal::open(name.toUtf8().constData());
 }
