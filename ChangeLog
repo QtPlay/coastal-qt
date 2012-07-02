@@ -1,5 +1,7 @@
 Changes from 0.2.0 to 0.2.1
 - fix html support in coastal
+- fix icon appearences
+- right-click app menu support
 
 Changes from 0.1.2 to 0.2.0
 - no longer separate unreleased

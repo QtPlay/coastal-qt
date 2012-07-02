@@ -135,6 +135,7 @@ public slots:
     void close(int tab);
     void columns(void);
     void search(const QString& text);
+    void menu(const QPoint& pos);
 };
 
 #endif

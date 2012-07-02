@@ -129,6 +129,9 @@ CoastalMain()
     connect(this, SIGNAL(resized()), this, SLOT(columns()));
     connect(this, SIGNAL(startup()), this, SLOT(reload()), Qt::QueuedConnection);
 
+    setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(this, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(menu(const QPoint&)));
+
     emit startup();
 }
 
@@ -361,6 +364,33 @@ void Main::reload(void)
     ui.searchBox->setFocus();
     ui.searchBox->repaint();
     status(tr("ready"));
+}
+
+void Main::menu(const QPoint& pos)
+{
+    QMenu m;
+    QAction _about(ui.actionAbout->icon(), ui.actionAbout->text(), &m);
+    QAction _support(ui.actionSupport->icon(), ui.actionSupport->text(), &m);
+    QAction _reload(ui.actionReload->icon(), ui.actionReload->text(), &m);
+    QAction _quit(ui.actionQuit->icon(), ui.actionQuit->text(), &m);
+    _about.setIconVisibleInMenu(true);
+    _support.setIconVisibleInMenu(true);
+    _reload.setIconVisibleInMenu(true);
+    _quit.setIconVisibleInMenu(true);
+    m.addAction(&_about);
+    m.addAction(&_support);
+    m.addSeparator();
+    m.addAction(&_reload);
+    m.addAction(&_quit);
+    QAction *selected = m.exec(mapToGlobal(pos));
+    if(selected == &_about)
+        about();
+    else if(selected == &_support)
+        support();
+    else if(selected == &_reload)
+        reload();
+    else if(selected == &_quit)
+        qApp->quit();
 }
 
 void Main::columns(void)
