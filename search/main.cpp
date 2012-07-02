@@ -42,6 +42,11 @@ CoastalMain()
 
     QSettings settings;
     resize(settings.value("size", QSize(760, 540)).toSize());
+    ui.actionToolbar->setChecked(settings.value("toolbar", true).toBool());
+    ui.actionStatus->setChecked(settings.value("stats", true).toBool());
+    ui.toolBar->setVisible(ui.actionToolbar->isChecked());
+    ui.statusbar->setVisible(ui.actionStatus->isChecked());
+
     if(types) {
         ui.filterTypes->setText(types);
         ui.filterTypes->setEnabled(false);
@@ -85,6 +90,11 @@ CoastalMain()
     connect(ui.tabs, SIGNAL(tabCloseRequested(int)), this, SLOT(close(int)));
     connect(ui.indexView, SIGNAL(activated(const QModelIndex&)), this, SLOT(open(const QModelIndex&)));
 
+    setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(this, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(menu(const QPoint&)));
+    connect(ui.actionToolbar, SIGNAL(toggled(bool)), ui.toolBar, SLOT(setVisible(bool)));
+    connect(ui.actionStatus, SIGNAL(toggled(bool)), ui.statusbar, SLOT(setVisible(bool)));
+
     // adding history triggers selectDir...
     ui.pathBox->addItems(history);
 
@@ -98,6 +108,8 @@ Main::~Main()
     int pos = 0;
 
     settings.setValue("size", size());
+    settings.setValue("toolbar", ui.actionToolbar->isChecked());
+    settings.setValue("status", ui.actionStatus->isChecked());
     if(!types) {
         settings.setValue("filter", ui.filterTypes->text());
 
@@ -221,6 +233,24 @@ void Main::reload(void)
     ind = new Index(ui.indexView, ui.searchName->text(), filters.split(";"), ui.searchText->text());
     ui.indexView->setModel(ind);
     ui.statusbar->showMessage(tr("ready"));
+}
+
+void Main::menu(const QPoint& pos)
+{
+    QMenu m;
+
+    m.addAction(ui.actionAbout);
+    m.addAction(ui.actionSupport);
+
+    m.addSeparator();
+    QMenu *view = m.addMenu(tr("View"));
+    view->addAction(ui.actionToolbar);
+    view->addAction(ui.actionStatus);
+
+    m.addSeparator();
+    m.addAction(ui.actionReload);
+    m.addAction(ui.actionQuit);
+    m.exec(mapToGlobal(pos));
 }
 
 int main(int argc, char *argv[])

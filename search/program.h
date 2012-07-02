@@ -24,6 +24,7 @@
 #include <QObject>
 #include <QApplication>
 #include <QMainWindow>
+#include <QMenu>
 #include <QTranslator>
 #include <QDir>
 #include <QFile>
@@ -87,6 +88,7 @@ public slots:
     void reload(void);
     void open(const QModelIndex& index);
     void close(int tab);
+    void menu(const QPoint& pos);
 };
 
 #endif
