@@ -371,6 +371,20 @@ void Main::menu(const QPoint& pos)
     QMenu m;
     m.addAction(ui.actionAbout);
     m.addAction(ui.actionSupport);
+
+    m.addSeparator();
+    QMenu *sections = m.addMenu(tr("Sections"));
+    sections->addAction(ui.actionSection1);
+    sections->addAction(ui.actionSection2);
+    sections->addAction(ui.actionSection3);
+    sections->addAction(ui.actionSection4);
+    sections->addAction(ui.actionSection5);
+    sections->addAction(ui.actionSection6);
+    sections->addAction(ui.actionSection7);
+    sections->addAction(ui.actionSection8);
+    sections->addAction(ui.actionSectionl);
+    sections->addAction(ui.actionSectionn);
+
     m.addSeparator();
     m.addAction(ui.actionReload);
     m.addAction(ui.actionQuit);
