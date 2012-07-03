@@ -40,6 +40,27 @@ bool Coastal::env(const char *id, char *buffer, size_t size)
 #endif
 }
 
+QString Coastal::env(const QString& id)
+{
+    QString result;
+    char buffer[128];
+
+    if(env(id.toAscii().constData(), buffer, sizeof(buffer)))
+        result = buffer;
+
+    return result;
+}
+
+bool Coastal::open(const QString& url)
+{
+    return open(url.toAscii().constData());
+}
+
+bool Coastal::browser(const QString& url)
+{
+    return browser(url.toAscii().constData());
+}
+
 bool Coastal::open(const char *url)
 {
     QUrl uri;

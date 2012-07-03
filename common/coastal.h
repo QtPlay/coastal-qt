@@ -44,7 +44,13 @@ class Coastal
 public:
     static bool env(const char *id, char *buffer, size_t size);
 
+    static QString env(const QString& id);
+
+    static bool browser(const QString& url);
+
     static bool browser(const char *url);
+
+    static bool open(const QString& filename);
 
     static bool open(const char *filename);
 };
