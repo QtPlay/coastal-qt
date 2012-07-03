@@ -228,7 +228,7 @@ void Main::open(void)
     ui.statusbar->showMessage(tr("opening ") + name);
     name = ui.pathBox->currentText() + QDir::separator() + name;
 
-    Coastal::open(name.toUtf8().constData());
+    Coastal::open(name);
 }
 
 void Main::open(const QPoint& pos)

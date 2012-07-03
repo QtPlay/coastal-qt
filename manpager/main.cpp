@@ -316,7 +316,7 @@ void Main::open(void)
     if(node.mode == Index::fileinfo::GZIP)
         path += ".gz";
 
-    if(!Coastal::open(path.toUtf8().constData()))
+    if(!Coastal::open(path))
         error(tr("failed to load ") + name);
 }
 
