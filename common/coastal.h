@@ -48,11 +48,7 @@ public:
 
     static bool browser(const QString& url);
 
-    static bool browser(const char *url);
-
     static bool open(const QString& filename);
-
-    static bool open(const char *filename);
 };
 
 

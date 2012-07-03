@@ -53,23 +53,13 @@ QString Coastal::env(const QString& id)
 
 bool Coastal::open(const QString& url)
 {
-    return open(url.toAscii().constData());
-}
-
-bool Coastal::browser(const QString& url)
-{
-    return browser(url.toAscii().constData());
-}
-
-bool Coastal::open(const char *url)
-{
     QUrl uri;
 
-    if(*url == '/')
-        uri = QUrl::fromLocalFile(QString(url));
+    if(url[0] == QChar('/'))
+        uri = QUrl::fromLocalFile(url);
 #ifdef WIN32
-    else if((url[1] == ':') || (*url == '\\'))
-        uri = QUrl::fromLocalFile(QString(url));
+    else if((url[1] == QChar(':')) || (url[0] == QChar('\\')))
+        uri = QUrl::fromLocalFile(url);
 #endif
     else
         uri = QUrl::fromLocalFile(QDir::currentPath() + QDir::separator() + url);
@@ -83,6 +73,7 @@ bool Coastal::open(const char *url)
     const char *cp;
     char *argv[3];
     int status;
+    QByteArray name = url.toUtf8();
 
     while(NULL != (cp = open[index++])) {
         pid_t pid = fork();
@@ -93,7 +84,7 @@ bool Coastal::open(const char *url)
             continue;
         }
         argv[0] = (char *)cp;
-        argv[1] = (char *)url;
+        argv[1] = name.data();
         argv[2] = NULL;
         execvp(*argv, argv);
         exit(-1);
@@ -105,9 +96,9 @@ bool Coastal::open(const char *url)
     return false;
 }
 
-bool Coastal::browser(const char *url)
+bool Coastal::browser(const QString& url)
 {
-    QUrl web = QString(url);
+    QUrl web = url;
 
     if(!web.isValid() || web.isRelative())
         return false;
@@ -121,6 +112,7 @@ bool Coastal::browser(const char *url)
     const char *cp;
     char *argv[3];
     int status;
+    QByteArray uri = url.toUtf8();
 
     while(NULL != (cp = open[index++])) {
         pid_t pid = fork();
@@ -131,7 +123,7 @@ bool Coastal::browser(const char *url)
             continue;
         }
         argv[0] = (char *)cp;
-        argv[1] = (char *)url;
+        argv[1] = uri.data();
         argv[2] = NULL;
         execvp(*argv, argv);
         exit(-1);
