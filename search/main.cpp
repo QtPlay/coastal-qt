@@ -101,8 +101,8 @@ CoastalMain()
     connect(ui.actionToolbar, SIGNAL(toggled(bool)), ui.toolBar, SLOT(setVisible(bool)));
     connect(ui.actionStatus, SIGNAL(toggled(bool)), ui.statusbar, SLOT(setVisible(bool)));
 
-    connect(ui.actionOpenTab, SIGNAL(triggered()), this, SLOT(open()));
-    connect(ui.actionOpenFile, SIGNAL(triggered()), this, SLOT(file()));
+    connect(ui.actionView, SIGNAL(triggered()), this, SLOT(view()));
+    connect(ui.actionOpen, SIGNAL(triggered()), this, SLOT(open()));
 
     // adding history triggers selectDir...
     ui.pathBox->addItems(history);
@@ -215,12 +215,12 @@ void Main::close(int tab)
         ui.tabs->setTabsClosable(false);
 }
 
-void Main::open(void)
+void Main::view(void)
 {
     open(ui.indexView->currentIndex());
 }
 
-void Main::file(void)
+void Main::open(void)
 {
     QModelIndex index = ui.indexView->currentIndex();
     QString name = ind->name(index.row());
@@ -234,10 +234,8 @@ void Main::file(void)
 void Main::open(const QPoint& pos)
 {
     QMenu m;
-    m.addAction(ui.actionOpenTab);
-    m.addAction(ui.actionOpenFile);
-    m.addAction(ui.actionOpenWith);
-
+    m.addAction(ui.actionView);
+    m.addAction(ui.actionOpen);
     m.exec(ui.indexView->mapToGlobal(pos));
 }
 

@@ -517,19 +517,17 @@
     <string>Menubar</string>
    </property>
   </action>
-  <action name="actionOpenTab">
+  <action name="actionView">
    <property name="text">
-    <string>Open Tab</string>
+    <string>View</string>
+   </property>
+   <property name="toolTip">
+    <string>View in Tab</string>
    </property>
   </action>
-  <action name="actionOpenWith">
+  <action name="actionOpen">
    <property name="text">
-    <string>Open With...</string>
-   </property>
-  </action>
-  <action name="actionOpenFile">
-   <property name="text">
-    <string>Open File</string>
+    <string>Open</string>
    </property>
   </action>
  </widget>

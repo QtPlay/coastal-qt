@@ -132,8 +132,8 @@ CoastalMain()
     connect(ui.searchBox, SIGNAL(activated(const QString&)), this, SLOT(load(const QString&)));
     connect(ui.tabs, SIGNAL(tabCloseRequested(int)), this, SLOT(close(int)));
     connect(ui.indexView, SIGNAL(activated(const QModelIndex&)), this, SLOT(load(const QModelIndex&)));
-    connect(ui.actionOpenTab, SIGNAL(triggered()), this, SLOT(load()));
-    connect(ui.actionOpenFile, SIGNAL(triggered()), this, SLOT(open()));
+    connect(ui.actionView, SIGNAL(triggered()), this, SLOT(view()));
+    connect(ui.actionOpen, SIGNAL(triggered()), this, SLOT(open()));
 
     // application signals
 
@@ -294,7 +294,7 @@ void Main::load(const QString& text)
     load(pos);
 }
 
-void Main::load(void)
+void Main::view(void)
 {
     QModelIndex index = ui.indexView->currentIndex();
     load(index.row());
@@ -308,9 +308,8 @@ void Main::load(const QModelIndex& index)
 void Main::open(void)
 {
     QModelIndex index = ui.indexView->currentIndex();
-    int row = index.row();
-    QString name = indexData->name(row);
-    Index::fileinfo node = indexData->node(row);
+    QString name = indexData->name(index.row());
+    Index::fileinfo node = indexData->node(index.row());
     QString path = manpaths[node.path] + QDir::separator() + "man" + node.id + QDir::separator() + name;
     status(tr("opening ") + name);
 
@@ -408,10 +407,8 @@ void Main::reload(void)
 void Main::open(const QPoint& pos)
 {
     QMenu m;
-    m.addAction(ui.actionOpenTab);
-    m.addAction(ui.actionOpenFile);
-    m.addAction(ui.actionOpenWith);
-
+    m.addAction(ui.actionView);
+    m.addAction(ui.actionOpen);
     m.exec(ui.indexView->mapToGlobal(pos));
 }
 
