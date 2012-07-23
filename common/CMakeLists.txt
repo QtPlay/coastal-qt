@@ -15,6 +15,11 @@ file(GLOB ui_src *.ui)
 
 set (ts_common ${ts_src} ${qt_src} ${ui_src} ${qt_inc} PARENT_SCOPE)
 
+if(BUILD_DBUS)
+    QT4_ADD_DBUS_INTERFACE(qt_src ../dbus/org.freedesktop.Notifications.xml
+        dbus_notify)
+endif()
+
 QT4_WRAP_CPP(qt_moc coastal.h)
 QT4_WRAP_UI(qt_ui ${ui_src})
 
