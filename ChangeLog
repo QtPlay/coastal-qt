@@ -1,3 +1,7 @@
+Changes from 0.2.2 to 0.3.0
+- dbus and generic notification support in api
+- very basic coastal-notify to test notifications
+
 Changes from 0.2.1 to 0.2.2
 - expanded coastal api
 
