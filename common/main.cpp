@@ -51,7 +51,7 @@ void CoastalMain::about(void)
     info.exec();
 }
 
-#ifdef  WIN32
+#ifdef  Q_OS_WIN
 int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShow)
 {
     int argc, pos;

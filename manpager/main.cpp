@@ -46,7 +46,7 @@ CoastalMain()
     ui.statusbar->setVisible(ui.actionStatus->isChecked());
     ui.menubar->setVisible(ui.actionMenubar->isChecked());
 
-#ifdef WIN32
+#ifdef Q_OS_WIN
     const char *separator = ";";
     QString manpath = settings.value("manpath").toString();
     if(manpath.isEmpty())
@@ -151,7 +151,7 @@ CoastalMain()
 
 Main::~Main()
 {
-#ifdef  WIN32
+#ifdef  Q_OS_WIN
     QString sep = ";";
 #else
     QString sep = ":";

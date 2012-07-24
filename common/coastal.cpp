@@ -19,7 +19,7 @@
 #include <coastal.h>
 #include <ui_about.h>
 
-#ifdef WIN32
+#ifdef Q_OS_WIN
 #include <windows.h>
 #else
 #include <sys/wait.h>
@@ -30,7 +30,7 @@
 bool Coastal::env(const char *id, char *buffer, size_t size)
 {
     buffer[0] = 0;
-#ifdef  WIN32
+#ifdef  Q_OS_WIN
     if(!GetEnvironmentVariable(id, buffer, size))
         return false;
     return true;
@@ -60,7 +60,7 @@ bool Coastal::open(const QString& url)
 
     if(url[0] == QChar('/'))
         uri = QUrl::fromLocalFile(url);
-#ifdef WIN32
+#ifdef Q_OS_WIN
     else if((url[1] == QChar(':')) || (url[0] == QChar('\\')))
         uri = QUrl::fromLocalFile(url);
 #endif
@@ -70,7 +70,7 @@ bool Coastal::open(const QString& url)
     if(QDesktopServices::openUrl(uri))
         return true;
 
-#ifndef WIN32
+#ifndef Q_OS_WIN
     static const char *open[] = {"xdg-open", "exo-open", "gnome-open", "kde-open", NULL};
     unsigned index = 0;
     const char *cp;
@@ -109,7 +109,7 @@ bool Coastal::browser(const QString& url)
     if(QDesktopServices::openUrl(web))
         return true;
 
-#ifndef WIN32
+#ifndef Q_OS_WIN
     static const char *open[] = {"xdg-open", "exo-open", "gnome-open", "kde-open", NULL};
     unsigned index = 0;
     const char *cp;
@@ -145,7 +145,7 @@ bool Coastal::notify(const QString& title, const QString& body, const QString& i
     return notify.update();
 }
 
-#elif defined(WIN32)
+#elif defined(Q_OS_WIN)
 
 bool Coastal::notify(const QString& title, const QString& body, const QString& icon)
 {
