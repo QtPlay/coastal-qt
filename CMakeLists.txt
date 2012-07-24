@@ -12,7 +12,7 @@
 cmake_minimum_required(VERSION 2.6)
 PROJECT(coastal-qt)
 set (PACKAGE coastal-qt)
-set (VERSION 0.2.1)
+set (VERSION 0.3.0)
 set (SOVERSION 0)
 
 set (COASTAL_VERSION ${VERSION})
