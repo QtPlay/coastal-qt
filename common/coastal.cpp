@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with coastal-qt.  If not, see <http://www.gnu.org/licenses/>.
 
-#include "../config.h"
+#include <coastal-qt-config.h>
 #include <coastal.h>
 #include <ui_about.h>
 

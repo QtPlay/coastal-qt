@@ -18,7 +18,7 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
-#include "../config.h"
+#include <coastal-qt-config.h>
 #include <coastal.h>
 #include <QWidget>
 #include <QObject>

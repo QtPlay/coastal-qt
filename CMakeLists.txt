@@ -67,8 +67,8 @@ endif()
 
 check_include_files(windows.h HAVE_WINDOWS_H)
 
-configure_file(config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
-configure_file(config.h.cmake ${CMAKE_CURRENT_SOURCE_DIR}/config.h)
+configure_file(coastal-qt-config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/coastal-qt-config.h)
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/${PACKAGE}.spec.cmake ${CMAKE_CURRENT_SOURCE_DIR}/${PACKAGE}.spec @ONLY)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
