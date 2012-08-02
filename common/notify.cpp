@@ -104,7 +104,16 @@ CoastalNotify::type_t CoastalNotify::getType(void)
 
 #else
 
-bool CoastalNotify::setActions(const QStringList actions, int defaction)
+CoastalNotify::CoastalNotify(const QString& title, const QString& body, const QString& icon, QObject *parent) :
+QObject(parent)
+{
+}
+
+CoastalNotify::~CoastalNotify()
+{
+}
+
+bool CoastalNotify::setActions(const QStringList& actions, int defaction)
 {
     return false;
 }

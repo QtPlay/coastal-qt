@@ -158,7 +158,7 @@ bool Coastal::notify(const QString& title, const QString& body, const QString& i
     snprintf(buf, sizeof(buf), "%s\t%s\t%s\n",
         _title.data(), _body.data(), _icon.data());
 
-    HANDLE fd = CreateFile("\\\\.\\mailslot\\notify_ctrl") GENERIC_WRITE, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+    HANDLE fd = CreateFile("\\\\.\\mailslot\\notify_ctrl", GENERIC_WRITE, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
     if(fd == INVALID_HANDLE_VALUE)
         return false;
 

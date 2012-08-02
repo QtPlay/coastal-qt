@@ -13,6 +13,9 @@ file(GLOB qt_src *.cpp)
 file(GLOB qt_inc *.h)
 file(GLOB ui_src *.ui)
 
+list(REMOVE_ITEM qt_src ${CMAKE_CURRENT_SOURCE_DIR}/dbus_notify.cpp)
+list(REMOVE_ITEM qt_src ${CMAKE_CURRENT_SOURCE_DIR}/dbus_notify.h)
+
 set (ts_common ${ts_src} ${qt_src} ${ui_src} ${qt_inc} PARENT_SCOPE)
 
 if(BUILD_DBUS)
