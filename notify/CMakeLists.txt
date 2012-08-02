@@ -16,7 +16,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 set (PROGNAME coastal-notify)
 
 add_executable(${PROGNAME} ${qt_src} ${qt_inc})
-target_link_libraries(${PROGNAME} coastal ${QT_LIBRARIES})
+target_link_libraries(${PROGNAME} coastal ${QT_LIBRARIES} ${QT_PLUGINS})
 add_dependencies(${PROGNAME} coastal)
 install(TARGETS ${PROGNAME} DESTINATION ${INSTALL_BINDIR})
 
