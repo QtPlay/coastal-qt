@@ -1,2 +1,2 @@
 IDI_ICON1               ICON    DISCARDABLE     "application.ico"
-
+//CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST    "coastal-search.exe.manifest"
