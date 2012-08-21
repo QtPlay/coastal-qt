@@ -112,6 +112,8 @@ public:
     static bool open(const QString& filename);
 
     static bool notify(const QString& title, const QString& body, const QString& icon = "info");
+
+    static bool idle(void);
 };
 
 

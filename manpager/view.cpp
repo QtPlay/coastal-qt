@@ -27,7 +27,7 @@
 static void getargs(char *text, char **result)
 {
     unsigned count = 0;
-    char *out;
+    char *out = NULL;
 
     // lower case dot commands...
 
@@ -72,8 +72,10 @@ static void getargs(char *text, char **result)
         while(*text && isspace(*text))
             ++text;
     }
-    *(++out) = '\n';
-    out[1] = 0;
+    if(out) {
+        *(++out) = '\n';
+        out[1] = 0;
+    }
     result[count++] = out;
     result[count] = NULL;
 }

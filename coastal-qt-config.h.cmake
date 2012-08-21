@@ -13,6 +13,7 @@
 #define VERSION "${VERSION}"
 #define TRANSLATIONS "${DEFAULT_TRANSLATIONS}"
 #cmakedefine    HAVE_WINDOWS_H  1
+#cmakedefine    HAVE_LIBXSS 1
 
 #ifdef  HAVE_WINDOWS_H
 #include <windows.h>

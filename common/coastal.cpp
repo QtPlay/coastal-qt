@@ -27,6 +27,11 @@
 #include <fcntl.h>
 #endif
 
+#ifdef HAVE_LIBXSS
+#include <QX11Info>
+#include <X11/extensions/scrnsaver.h>
+#endif
+
 bool Coastal::env(const char *id, char *buffer, size_t size)
 {
     buffer[0] = 0;
@@ -136,6 +141,45 @@ bool Coastal::browser(const QString& url)
 
     return false;
 }
+
+#if defined(Q_OS_WIN)
+
+bool Coastal::idle(void)
+{
+    BOOL active = FALSE;
+    SystemParametersInfo(SPI_GETSCREENSAVERRUNNING, 0, &active, 0);
+
+    if(active == TRUE)
+        return true;
+
+    return false;
+}
+
+#elif defined(HAVE_LIBXSS)
+
+bool Coastal::idle(void)
+{
+    bool result = false;
+
+    Display *display = QX11Info::display();
+    XScreenSaverInfo *info = XScreenSaverAllocInfo();
+    if(info) {
+        XScreenSaverQueryInfo(display, DefaultRootWindow(display), info);
+        if(info->idle)
+            result = true;
+        XFree(info);
+    }
+    return result;
+}
+
+#else
+
+bool Coastal::idle(void)
+{
+    return false;
+}
+
+#endif
 
 #if defined(QT_DBUS_LIB)
 

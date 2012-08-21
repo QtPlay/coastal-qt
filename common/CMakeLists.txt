@@ -36,7 +36,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 add_library(coastal ${LIBRARY_TYPE} ${qt_src} ${qt_inc} ${qt_moc} ${qt_ui})
 set_target_properties(coastal PROPERTIES VERSION ${VERSION} SOVERSION ${SOVERSION})
-target_link_libraries(coastal ${QT_LIBRARIES})
+target_link_libraries(coastal ${QT_LIBRARIES} ${COASTAL_EXTRA_LIBS})
 
 if(NOT WIN32)
     install(FILES coastal.h DESTINATION include)

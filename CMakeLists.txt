@@ -69,6 +69,11 @@ else()
 endif()
 
 check_include_files(windows.h HAVE_WINDOWS_H)
+check_include_files(X11/extensions/scrnsaver.h HAVE_LIBXSS)
+
+if(HAVE_LIBXSS)
+    set(COASTAL_EXTRA_LIBS ${COASTAL_EXTRA_LIBS} Xss)
+endif()
 
 configure_file(coastal-qt-config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/coastal-qt-config.h)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
