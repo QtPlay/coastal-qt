@@ -162,10 +162,13 @@ bool Coastal::idle(void)
     bool result = false;
 
     Display *display = QX11Info::display();
+    int event, error;
+    if(!XScreenSaverQueryExtension(display, &event, &error))
+        return false;
     XScreenSaverInfo *info = XScreenSaverAllocInfo();
     if(info) {
         XScreenSaverQueryInfo(display, DefaultRootWindow(display), info);
-        if(info->idle)
+        if(info->state == ScreenSaverOn)
             result = true;
         XFree(info);
     }
