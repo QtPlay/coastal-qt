@@ -32,6 +32,10 @@
 #include <X11/extensions/scrnsaver.h>
 #endif
 
+#ifdef  HAVE_MAGIC
+#include <magic.h>
+#endif
+
 bool Coastal::env(const char *id, char *buffer, size_t size)
 {
     buffer[0] = 0;
@@ -242,6 +246,72 @@ bool Coastal::notify(const QString& title, const QString& body, const QString& i
     ::write(fd, buf, strlen(buf));
     ::close(fd);
     return true;
+}
+
+#endif
+
+#ifdef  HAVE_MAGIC
+
+QString Coastal::mimetype(const QString& filename)
+{
+    static magic_t mdb = NULL;
+
+    if(!mdb) {
+        mdb = magic_open(MAGIC_ERROR|MAGIC_MIME_TYPE|MAGIC_SYMLINK|MAGIC_PRESERVE_ATIME);
+        magic_load(mdb, NULL);
+    }
+    QByteArray fn = filename.toUtf8();
+    return magic_file(mdb, fn.data());
+}
+
+#else
+
+QString Coastal::mimetype(const QString& filename)
+{
+    int pos = filename.lastIndexOf(QChar('/'));
+#ifdef  Q_OS_WIN
+    int alt = filename.lastIndexOf(QChar('\\'));
+    if(alt < 0)
+        alt = filename.lastIndexOf(QChar(':'));
+    if(alt > pos)
+        pos = alt;
+#endif
+
+    if(pos < 0)
+        pos = 0;
+
+    int exp = filename.indexOf(QChar('.'), -1);
+    if(exp < pos)
+        return NULL;
+
+    QString ext = filename.mid(exp);
+
+    // we should do windows registry here...
+
+#ifdef  Q_OS_WIN
+#endif
+
+    // some generic defaults for fallback...
+
+    if(ext.compare(".txt", Qt::CaseInsensitive) ||
+       ext.compare(".text", Qt::CaseInsensitive) ||
+       ext.compare(".log", Qt::CaseInsensitive))
+        return "text/plain";
+
+    if(ext.compare(".htm", Qt::CaseInsensitive) ||
+       ext.compare(".html", Qt::CaseInsensitive) ||
+       ext.compare(".htx", Qt::CaseInsensitive))
+        return "text/html";
+
+    if(ext.compare(".jpg", Qt::CaseInsensitive) ||
+       ext.compare(".jpeg", Qt::CaseInsensitive))
+        return "image/jpeg";
+
+    if(ext.compare(".png", Qt::CaseInsensitive) ||
+       ext.compare(".x-png", Qt::CaseInsensitive))
+        return "image/png";
+
+    return NULL;
 }
 
 #endif

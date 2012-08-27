@@ -107,6 +107,8 @@ public:
 
     static QString env(const QString& id);
 
+    static QString mimetype(const QString& filename);
+
     static bool browser(const QString& url);
 
     static bool open(const QString& filename);

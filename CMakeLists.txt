@@ -70,6 +70,11 @@ endif()
 
 check_include_files(windows.h HAVE_WINDOWS_H)
 check_include_files(X11/extensions/scrnsaver.h HAVE_LIBXSS)
+check_include_files(magic.h HAVE_MAGIC)
+
+if(HAVE_MAGIC)
+    set(COASTAL_EXTRA_LIBS ${COASTAL_EXTRA_LIBS} magic)
+endif()
 
 if(HAVE_LIBXSS)
     set(COASTAL_EXTRA_LIBS ${COASTAL_EXTRA_LIBS} Xss)
