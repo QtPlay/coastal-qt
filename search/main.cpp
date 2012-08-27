@@ -107,8 +107,6 @@ CoastalMain()
     // adding history triggers selectDir...
     ui.pathBox->addItems(history);
 
-    Coastal::idle();
-
     clear();
 }
 
