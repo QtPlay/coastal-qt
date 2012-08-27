@@ -252,7 +252,7 @@ bool Coastal::notify(const QString& title, const QString& body, const QString& i
 
 #ifdef  HAVE_MAGIC
 
-QString Coastal::mimetype(const QString& filename)
+QString Coastal::mimefile(const QString& filename)
 {
     static magic_t mdb = NULL;
 
@@ -266,7 +266,22 @@ QString Coastal::mimetype(const QString& filename)
 
 #else
 
-QString Coastal::mimetype(const QString& filename)
+QString Coastal::mimefile(const QString& filename)
+{
+    QString ext = extension(filename);
+
+    // we should do windows registry here...
+
+#ifdef  Q_OS_WIN
+#endif
+
+    // fallback to minetype...
+    return mimetype(ext);
+}
+
+#endif
+
+QString extension(const QString& filename)
 {
     int pos = filename.lastIndexOf(QChar('/'));
 #ifdef  Q_OS_WIN
@@ -284,15 +299,11 @@ QString Coastal::mimetype(const QString& filename)
     if(exp < pos)
         return NULL;
 
-    QString ext = filename.mid(exp);
+    return filename.mid(exp);
+}
 
-    // we should do windows registry here...
-
-#ifdef  Q_OS_WIN
-#endif
-
-    // some generic defaults for fallback...
-
+QString mimetype(const QString ext)
+{
     if(ext.compare(".txt", Qt::CaseInsensitive) ||
        ext.compare(".text", Qt::CaseInsensitive) ||
        ext.compare(".log", Qt::CaseInsensitive))
@@ -307,12 +318,49 @@ QString Coastal::mimetype(const QString& filename)
        ext.compare(".jpeg", Qt::CaseInsensitive))
         return "image/jpeg";
 
-    if(ext.compare(".png", Qt::CaseInsensitive) ||
-       ext.compare(".x-png", Qt::CaseInsensitive))
+    if(ext.compare(".png", Qt::CaseInsensitive))
         return "image/png";
+
+    if(ext.compare(".bmp", Qt::CaseInsensitive))
+        return "image/bmp";
+
+    if(ext.compare(".aif", Qt::CaseInsensitive) ||
+       ext.compare(".aiff", Qt::CaseInsensitive))
+        return "audio/aiff";
+
+    if(ext.compare(".au", Qt::CaseInsensitive))
+        return "audio/basic";
+
+    if(ext.compare(".gsm", Qt::CaseInsensitive))
+        return "audio/x-gsm";
+
+    if(ext.compare(".wav", Qt::CaseInsensitive))
+        return "audio/wav";
+
+    if(ext.compare(".mp3", Qt::CaseInsensitive))
+        return "audio/mpeg3";
+
+    if(ext.compare(".mid", Qt::CaseInsensitive) ||
+       ext.compare(".midi", Qt::CaseInsensitive))
+        return "audio/x-midi";
+
+    if(ext.compare(".mpg", Qt::CaseInsensitive) ||
+       ext.compare(".mpeg", Qt::CaseInsensitive))
+        return "video/mpeg";
+
+    if(ext.compare(".avi", Qt::CaseInsensitive))
+        return "video/avi";
+
+    if(ext.compare(".mov", Qt::CaseInsensitive))
+        return "video/quicktime";
+
+    if(ext.compare(".xml", Qt::CaseInsensitive))
+        return "application/xml";
+
+    if(ext.compare(".zip", Qt::CaseInsensitive))
+        return "application/zip";
+
 
     return NULL;
 }
-
-#endif
 
