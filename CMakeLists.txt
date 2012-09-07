@@ -46,6 +46,10 @@ else()
     set(TRANSLATIONS share/coastal-qt/translations)
 endif()
 
+if(FRAMEWORKS_PREFIX AND WIN32)
+    install(FILES ${FRAMEWORKS_PREFIX}/share/misc/magic.mgc DESTINATION ${INSTALL_BINDIR}/magic.mgc)
+endif()
+
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/common")
 set(DEFAULT_TRANSLATIONS ${CMAKE_INSTALL_PREFIX}/${TRANSLATIONS})
 
@@ -74,6 +78,9 @@ check_include_files(magic.h HAVE_MAGIC)
 
 if(HAVE_MAGIC)
     set(COASTAL_EXTRA_LIBS ${COASTAL_EXTRA_LIBS} magic)
+    if(WIN32)
+        set(COASTAL_EXTRA_LIBS ${COASTAL_EXTRA_LIBS} regex shlwapi)
+    endif()
 endif()
 
 if(HAVE_LIBXSS)
