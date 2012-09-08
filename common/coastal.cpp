@@ -303,7 +303,7 @@ QString Coastal::mimefile(const QString& filename)
 
 #endif
 
-QString extension(const QString& filename)
+QString Coastal::extension(const QString& filename)
 {
     int pos = filename.lastIndexOf(QChar('/'));
 #ifdef  Q_OS_WIN
@@ -324,7 +324,7 @@ QString extension(const QString& filename)
     return filename.mid(exp);
 }
 
-QString mimetype(const QString ext)
+QString Coastal::mimetype(const QString& ext)
 {
     if(ext.compare(".txt", Qt::CaseInsensitive) ||
        ext.compare(".text", Qt::CaseInsensitive) ||
