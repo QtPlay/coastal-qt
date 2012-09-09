@@ -252,7 +252,7 @@ bool Coastal::notify(const QString& title, const QString& body, const QString& i
 
 #ifdef  HAVE_MAGIC
 #ifndef RUNTIME_MAGIC
-#define RUNTINE_MAGIC   NULL
+#define RUNTIME_MAGIC   NULL
 #endif
 
 QString Coastal::mimefile(const QString& filename)
