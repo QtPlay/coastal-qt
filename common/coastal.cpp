@@ -251,36 +251,17 @@ bool Coastal::notify(const QString& title, const QString& body, const QString& i
 #endif
 
 #ifdef  HAVE_MAGIC
+#ifndef RUNTIME_MAGIC
+#define RUNTINE_MAGIC   NULL
+#endif
 
 QString Coastal::mimefile(const QString& filename)
 {
     static magic_t mdb = NULL;
 
     if(!mdb) {
-        const char *db = NULL;
-
-#ifdef  Q_OS_WIN
-        // magic mime database would be bundled with app...
-        char argv0[MAX_PATH];
-        HINSTANCE handle = GetModuleHandle(NULL);
-        GetModuleFileName(handle, argv0, sizeof(argv0));
-
-        char *sp = strrchr(argv0, '\\');
-        if(!sp)
-            sp = strrchr(argv0, ':');
-
-        if(sp) {
-            ++sp;
-            snprintf(sp, sizeof(argv0) - (sp - argv0), "magic");
-        }
-        else
-            snprintf(argv0, sizeof(argv0), "magic");
-
-        db = argv0;
-#endif
-
         mdb = magic_open(MAGIC_ERROR|MAGIC_MIME_TYPE|MAGIC_SYMLINK|MAGIC_PRESERVE_ATIME);
-        magic_load(mdb, db);
+        magic_load(mdb, RUNTIME_MAGIC);
     }
     QByteArray fn = filename.toUtf8();
     return magic_file(mdb, fn.data());

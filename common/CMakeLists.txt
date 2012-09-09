@@ -26,15 +26,9 @@ endif()
 QT4_WRAP_CPP(qt_moc coastal.h)
 QT4_WRAP_UI(qt_ui ${ui_src})
 
-if(WIN32 OR APPLE)
-    set(LIBRARY_TYPE STATIC)
-else()
-    set(LIBRARY_TYPE SHARED)
-endif()
-
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
-add_library(coastal ${LIBRARY_TYPE} ${qt_src} ${qt_inc} ${qt_moc} ${qt_ui})
+add_library(coastal ${COASTAL_LIBRARY_TYPE} ${qt_src} ${qt_inc} ${qt_moc} ${qt_ui})
 set_target_properties(coastal PROPERTIES VERSION ${VERSION} SOVERSION ${SOVERSION})
 target_link_libraries(coastal ${QT_LIBRARIES} ${COASTAL_EXTRA_LIBS})
 

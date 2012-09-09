@@ -1,6 +1,8 @@
 Changes from 0.3.1 to 0.3.2
 - support for screensaver detection
 - support for mime file type detection
+- smart relocation of mime magic
+- optional runtime build for windows
 
 Changes from 0.3.0 to 0.3.1
 - fixes for mingw32 builds

@@ -15,6 +15,7 @@
 #cmakedefine    HAVE_WINDOWS_H  1
 #cmakedefine    HAVE_LIBXSS 1
 #cmakedefine    HAVE_MAGIC 1
+#cmakedefine    RUNTIME_MAGIC   "${RUNTIME_MAGIC}"
 
 #ifdef  HAVE_WINDOWS_H
 #include <windows.h>
