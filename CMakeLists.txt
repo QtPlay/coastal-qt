@@ -82,8 +82,15 @@ else()
     message(ERROR "Building without QT")
 endif()
 
+if(UNIX AND NOT APPLE)
+    find_package(X11)
+    if(X11_FOUND)
+        include_directories(${X11_INCLUDE_DIRS})
+        check_include_files(X11/extensions/scrnsaver.h HAVE_LIBXSS)
+    endif()
+endif()
+
 check_include_files(windows.h HAVE_WINDOWS_H)
-check_include_files(X11/extensions/scrnsaver.h HAVE_LIBXSS)
 check_include_files(magic.h HAVE_MAGIC)
 
 if(HAVE_MAGIC)
@@ -94,7 +101,7 @@ if(HAVE_MAGIC)
 endif()
 
 if(HAVE_LIBXSS)
-    set(COASTAL_EXTRA_LIBS ${COASTAL_EXTRA_LIBS} Xss)
+    set(COASTAL_EXTRA_LIBS ${COASTAL_EXTRA_LIBS} Xss ${X11_LIBRARIES})
 endif()
 
 configure_file(coastal-qt-config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/coastal-qt-config.h)
