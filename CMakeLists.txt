@@ -124,7 +124,9 @@ if(CMAKE_GENERATOR MATCHES "Unix Makefiles")
         COMMAND rm -f "${CMAKE_CURRENT_BINARY_DIR}/${PACKAGE}_*.dsc"
         COMMAND rm -f "${CMAKE_CURRENT_BINARY_DIR}/${PACKAGE}-*.rpm"
         COMMAND rm -f "${CMAKE_CURRENT_BINARY_DIR}/${PACKAGE}[-_]*.deb"
+        COMMAND rm -f "${CMAKE_CURRENT_BINARY_DIR}/*coastal*[-_]*.deb"
         COMMAND rm -f "${CMAKE_CURRENT_BINARY_DIR}/${PACKAGE}-*.zip"
+        COMMAND rm -f "${CMAKE_CURRENT_BINARY_DIR}/*coastal*.changes"
     )
 
     add_custom_target(dist
