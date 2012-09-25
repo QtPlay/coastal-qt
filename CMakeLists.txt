@@ -70,6 +70,8 @@ if(BUILD_DBUS)
     include_directories(${QT_QTDBUS_INCLUDE_DIR})
 endif()
 
+MESSAGE( STATUS "Configuring ${PACKAGE} ${VERSION}...")
+
 find_package(Qt4 4.6.0 REQUIRED)
 if(QT4_FOUND)
     include(${QT_USE_FILE})
