@@ -22,6 +22,8 @@ endif()
 
 set (ts_manpager ${ts_common} ${qt_src} ${ui_src} ${qt_inc} PARENT_SCOPE)
 
+configure_file(application.rc.cmake application.rc)
+
 QT4_ADD_RESOURCES(qt_qrc ${rc_src})
 QT4_WRAP_CPP(qt_moc program.h)
 QT4_WRAP_UI(qt_ui ${ui_src})
