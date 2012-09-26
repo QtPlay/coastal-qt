@@ -13,7 +13,13 @@ cmake_minimum_required(VERSION 2.6)
 PROJECT(coastal-qt)
 set (PACKAGE coastal-qt)
 set (VERSION 0.3.2)
-set (SOVERSION 0)
+
+set(RC_VERSION ${VERSION})
+STRING(REGEX REPLACE "[.]" "," RC_VERSION ${RC_VERSION})
+set(RC_VERSION "${RC_VERSION},0")
+
+set(SOVERSION ${VERSION})
+STRING(REGEX REPLACE "[.].*$" "" SOVERSION ${SOVERSION})
 
 set (COASTAL_VERSION ${VERSION})
 
