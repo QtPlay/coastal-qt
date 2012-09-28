@@ -10,7 +10,7 @@
 
 Name: coastal-qt
 Summary: QT Desktop Applications
-Version: 0.3.2
+Version: 0.3.3
 Release: 0%{?dist}
 License: GPLv3+
 URL: http://www.gnutelephony.org
