@@ -24,11 +24,21 @@
 View::View(QTabWidget *tabs, QString& title) :
 QTextEdit()
 {
-    QString text;
+    QString text, temp;
+    int pos;
     QFile file(title);
     if(file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         while(!file.atEnd()) {
-            text += file.readLine();
+            temp = file.readLine();
+            while((pos = temp.indexOf("\002")) > -1) {
+                temp.replace(pos, 1, "<b>");
+                if((pos = temp.indexOf("\002")) > -1)
+                    temp.replace(pos, 1, "</b>"); 
+            }
+            while((pos = temp.indexOf("\003")) > -1) {
+                temp.remove(pos, 3);
+            }
+            text += temp;
         }
     }
 
