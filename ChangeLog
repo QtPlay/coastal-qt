@@ -1,3 +1,6 @@
+Changes from 0.3.3 to 0.3.4
+- some cleanup of text processing
+
 Changes from 0.3.2 to 0.3.3
 - added rc version info for mingw32
 - clarified dll build for win32 targets
