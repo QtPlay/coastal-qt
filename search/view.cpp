@@ -31,12 +31,16 @@ QTextEdit()
         while(!file.atEnd()) {
             temp = file.readLine();
             while((pos = temp.indexOf("\002")) > -1) {
-                temp.replace(pos, 1, "<b>");
-                if((pos = temp.indexOf("\002")) > -1)
-                    temp.replace(pos, 1, "</b>"); 
+                temp.remove(pos, 1);
             }
             while((pos = temp.indexOf("\003")) > -1) {
                 temp.remove(pos, 3);
+            }
+            while((pos = temp.indexOf("\010")) > -1) {
+                temp.remove(pos, 1);
+            }
+            while((pos = temp.indexOf("\017")) > -1) {
+                temp.remove(pos, 1);
             }
             text += temp;
         }
