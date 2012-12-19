@@ -24,6 +24,7 @@
 #include <QTranslator>
 #include <QSettings>
 #include <QMenu>
+#include <QTimer>
 #include <iostream>
 
 class Main : public CoastalMain
@@ -36,6 +37,17 @@ public:
 public slots:
     void action(QSystemTrayIcon::ActivationReason reason);
 
+};
+
+class Notice : public QDialog
+{
+Q_OBJECT
+
+private:
+    QTimer timer;
+
+public:
+    Notice(const char *title, const char *summary = NULL, const char *icon = NULL);
 };
 
 #endif
