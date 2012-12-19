@@ -19,24 +19,91 @@
 
 using namespace std;
 
+Main::Main(QWidget *parent) :
+CoastalMain()
+{
+//    ui.setupUi((QMainWindow *)this);
+
+    program_name = "Coastal Notify";
+    program_about = "Coastal Notifications";
+    setWindowIcon(QIcon(":/notify.png"));
+    setWindowTitle(program_name);
+    setWindowFlags(Qt::Window);
+
+    trayicon = new QSystemTrayIcon(this);
+    if(!trayicon) {
+        show();
+        return;
+    }
+
+    QMenu *traymenu = new QMenu(NULL);
+
+    QAction *aboutAction = new QAction(tr("About"), this);
+    aboutAction->setIcon(QIcon::fromTheme("help-about"));
+    aboutAction->setIconVisibleInMenu(true);
+    connect(aboutAction, SIGNAL(triggered()), this, SLOT(about()));
+    traymenu->addAction(aboutAction);
+
+    trayicon->setContextMenu(traymenu);
+    trayicon->setIcon(QIcon(":/notify.png"));
+    trayicon->show();
+    QApplication::setQuitOnLastWindowClosed(true);
+
+    connect(trayicon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
+            this, SLOT(action(QSystemTrayIcon::ActivationReason)));
+}
+
+Main::~Main()
+{
+}
+
+void Main::action(QSystemTrayIcon::ActivationReason reason)
+{
+    switch(reason) {
+    case QSystemTrayIcon::Trigger:
+    case QSystemTrayIcon::DoubleClick:
+        if(isVisible())
+            close();
+//        else if(isEnabled())
+//            open();
+        return;
+    default:
+        return;
+    }
+}
+
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
     bool result;
 
-    if(!argv[1] || !argv[2]) {
-        cerr << "use: coastal-notify \"title\" \"summary\" [icon]" << endl;
+    if(argv[1] && !argv[2]) {
+        cerr << "use: coastal-notify [\"title\" \"summary\" [icon]]" << endl;
         return 2;
     }
 
-    if(argv[3])
-        result = Coastal::notify(argv[1], argv[2], argv[3]);
-    else
-        result = Coastal::notify(argv[1], argv[2]);
+    if(argv[1]) {
+        if(argv[2] && argv[3])
+            result = Coastal::notify(argv[1], argv[2], argv[3]);
+        else if(argv[2])
+            result = Coastal::notify(argv[1], argv[2]);
 
-    if(result)
-        return 0;
+        if(result)
+            return 0;
+    }
 
-    return 1;
+    QCoreApplication::setOrganizationName("GNU Telephony");
+    QCoreApplication::setOrganizationDomain("gnutelephony.org");
+    QCoreApplication::setApplicationName("coastal-notify");
+
+    QTranslator translator;
+    translator.load(QLocale::system().name(), TRANSLATIONS);
+    app.installTranslator(&translator);
+
+    if(!QIcon::hasThemeIcon("reload"))
+        QIcon::setThemeName("coastal");
+
+    Main w;
+    return app.exec();
 }
 

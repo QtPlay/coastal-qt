@@ -21,7 +21,22 @@
 #include <coastal-qt-config.h>
 #include <coastal.h>
 #include <QApplication>
+#include <QTranslator>
+#include <QSettings>
+#include <QMenu>
 #include <iostream>
+
+class Main : public CoastalMain
+{
+Q_OBJECT
+public:
+    Main(QWidget *parent = NULL);
+    virtual ~Main();
+
+public slots:
+    void action(QSystemTrayIcon::ActivationReason reason);
+
+};
 
 #endif
 

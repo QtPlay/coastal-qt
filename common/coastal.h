@@ -24,6 +24,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
 #include <QDesktopServices>
+#include <QSystemTrayIcon>
 #include <QUrl>
 #include <QDir>
 #include <QProcess>
@@ -112,6 +113,7 @@ Q_OBJECT
 protected:
     const char *program_version, *program_about, *program_copyright, *program_name;
     const char *url_support;
+    QSystemTrayIcon *trayicon;
 
     CoastalMain();
 

@@ -26,6 +26,7 @@ QMainWindow(NULL)
     program_about = program_name = "Coastal Application";
     program_copyright = "2011 David Sugar";
 
+    trayicon = NULL;
     url_support = "https://github.com/dyfet/coastal-qt/issues";
 }
 
