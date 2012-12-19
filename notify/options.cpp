@@ -24,7 +24,7 @@ Options::Options()
 	QSettings settings;
 
 	modified = false;
-	show_icons = settings.value("show_icons", false).toBool();
+	show_icons = settings.value("show_icons", true).toBool();
 }
 
 Options::~Options()

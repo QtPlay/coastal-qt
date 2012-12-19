@@ -44,16 +44,8 @@ Notice::Notice(Options& options, const char *title, const char *summary, const c
     else
         setWindowIcon(QIcon(":/info.png"));
 
-    if(options.show_icons) {
-        QIcon icon = windowIcon();
-        QPixmap image = icon.pixmap(32, 32, QIcon::Normal, QIcon::On);
-        QGraphicsScene scene;
-        QGraphicsPixmapItem *item = scene.addPixmap(image);
-        item->setVisible(true);
-
-        ui->Icon->setStyleSheet("background: transparent");
-        ui->Icon->setScene(&scene);
-    }
+    if(options.show_icons)
+        ui->Icon->setIcon(windowIcon());
     else {
         ui->Icon->setVisible(false);
         ui->Icon->setEnabled(false);
