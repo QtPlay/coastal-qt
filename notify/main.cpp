@@ -19,7 +19,7 @@
 
 using namespace std;
 
-Main::Main(QWidget *parent) :
+Main::Main(Options& options) :
 CoastalMain()
 {
 //    ui.setupUi((QMainWindow *)this);
@@ -109,10 +109,12 @@ int main(int argc, char *argv[])
     if(!QIcon::hasThemeIcon("reload"))
         QIcon::setThemeName("coastal");
 
+    Options opt;
+
     if(internal)
-        new Notice(argv[1], argv[2], argv[3]);
+        new Notice(opt, argv[1], argv[2], argv[3]);
     else
-        Main w;
+        Main w(opt);
     return app.exec();
 }
 

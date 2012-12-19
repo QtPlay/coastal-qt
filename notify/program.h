@@ -27,11 +27,23 @@
 #include <QTimer>
 #include <iostream>
 
+class Options
+{
+public:
+    qreal translucency;
+    unsigned timeout;
+    bool show_icons;
+    bool modified;
+
+    Options();
+    ~Options();
+};
+
 class Main : public CoastalMain
 {
 Q_OBJECT
 public:
-    Main(QWidget *parent = NULL);
+    Main(Options& options);
     virtual ~Main();
 
 public slots:
@@ -47,7 +59,7 @@ private:
     QTimer timer;
 
 public:
-    Notice(const char *title, const char *summary = NULL, const char *icon = NULL);
+    Notice(Options& options, const char *title, const char *summary = NULL, const char *icon = NULL);
 };
 
 #endif

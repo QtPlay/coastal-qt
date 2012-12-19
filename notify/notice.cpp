@@ -20,7 +20,7 @@
 
 using namespace std;
 
-Notice::Notice(const char *title, const char *summary, const char *type) : QDialog(NULL)
+Notice::Notice(Options& options, const char *title, const char *summary, const char *type) : QDialog(NULL)
 {
     QString text;
 
@@ -37,21 +37,28 @@ Notice::Notice(const char *title, const char *summary, const char *type) : QDial
     ui->Text->setText(text);
 
     setAttribute(Qt::WA_DeleteOnClose);
-    QIcon icon;
     if(type && !strcmp(type, "error")) 
-        icon = QIcon::fromTheme("dialog-error");
-    else if(type && !strcmp(type, "warning"))
-        icon = QIcon::fromTheme("dialog-warning");
+        setWindowIcon(QIcon(":/error.png"));
+    else if(type && !strcmp(type, "warning")) 
+        setWindowIcon(QIcon(":/warning.png"));
     else
-        icon = QIcon::fromTheme("dialog-information");
+        setWindowIcon(QIcon(":/info.png"));
 
-    QPixmap image = icon.pixmap(16, 16, QIcon::Normal, QIcon::On);
-    QGraphicsScene scene;
-    QGraphicsPixmapItem *item = scene.addPixmap(image);
-    item->setVisible(true);
+    if(options.show_icons) {
+        QIcon icon = windowIcon();
+        QPixmap image = icon.pixmap(32, 32, QIcon::Normal, QIcon::On);
+        QGraphicsScene scene;
+        QGraphicsPixmapItem *item = scene.addPixmap(image);
+        item->setVisible(true);
 
-    ui->Icon->setStyleSheet("background: transparent");
-    ui->Icon->setScene(&scene);
+        ui->Icon->setStyleSheet("background: transparent");
+        ui->Icon->setScene(&scene);
+    }
+    else {
+        ui->Icon->setVisible(false);
+        ui->Icon->setEnabled(false);
+        ui->Icon->hide();
+    }
 
     setWindowFlags(Qt::FramelessWindowHint);
     setWindowOpacity(qreal(0.60));
