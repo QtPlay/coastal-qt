@@ -32,6 +32,11 @@ QObject(parent)
     _timeout = -1;
     _updated = true;
 
+    if(_icon == "error")
+        _icon = "dialog-error";
+    else if(_icon == "warning")
+        _icon = "dialog-warning";
+
     OrgFreedesktopNotificationsInterface* dbus = new OrgFreedesktopNotificationsInterface("org.freedesktop.Notifications", "/org/freedesktop/Notifications", QDBusConnection::sessionBus(), this);
     connect(dbus, SIGNAL(NotificationClosed(uint, uint)),
         this, SLOT(dbus_close(uint,uint)));

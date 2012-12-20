@@ -37,9 +37,9 @@ Notice::Notice(Options& options, const char *title, const char *summary, const c
     ui->Text->setText(text);
 
     setAttribute(Qt::WA_DeleteOnClose);
-    if(type && !strcmp(type, "error")) 
+    if(type && (!strcmp(type, "error") || !strcmp(type, "dialog-error")))
         setWindowIcon(QIcon(":/error.png"));
-    else if(type && !strcmp(type, "warning")) 
+    else if(type && (!strcmp(type, "warning") || !strcmp(type, "dialog-warning"))) 
         setWindowIcon(QIcon(":/warning.png"));
     else
         setWindowIcon(QIcon(":/info.png"));
