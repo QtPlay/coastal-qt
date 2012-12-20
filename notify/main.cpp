@@ -16,19 +16,23 @@
 // along with coastal-qt.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "program.h"
+#include "ui_main.h"
 
 using namespace std;
 
-Main::Main(Options& options) :
+static Ui::MainWindow ui;
+
+Main::Main() :
 CoastalMain()
 {
-//    ui.setupUi((QMainWindow *)this);
+    ui.setupUi((QMainWindow *)this);
 
     program_name = "Coastal Notify";
     program_about = "Coastal Notifications";
     setWindowIcon(QIcon(":/notify.png"));
     setWindowTitle(program_name);
     setWindowFlags(Qt::Window);
+    QApplication::setQuitOnLastWindowClosed(true);
 
     trayicon = new QSystemTrayIcon(this);
     if(!trayicon) {
@@ -44,11 +48,16 @@ CoastalMain()
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(about()));
     traymenu->addAction(aboutAction);
 
+    QAction *quitAction = new QAction(tr("&Quit"), this);
+    quitAction->setIcon(QIcon::fromTheme("exit"));
+    quitAction->setIconVisibleInMenu(true);
+    connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
+    traymenu->addAction(quitAction);
+
     trayicon->setContextMenu(traymenu);
     trayicon->setIcon(QIcon(":/notify.png"));
     trayicon->show();
-    QApplication::setQuitOnLastWindowClosed(true);
-
+    
     connect(trayicon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
             this, SLOT(action(QSystemTrayIcon::ActivationReason)));
 }
@@ -109,12 +118,12 @@ int main(int argc, char *argv[])
     if(!QIcon::hasThemeIcon("reload"))
         QIcon::setThemeName("coastal");
 
-    Options opt;
-
-    if(internal)
-        new Notice(opt, argv[1], argv[2], argv[3]);
-    else
-        Main w(opt);
-    return app.exec();
+    if(internal) {
+        Options options;
+        new Notice(options, argv[1], argv[2], argv[3]);
+        return app.exec();
+    }
+    Main w;
+    app.exec();
 }
 

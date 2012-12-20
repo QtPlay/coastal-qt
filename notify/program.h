@@ -43,12 +43,13 @@ class Main : public CoastalMain
 {
 Q_OBJECT
 public:
-    Main(Options& options);
+    Main();
     virtual ~Main();
+    
+    Options options;
 
 public slots:
     void action(QSystemTrayIcon::ActivationReason reason);
-
 };
 
 class Notice : public QDialog
