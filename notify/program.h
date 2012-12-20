@@ -27,16 +27,16 @@
 #include <QTimer>
 #include <iostream>
 
-class Options
+class Options : private QSettings
 {
 public:
     qreal opacity;
     unsigned timeout;
     bool show_icons;
-    bool modified;
 
     Options();
-    ~Options();
+
+    void save(void);
 };
 
 class Main : public CoastalMain

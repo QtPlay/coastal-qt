@@ -19,25 +19,20 @@
 
 using namespace std;
 
-Options::Options()
+Options::Options() :
+QSettings()
 {
-	QSettings settings;
 
-	modified = false;
-	show_icons = settings.value("show_icons", true).toBool();
-	timeout = settings.value("timeout", 5).toInt() * 1000;
-	opacity = settings.value("opacity", 0.6).toReal();
+	show_icons = value("show_icons", true).toBool();
+	timeout = value("timeout", 5).toInt() * 1000;
+	opacity = value("opacity", 0.6).toReal();
 }
 
-Options::~Options()
+void Options::save(void)
 {
-	if(!modified)
-		return;
-
-	QSettings settings;
-	settings.setValue("show_icons", show_icons);
-	settings.setValue("timeout", timeout / 1000);
-	settings.setValue("opacity", opacity);
+	setValue("show_icons", show_icons);
+	setValue("timeout", timeout / 1000);
+	setValue("opacity", opacity);
 }
 
 
