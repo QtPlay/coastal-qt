@@ -32,6 +32,7 @@
 #include <QFileDialog>
 #include <QAbstractTableModel>
 #include <QTextEdit>
+#include <QKeyEvent>
 #include <QDebug>
 
 class Index : public QAbstractTableModel
@@ -78,10 +79,19 @@ class View : public QTextEdit
 {
 Q_OBJECT
 
+private:
+    void keyPressEvent(QKeyEvent *event);
+
 public:
     View(QTabWidget *tabs, QString& title);
 
     static bool find(QTabWidget *tabs, QString& title);
+
+signals:
+    void search(void);    
+
+public slots:
+    void find(void);
 };
 
 class Main : public CoastalMain

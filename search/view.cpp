@@ -57,6 +57,27 @@ QTextEdit()
     tabs->setTabsClosable(true);
 }
 
+void View::keyPressEvent(QKeyEvent *e)
+{
+    switch(e->nativeVirtualKey()) {
+    case 47:
+    case 63:
+    case 102:
+    case 115:
+    case 70:
+    case 83:
+    case 65472:
+        emit search();
+    default:
+        break;
+    }
+    QTextEdit::keyPressEvent(e);
+}
+
+void View::find(void)
+{
+}
+
 bool View::find(QTabWidget *tabs, QString& title)
 {
     for(int tab = 1; tab < tabs->count(); ++tab) {
