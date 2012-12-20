@@ -21,6 +21,8 @@
 static Ui::MainWindow ui;
 static const char *types = NULL;
 
+Qt::CaseSensitivity Main::caseflag = Qt::CaseInsensitive;
+
 Main::Main(const char *prefix) :
 CoastalMain()
 {
@@ -49,6 +51,9 @@ CoastalMain()
     ui.toolBar->setVisible(ui.actionToolbar->isChecked());
     ui.statusbar->setVisible(ui.actionStatus->isChecked());
 
+    if(settings.value("case", false).toBool())
+        caseflag = Qt::CaseSensitive;
+
     if(types) {
         ui.filterTypes->setText(types);
         ui.filterTypes->setEnabled(false);
@@ -74,6 +79,7 @@ CoastalMain()
     ui.actionReload->setIcon(QIcon::fromTheme("reload"));
     ui.actionClear->setIcon(QIcon::fromTheme("editclear"));
     ui.actionAbout->setIcon(QIcon::fromTheme("help-about"));
+    ui.actionOptions->setIcon(QIcon::fromTheme("configuration_section"));
     ui.actionSearch->setIcon(QIcon::fromTheme("search"));
     ui.actionSupport->setIcon(QIcon(":/github.png"));
 
@@ -84,6 +90,7 @@ CoastalMain()
     connect(ui.actionAbout, SIGNAL(triggered()), this, SLOT(about()));
     connect(ui.actionClear, SIGNAL(triggered()), this, SLOT(clear()));
     connect(ui.actionSearch, SIGNAL(triggered()), this, SLOT(reload()));
+    connect(ui.actionOptions, SIGNAL(triggered()), this, SLOT(options()));
     connect(ui.actionSupport, SIGNAL(triggered()), this, SLOT(support()));
     connect(ui.pathButton, SIGNAL(clicked()), this, SLOT(changeDir()));
     connect(ui.pathBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectDir(int)));
@@ -120,6 +127,12 @@ Main::~Main()
     settings.setValue("menubar", ui.actionMenubar->isChecked());
     settings.setValue("toolbar", ui.actionToolbar->isChecked());
     settings.setValue("status", ui.actionStatus->isChecked());
+
+    if(caseflag == Qt::CaseSensitive)
+        settings.setValue("case", true);
+    else
+        settings.setValue("case", false);
+
     if(!types) {
         settings.setValue("filter", ui.filterTypes->text());
 
@@ -158,11 +171,13 @@ void Main::changeDir(void)
         QDir::setCurrent(path);
         dir.setPath(QDir::currentPath());
 
-//      qDebug() << "CHANGE PATH " << path << " DIR " << dir.path() << endl;
         unsigned pos = history.size();
         while(pos > 0) {
             --pos;
+
             if(dir.path() == history[pos])
+                history.takeAt(pos);
+            else if(!QDir(history[pos]).exists())
                 history.takeAt(pos);
         }
 
@@ -252,6 +267,11 @@ void Main::open(const QModelIndex& index)
     ui.statusbar->showMessage(tr("loaded ") + name);
 }
 
+void Main::options(void)
+{
+    Config::create(ui.tabs);
+}
+
 void Main::reload(void)
 {
     ui.statusbar->showMessage(tr("reloading..."));
@@ -274,6 +294,7 @@ void Main::menu(const QPoint& pos)
     QMenu m;
 
     m.addAction(ui.actionAbout);
+    m.addAction(ui.actionOptions);
     m.addAction(ui.actionSupport);
 
     m.addSeparator();

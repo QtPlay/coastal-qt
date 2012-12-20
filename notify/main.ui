@@ -34,7 +34,7 @@
         </widget>
         <widget class="QWidget" name="groupTab">
          <attribute name="title">
-          <string>&amp;Group</string>
+          <string>&amp;Groups</string>
          </attribute>
          <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
@@ -61,7 +61,7 @@
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
+     <layout class="QHBoxLayout" name="buttonLayout">
       <item>
        <widget class="QToolButton" name="aboutButton">
         <property name="text">
@@ -75,6 +75,19 @@
          <string>&amp;Q</string>
         </property>
        </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
      </layout>
     </item>

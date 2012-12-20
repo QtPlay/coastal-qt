@@ -6,7 +6,8 @@
     <file alias="16x16/reload.png">../icons/reload.png</file>
     <file alias="16x16/editclear.png">../icons/editclear.png</file>
     <file alias="16x16/help-about.png">../icons/help-about.png</file>
-    <file alias="16x16/search.png">../icons/search.png</file>
+	<file alias="16x16/search.png">../icons/search.png</file>
+	<file alias="16x16/configuration_section.png">../icons/configuration_section.png</file>
 </qresource>
 <qresource>
     <file alias="search.png">../icons/coastal-search.png</file>

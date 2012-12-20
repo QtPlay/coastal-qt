@@ -59,6 +59,21 @@ public:
     QString name(int row);
 };
 
+class Config : public QDialog
+{
+Q_OBJECT
+
+private:
+    Config(QTabWidget *tabs);
+
+public:
+    ~Config();
+    static void create(QTabWidget *tabs);
+
+public slots:
+    void configCase(int state);
+};
+
 class View : public QTextEdit
 {
 Q_OBJECT
@@ -78,6 +93,8 @@ public:
     QDir dir;
     Index *ind;
 
+    static Qt::CaseSensitivity caseflag;
+
     Main(const char *prefix);
     virtual ~Main();
 
@@ -92,6 +109,7 @@ public slots:
     void close(int tab);
     void menu(const QPoint& pos);
     void open(const QPoint& pos);
+    void options(void);
 };
 
 #endif

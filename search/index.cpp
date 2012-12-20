@@ -49,7 +49,7 @@ bool Index::grep(QString& path, QString& match)
     if(file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         while(!file.atEnd()) {
             text = file.readLine();
-            if(text.indexOf(match, 0, Qt::CaseInsensitive) > -1) {
+            if(text.indexOf(match, 0, Main::caseflag) > -1) {
                 result = true;
                 break;
             }
