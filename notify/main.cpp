@@ -34,6 +34,12 @@ CoastalMain()
     setWindowFlags(Qt::Window);
     QApplication::setQuitOnLastWindowClosed(true);
 
+    ui.aboutButton->setIcon(QIcon::fromTheme("help-about"));
+    connect(ui.aboutButton, SIGNAL(clicked()), this, SLOT(about()));
+
+    ui.quitButton->setIcon(QIcon::fromTheme("exit"));
+    connect(ui.quitButton, SIGNAL(clicked()), qApp, SLOT(quit()));
+
     trayicon = new QSystemTrayIcon(this);
     if(!trayicon) {
         show();
@@ -72,9 +78,9 @@ void Main::action(QSystemTrayIcon::ActivationReason reason)
     case QSystemTrayIcon::Trigger:
     case QSystemTrayIcon::DoubleClick:
         if(isVisible())
-            close();
-//        else if(isEnabled())
-//            open();
+            hide();
+        else if(isEnabled())
+            show();
         return;
     default:
         return;
