@@ -25,6 +25,8 @@ Options::Options()
 
 	modified = false;
 	show_icons = settings.value("show_icons", true).toBool();
+	timeout = settings.value("timeout", 5).toInt() * 1000;
+	opacity = settings.value("opacity", 0.6).toReal();
 }
 
 Options::~Options()
@@ -34,6 +36,8 @@ Options::~Options()
 
 	QSettings settings;
 	settings.setValue("show_icons", show_icons);
+	settings.setValue("timeout", timeout / 1000);
+	settings.setValue("opacity", opacity);
 }
 
 

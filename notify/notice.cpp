@@ -20,6 +20,8 @@
 
 using namespace std;
 
+volatile unsigned instances = 0;
+
 Notice::Notice(Options& options, const char *title, const char *summary, const char *type) : QDialog(NULL)
 {
     QString text;
@@ -53,11 +55,23 @@ Notice::Notice(Options& options, const char *title, const char *summary, const c
     }
 
     setWindowFlags(Qt::FramelessWindowHint);
-    setWindowOpacity(qreal(0.60));
+    setWindowOpacity(options.opacity);
+
+    ++instances;
 
     connect(&timer, SIGNAL(timeout()), this, SLOT(close()));
-    timer.start(5000);
+    timer.start(options.timeout);
     show();
+}
+
+Notice::~Notice()
+{
+    --instances;
+}
+
+unsigned Notice::count(void)
+{
+    return instances;
 }
 
 

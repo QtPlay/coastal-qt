@@ -30,7 +30,7 @@
 class Options
 {
 public:
-    qreal translucency;
+    qreal opacity;
     unsigned timeout;
     bool show_icons;
     bool modified;
@@ -60,6 +60,9 @@ private:
 
 public:
     Notice(Options& options, const char *title, const char *summary = NULL, const char *icon = NULL);
+    ~Notice();
+
+    static unsigned count(void);
 };
 
 #endif
