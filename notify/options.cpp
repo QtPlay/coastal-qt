@@ -26,6 +26,14 @@ QSettings()
 	show_icons = value("show_icons", true).toBool();
 	timeout = value("timeout", 5).toInt() * 1000;
 	opacity = value("opacity", 0.6).toReal();
+	network = value("network", "*").toString();
+}
+
+void Options::change(QString net)
+{
+	network = net;
+	setValue("network", net);
+	sync();
 }
 
 void Options::save(void)
@@ -33,6 +41,7 @@ void Options::save(void)
 	setValue("show_icons", show_icons);
 	setValue("timeout", timeout / 1000);
 	setValue("opacity", opacity);
+	sync();
 }
 
 

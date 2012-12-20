@@ -32,6 +32,7 @@ CoastalMain()
     setWindowIcon(QIcon(":/notify.png"));
     setWindowTitle(program_name);
     setWindowFlags(Qt::Window);
+
     QApplication::setQuitOnLastWindowClosed(true);
 
     ui.aboutButton->setIcon(QIcon::fromTheme("help-about"));

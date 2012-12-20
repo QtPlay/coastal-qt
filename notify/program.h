@@ -29,7 +29,10 @@
 
 class Options : private QSettings
 {
+Q_OBJECT
+
 public:
+    QString network;
     qreal opacity;
     unsigned timeout;
     bool show_icons;
@@ -37,6 +40,9 @@ public:
     Options();
 
     void save(void);
+
+public slots:
+    void change(QString net);
 };
 
 class Main : public CoastalMain
