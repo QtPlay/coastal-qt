@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>155</width>
+    <width>161</width>
     <height>390</height>
    </rect>
   </property>
@@ -14,80 +14,84 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_3">
+   <layout class="QHBoxLayout" name="Tee">
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
+     <layout class="QVBoxLayout" name="Spine">
       <item>
-       <widget class="QTabWidget" name="tabWidget">
-        <property name="currentIndex">
-         <number>0</number>
-        </property>
-        <widget class="QWidget" name="userTab">
-         <attribute name="title">
-          <string>&amp;Users</string>
-         </attribute>
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QTabWidget" name="tabWidget">
+          <property name="currentIndex">
+           <number>0</number>
+          </property>
+          <widget class="QWidget" name="userTab">
+           <attribute name="title">
+            <string>&amp;Users</string>
+           </attribute>
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <item>
+             <widget class="QListView" name="listView"/>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="groupTab">
+           <attribute name="title">
+            <string>&amp;Groups</string>
+           </attribute>
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <item>
+             <widget class="QListView" name="listView_2"/>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="QListView" name="listView"/>
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Network</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="networkEdit"/>
           </item>
          </layout>
-        </widget>
-        <widget class="QWidget" name="groupTab">
-         <attribute name="title">
-          <string>&amp;Groups</string>
-         </attribute>
-         <layout class="QHBoxLayout" name="horizontalLayout_4">
-          <item>
-           <widget class="QListView" name="listView_2"/>
-          </item>
-         </layout>
-        </widget>
-       </widget>
+        </item>
+       </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <layout class="QHBoxLayout" name="Buttons">
         <item>
-         <widget class="QLabel" name="label">
+         <widget class="QToolButton" name="aboutButton">
           <property name="text">
-           <string>Network</string>
+           <string>&amp;A</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="networkEdit"/>
+         <widget class="QToolButton" name="quitButton">
+          <property name="text">
+           <string>&amp;Q</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="buttonLayout">
-      <item>
-       <widget class="QToolButton" name="aboutButton">
-        <property name="text">
-         <string>&amp;A</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QToolButton" name="quitButton">
-        <property name="text">
-         <string>&amp;Q</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
       </item>
      </layout>
     </item>
