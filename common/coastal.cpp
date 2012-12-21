@@ -148,7 +148,7 @@ bool Coastal::browser(const QString& url)
 
 #if defined(Q_OS_WIN)
 
-bool Coastal::idle(void)
+bool Coastal::away(void)
 {
     BOOL active = FALSE;
     SystemParametersInfo(SPI_GETSCREENSAVERRUNNING, 0, &active, 0);
@@ -161,7 +161,7 @@ bool Coastal::idle(void)
 
 #elif defined(HAVE_LIBXSS)
 
-bool Coastal::idle(void)
+bool Coastal::away(void)
 {
     bool result = false;
 
@@ -181,7 +181,7 @@ bool Coastal::idle(void)
 
 #else
 
-bool Coastal::idle(void)
+bool Coastal::away(void)
 {
     return false;
 }
