@@ -1,6 +1,7 @@
 Changes from 0.3.4 to 0.4.0
 - beginning of real uses of coastal-notify
 - self management of search directory list
+- internal search of text view
 
 Changes from 0.3.3 to 0.3.4
 - some cleanup of text processing for coastal-search

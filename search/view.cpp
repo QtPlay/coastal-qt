@@ -24,6 +24,9 @@
 View::View(QTabWidget *tabs, QString& title) :
 QTextEdit()
 {
+    seek = "";
+    findby = 0;
+
     QString text, temp;
     int pos;
     QFile file(title);
@@ -66,16 +69,22 @@ void View::keyPressEvent(QKeyEvent *e)
     case 115:
     case 70:
     case 83:
+        search();
+        break;
     case 65472:
-        emit search();
+        search();
+        break;
     default:
         break;
     }
     QTextEdit::keyPressEvent(e);
 }
 
-void View::find(void)
+void View::search()
 {
+    if(!seek.isEmpty())
+        if(!QTextEdit::find(seek, findby))
+            seek = "";
 }
 
 bool View::find(QTabWidget *tabs, QString& title)

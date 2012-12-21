@@ -82,16 +82,15 @@ Q_OBJECT
 private:
     void keyPressEvent(QKeyEvent *event);
 
+    QTextDocument::FindFlags findby;
+    QString seek;
+
 public:
     View(QTabWidget *tabs, QString& title);
 
+    void search(void);
+
     static bool find(QTabWidget *tabs, QString& title);
-
-signals:
-    void search(void);    
-
-public slots:
-    void find(void);
 };
 
 class Main : public CoastalMain
