@@ -26,9 +26,9 @@ Notice::Notice(Options& options, const char *title, const char *summary, const c
 {
     QString text;
 
-    Ui::NoticeDialog *ui = new Ui::NoticeDialog;
+    Ui::NoticeDialog ui;
 
-    ui->setupUi((QDialog *)this);
+    ui.setupUi((QDialog *)this);
 
     text = title;
     if(summary) {
@@ -36,7 +36,7 @@ Notice::Notice(Options& options, const char *title, const char *summary, const c
         text += summary;
     }
 
-    ui->Text->setText(text);
+    ui.Text->setText(text);
 
     setAttribute(Qt::WA_DeleteOnClose);
     if(type && (!strcmp(type, "error") || !strcmp(type, "dialog-error")))
@@ -47,11 +47,11 @@ Notice::Notice(Options& options, const char *title, const char *summary, const c
         setWindowIcon(QIcon(":/info.png"));
 
     if(options.show_icons)
-        ui->Icon->setIcon(windowIcon());
+        ui.Icon->setIcon(windowIcon());
     else {
-        ui->Icon->setVisible(false);
-        ui->Icon->setEnabled(false);
-        ui->Icon->hide();
+        ui.Icon->setVisible(false);
+        ui.Icon->setEnabled(false);
+        ui.Icon->hide();
     }
 
     setWindowFlags(Qt::FramelessWindowHint);

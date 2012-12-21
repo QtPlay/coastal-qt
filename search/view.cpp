@@ -17,6 +17,7 @@
 
 #include "program.h"
 #include "ui_main.h"
+#include "ui_find.h"
 #include <cstring>
 #include <cstdio>
 #include <cctype>
@@ -24,7 +25,7 @@
 View::View(QTabWidget *tabs, QString& title) :
 QTextEdit()
 {
-    seek = "";
+    seeking = "";
     findby = 0;
 
     QString text, temp;
@@ -63,17 +64,18 @@ QTextEdit()
 void View::keyPressEvent(QKeyEvent *e)
 {
     switch(e->nativeVirtualKey()) {
+    case 65472:
+        if(!seeking.isEmpty()) {
+            search();
+            break;
+        }
     case 47:
     case 63:
     case 102:
     case 115:
     case 70:
     case 83:
-        search();
-        break;
-    case 65472:
-        search();
-        break;
+        new Find(this);
     default:
         break;
     }
@@ -82,9 +84,10 @@ void View::keyPressEvent(QKeyEvent *e)
 
 void View::search()
 {
-    if(!seek.isEmpty())
-        if(!QTextEdit::find(seek, findby))
-            seek = "";
+    if(!seeking.isEmpty()) {
+        if(!QTextEdit::find(seeking, findby))
+            seeking = "";
+    }
 }
 
 bool View::find(QTabWidget *tabs, QString& title)
@@ -97,3 +100,90 @@ bool View::find(QTabWidget *tabs, QString& title)
     }
     return false;
 }
+
+Find::Find(View *view) :
+QDialog(view)
+{
+    QString text;
+
+    Ui::Find ui;
+
+    ui.setupUi((QDialog *)this);
+    setAttribute(Qt::WA_DeleteOnClose);
+
+    edit = ui.seekEdit;
+
+    if(!view->seeking.isEmpty())
+        edit->setText(view->seeking);
+
+    ui.nextButton->setIcon(QIcon::fromTheme("go-next"));
+    ui.prevButton->setIcon(QIcon::fromTheme("go-previous"));
+
+    connect(ui.nextButton, SIGNAL(clicked()), this, SLOT(next()));
+    connect(ui.prevButton, SIGNAL(clicked()), this, SLOT(prev()));
+    connect(ui.seekEdit, SIGNAL(returnPressed()), this, SLOT(enter()));
+
+    show();
+}
+
+void Find::enter(void)
+{
+    View *view = (View *)parent();
+
+    if(edit->text().isEmpty()) {
+        view->seeking = "";
+        emit close();
+        return;
+    }
+    next();
+    emit close();
+}
+
+void Find::next(void)
+{
+    View *view = (View *)parent();
+    view->findby = 0;
+    QString seeking = edit->text();
+
+    if(seeking.isEmpty()) {
+        view->seeking = "";
+        emit close();
+        return;
+    }
+
+    if(Main::caseflag)
+        view->findby |= QTextDocument::FindCaseSensitively;
+
+    if(view->seeking.isEmpty()) {
+        QTextCursor cursor(view->textCursor());
+        cursor.movePosition(QTextCursor::Start, QTextCursor::MoveAnchor);
+        view->setTextCursor(cursor);
+    }
+    view->seeking = seeking;
+    view->search();
+}
+
+void Find::prev(void)
+{
+    View *view = (View *)parent();
+    view->findby = QTextDocument::FindBackward;
+    QString seeking = edit->text();
+
+    if(seeking.isEmpty()) {
+        view->seeking = "";
+        emit close();
+        return;
+    }
+
+    if(Main::caseflag)
+        view->findby |= QTextDocument::FindCaseSensitively;
+
+    if(view->seeking.isEmpty()) {
+        QTextCursor cursor(view->textCursor());
+        cursor.movePosition(QTextCursor::End, QTextCursor::MoveAnchor);
+        view->setTextCursor(cursor);
+    }
+    view->seeking = seeking;
+    view->search();
+}
+

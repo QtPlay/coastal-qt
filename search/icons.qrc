@@ -8,6 +8,8 @@
     <file alias="16x16/help-about.png">../icons/help-about.png</file>
 	<file alias="16x16/search.png">../icons/search.png</file>
 	<file alias="16x16/configuration_section.png">../icons/configuration_section.png</file>
+	<file alias="16x16/go-next.png">../icons/go-next.png</file>
+	<file alias="16x16/go-previous.png">../icons/go-previous.png</file>
 </qresource>
 <qresource>
     <file alias="search.png">../icons/coastal-search.png</file>
