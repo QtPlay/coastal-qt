@@ -1,7 +1,8 @@
 Changes from 0.3.4 to 0.4.0
+- new CoastalView offers text viewer with search (^f, f3)
 - beginning of real uses of coastal-notify - still incomplete
 - self management of search directory list
-- internal search of text view working
+- coastal search and coastal manpager now have searchable text
 - idle() is now away() when screensaver...idle for keyidle to be added.
 
 Changes from 0.3.3 to 0.3.4

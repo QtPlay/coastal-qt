@@ -25,6 +25,9 @@
 #include <QGraphicsPixmapItem>
 #include <QDesktopServices>
 #include <QSystemTrayIcon>
+#include <QTextEdit>
+#include <QLineEdit>
+#include <QKeyEvent>
 #include <QUrl>
 #include <QDir>
 #include <QProcess>
@@ -120,6 +123,40 @@ protected:
 public slots:
     void about(void);
     void support(void);
+};
+
+class CoastalView : public QTextEdit
+{
+private:
+    friend class CoastalFind;
+
+    void keyPressEvent(QKeyEvent *event);
+
+    QTextDocument::FindFlags findby;
+    QString seeking;
+
+public:
+    CoastalView(QWidget *parent = NULL);
+
+    void search(void);
+
+    bool isSearching(void) const;
+};
+
+class CoastalFind : public QDialog
+{
+Q_OBJECT
+
+private:
+    QLineEdit *edit;
+
+public:
+    CoastalFind(CoastalView *view);
+
+public slots:
+    void next(void);
+    void prev(void);
+    void enter(void);
 };
 
 class Coastal

@@ -76,40 +76,14 @@ public slots:
     void configCase(int state);
 };
 
-class View : public QTextEdit
+class View : public CoastalView
 {
 Q_OBJECT
-
-private:
-    friend class Find;
-
-    void keyPressEvent(QKeyEvent *event);
-
-    QTextDocument::FindFlags findby;
-    QString seeking;
 
 public:
     View(QTabWidget *tabs, QString& title);
 
-    void search(void);
-
     static bool find(QTabWidget *tabs, QString& title);
-};
-
-class Find : public QDialog
-{
-Q_OBJECT
-
-private:
-    QLineEdit *edit;
-
-public:
-    Find(View *view);
-   
-public slots:
-    void next(void);
-    void prev(void);
-	void enter(void);
 };
 
 class Main : public CoastalMain

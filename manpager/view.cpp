@@ -81,7 +81,7 @@ static void getargs(char *text, char **result)
 }
 
 View::View(QTabWidget *tabs, QIODevice& input, QString& title) :
-QTextEdit()
+CoastalView()
 {
     char buf[512];
     qint64 len;
@@ -338,7 +338,6 @@ body:
                 text = text + QChar('\n');
         }
     }
-    setReadOnly(true);
     setEnabled(true);
     setHtml(text);
 

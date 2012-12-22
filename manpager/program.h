@@ -88,7 +88,7 @@ signals:
     void selected(const QString& text);
 };
 
-class View : public QTextEdit
+class View : public CoastalView
 {
 Q_OBJECT
 

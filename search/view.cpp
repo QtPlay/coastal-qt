@@ -17,17 +17,13 @@
 
 #include "program.h"
 #include "ui_main.h"
-#include "ui_find.h"
 #include <cstring>
 #include <cstdio>
 #include <cctype>
 
 View::View(QTabWidget *tabs, QString& title) :
-QTextEdit()
+CoastalView()
 {
-    seeking = "";
-    findby = 0;
-
     QString text, temp;
     int pos;
     QFile file(title);
@@ -50,7 +46,6 @@ QTextEdit()
         }
     }
 
-    setReadOnly(true);
     setEnabled(true);
     setText(text);
 
@@ -59,35 +54,6 @@ QTextEdit()
     tabs->addTab(this, title);
     tabs->setCurrentIndex(views);
     tabs->setTabsClosable(true);
-}
-
-void View::keyPressEvent(QKeyEvent *e)
-{
-    switch(e->nativeVirtualKey()) {
-    case 65472:
-        if(!seeking.isEmpty()) {
-            search();
-            break;
-        }
-    case 47:
-    case 63:
-    case 102:
-    case 115:
-    case 70:
-    case 83:
-        new Find(this);
-    default:
-        break;
-    }
-    QTextEdit::keyPressEvent(e);
-}
-
-void View::search()
-{
-    if(!seeking.isEmpty()) {
-        if(!QTextEdit::find(seeking, findby))
-            seeking = "";
-    }
 }
 
 bool View::find(QTabWidget *tabs, QString& title)
@@ -99,89 +65,5 @@ bool View::find(QTabWidget *tabs, QString& title)
         }
     }
     return false;
-}
-
-Find::Find(View *view) :
-QDialog(view)
-{
-    QString text;
-
-    Ui::Find ui;
-
-    ui.setupUi((QDialog *)this);
-    setAttribute(Qt::WA_DeleteOnClose);
-    setWindowTitle(tr("Find Text"));
-
-    edit = ui.seekEdit;
-
-    if(!view->seeking.isEmpty())
-        edit->setText(view->seeking);
-
-    connect(ui.nextButton, SIGNAL(clicked()), this, SLOT(next()));
-    connect(ui.prevButton, SIGNAL(clicked()), this, SLOT(prev()));
-    connect(ui.seekEdit, SIGNAL(returnPressed()), this, SLOT(enter()));
-
-    show();
-}
-
-void Find::enter(void)
-{
-    View *view = (View *)parent();
-
-    if(edit->text().isEmpty()) {
-        view->seeking = "";
-        emit close();
-        return;
-    }
-    next();
-    emit close();
-}
-
-void Find::next(void)
-{
-    View *view = (View *)parent();
-    view->findby = 0;
-    QString seeking = edit->text();
-
-    if(seeking.isEmpty()) {
-        view->seeking = "";
-        emit close();
-        return;
-    }
-
-    if(Main::caseflag)
-        view->findby |= QTextDocument::FindCaseSensitively;
-
-    if(view->seeking.isEmpty()) {
-        QTextCursor cursor(view->textCursor());
-        cursor.movePosition(QTextCursor::Start, QTextCursor::MoveAnchor);
-        view->setTextCursor(cursor);
-    }
-    view->seeking = seeking;
-    view->search();
-}
-
-void Find::prev(void)
-{
-    View *view = (View *)parent();
-    view->findby = QTextDocument::FindBackward;
-    QString seeking = edit->text();
-
-    if(seeking.isEmpty()) {
-        view->seeking = "";
-        emit close();
-        return;
-    }
-
-    if(Main::caseflag)
-        view->findby |= QTextDocument::FindCaseSensitively;
-
-    if(view->seeking.isEmpty()) {
-        QTextCursor cursor(view->textCursor());
-        cursor.movePosition(QTextCursor::End, QTextCursor::MoveAnchor);
-        view->setTextCursor(cursor);
-    }
-    view->seeking = seeking;
-    view->search();
 }
 
