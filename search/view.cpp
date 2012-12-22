@@ -110,14 +110,12 @@ QDialog(view)
 
     ui.setupUi((QDialog *)this);
     setAttribute(Qt::WA_DeleteOnClose);
+    setWindowTitle(tr("Find Text"));
 
     edit = ui.seekEdit;
 
     if(!view->seeking.isEmpty())
         edit->setText(view->seeking);
-
-    ui.nextButton->setIcon(QIcon::fromTheme("go-next"));
-    ui.prevButton->setIcon(QIcon::fromTheme("go-previous"));
 
     connect(ui.nextButton, SIGNAL(clicked()), this, SLOT(next()));
     connect(ui.prevButton, SIGNAL(clicked()), this, SLOT(prev()));
