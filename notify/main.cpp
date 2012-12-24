@@ -35,10 +35,8 @@ CoastalMain()
 
     QApplication::setQuitOnLastWindowClosed(true);
 
-    ui.aboutButton->setIcon(QIcon::fromTheme("help-about"));
     connect(ui.aboutButton, SIGNAL(clicked()), this, SLOT(about()));
 
-    ui.quitButton->setIcon(QIcon::fromTheme("exit"));
     connect(ui.quitButton, SIGNAL(clicked()), qApp, SLOT(quit()));
 
     trayicon = new QSystemTrayIcon(this);
@@ -49,7 +47,7 @@ CoastalMain()
 
     QMenu *traymenu = new QMenu(NULL);
 
-    QAction *aboutAction = new QAction(tr("About"), this);
+    QAction *aboutAction = new QAction(tr("&About"), this);
     aboutAction->setIcon(QIcon::fromTheme("help-about"));
     aboutAction->setIconVisibleInMenu(true);
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(about()));

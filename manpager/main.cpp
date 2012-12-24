@@ -87,11 +87,6 @@ CoastalMain()
     ui.actionSectionn->setChecked(settings.value("n", ui.actionSectionn->isChecked()).toBool());
     settings.endGroup();
 
-    ui.actionQuit->setIcon(QIcon::fromTheme("exit"));
-    ui.actionReload->setIcon(QIcon::fromTheme("reload"));
-    ui.actionAbout->setIcon(QIcon::fromTheme("help-about"));
-    ui.actionAll->setIcon(QIcon::fromTheme("stock_select-all"));
-    ui.actionClear->setIcon(QIcon::fromTheme("editclear"));
     ui.actionSupport->setIcon(QIcon(":/github.png"));
 
     searchGroup = new QActionGroup(this);
@@ -111,6 +106,7 @@ CoastalMain()
 
     // menu action signals
 
+    connect(ui.actionOptions, SIGNAL(triggered()), this, SLOT(options()));
     connect(ui.actionAbout, SIGNAL(triggered()), this, SLOT(about()));
     connect(ui.actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(ui.actionReload, SIGNAL(triggered()), this, SLOT(reload()));
@@ -410,6 +406,11 @@ void Main::open(const QPoint& pos)
     m.addAction(ui.actionView);
     m.addAction(ui.actionOpen);
     m.exec(ui.indexView->mapToGlobal(pos));
+}
+
+void Main::options(void)
+{
+    Config::create(ui.tabs);
 }
 
 void Main::menu(const QPoint& pos)

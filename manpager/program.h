@@ -71,6 +71,18 @@ signals:
     void selected(const QString& text);
 };
 
+class Config : public QDialog
+{
+Q_OBJECT
+
+private:
+    Config(QTabWidget *tabs);
+
+public:
+    ~Config();
+    static void create(QTabWidget *tabs);
+};
+
 class View : public CoastalView
 {
 Q_OBJECT
@@ -122,6 +134,7 @@ public slots:
     void open(const QPoint& pos);
     void view(void);
     void open(void);
+    void options(void);
 };
 
 #endif

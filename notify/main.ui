@@ -69,12 +69,22 @@
           <property name="text">
            <string>&amp;A</string>
           </property>
+          <property name="icon">
+           <iconset theme="help-about">
+            <normaloff/>
+           </iconset>
+          </property>
          </widget>
         </item>
         <item>
          <widget class="QToolButton" name="quitButton">
           <property name="text">
            <string>&amp;Q</string>
+          </property>
+          <property name="icon">
+           <iconset theme="exit">
+            <normaloff/>
+           </iconset>
           </property>
          </widget>
         </item>

@@ -109,7 +109,7 @@
      <x>0</x>
      <y>0</y>
      <width>540</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -149,18 +149,6 @@
     <addaction name="actionSectionl"/>
     <addaction name="actionSectionn"/>
    </widget>
-   <widget class="QMenu" name="menuOptions">
-    <property name="toolTip">
-     <string>Application Options</string>
-    </property>
-    <property name="whatsThis">
-     <string/>
-    </property>
-    <property name="title">
-     <string>Options</string>
-    </property>
-    <addaction name="actionPaths"/>
-   </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="toolTip">
      <string>Help and support</string>
@@ -172,6 +160,7 @@
      <string>&amp;Help</string>
     </property>
     <addaction name="actionAbout"/>
+    <addaction name="actionOptions"/>
     <addaction name="actionSupport"/>
    </widget>
    <widget class="QMenu" name="menuView">
@@ -185,7 +174,6 @@
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
    <addaction name="menuSections"/>
-   <addaction name="menuOptions"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -202,10 +190,16 @@
    <addaction name="actionReload"/>
    <addaction name="actionClear"/>
    <addaction name="actionAbout"/>
+   <addaction name="actionOptions"/>
    <addaction name="actionSupport"/>
    <addaction name="actionQuit"/>
   </widget>
   <action name="actionQuit">
+   <property name="icon">
+    <iconset theme="exit">
+     <normaloff/>
+    </iconset>
+   </property>
    <property name="text">
     <string>&amp;Quit</string>
    </property>
@@ -225,6 +219,11 @@
    </property>
    <property name="checked">
     <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset theme="stock_select-all">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;All Sections</string>
@@ -250,6 +249,9 @@
   <action name="actionClear">
    <property name="checkable">
     <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset theme="editclear"/>
    </property>
    <property name="text">
     <string>&amp;Clear</string>
@@ -435,17 +437,6 @@
     <string>&amp;Keyword Search</string>
    </property>
   </action>
-  <action name="actionPaths">
-   <property name="text">
-    <string>Man &amp;Paths</string>
-   </property>
-   <property name="toolTip">
-    <string>Man Paths</string>
-   </property>
-   <property name="whatsThis">
-    <string>Show and edit search paths</string>
-   </property>
-  </action>
   <action name="action_Mode">
    <property name="text">
     <string>Mode</string>
@@ -455,6 +446,11 @@
    </property>
   </action>
   <action name="actionReload">
+   <property name="icon">
+    <iconset theme="reload">
+     <normaloff/>
+    </iconset>
+   </property>
    <property name="text">
     <string>&amp;Reload</string>
    </property>
@@ -466,6 +462,11 @@
    </property>
   </action>
   <action name="actionAbout">
+   <property name="icon">
+    <iconset theme="help-about">
+     <normaloff/>
+    </iconset>
+   </property>
    <property name="text">
     <string>About</string>
    </property>
@@ -528,6 +529,16 @@
   <action name="actionOpen">
    <property name="text">
     <string>Open</string>
+   </property>
+  </action>
+  <action name="actionOptions">
+   <property name="icon">
+    <iconset theme="configuration_section">
+     <normaloff/>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Options</string>
    </property>
   </action>
  </widget>

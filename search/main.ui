@@ -168,7 +168,7 @@
      <x>0</x>
      <y>0</y>
      <width>760</width>
-     <height>23</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -192,8 +192,8 @@
     <property name="title">
      <string>&amp;Help</string>
     </property>
-	<addaction name="actionAbout"/>
-	<addaction name="actionOptions"/>
+    <addaction name="actionAbout"/>
+    <addaction name="actionOptions"/>
     <addaction name="actionSupport"/>
    </widget>
    <addaction name="menu_File"/>
@@ -201,6 +201,11 @@
    <addaction name="menu_Help"/>
   </widget>
   <action name="actionReload">
+   <property name="icon">
+    <iconset theme="reload">
+     <normaloff/>
+    </iconset>
+   </property>
    <property name="text">
     <string>&amp;Reload</string>
    </property>
@@ -209,6 +214,11 @@
    </property>
   </action>
   <action name="actionQuit">
+   <property name="icon">
+    <iconset theme="exit">
+     <normaloff/>
+    </iconset>
+   </property>
    <property name="text">
     <string>&amp;Quit</string>
    </property>
@@ -217,6 +227,11 @@
    </property>
   </action>
   <action name="actionClear">
+   <property name="icon">
+    <iconset theme="editclear">
+     <normaloff/>
+    </iconset>
+   </property>
    <property name="text">
     <string>&amp;Clear All</string>
    </property>
@@ -225,6 +240,11 @@
    </property>
   </action>
   <action name="actionAbout">
+   <property name="icon">
+    <iconset theme="help-about">
+     <normaloff/>
+    </iconset>
+   </property>
    <property name="text">
     <string>About</string>
    </property>
@@ -233,6 +253,9 @@
    </property>
   </action>
   <action name="actionSearch">
+   <property name="icon">
+    <iconset theme="search"/>
+   </property>
    <property name="text">
     <string>&amp;Search</string>
    </property>
@@ -286,6 +309,9 @@
    </property>
   </action>
   <action name="actionOptions">
+   <property name="icon">
+    <iconset theme="configuration_section"/>
+   </property>
    <property name="text">
     <string>&amp;Options</string>
    </property>

@@ -7,6 +7,7 @@
     <file alias="16x16/help-about.png">../icons/help-about.png</file>
     <file alias="16x16/stock_select-all.png">../icons/stock_select-all.png</file>
 	<file alias="16x16/editclear.png">../icons/editclear.png</file>
+	<file alias="16x16/configuration_section.png">../icons/configuration_section.png</file>
 	<file alias="16x16/go-next.png">../icons/go-next.png</file>
 	<file alias="16x16/go-previous.png">../icons/go-previous.png</file>
 </qresource>

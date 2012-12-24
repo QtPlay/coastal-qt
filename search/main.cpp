@@ -75,12 +75,6 @@ CoastalMain()
         settings.endArray();
     }
 
-    ui.actionQuit->setIcon(QIcon::fromTheme("exit"));
-    ui.actionReload->setIcon(QIcon::fromTheme("reload"));
-    ui.actionClear->setIcon(QIcon::fromTheme("editclear"));
-    ui.actionAbout->setIcon(QIcon::fromTheme("help-about"));
-    ui.actionOptions->setIcon(QIcon::fromTheme("configuration_section"));
-    ui.actionSearch->setIcon(QIcon::fromTheme("search"));
     ui.actionSupport->setIcon(QIcon(":/github.png"));
 
     ui.indexView->setContextMenuPolicy(Qt::CustomContextMenu);
