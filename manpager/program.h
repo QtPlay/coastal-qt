@@ -20,23 +20,6 @@
 
 #include <coastal-qt-config.h>
 #include <coastal.h>
-#include <QWidget>
-#include <QObject>
-#include <QApplication>
-#include <QMainWindow>
-#include <QTranslator>
-#include <QSettings>
-#include <QAction>
-#include <QDir>
-#include <QTableWidget>
-#include <QTableWidgetItem>
-#include <QFile>
-#include <QProcess>
-#include <QTextEdit>
-#include <QHeaderView>
-#include <QAbstractTableModel>
-#include <QSortFilterProxyModel>
-#include <QValidator>
 
 #define COL_NAME    1
 #define COL_SECTION 0

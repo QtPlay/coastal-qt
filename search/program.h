@@ -20,21 +20,6 @@
 
 #include <coastal-qt-config.h>
 #include <coastal.h>
-#include <QWidget>
-#include <QObject>
-#include <QApplication>
-#include <QMainWindow>
-#include <QMenu>
-#include <QTranslator>
-#include <QDir>
-#include <QFile>
-#include <QSettings>
-#include <QFileDialog>
-#include <QAbstractTableModel>
-#include <QTextEdit>
-#include <QLineEdit>
-#include <QKeyEvent>
-#include <QDebug>
 
 class Index : public QAbstractTableModel
 {

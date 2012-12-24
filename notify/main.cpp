@@ -100,7 +100,7 @@ int main(int argc, char *argv[])
     }
 
     if(argv[1] && !argv[2]) {
-        cerr << "use: coastal-notify [[-i] \"title\" \"summary\" [icon]]" << endl;
+        fprintf(stderr, "use: coastal-notify [[-i] \"title\" \"summary\" [icon]]\n");
         return 2;
     }
 

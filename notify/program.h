@@ -20,12 +20,6 @@
 
 #include <coastal-qt-config.h>
 #include <coastal.h>
-#include <QApplication>
-#include <QTranslator>
-#include <QSettings>
-#include <QMenu>
-#include <QTimer>
-#include <iostream>
 
 class Options : private QSettings
 {
