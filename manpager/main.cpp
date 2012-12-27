@@ -215,6 +215,8 @@ void Main::error(const QString& text)
 
 void Main::close(int tab)
 {
+    View *view;
+
     // close of index tab actually closes all other open manpages
     if(tab == 0) {
         int count = ui.tabs->count();
@@ -223,13 +225,17 @@ void Main::close(int tab)
         return;
     }
 
-    View *view = (View *)ui.tabs->widget(tab);
+    if(Config::destroy(ui.tabs, tab))
+        goto update;
+
+    view = (View *)ui.tabs->widget(tab);
     if(!view)
         return;
 
     ui.tabs->removeTab(tab);
     delete view;
 
+update:
     if(ui.tabs->count() < 2)
         ui.tabs->setTabsClosable(false);
 }
@@ -410,7 +416,7 @@ void Main::open(const QPoint& pos)
 
 void Main::options(void)
 {
-    Config::create(ui.tabs);
+    Config::create(ui.tabs, this);
 }
 
 void Main::menu(const QPoint& pos)

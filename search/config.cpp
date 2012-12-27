@@ -64,4 +64,19 @@ void Config::configCase(int state)
         Main::caseflag = Qt::CaseSensitive;
     else
         Main::caseflag = Qt::CaseInsensitive;
-} 
+}
+
+bool Config::destroy(QTabWidget *tabs, int tab)
+{
+    if(tab != last)
+        return false;
+
+    Config *config = (Config *)tabs->widget(tab);
+    if(!config)
+        return false;
+
+    tabs->removeTab(tab);
+    delete config;
+    return true;
+}
+

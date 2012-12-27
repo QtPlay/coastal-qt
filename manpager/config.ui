@@ -17,42 +17,42 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QListView" name="listView"/>
+      <widget class="QListWidget" name="list"/>
      </item>
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="appendButton">
          <property name="text">
           <string>A&amp;ppend</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_2">
+        <widget class="QPushButton" name="removeButton">
          <property name="text">
           <string>&amp;Remove</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_5">
+        <widget class="QPushButton" name="upButton">
          <property name="text">
           <string>&amp;Up</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_6">
+        <widget class="QPushButton" name="downButton">
          <property name="text">
           <string>&amp;Down</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_7">
+        <widget class="QPushButton" name="restoreButton">
          <property name="text">
-          <string>&amp;Original</string>
+          <string>Restore</string>
          </property>
         </widget>
        </item>
@@ -76,14 +76,14 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_3">
+      <widget class="QPushButton" name="acceptButton">
        <property name="text">
         <string>&amp;Accept</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_4">
+      <widget class="QPushButton" name="cancelButton">
        <property name="text">
         <string>&amp;Cancel</string>
        </property>

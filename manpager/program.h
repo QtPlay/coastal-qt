@@ -71,18 +71,6 @@ signals:
     void selected(const QString& text);
 };
 
-class Config : public QDialog
-{
-Q_OBJECT
-
-private:
-    Config(QTabWidget *tabs);
-
-public:
-    ~Config();
-    static void create(QTabWidget *tabs);
-};
-
 class View : public CoastalView
 {
 Q_OBJECT
@@ -135,6 +123,31 @@ public slots:
     void view(void);
     void open(void);
     void options(void);
+};
+
+
+class Config : public QDialog
+{
+Q_OBJECT
+
+private:
+    Config(QTabWidget *tabs);
+
+public:
+    ~Config();
+    static void create(QTabWidget *tabs, Main *top);
+    static bool destroy(QTabWidget *tabs, int tab);
+
+signals:
+    void closeRequested(int row);
+    void reload(void);
+
+public slots:
+    void selected(int row);
+    void up(void);
+    void down(void);
+    void accept(void);
+    void cancel(void);
 };
 
 #endif

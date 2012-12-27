@@ -22,8 +22,10 @@
 #include <cstdio>
 #include <cctype>
 
+static int current = -1;
 static int last = -1;
 static Ui::Config ui;
+static Main *main;
 
 Config::Config(QTabWidget *tabs) :
 QDialog()
@@ -36,6 +38,22 @@ QDialog()
     tabs->setCurrentIndex(views);
     tabs->setTabsClosable(true);
     last = views;
+
+    ui.list->addItems(main->manpaths);
+    ui.list->setSelectionMode(QAbstractItemView::SingleSelection);
+
+    connect(ui.list, SIGNAL(currentRowChanged(int)), this, SLOT(selected(int)));
+
+    connect(ui.upButton, SIGNAL(clicked()), this, SLOT(up()));
+    connect(ui.downButton, SIGNAL(clicked()), this, SLOT(down()));
+
+    connect(ui.acceptButton, SIGNAL(clicked()), this, SLOT(accept()));
+    connect(ui.cancelButton, SIGNAL(clicked()), this, SLOT(cancel()));
+
+    connect(this, SIGNAL(closeRequested(int)), main, SLOT(close(int)), Qt::QueuedConnection);
+    connect(this, SIGNAL(reload()), main, SLOT(reload()), Qt::QueuedConnection);
+
+    selected(-1);
 }
 
 Config::~Config()
@@ -43,8 +61,87 @@ Config::~Config()
     last = -1;
 }
 
-void Config::create(QTabWidget *tabs)
+bool Config::destroy(QTabWidget *tabs, int tab)
 {
+    if(tab != last)
+        return false;
+
+    Config *config = (Config *)tabs->widget(tab);
+    if(!config)
+        return false;
+
+    tabs->removeTab(tab);
+    delete config;
+    return true;
+}
+
+void Config::cancel(void)
+{
+    emit closeRequested(last);
+}
+
+void Config::accept(void)
+{
+    int count = ui.list->count();
+    if(count) {
+        main->manpaths.clear();
+        for(int pos = 0; pos < count; ++pos) {
+            QListWidgetItem *item = ui.list->item(pos);
+            main->manpaths << item->text();
+        }
+    }
+    emit closeRequested(last);
+    emit reload();
+}
+
+void Config::up(void)
+{
+    QListWidgetItem *item = ui.list->takeItem(current);
+    ui.list->insertItem(--current, item);
+    ++current;
+}
+
+void Config::down(void)
+{
+    QListWidgetItem *item = ui.list->takeItem(current);
+    ui.list->insertItem(++current, item);
+    --current;
+}
+
+void Config::selected(int row)
+{
+    current = row;
+
+    if(row < 0 || row >= ui.list->count()) {
+        ui.upButton->setEnabled(false);
+        ui.downButton->setEnabled(false);
+        ui.removeButton->setEnabled(false);
+        return;
+    }
+
+    if(ui.list->count() > 0)
+        ui.removeButton->setEnabled(true);
+    else {
+        ui.upButton->setEnabled(false);
+        ui.downButton->setEnabled(false);
+        ui.removeButton->setEnabled(false);
+        return;
+    }
+
+    if(row > 0)
+        ui.upButton->setEnabled(true);
+    else
+        ui.upButton->setEnabled(false);
+
+    if(row < ui.list->count() - 1)
+        ui.downButton->setEnabled(true);
+    else
+        ui.downButton->setEnabled(false);
+}
+
+void Config::create(QTabWidget *tabs, Main *top)
+{
+    main = top;
     if(last > -1)
         tabs->setCurrentIndex(last);
     else

@@ -56,6 +56,7 @@ private:
 public:
     ~Config();
     static void create(QTabWidget *tabs);
+    static bool destroy(QTabWidget *tabs, int tab);
 
 public slots:
     void configCase(int state);
