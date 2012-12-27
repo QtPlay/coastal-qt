@@ -148,6 +148,8 @@ public slots:
     void down(void);
     void accept(void);
     void cancel(void);
+    void append(void);
+    void remove(void);
 };
 
 #endif

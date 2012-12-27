@@ -47,6 +47,9 @@ QDialog()
     connect(ui.upButton, SIGNAL(clicked()), this, SLOT(up()));
     connect(ui.downButton, SIGNAL(clicked()), this, SLOT(down()));
 
+    connect(ui.appendButton, SIGNAL(clicked()), this, SLOT(append()));
+    connect(ui.removeButton, SIGNAL(clicked()), this, SLOT(remove()));
+
     connect(ui.acceptButton, SIGNAL(clicked()), this, SLOT(accept()));
     connect(ui.cancelButton, SIGNAL(clicked()), this, SLOT(cancel()));
 
@@ -106,6 +109,26 @@ void Config::down(void)
     QListWidgetItem *item = ui.list->takeItem(current);
     ui.list->insertItem(++current, item);
     --current;
+}
+
+void Config::remove(void)
+{
+    ui.list->takeItem(current);
+    if(current >= ui.list->count())
+        selected(-1);
+}
+
+void Config::append(void)
+{
+    QString path = QFileDialog::getExistingDirectory(this, tr("Directory"), "/");
+
+    if(path.isNull())
+        return;
+
+    ui.list->addItem(path);
+
+    if(current < 0)
+        selected(0);
 }
 
 void Config::selected(int row)
