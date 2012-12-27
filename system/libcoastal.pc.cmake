@@ -7,4 +7,4 @@ Description: coastal library
 Version: ${COASTAL_VERSION}
 Libs: -lcoastal
 CFlags:
-Requires: QtCore QtGui
+Requires: QtGui >= 4.8.0
