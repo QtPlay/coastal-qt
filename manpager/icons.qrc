@@ -10,6 +10,10 @@
 	<file alias="16x16/configuration_section.png">../icons/configuration_section.png</file>
 	<file alias="16x16/go-next.png">../icons/go-next.png</file>
 	<file alias="16x16/go-previous.png">../icons/go-previous.png</file>
+	<file alias="16x16/go-up.png">../icons/go-up.png</file>
+	<file alias="16x16/go-down.png">../icons/go-down.png</file>
+	<file alias="16x16/list-add.png">../icons/list-add.png</file>
+	<file alias="16x16/list-remove.png">../icons/list-remove.png</file>
 </qresource>
 <qresource>
     <file alias="manpager.png">../icons/coastal-manpager.png</file>
