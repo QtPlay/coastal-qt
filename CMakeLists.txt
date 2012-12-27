@@ -79,7 +79,7 @@ endif()
 
 MESSAGE( STATUS "Configuring ${PACKAGE} ${VERSION}...")
 
-find_package(Qt4 4.6.0 REQUIRED)
+find_package(Qt4 4.8.0 REQUIRED)
 if(QT4_FOUND)
     include(${QT_USE_FILE})
     ADD_DEFINITIONS(-DQT_GUI_LIBS -DQT_CORE_LIB)

@@ -2,6 +2,7 @@ Changes from 0.4.0 to 0.4.1
 - simplified headers
 - manpager config tab
 - theme icons now bound to design ui
+- minimum qt version now 4.8.0
 
 Changes from 0.3.4 to 0.4.0
 - new CoastalView offers text viewer with search (^f, f3)
