@@ -17,7 +17,8 @@ URL: http://www.gnutelephony.org
 Group: Applications/System
 Source: http://www.gnutelephony.org/dist/tarballs/coastal-qt-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
-BuildRequires: qt4-devel cmake
+BuildRequires: qt4-devel >= 4.8.0
+BuildRequires: cmake >= 2.6.0
 Requires: %{name}-runtime = %{version}-%{release}
 
 %package runtime
@@ -26,7 +27,7 @@ Summary: Runtime library support for coastal applications
 
 %package devel
 Requires: %{name}-runtime = %{version}-%{release}
-Requires: qt4-devel
+Requires: qt4-devel >= 4.8.0
 Group: Development/Libraries
 Summary: Headers for building coastal applications
 
