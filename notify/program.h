@@ -50,6 +50,9 @@ public:
 
 public slots:
     void action(QSystemTrayIcon::ActivationReason reason);
+
+    void notice(const char *title, const char *summary = NULL, const char *icon = NULL);
+
 };
 
 class Notice : public QDialog

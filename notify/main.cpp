@@ -71,6 +71,15 @@ Main::~Main()
 {
 }
 
+void Main::notice(const char *title, const char *body, const char *icon)
+{
+#ifdef  QT_DBUS_LIB
+    Coastal::notify(title, body, icon);
+#else
+    new Notice(options, title, body, icon);
+#endif
+}
+
 void Main::action(QSystemTrayIcon::ActivationReason reason)
 {
     switch(reason) {
