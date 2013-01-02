@@ -1,3 +1,6 @@
+Changes from 0.4.1 to 0.4.2
+- notify no longer has internal testing, controlled by dbus build instead
+
 Changes from 0.4.0 to 0.4.1
 - simplified headers
 - manpager config tab

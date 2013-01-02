@@ -55,6 +55,8 @@ public slots:
 
 };
 
+#ifndef QT_DBUS_LIB
+
 class Notice : public QDialog
 {
 Q_OBJECT
@@ -68,6 +70,8 @@ public:
 
     static unsigned count(void);
 };
+
+#endif
 
 #endif
 

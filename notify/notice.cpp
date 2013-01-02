@@ -16,6 +16,9 @@
 // along with coastal-qt.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "program.h"
+
+#ifndef QT_DBUS_LIB
+
 #include "ui_notice.h"
 
 using namespace std;
@@ -74,7 +77,7 @@ unsigned Notice::count(void)
     return instances;
 }
 
-
+#endif
 
 
 

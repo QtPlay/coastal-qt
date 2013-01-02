@@ -99,19 +99,13 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
     bool result;
-    bool internal = false;
-
-    if(argv[1] && !strcmp(argv[1], "-i")) {
-        internal = true;
-        ++argv;
-    }
 
     if(argv[1] && !argv[2]) {
-        fprintf(stderr, "use: coastal-notify [[-i] \"title\" \"summary\" [icon]]\n");
+        fprintf(stderr, "use: coastal-notify [\"title\" \"summary\" [icon]]\n");
         return 2;
     }
 
-    if(argv[1] && !internal) {
+    if(argv[1]) {
         if(argv[2] && argv[3])
             result = Coastal::notify(argv[1], argv[2], argv[3]);
         else if(argv[2])
@@ -132,11 +126,6 @@ int main(int argc, char *argv[])
     if(!QIcon::hasThemeIcon("reload"))
         QIcon::setThemeName("coastal");
 
-    if(internal) {
-        Options options;
-        new Notice(options, argv[1], argv[2], argv[3]);
-        return app.exec();
-    }
     Main w;
     app.exec();
 }
