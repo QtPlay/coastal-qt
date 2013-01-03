@@ -39,9 +39,31 @@ public slots:
     void change(QString net);
 };
 
+class Fifo : public QThread
+{
+Q_OBJECT
+
+private:
+    void process(char *buf);
+
+public:
+    Fifo();
+
+    void stop(void);
+
+    void run(void);
+
+signals:
+    void notice(QString title, QString summary, QString icon);
+};
+
 class Main : public CoastalMain
 {
 Q_OBJECT
+
+private:
+    Fifo *fifo;
+
 public:
     Main();
     virtual ~Main();
@@ -51,8 +73,7 @@ public:
 public slots:
     void action(QSystemTrayIcon::ActivationReason reason);
 
-    void notice(const char *title, const char *summary = NULL, const char *icon = NULL);
-
+    void notice(QString title, QString summary, QString icon = "");
 };
 
 #ifndef QT_DBUS_LIB
@@ -65,7 +86,7 @@ private:
     QTimer timer;
 
 public:
-    Notice(Options& options, const char *title, const char *summary = NULL, const char *icon = NULL);
+    Notice(Options& options, QString& title, QString& summary, QString& icon);
     ~Notice();
 
     static unsigned count(void);

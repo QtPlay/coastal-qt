@@ -65,13 +65,17 @@ CoastalMain()
     
     connect(trayicon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
             this, SLOT(action(QSystemTrayIcon::ActivationReason)));
+
+    fifo = new Fifo();
+    connect(fifo, SIGNAL(notice(QString,QString,QString)), this, SLOT(notice(QString,QString,QString)), Qt::QueuedConnection);
 }
 
 Main::~Main()
 {
+    fifo->stop();
 }
 
-void Main::notice(const char *title, const char *body, const char *icon)
+void Main::notice(QString title, QString body, QString icon)
 {
 #ifdef  QT_DBUS_LIB
     Coastal::notify(title, body, icon);

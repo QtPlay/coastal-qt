@@ -25,7 +25,7 @@ using namespace std;
 
 volatile unsigned instances = 0;
 
-Notice::Notice(Options& options, const char *title, const char *summary, const char *type) : QDialog(NULL)
+Notice::Notice(Options& options, QString& title, QString& summary, QString& type) : QDialog(NULL)
 {
     QString text;
 
@@ -34,7 +34,7 @@ Notice::Notice(Options& options, const char *title, const char *summary, const c
     ui.setupUi((QDialog *)this);
 
     text = title;
-    if(summary) {
+    if(!summary.isEmpty()) {
         text += "\n";
         text += summary;
     }
@@ -42,9 +42,9 @@ Notice::Notice(Options& options, const char *title, const char *summary, const c
     ui.Text->setText(text);
 
     setAttribute(Qt::WA_DeleteOnClose);
-    if(type && (!strcmp(type, "error") || !strcmp(type, "dialog-error")))
+    if((type == "error") || (type == "dialog-error"))
         setWindowIcon(QIcon(":/error.png"));
-    else if(type && (!strcmp(type, "warning") || !strcmp(type, "dialog-warning"))) 
+    else if((type == "warning") || (type == "dialog-warning"))
         setWindowIcon(QIcon(":/warning.png"));
     else
         setWindowIcon(QIcon(":/info.png"));
