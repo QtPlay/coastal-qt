@@ -230,7 +230,7 @@ bool Coastal::notify(const QString& title, const QString& body, const QString& i
     QByteArray _icon = icon.toUtf8();
 
     char buf[512];
-    snprintf(buf, sizeof(buf), "%s\t%s\t%s\n",
+    snprintf(buf, sizeof(buf), "notify\t%s\t%s\t%s\n",
         _title.data(), _body.data(), _icon.data());
 
     char *env = getenv("HOME");
