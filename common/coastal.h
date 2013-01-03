@@ -128,6 +128,10 @@ public:
     void search(void);
 
     bool isSearching(void) const;
+
+    static bool sensitive(void);
+
+    static void setSensitive(bool enable = true);
 };
 
 class CoastalFind : public QDialog

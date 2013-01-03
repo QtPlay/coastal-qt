@@ -22,12 +22,24 @@
 #include <cstdio>
 #include <cctype>
 
+static bool sflag = false;
+
 CoastalView::CoastalView(QWidget *parent) :
 QTextEdit(parent)
 {
     seeking = "";
     findby = 0;
     setReadOnly(true);
+}
+
+bool CoastalView::sensitive(void)
+{
+    return sflag;
+}
+
+void CoastalView::setSensitive(bool enable)
+{
+    sflag = enable;
 }
 
 void CoastalView::keyPressEvent(QKeyEvent *e)
@@ -103,8 +115,11 @@ void CoastalFind::enter(void)
 void CoastalFind::next(void)
 {
     CoastalView *view = (CoastalView *)parent();
-    view->findby = 0;
     QString seeking = edit->text();
+
+    view->findby = 0;
+    if(sflag)
+        view->findby |= QTextDocument::FindCaseSensitively;
 
     if(seeking.isEmpty()) {
         view->seeking = "";
@@ -124,9 +139,12 @@ void CoastalFind::next(void)
 void CoastalFind::prev(void)
 {
     CoastalView *view = (CoastalView *)parent();
-    view->findby = QTextDocument::FindBackward;
     QString seeking = edit->text();
 
+    view->findby = QTextDocument::FindBackward;
+    if(sflag)
+        view->findby |= QTextDocument::FindCaseSensitively;
+    
     if(seeking.isEmpty()) {
         view->seeking = "";
         emit close();

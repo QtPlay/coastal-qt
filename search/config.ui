@@ -15,9 +15,16 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
+    <widget class="QCheckBox" name="checkFilename">
+     <property name="text">
+      <string>Case Sensitive Filenames</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QCheckBox" name="checkSensitive">
      <property name="text">
-      <string>Case Sensitive</string>
+      <string>Case Sensitive Text Search</string>
      </property>
     </widget>
    </item>

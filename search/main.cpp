@@ -21,7 +21,7 @@
 static Ui::MainWindow ui;
 static const char *types = NULL;
 
-Qt::CaseSensitivity Main::caseflag = Qt::CaseInsensitive;
+bool Main::casefilter = false;
 
 Main::Main(const char *prefix) :
 CoastalMain()
@@ -52,7 +52,10 @@ CoastalMain()
     ui.statusbar->setVisible(ui.actionStatus->isChecked());
 
     if(settings.value("case", false).toBool())
-        caseflag = Qt::CaseSensitive;
+        casefilter = true;
+
+    if(settings.value("text", false).toBool())
+        CoastalView::setSensitive();
 
     if(types) {
         ui.filterTypes->setText(types);
@@ -122,10 +125,15 @@ Main::~Main()
     settings.setValue("toolbar", ui.actionToolbar->isChecked());
     settings.setValue("status", ui.actionStatus->isChecked());
 
-    if(caseflag == Qt::CaseSensitive)
+    if(casefilter)
         settings.setValue("case", true);
     else
         settings.setValue("case", false);
+
+    if(CoastalView::sensitive())
+        settings.setValue("text", true);
+    else
+        settings.setValue("text", false);
 
     if(!types) {
         settings.setValue("filter", ui.filterTypes->text());

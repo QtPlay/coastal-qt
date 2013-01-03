@@ -43,13 +43,17 @@ QAbstractTableModel(parent)
 bool Index::grep(QString& path, QString& match)
 {
     bool result = false;
+    Qt::CaseSensitivity cs = Qt::CaseInsensitive;
+
+    if(CoastalView::sensitive())
+        cs = Qt::CaseSensitive;
 
     QString text;
     QFile file(path);
     if(file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         while(!file.atEnd()) {
             text = file.readLine();
-            if(text.indexOf(match, 0, Main::caseflag) > -1) {
+            if(text.indexOf(match, 0, cs) > -1) {
                 result = true;
                 break;
             }
@@ -72,9 +76,14 @@ void Index::scan(QString path, QString match)
     if(!dir.exists())
         return;
 
+    QDir::Filters filter = QDir::Files | QDir::NoDot;
+
+    if(Main::casefilter)
+        filter |= QDir::CaseSensitive;
+
     QStringList dirs = dir.entryList(QDir::AllDirs, QDir::SortFlags(QDir::Name | QDir::IgnoreCase));
     dir.setNameFilters(filters);
-    QStringList list = dir.entryList(QDir::Files, QDir::SortFlags(QDir::Name | QDir::IgnoreCase));
+    QStringList list = dir.entryList(filter, QDir::SortFlags(QDir::Name | QDir::IgnoreCase));
 
     for(unsigned pos = 0; pos < (unsigned)dirs.size(); ++pos) {
         if(dirs[pos][0] == '.')

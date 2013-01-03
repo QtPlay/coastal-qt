@@ -30,12 +30,18 @@ QDialog()
 {
     ui.setupUi((QDialog *)this);
 
-    if(Main::caseflag == Qt::CaseSensitive)
+    if(Main::casefilter)
+        ui.checkFilename->setChecked(true);
+    else
+        ui.checkFilename->setChecked(false);
+
+    if(CoastalView::sensitive())
         ui.checkSensitive->setChecked(true);
     else
         ui.checkSensitive->setChecked(false);
 
-    connect(ui.checkSensitive, SIGNAL(stateChanged(int)), this, SLOT(configCase(int)));
+    connect(ui.checkFilename, SIGNAL(stateChanged(int)), this, SLOT(filename(int)));
+    connect(ui.checkSensitive, SIGNAL(stateChanged(int)), this, SLOT(sensitive(int)));
 
     int views = tabs->count();
 
@@ -58,12 +64,20 @@ void Config::create(QTabWidget *tabs)
         new Config(tabs);
 }   
 
-void Config::configCase(int state)
+void Config::sensitive(int state)
 {
     if(state)
-        Main::caseflag = Qt::CaseSensitive;
+        CoastalView::setSensitive(true);
     else
-        Main::caseflag = Qt::CaseInsensitive;
+        CoastalView::setSensitive(false);
+}
+
+void Config::filename(int state)
+{
+    if(state)
+        Main::casefilter = true;
+    else
+        Main::casefilter = false;
 }
 
 bool Config::destroy(QTabWidget *tabs, int tab)

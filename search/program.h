@@ -59,7 +59,8 @@ public:
     static bool destroy(QTabWidget *tabs, int tab);
 
 public slots:
-    void configCase(int state);
+    void filename(int state);
+    void sensitive(int state);
 };
 
 class View : public CoastalView
@@ -81,7 +82,8 @@ public:
     QDir dir;
     Index *ind;
 
-    static Qt::CaseSensitivity caseflag;
+    static bool casefilter;
+    static bool bodyfilter;
 
     Main(const char *prefix);
     virtual ~Main();
