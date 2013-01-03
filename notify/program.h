@@ -55,6 +55,7 @@ public:
 
 signals:
     void notice(QString title, QString summary, QString icon);
+    void restart(void);
 };
 
 class Main : public CoastalMain
@@ -65,15 +66,21 @@ private:
     Fifo *fifo;
 
 public:
+    static bool restart_flag;
+
     Main();
     virtual ~Main();
     
+    void stop(void);
+
     Options options;
 
 public slots:
     void action(QSystemTrayIcon::ActivationReason reason);
 
     void notice(QString title, QString summary, QString icon = "");
+
+    void restart(void);
 };
 
 #ifndef QT_DBUS_LIB

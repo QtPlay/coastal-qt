@@ -22,6 +22,8 @@ using namespace std;
 
 static Ui::MainWindow ui;
 
+bool Main::restart_flag = false;
+
 Main::Main() :
 CoastalMain()
 {
@@ -68,12 +70,28 @@ CoastalMain()
 
     fifo = new Fifo();
     connect(fifo, SIGNAL(notice(QString,QString,QString)), this, SLOT(notice(QString,QString,QString)), Qt::QueuedConnection);
+    connect(fifo, SIGNAL(restart()), this, SLOT(restart()), Qt::QueuedConnection);
     fifo->start();
 }
 
 Main::~Main()
 {
-    fifo->stop();
+    stop();
+}
+
+void Main::stop(void)
+{
+    if(fifo) {
+        fifo->stop();
+        fifo = NULL;
+    }
+}
+
+void Main::restart(void)
+{
+    stop();
+    restart_flag = true;
+    qApp->quit();
 }
 
 void Main::notice(QString title, QString body, QString icon)
@@ -133,5 +151,9 @@ int main(int argc, char *argv[])
 
     Main w;
     app.exec();
+
+    if(Main::restart_flag) {
+        execvp(argv[0], argv);
+    }
 }
 

@@ -30,11 +30,17 @@ void Fifo::process(char *buf)
     if(cp)
         *cp = 0;
 
+    if(!strcmp(buf, "restart")) {
+        emit restart();
+        return;
+    }
+
     cp = strchr(buf, '\t');
     if(!cp)
         return;
 
     *(cp++) = 0;
+    
     if(!strcmp(buf, "notice") || !strcmp(buf, "notify")) {
         QString title, summary, icon;
         char *c3 = NULL, *c2 = strchr(cp, '\t');
