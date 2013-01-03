@@ -22,7 +22,6 @@ using namespace std;
 Fifo::Fifo()
 {
 	moveToThread(this);
-	start();
 }
 
 void Fifo::process(char *buf)

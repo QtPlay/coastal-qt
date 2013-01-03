@@ -68,6 +68,7 @@ CoastalMain()
 
     fifo = new Fifo();
     connect(fifo, SIGNAL(notice(QString,QString,QString)), this, SLOT(notice(QString,QString,QString)), Qt::QueuedConnection);
+    fifo->start();
 }
 
 Main::~Main()
