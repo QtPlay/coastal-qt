@@ -101,6 +101,7 @@ endif()
 
 check_include_files(windows.h HAVE_WINDOWS_H)
 check_include_files(magic.h HAVE_MAGIC)
+check_include_files(magic.h HAVE_UNISTD_H)
 
 if(HAVE_MAGIC)
     set(COASTAL_EXTRA_LIBS ${COASTAL_EXTRA_LIBS} magic)

@@ -18,6 +18,10 @@
 #include "program.h"
 #include "ui_main.h"
 
+#ifdef  HAVE_UNISTD_H
+#include <unistd.h>
+#endif
+
 using namespace std;
 
 static Ui::MainWindow ui;
@@ -152,8 +156,10 @@ int main(int argc, char *argv[])
     Main w;
     app.exec();
 
+#ifdef  HAVE_UNISTD_H
     if(Main::restart_flag) {
         execvp(argv[0], argv);
     }
+#endif
 }
 
