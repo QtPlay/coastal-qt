@@ -18,6 +18,7 @@
 #ifndef _COASTAL_H_
 #define _COASTAL_H_
 
+#include <QWidget>
 #include <QtGui>
 
 class CoastalAbout : public QDialog
