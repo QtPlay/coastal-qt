@@ -28,7 +28,11 @@
 #endif
 
 #ifdef HAVE_LIBXSS
+#if QT_VERSION >= 0x050000
+#include <qpa/qplatformnativeinterface.h>
+#else
 #include <QX11Info>
+#endif
 #include <X11/extensions/scrnsaver.h>
 #endif
 
@@ -165,7 +169,12 @@ bool Coastal::away(void)
 {
     bool result = false;
 
+#if QT_VERSION >= 0x050000
+    QPlatformNativeInterface *native = QGuiApplication::platformNativeInterface();
+    Display *display = static_cast<Display *>(native->nativeResourceForWindow("display", NULL));
+#else
     Display *display = QX11Info::display();
+#endif
     int event, error;
     if(!XScreenSaverQueryExtension(display, &event, &error))
         return false;
