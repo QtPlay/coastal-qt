@@ -171,10 +171,15 @@ bool Coastal::away(void)
 
 #if QT_VERSION >= 0x050000
     QPlatformNativeInterface *native = QGuiApplication::platformNativeInterface();
+    if(!native)
+        return false;
     Display *display = static_cast<Display *>(native->nativeResourceForWindow("display", NULL));
 #else
     Display *display = QX11Info::display();
 #endif
+    if(!display)
+        return false;
+
     int event, error;
     if(!XScreenSaverQueryExtension(display, &event, &error))
         return false;
