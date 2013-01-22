@@ -18,8 +18,19 @@
 #ifndef _COASTAL_H_
 #define _COASTAL_H_
 
+#include <QtCore>
 #include <QWidget>
 #include <QtGui>
+#include <QLineEdit>
+#include <QGraphicsScene>
+#include <QSystemTrayIcon>
+#include <QDialog>
+#include <QMainWindow>
+#include <QTextEdit>
+#include <QGraphicsPixmapItem>
+#include <QActionGroup>
+#include <QFileDialog>
+#include <QMenu>
 
 class CoastalAbout : public QDialog
 {

@@ -81,12 +81,16 @@ MESSAGE( STATUS "Configuring ${PACKAGE} ${VERSION}...")
 
 find_package(Qt4 4.8.0 REQUIRED)
 if(QT4_FOUND)
+    if(QTVERSION VERSION_GREATER "4.99.99")
+        set(QT5_FOUND true)
+    endif()
     include(${QT_USE_FILE})
     ADD_DEFINITIONS(-DQT_GUI_LIBS -DQT_CORE_LIB)
-    include_directories(${QT_QTCORE_INCLUDE_DIR} ${QT_QTGUI_INCLUDE_DIR})
+    include_directories(${QT_QTCORE_INCLUDE_DIR} ${QT_QTGUI_INCLUDE_DIR} ${QT_QTGUI_INCLUDE_DIR}/../QtWidgets ${QT_QTGUI_INCLUDE_DIR}/${QTVERSION}/QtGui)
     if(QT_IS_STATIC)
         file(GLOB QT_PLUGINS ${QT_PLUGINS_DIR}/codecs/*${CMAKE_STATIC_LIBRARY_SUFFIX})
     endif()
+
 else()
     message(ERROR "Building without QT")
 endif()
@@ -119,6 +123,12 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/${PACKAGE}.spec.cmake ${CMAKE_CURRENT_SOURCE_DIR}/${PACKAGE}.spec @ONLY)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
+
+
+if(QT5_FOUND)
+    find_library(QT5_WIDGETS NAMES QtWidgets HINTS ${QT_LIBRARY_DIR})
+    set(QT_LIBRARIES ${QT_LIBRARIES} ${QT5_WIDGETS})
+endif()
 
 add_subdirectory(common)
 add_subdirectory(manpager)
