@@ -251,7 +251,9 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset theme="editclear"/>
+    <iconset theme="editclear">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Clear</string>
@@ -539,6 +541,9 @@
    </property>
    <property name="text">
     <string>Options</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
    </property>
   </action>
  </widget>
