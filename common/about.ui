@@ -151,7 +151,10 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>&amp;OK</string>
+          <string>&amp;Close</string>
+         </property>
+         <property name="icon">
+          <iconset theme="dialog-close"/>
          </property>
         </widget>
        </item>

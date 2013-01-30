@@ -1,6 +1,7 @@
 Changes from 0.4.2 to 0.5.0
 - can build on Qt4 and 5
 - fix icon install paths
+- icon artwork fixes
 
 Changes from 0.4.1 to 0.4.2
 - notify no longer has internal testing, controlled by dbus build instead
