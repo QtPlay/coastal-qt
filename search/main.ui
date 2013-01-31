@@ -202,7 +202,7 @@
   </widget>
   <action name="actionReload">
    <property name="icon">
-    <iconset theme="reload">
+    <iconset theme="view-refresh">
      <normaloff/>
     </iconset>
    </property>
@@ -310,7 +310,7 @@
   </action>
   <action name="actionOptions">
    <property name="icon">
-    <iconset theme="configuration_section"/>
+    <iconset theme="preferences-system"/>
    </property>
    <property name="text">
     <string>&amp;Options</string>
