@@ -7,7 +7,7 @@
     <file alias="16x16/edit-clear.png">../icons/edit-clear.png</file>
     <file alias="16x16/help-about.png">../icons/help-about.png</file>
 	<file alias="16x16/system-search.png">../icons/system-search.png</file>
-	<file alias="16x16/preferences-system.png">../icons/preferences-system.png</file>
+	<file alias="16x16/preferences-other.png">../icons/preferences-other.png</file>
 	<file alias="16x16/go-next.png">../icons/go-next.png</file>
 	<file alias="16x16/go-previous.png">../icons/go-previous.png</file>
 </qresource>

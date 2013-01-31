@@ -43,11 +43,11 @@ Notice::Notice(Options& options, QString& title, QString& summary, QString& type
 
     setAttribute(Qt::WA_DeleteOnClose);
     if((type == "error") || (type == "dialog-error"))
-        setWindowIcon(QIcon(":/error.png"));
+        setWindowIcon(QIcon(":/dialog-error.png"));
     else if((type == "warning") || (type == "dialog-warning"))
-        setWindowIcon(QIcon(":/warning.png"));
+        setWindowIcon(QIcon(":/dialog-warning.png"));
     else
-        setWindowIcon(QIcon(":/info.png"));
+        setWindowIcon(QIcon(":/dialog-information.png"));
 
     if(options.show_icons)
         ui.Icon->setIcon(windowIcon());

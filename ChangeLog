@@ -1,3 +1,6 @@
+Changes from 0.5.0 to 0.5.1
+- further icon theme refinement
+
 Changes from 0.4.2 to 0.5.0
 - can build on Qt4 and 5
 - fix icon install paths

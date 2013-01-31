@@ -310,7 +310,7 @@
   </action>
   <action name="actionOptions">
    <property name="icon">
-    <iconset theme="preferences-system"/>
+    <iconset theme="preferences-other"/>
    </property>
    <property name="text">
     <string>&amp;Options</string>
