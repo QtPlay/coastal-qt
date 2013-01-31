@@ -215,7 +215,7 @@
   </action>
   <action name="actionQuit">
    <property name="icon">
-    <iconset theme="exit">
+    <iconset theme="application-exit">
      <normaloff/>
     </iconset>
    </property>
@@ -228,7 +228,7 @@
   </action>
   <action name="actionClear">
    <property name="icon">
-    <iconset theme="editclear">
+    <iconset theme="edit-clear">
      <normaloff/>
     </iconset>
    </property>
@@ -254,7 +254,7 @@
   </action>
   <action name="actionSearch">
    <property name="icon">
-    <iconset theme="search"/>
+    <iconset theme="system-search"/>
    </property>
    <property name="text">
     <string>&amp;Search</string>

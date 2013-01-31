@@ -196,7 +196,7 @@
   </widget>
   <action name="actionQuit">
    <property name="icon">
-    <iconset theme="exit">
+    <iconset theme="application-exit">
      <normaloff/>
     </iconset>
    </property>
@@ -251,7 +251,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset theme="editclear">
+    <iconset theme="edit-clear">
      <normaloff/>
     </iconset>
    </property>

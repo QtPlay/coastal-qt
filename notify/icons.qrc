@@ -2,11 +2,10 @@
 <qresource prefix="icons/coastal">
     <file alias="index.theme">../icons/index.theme</file>
 
-    <file alias="16x16/exit.png">../icons/exit.png</file>
+    <file alias="16x16/application-exit.png">../icons/application-exit.png</file>
     <file alias="16x16/view-refresh.png">../icons/view-refresh.png</file>
     <file alias="16x16/help-about.png">../icons/help-about.png</file>
     <file alias="16x16/stock_select-all.png">../icons/stock_select-all.png</file>
-    <file alias="16x16/editclear.png">../icons/editclear.png</file>
 </qresource>
 <qresource>
     <file alias="notify.png">../icons/coastal-notify.png</file>

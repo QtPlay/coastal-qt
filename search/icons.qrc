@@ -2,11 +2,11 @@
 <qresource prefix="icons/coastal">
     <file alias="index.theme">../icons/index.theme</file>
 
-    <file alias="16x16/exit.png">../icons/exit.png</file>
+    <file alias="16x16/application-exit.png">../icons/application-exit.png</file>
     <file alias="16x16/view-refresh.png">../icons/view-refresh.png</file>
-    <file alias="16x16/editclear.png">../icons/editclear.png</file>
+    <file alias="16x16/edit-clear.png">../icons/edit-clear.png</file>
     <file alias="16x16/help-about.png">../icons/help-about.png</file>
-	<file alias="16x16/search.png">../icons/search.png</file>
+	<file alias="16x16/system-search.png">../icons/system-search.png</file>
 	<file alias="16x16/preferences-system.png">../icons/preferences-system.png</file>
 	<file alias="16x16/go-next.png">../icons/go-next.png</file>
 	<file alias="16x16/go-previous.png">../icons/go-previous.png</file>

@@ -60,7 +60,7 @@ CoastalMain()
     traymenu->addAction(aboutAction);
 
     QAction *quitAction = new QAction(tr("&Quit"), this);
-    quitAction->setIcon(QIcon::fromTheme("exit"));
+    quitAction->setIcon(QIcon::fromTheme("application-exit"));
     quitAction->setIconVisibleInMenu(true);
     connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
     traymenu->addAction(quitAction);
