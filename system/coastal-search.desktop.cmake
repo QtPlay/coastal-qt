@@ -7,4 +7,4 @@ Comment=Text search and view
 TryExec=${CMAKE_INSTALL_PREFIX}/bin/coastal-search
 Exec=${CMAKE_INSTALL_PREFIX}/bin/coastal-search &
 Categories=Application;Utility;
-Icon=coastal-search.png
+Icon=coastal-search

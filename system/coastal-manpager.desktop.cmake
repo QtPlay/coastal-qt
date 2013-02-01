@@ -7,4 +7,4 @@ Comment=Manual page viwer
 TryExec=${CMAKE_INSTALL_PREFIX}/bin/coastal-manpager
 Exec=${CMAKE_INSTALL_PREFIX}/bin/coastal-manpager &
 Categories=Application;Utility;
-Icon=coastal-manpager.png
+Icon=coastal-manpager
