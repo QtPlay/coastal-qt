@@ -11,8 +11,13 @@
 
 file(GLOB qt_src *.cpp)
 file(GLOB qt_inc program.h)
-file(GLOB rc_src *.qrc)
 file(GLOB ui_src *.ui)
+
+if( UNIX )  
+    file(GLOB rc_src *.qrc)
+else()
+    set(rc_src icons.qrc)
+endif()
 
 configure_file(application.rc.cmake ${CMAKE_CURRENT_SOURCE_DIR}/application.rc)
 

@@ -2,8 +2,11 @@
 Name=Coastal
 Comment=Coastal Icons
 Inherits=default
-Directories=16x16
+Directories=Scalable,16x16
+
+[Scalable]
+Size=48
+MinSize=16
 
 [16x16]
 Size=16
-

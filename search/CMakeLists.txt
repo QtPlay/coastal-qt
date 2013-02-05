@@ -12,7 +12,12 @@
 file(GLOB qt_src *.cpp)
 file(GLOB qt_inc program.h)
 file(GLOB ui_src *.ui)
-file(GLOB rc_src *.qrc)
+
+if( UNIX )
+    file(GLOB rc_src *.qrc)
+else()
+    set(rc_src icons.qrc)
+endif()
 
 if( APPLE )
     set (PROGNAME "Coastal Search")

@@ -2,14 +2,13 @@
 <qresource prefix="icons/coastal">
     <file alias="index.theme">../icons/index.theme</file>
 
-    <file alias="16x16/application-exit.png">../icons/application-exit.png</file>
-    <file alias="16x16/view-refresh.png">../icons/view-refresh.png</file>
+	<file alias="16x16/view-refresh.png">../icons/view-refresh.png</file>
     <file alias="16x16/edit-clear.png">../icons/edit-clear.png</file>
-    <file alias="16x16/help-about.png">../icons/help-about.png</file>
+	<file alias="16x16/help-about.png">../icons/help-about.png</file>
+	<file alias="16x16/go-next.svg">../icons/go-next.png</file>
+	<file alias="16x16/go-previous.svg">../icons/go-previous.png</file>
 	<file alias="16x16/system-search.png">../icons/system-search.png</file>
 	<file alias="16x16/preferences-other.png">../icons/preferences-other.png</file>
-	<file alias="16x16/go-next.png">../icons/go-next.png</file>
-	<file alias="16x16/go-previous.png">../icons/go-previous.png</file>
 </qresource>
 <qresource>
     <file alias="search.png">../icons/coastal-search.png</file>
