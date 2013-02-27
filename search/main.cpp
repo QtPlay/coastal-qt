@@ -330,8 +330,7 @@ int main(int argc, char *argv[])
     translator.load(QLocale::system().name(), TRANSLATIONS);
     app.installTranslator(&translator);
 
-    if(!QIcon::hasThemeIcon("view-refresh"))
-        QIcon::setThemeName("coastal");
+    Coastal::icons();
 
     if(argv[1] && argv[2])
         types = argv[2];

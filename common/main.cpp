@@ -28,6 +28,8 @@ QMainWindow(NULL)
 
     trayicon = NULL;
     url_support = "https://github.com/dyfet/coastal-qt/issues";
+
+    Q_INIT_RESOURCE(coastal);
 }
 
 void CoastalMain::support(void)
@@ -50,6 +52,14 @@ void CoastalMain::about(void)
     item->setVisible(true);
     info.setImage(scene);
     info.exec();
+}
+
+void Coastal::icons(void)
+{
+    Q_INIT_RESOURCE(coastal);
+
+    if(!QIcon::hasThemeIcon("view-refresh"))
+        QIcon::setThemeName("coastal");
 }
 
 #ifdef  Q_OS_WIN

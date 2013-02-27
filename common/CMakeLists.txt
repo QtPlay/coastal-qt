@@ -12,6 +12,7 @@
 file(GLOB qt_src *.cpp)
 file(GLOB qt_inc *.h)
 file(GLOB ui_src *.ui)
+file(GLOB rc_src *.qrc)
 
 list(REMOVE_ITEM qt_src ${CMAKE_CURRENT_SOURCE_DIR}/dbus_notify.cpp)
 list(REMOVE_ITEM qt_src ${CMAKE_CURRENT_SOURCE_DIR}/dbus_notify.h)
@@ -23,12 +24,13 @@ if(BUILD_DBUS)
         dbus_notify)
 endif()
 
+QT4_ADD_RESOURCES(qt_qrc ${rc_src})
 QT4_WRAP_CPP(qt_moc coastal.h)
 QT4_WRAP_UI(qt_ui ${ui_src})
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
-add_library(coastal ${COASTAL_LIBRARY_TYPE} ${qt_src} ${qt_inc} ${qt_moc} ${qt_ui})
+add_library(coastal ${COASTAL_LIBRARY_TYPE} ${qt_src} ${qt_inc} ${qt_moc} ${qt_ui} ${qt_qrc})
 set_target_properties(coastal PROPERTIES VERSION ${VERSION} SOVERSION ${SOVERSION})
 target_link_libraries(coastal ${QT_LIBRARIES} ${COASTAL_EXTRA_LIBS})
 

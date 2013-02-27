@@ -167,6 +167,8 @@ class Coastal
 public:
     static bool env(const char *id, char *buffer, size_t size);
 
+    static void icons(void);
+
     static QString env(const QString& id);
 
     static QString extension(const QString& filename);

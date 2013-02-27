@@ -467,8 +467,12 @@ int main(int argc, char *argv[])
     translator.load(QLocale::system().name(), TRANSLATIONS);
     app.installTranslator(&translator);
 
+    Coastal::icons();
+
+/*
     if(!QIcon::hasThemeIcon("view-refresh"))
         QIcon::setThemeName("coastal");
+*/
 
     Main w;
     w.show();
