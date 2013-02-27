@@ -2,4 +2,7 @@
 <qresource prefix="icons/coastal">
     <file alias="index.theme">../icons/index.theme</file>
 </qresource>
+<qresource>
+    <file alias="github.png">../icons/github.png</file>
+</qresource>
 </RCC>

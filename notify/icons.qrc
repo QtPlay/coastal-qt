@@ -1,15 +1,16 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource prefix="icons/coastal">
-    <file alias="index.theme">../icons/index.theme</file>
-
     <file alias="16x16/application-exit.png">../icons/application-exit.png</file>
     <file alias="16x16/view-refresh.png">../icons/view-refresh.png</file>
     <file alias="16x16/help-about.png">../icons/help-about.png</file>
-    <file alias="16x16/stock_select-all.png">../icons/stock_select-all.png</file>
+	<file alias="16x16/stock_select-all.png">../icons/stock_select-all.png</file>
+    <file alias="Scalable/application-exit.svg">../icons/application-exit.svg</file>
+    <file alias="Scalable/view-refresh.svg">../icons/view-refresh.svg</file>
+    <file alias="Scalable/help-about.svg">../icons/help-about.svg</file>
+    <file alias="Scalable/stock_select-all.svg">../icons/stock_select-all.svg</file>
 </qresource>
 <qresource>
     <file alias="notify.png">../icons/coastal-notify.png</file>
-	<file alias="github.png">../icons/github.png</file>
 	<file alias="dialog-information.png">../icons/dialog-information.png</file>
 	<file alias="dialog-error.png">../icons/dialog-error.png</file>
 	<file alias="dialog-warning.png">../icons/dialog-warning.png</file>

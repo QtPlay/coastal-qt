@@ -12,12 +12,7 @@
 file(GLOB qt_src *.cpp)
 file(GLOB qt_inc *.h)
 file(GLOB ui_src *.ui)
-
-if( UNIX )
-    file(GLOB rc_src *.qrc)
-else()
-    set(rc_src icons.qrc)
-endif()
+file(GLOB rc_src *.qrc)
 
 if( APPLE )
     set(PROGNAME "Coastal Manpager")

@@ -1,8 +1,0 @@
-<!DOCTYPE RCC><RCC version="1.0">
-<qresource prefix="icons/coastal">
-    <file alias="Scalable/application-exit.svg">../icons/application-exit.svg</file>
-    <file alias="Scalable/view-refresh.svg">../icons/view-refresh.svg</file>
-    <file alias="Scalable/help-about.svg">../icons/help-about.svg</file>
-    <file alias="Scalable/stock_select-all.svg">../icons/stock_select-all.svg</file>
-</qresource>
-</RCC>

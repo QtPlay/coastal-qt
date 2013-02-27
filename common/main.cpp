@@ -54,11 +54,11 @@ void CoastalMain::about(void)
     info.exec();
 }
 
-void Coastal::icons(void)
+void Coastal::icons(const char *id)
 {
     Q_INIT_RESOURCE(coastal);
 
-    if(!QIcon::hasThemeIcon("view-refresh"))
+    if(!QIcon::hasThemeIcon(id))
         QIcon::setThemeName("coastal");
 }
 
