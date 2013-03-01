@@ -29,6 +29,8 @@ QMainWindow(NULL)
     trayicon = NULL;
     url_support = "https://github.com/dyfet/coastal-qt/issues";
 
+    setToolButtonStyle(Qt::ToolButtonFollowStyle);
+
     Q_INIT_RESOURCE(coastal);
 }
 
