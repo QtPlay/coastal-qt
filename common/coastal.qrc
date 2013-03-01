@@ -2,6 +2,7 @@
 <qresource prefix="icons/coastal">
 	<file alias="index.theme">../icons/index.theme</file>
 
+	<file alias="16x16/preferences-desktop.png">../icons/preferences-desktop.png</file>
 	<file alias="16x16/application-exit.png">../icons/application-exit.png</file>
     <file alias="16x16/view-refresh.png">../icons/view-refresh.png</file>
 	<file alias="16x16/help-about.png">../icons/help-about.png</file>
@@ -19,6 +20,8 @@
 	<file alias="16x16/list-add.png">../icons/list-add.png</file>
 	<file alias="16x16/list-remove.png">../icons/list-remove.png</file>
 
+	
+	<file alias="Scalable/preferences-desktop.svg">../icons/preferences-desktop.svg</file>
 	<file alias="Scalable/application-exit.svg">../icons/application-exit.svg</file>
     <file alias="Scalable/view-refresh.svg">../icons/view-refresh.svg</file>
 	<file alias="Scalable/help-about.svg">../icons/help-about.svg</file>

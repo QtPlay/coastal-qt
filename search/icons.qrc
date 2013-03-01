@@ -2,11 +2,9 @@
 <qresource prefix="icons/coastal">
     <file alias="16x16/edit-clear.png">../icons/edit-clear.png</file>
 	<file alias="16x16/system-search.png">../icons/system-search.png</file>
-	<file alias="16x16/preferences-other.png">../icons/preferences-other.png</file>
 
     <file alias="Scalable/edit-clear.svg">../icons/edit-clear.svg</file>
 	<file alias="Scalable/system-search.svg">../icons/system-search.svg</file>
-	<file alias="Scalable/preferences-other.svg">../icons/preferences-other.svg</file>
 </qresource>
 <qresource>
     <file alias="search.png">../icons/coastal-search.png</file>

@@ -535,7 +535,7 @@
   </action>
   <action name="actionOptions">
    <property name="icon">
-    <iconset theme="preferences-other">
+    <iconset theme="preferences-desktop">
      <normaloff/>
     </iconset>
    </property>

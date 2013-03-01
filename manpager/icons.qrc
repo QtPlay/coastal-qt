@@ -2,11 +2,9 @@
 <qresource prefix="icons/coastal">
     <file alias="16x16/stock_select-all.png">../icons/stock_select-all.png</file>
 	<file alias="16x16/edit-clear.png">../icons/edit-clear.png</file>
-	<file alias="16x16/preferences-other.png">../icons/preferences-other.png</file>
 
     <file alias="Scalable/stock_select-all.svg">../icons/stock_select-all.svg</file>
 	<file alias="Scalable/edit-clear.svg">../icons/edit-clear.svg</file>
-	<file alias="Scalable/preferences-other.svg">../icons/preferences-other.svg</file>
 </qresource>
 <qresource>
     <file alias="manpager.png">../icons/coastal-manpager.png</file>
