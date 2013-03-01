@@ -10,6 +10,7 @@
     <file alias="16x16/dialog-error.png">../icons/dialog-error.png</file>
     <file alias="16x16/dialog-information.png">../icons/dialog-information.png</file>
 
+	<file alias="16x16/go-home.png">../icons/go-home.png</file>
 	<file alias="16x16/go-next.png">../icons/go-next.png</file>
 	<file alias="16x16/go-previous.png">../icons/go-previous.png</file>
 	<file alias="16x16/go-up.png">../icons/go-up.png</file>
@@ -25,6 +26,7 @@
     <file alias="Scalable/dialog-error.svg">../icons/dialog-error.svg</file>
 	<file alias="Scalable/dialog-information.svg">../icons/dialog-information.svg</file>
 
+	<file alias="Scalable/go-home.svg">../icons/go-home.svg</file>
 	<file alias="Scalable/go-next.svg">../icons/go-next.svg</file>
 	<file alias="Scalable/go-previous.svg">../icons/go-previous.svg</file>
 	<file alias="Scalable/go-up.svg">../icons/go-up.svg</file>
