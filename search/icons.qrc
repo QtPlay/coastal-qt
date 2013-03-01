@@ -1,21 +1,10 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource prefix="icons/coastal">
-	<file alias="16x16/view-refresh.png">../icons/view-refresh.png</file>
     <file alias="16x16/edit-clear.png">../icons/edit-clear.png</file>
-	<file alias="16x16/help-about.png">../icons/help-about.png</file>
-	<file alias="16x16/go-next.svg">../icons/go-next.png</file>
-	<file alias="16x16/go-previous.svg">../icons/go-previous.png</file>
 	<file alias="16x16/system-search.png">../icons/system-search.png</file>
-	<file alias="16x16/preferences-other.png">../icons/preferences-other.png</file>
 
-	<file alias="Scalable/application-exit.svg">../icons/application-exit.svg</file>
-    <file alias="Scalable/view-refresh.svg">../icons/view-refresh.svg</file>
     <file alias="Scalable/edit-clear.svg">../icons/edit-clear.svg</file>
-	<file alias="Scalable/help-about.svg">../icons/help-about.svg</file>
-	<file alias="Scalable/go-next.svg">../icons/go-next.svg</file>
-	<file alias="Scalable/go-previous.svg">../icons/go-previous.svg</file>
 	<file alias="Scalable/system-search.svg">../icons/system-search.svg</file>
-	<file alias="Scalable/preferences-other.svg">../icons/preferences-other.svg</file>
 </qresource>
 <qresource>
     <file alias="search.png">../icons/coastal-search.png</file>
