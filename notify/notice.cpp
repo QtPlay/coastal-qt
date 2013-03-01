@@ -28,6 +28,7 @@ volatile unsigned instances = 0;
 Notice::Notice(Options& options, QString& title, QString& summary, QString& type) : QDialog(NULL)
 {
     QString text;
+    const char *theme_icon = "dialog-information";
 
     Ui::NoticeDialog ui;
 
@@ -43,14 +44,14 @@ Notice::Notice(Options& options, QString& title, QString& summary, QString& type
 
     setAttribute(Qt::WA_DeleteOnClose);
     if((type == "error") || (type == "dialog-error"))
-        setWindowIcon(QIcon(":/dialog-error.png"));
+        theme_icon = "dialog-error";
     else if((type == "warning") || (type == "dialog-warning"))
-        setWindowIcon(QIcon(":/dialog-warning.png"));
-    else
-        setWindowIcon(QIcon(":/dialog-information.png"));
+        theme_icon = "dialog-warning";
+        
+    setWindowIcon(QIcon.fromTheme(theme_icon));
 
     if(options.show_icons)
-        ui.Icon->setIcon(windowIcon());
+        ui.Icon->setIcon(fromTheme(theme_icon));
     else {
         ui.Icon->setVisible(false);
         ui.Icon->setEnabled(false);

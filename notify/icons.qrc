@@ -5,8 +5,5 @@
 </qresource>
 <qresource>
     <file alias="notify.png">../icons/coastal-notify.png</file>
-	<file alias="dialog-information.png">../icons/dialog-information.png</file>
-	<file alias="dialog-error.png">../icons/dialog-error.png</file>
-	<file alias="dialog-warning.png">../icons/dialog-warning.png</file>
 </qresource>
 </RCC>

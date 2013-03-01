@@ -4,7 +4,11 @@
 
 	<file alias="16x16/application-exit.png">../icons/application-exit.png</file>
     <file alias="16x16/view-refresh.png">../icons/view-refresh.png</file>
-    <file alias="16x16/help-about.png">../icons/help-about.png</file>
+	<file alias="16x16/help-about.png">../icons/help-about.png</file>
+
+	<file alias="16x16/dialog-warning.png">../icons/dialog-warning.png</file>
+    <file alias="16x16/dialog-error.png">../icons/dialog-error.png</file>
+    <file alias="16x16/dialog-information.png">../icons/dialog-information.png</file>
 
 	<file alias="16x16/go-next.png">../icons/go-next.png</file>
 	<file alias="16x16/go-previous.png">../icons/go-previous.png</file>
@@ -15,7 +19,11 @@
 
 	<file alias="Scalable/application-exit.svg">../icons/application-exit.svg</file>
     <file alias="Scalable/view-refresh.svg">../icons/view-refresh.svg</file>
-    <file alias="Scalable/help-about.svg">../icons/help-about.svg</file>
+	<file alias="Scalable/help-about.svg">../icons/help-about.svg</file>
+
+	<file alias="Scalable/dialog-warning.svg">../icons/dialog-warning.svg</file>
+    <file alias="Scalable/dialog-error.svg">../icons/dialog-error.svg</file>
+	<file alias="Scalable/dialog-information.svg">../icons/dialog-information.svg</file>
 
 	<file alias="Scalable/go-next.svg">../icons/go-next.svg</file>
 	<file alias="Scalable/go-previous.svg">../icons/go-previous.svg</file>
