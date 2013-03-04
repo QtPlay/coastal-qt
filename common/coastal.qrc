@@ -6,6 +6,9 @@
 	<file alias="16x16/application-exit.png">../icons/application-exit.png</file>
     <file alias="16x16/view-refresh.png">../icons/view-refresh.png</file>
 	<file alias="16x16/help-about.png">../icons/help-about.png</file>
+	<file alias="16x16/window-new.png">../icons/window-new.png</file>
+	<file alias="16x16/window-close.png">../icons/window-close.png</file>
+	<file alias="16x16/tab-new.png">../icons/tab-new.png</file>
 
 	<file alias="16x16/dialog-warning.png">../icons/dialog-warning.png</file>
     <file alias="16x16/dialog-error.png">../icons/dialog-error.png</file>
@@ -25,6 +28,9 @@
 	<file alias="Scalable/application-exit.svg">../icons/application-exit.svg</file>
     <file alias="Scalable/view-refresh.svg">../icons/view-refresh.svg</file>
 	<file alias="Scalable/help-about.svg">../icons/help-about.svg</file>
+	<file alias="Scalable/window-new.svg">../icons/window-new.svg</file>
+	<file alias="Scalable/window-close.svg">../icons/window-close.svg</file>
+	<file alias="Scalable/tab-new.svg">../icons/tab-new.svg</file>
 
 	<file alias="Scalable/dialog-warning.svg">../icons/dialog-warning.svg</file>
     <file alias="Scalable/dialog-error.svg">../icons/dialog-error.svg</file>
