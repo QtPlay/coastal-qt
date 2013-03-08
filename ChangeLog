@@ -1,3 +1,6 @@
+Changes from 0.6.0 to 0.6.1
+- introduction of dialogs utility applications
+
 Changes from 0.5.1 to 0.6.0
 - global common resources
 - toolbar style set from theme

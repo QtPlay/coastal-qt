@@ -1,0 +1,5 @@
+These are small utility applications that open as dialog windows.  They are
+mostly used as simple testing tools or as helper applications.
+
+For example, coastal-icons is just used to show/test icons from the current
+theme.

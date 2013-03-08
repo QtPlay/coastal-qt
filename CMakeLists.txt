@@ -134,6 +134,7 @@ add_subdirectory(common)
 add_subdirectory(manpager)
 add_subdirectory(search)
 add_subdirectory(notify)
+add_subdirectory(dialogs)
 add_subdirectory(system)
 add_subdirectory(translations)
 
