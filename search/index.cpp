@@ -77,13 +77,14 @@ void Index::scan(QString path, QString match)
         return;
 
     QDir::Filters filter = QDir::Files | QDir::NoDot;
+    QDir::SortFlags sorting = QDir::SortFlags(QDir::Name);
 
-    if(Main::casefilter)
-        filter |= QDir::CaseSensitive;
+    if(!Main::casefilter)
+        sorting |= QDir::IgnoreCase;
 
-    QStringList dirs = dir.entryList(QDir::AllDirs, QDir::SortFlags(QDir::Name | QDir::IgnoreCase));
+    QStringList dirs = dir.entryList(QDir::AllDirs, sorting);
     dir.setNameFilters(filters);
-    QStringList list = dir.entryList(filter, QDir::SortFlags(QDir::Name | QDir::IgnoreCase));
+    QStringList list = dir.entryList(filter, sorting);
 
     for(unsigned pos = 0; pos < (unsigned)dirs.size(); ++pos) {
         if(dirs[pos][0] == '.')
