@@ -9,8 +9,8 @@
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 #
 
-QT4_CREATE_TRANSLATION(qm_search ${ts_search} coastal-search.ts)
-QT4_CREATE_TRANSLATION(qm_manpager ${ts_manpager} coastal-manpager.ts)
+QT_CREATE_TRANSLATION(qm_search ${ts_search} coastal-search.ts)
+QT_CREATE_TRANSLATION(qm_manpager ${ts_manpager} coastal-manpager.ts)
 
 if(BUILD_UNRELEASED)
     set(qm_files ${qm_search} ${qm_manpager})

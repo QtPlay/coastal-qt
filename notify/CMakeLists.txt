@@ -16,9 +16,9 @@ file(GLOB rc_src *.qrc)
 
 configure_file(application.rc.cmake ${CMAKE_CURRENT_SOURCE_DIR}/application.rc)
 
-QT4_ADD_RESOURCES(qt_qrc ${rc_src})
-QT4_WRAP_CPP(qt_moc program.h)
-QT4_WRAP_UI(qt_ui ${ui_src})
+QT_ADD_RESOURCES(qt_qrc ${rc_src})
+QT_WRAP_CPP(qt_moc program.h)
+QT_WRAP_UI(qt_ui ${ui_src})
 
 if(WIN32)
     set(qt_qrc ${qt_qrc} application.rc)

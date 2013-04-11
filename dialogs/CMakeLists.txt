@@ -16,8 +16,8 @@ file(GLOB rc_src *.qrc)
 
 # configure_file(application.rc.cmake ${CMAKE_CURRENT_SOURCE_DIR}/application.rc)
 
-QT4_WRAP_CPP(icons_moc icons.h)
-QT4_WRAP_UI(icons_ui icons.ui)
+QT_WRAP_CPP(icons_moc icons.h)
+QT_WRAP_UI(icons_ui icons.ui)
 
 #if(WIN32)
 #    set(qt_qrc ${qt_qrc} application.rc)

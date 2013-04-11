@@ -61,7 +61,7 @@ QString Coastal::env(const QString& id)
     QString result;
     char buffer[128];
 
-    if(env(id.toAscii().constData(), buffer, sizeof(buffer)))
+    if(env(id.toUtf8().constData(), buffer, sizeof(buffer)))
         result = buffer;
 
     return result;
