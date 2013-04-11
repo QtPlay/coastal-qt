@@ -1,3 +1,6 @@
+Changes from 0.6.2 to 0.6.3
+- more intensive and complete Qt5 support
+
 Changes from 0.6.1 to 0.6.2
 - fix filename sorting, but localeaware is broken in qt.
 

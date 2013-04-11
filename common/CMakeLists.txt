@@ -20,13 +20,12 @@ list(REMOVE_ITEM qt_src ${CMAKE_CURRENT_SOURCE_DIR}/dbus_notify.h)
 set (ts_common ${ts_src} ${qt_src} ${ui_src} ${qt_inc} PARENT_SCOPE)
 
 if(BUILD_DBUS)
-    QT4_ADD_DBUS_INTERFACE(qt_src ../dbus/org.freedesktop.Notifications.xml
-        dbus_notify)
+    QT_ADD_DBUS_INTERFACE(qt_src ../dbus/org.freedesktop.Notifications.xml dbus_notify)
 endif()
 
-QT4_ADD_RESOURCES(qt_qrc ${rc_src})
-QT4_WRAP_CPP(qt_moc coastal.h)
-QT4_WRAP_UI(qt_ui ${ui_src})
+QT_ADD_RESOURCES(qt_qrc ${rc_src})
+QT_WRAP_CPP(qt_moc coastal.h)
+QT_WRAP_UI(qt_ui ${ui_src})
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
