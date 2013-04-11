@@ -31,6 +31,9 @@
 #include <QActionGroup>
 #include <QFileDialog>
 #include <QMenu>
+#include <QMessageBox>
+#include <QApplication>
+#include <QCheckBox>
 
 class CoastalAbout : public QDialog
 {
