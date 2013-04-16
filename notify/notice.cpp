@@ -48,10 +48,10 @@ Notice::Notice(Options& options, QString& title, QString& summary, QString& type
     else if((type == "warning") || (type == "dialog-warning"))
         theme_icon = "dialog-warning";
         
-    setWindowIcon(QIcon.fromTheme(theme_icon));
+    setWindowIcon(QIcon::fromTheme(theme_icon));
 
     if(options.show_icons)
-        ui.Icon->setIcon(fromTheme(theme_icon));
+        ui.Icon->setIcon(QIcon::fromTheme(theme_icon));
     else {
         ui.Icon->setVisible(false);
         ui.Icon->setEnabled(false);
