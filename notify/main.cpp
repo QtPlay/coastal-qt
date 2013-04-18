@@ -24,26 +24,24 @@
 
 using namespace std;
 
-static Ui::MainWindow ui;
+static Ui::MainDialog ui;
 
 bool Main::restart_flag = false;
 
 Main::Main() :
-CoastalMain()
+CoastalDialog()
 {
-    ui.setupUi((QMainWindow *)this);
+    ui.setupUi((QDialog *)this);
 
-    program_name = "Coastal Notify";
-    program_about = "Coastal Notifications";
     setWindowIcon(QIcon(":/notify.png"));
-    setWindowTitle(program_name);
+    setWindowTitle(dialog_name);
     setWindowFlags(Qt::Window);
 
     QApplication::setQuitOnLastWindowClosed(true);
 
     connect(ui.aboutButton, SIGNAL(clicked()), this, SLOT(about()));
 
-    connect(ui.quitButton, SIGNAL(clicked()), qApp, SLOT(quit()));
+//    connect(ui.quitButton, SIGNAL(clicked()), qApp, SLOT(quit()));
 
     trayicon = new QSystemTrayIcon(this);
     if(!trayicon) {

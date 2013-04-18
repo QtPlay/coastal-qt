@@ -23,7 +23,7 @@ using namespace std;
 static Ui::Dialog ui;
 
 Icons::Icons() :
-QDialog(NULL)
+CoastalDialog()
 {
     ui.setupUi((QDialog *)this);
 

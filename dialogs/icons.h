@@ -21,7 +21,7 @@
 #include <coastal-qt-config.h>
 #include <coastal.h>
 
-class Icons : public QDialog
+class Icons : public CoastalDialog
 {
 Q_OBJECT
 

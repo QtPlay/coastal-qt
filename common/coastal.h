@@ -41,6 +41,7 @@ Q_OBJECT
 
 protected:
     friend class CoastalMain;
+    friend class CoastalDialog;
 
     CoastalAbout(QWidget *parent);
 
@@ -121,6 +122,22 @@ protected:
     QSystemTrayIcon *trayicon;
 
     CoastalMain();
+
+public slots:
+    void about(void);
+    void support(void);
+};
+
+class CoastalDialog : public QDialog
+{
+Q_OBJECT
+
+protected:
+    const char *dialog_version, *dialog_about, *dialog_copyright, *dialog_name;
+    const char *url_support;
+    QSystemTrayIcon *trayicon;
+
+    CoastalDialog();
 
 public slots:
     void about(void);

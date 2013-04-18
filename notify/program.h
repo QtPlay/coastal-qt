@@ -58,7 +58,7 @@ signals:
     void restart(void);
 };
 
-class Main : public CoastalMain
+class Main : public CoastalDialog
 {
 Q_OBJECT
 
