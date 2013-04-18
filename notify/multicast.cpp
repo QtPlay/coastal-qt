@@ -19,6 +19,13 @@
 
 using namespace std;
 
+class Source
+{
+public:
+	QHostAddress host;
+	unsigned seq;
+};
+
 class Message
 {
 public:
@@ -26,6 +33,7 @@ public:
 
 	unsigned count;
 	char data[512];
+	time_t when;
 	size_t size;
 };
 
@@ -34,9 +42,22 @@ Message::Message(char *msg, size_t mlen)
 	memcpy(data, msg, mlen);
 	size = mlen;
 	count = 0;
+	time(&when);
 }
 
+
 static QList<Message *> outgoing;
+static QHash<Source, Message *> incoming;
+
+static bool operator==(const Source& s1, const Source& s2)
+{
+	return s1.host.toString() == s2.host.toString() && s1.seq == s2.seq;
+}
+
+static uint qHash(const Source& key)
+{
+	return qHash(key.host.toString()) ^ key.seq;
+}
 
 Multicast::Multicast(Options& options, QWidget *parent) :
 QUdpSocket(parent)
@@ -85,5 +106,10 @@ void Multicast::deliver()
 
 void Multicast::send(char *msg, size_t mlen)
 {
+	static unsigned seq = 0;
+
+	msg[0] = seq / 256;
+	msg[1] = seq % 256;
+	++seq;
 	outgoing.append(new Message(msg, mlen));
 }	
