@@ -63,7 +63,7 @@ class Multicast : public QUdpSocket
     Q_OBJECT
 
 private:
-    QTimer *send_timer;
+    QTimer *send_timer, *expire_timer;
     QHostAddress addr;
     unsigned port;
     char buffer[1024];
@@ -77,6 +77,7 @@ public:
 private slots:
     void process();
     void deliver();
+    void expire();
 };
 
 class Main : public CoastalDialog

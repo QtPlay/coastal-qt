@@ -33,7 +33,6 @@ public:
 
 	unsigned count;
 	char data[512];
-	time_t when;
 	size_t size;
 };
 
@@ -42,12 +41,11 @@ Message::Message(char *msg, size_t mlen)
 	memcpy(data, msg, mlen);
 	size = mlen;
 	count = 0;
-	time(&when);
 }
 
 
 static QList<Message *> outgoing;
-static QHash<Source, Message *> incoming;
+static QHash<Source, time_t> incoming;
 
 static bool operator==(const Source& s1, const Source& s2)
 {
@@ -76,12 +74,30 @@ QUdpSocket(parent)
 		this, SLOT(deliver()));
 
 	send_timer->start(options.group_sending);
+
+	expire_timer = new QTimer(this);
+	connect(expire_timer, SIGNAL(timeout()),
+		this, SLOT(expire()));
 }
 
 void Multicast::process()
 {
 	while(hasPendingDatagrams()) {
 		size = readDatagram(buffer, sizeof(buffer));
+	}
+}
+
+void Multicast::expire()
+{
+	time_t now;
+	time(&now);
+	QHash<Source, time_t>::iterator i = incoming.begin();
+	while(i != incoming.end()) {
+		QHash<Source, time_t>::iterator prior = i;
+		++i;
+		if(prior.value() + 9 < now) {
+			incoming.erase(prior);
+		}
 	}
 }
 
