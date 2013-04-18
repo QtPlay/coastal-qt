@@ -14,6 +14,17 @@ file(GLOB qt_inc program.h)
 file(GLOB ui_src *.ui)
 file(GLOB rc_src *.qrc)
 
+find_package(Qt5Core QUIET)
+if(Qt5Core_FOUND)
+    find_package(Qt5Network REQUIRED)
+    set(QT_NETWORK ${QT_LIBRARIES} ${QT5Network_LIBRARIES})
+    include_directories(${Qt5Network_INCLUDE_DIRS})
+else()
+    find_package(Qt4 4.8.0 COMPONENTS QtCore QtGui QtNetwork REQUIRED)
+    include_directories(${QT_QTNETWORK_INCLUDE_DIR})
+    set(QT_NETWORK ${QT_LIBRARIES} QtNetwork)
+endif()
+
 configure_file(application.rc.cmake ${CMAKE_CURRENT_SOURCE_DIR}/application.rc)
 
 QT_ADD_RESOURCES(qt_qrc ${rc_src})
@@ -29,7 +40,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 set (PROGNAME coastal-notify)
 
 add_executable(${PROGNAME} WIN32 MACOSX_BUNDLE ${qt_src} ${qt_inc} ${qt_moc} ${qt_qrc} ${qt_ui})
-target_link_libraries(${PROGNAME} coastal ${QT_LIBRARIES} ${QT_PLUGINS})
+target_link_libraries(${PROGNAME} coastal ${QT_NETWORK} ${QT_PLUGINS})
 add_dependencies(${PROGNAME} coastal)
 install(TARGETS ${PROGNAME} DESTINATION ${INSTALL_BINDIR})
 

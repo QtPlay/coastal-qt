@@ -20,6 +20,7 @@
 
 #include <coastal-qt-config.h>
 #include <coastal.h>
+#include <QtNetwork>
 
 class Options : private QSettings
 {
