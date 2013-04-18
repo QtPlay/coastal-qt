@@ -62,14 +62,20 @@ class Multicast : public QUdpSocket
     Q_OBJECT
 
 private:
+    QTimer *send_timer;
+    QHostAddress addr;
+    unsigned port;
     char buffer[1024];
     qint64 size;
 
 public:
     Multicast(Options& options, QWidget *controller);
 
+    static void send(char *msg, size_t mlen);
+
 private slots:
     void process();
+    void deliver();
 };
 
 class Main : public CoastalDialog
