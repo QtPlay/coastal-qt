@@ -19,45 +19,19 @@
 
 using namespace std;
 
-Options::Options() :
-QSettings()
+Multicast::Multicast(Options& options, QWidget *parent) :
+QUdpSocket(parent)
 {
+	bind(options.group_port, ShareAddress);
+	joinMulticastGroup(QHostAddress(options.group_network));
 
-	beginGroup("notices");
-	show_icons = value("show_icons", true).toBool();
-	notice_timeout = value("timeout", 5).toInt() * 1000;
-	notice_opacity = value("opacity", 0.6).toReal();
-	endGroup();
-	beginGroup("multicast");
-	group_network = value("network", "239.255.43.21").toString();
-	group_port = value("port", 45654).toInt();
-	endGroup();
+	connect(this, SIGNAL(readyRead()),
+		this, SLOT(process()));
 }
 
-void Options::save(void)
+void Multicast::process()
 {
-	beginGroup("notices");
-	setValue("show_icons", show_icons);
-	setValue("timeout", notice_timeout / 1000);
-	setValue("opacity", notice_opacity);
-	endGroup();
-	beginGroup("multicast");
-	setValue("network", group_network);
-	setValue("port", group_port);
-	endGroup();
-	sync();
+	while(hasPendingDatagrams()) {
+		size = readDatagram(buffer, sizeof(buffer));
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

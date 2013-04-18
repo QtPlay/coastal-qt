@@ -34,6 +34,7 @@
 #include <QMessageBox>
 #include <QApplication>
 #include <QCheckBox>
+#include <QtNetwork>
 
 class CoastalAbout : public QDialog
 {

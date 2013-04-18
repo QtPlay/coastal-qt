@@ -70,6 +70,7 @@ CoastalDialog()
     connect(trayicon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
             this, SLOT(action(QSystemTrayIcon::ActivationReason)));
 
+    net = new Multicast(options, this);
     fifo = new Fifo();
     connect(fifo, SIGNAL(notice(QString,QString,QString)), this, SLOT(notice(QString,QString,QString)), Qt::QueuedConnection);
     connect(fifo, SIGNAL(restart()), this, SLOT(restart()), Qt::QueuedConnection);

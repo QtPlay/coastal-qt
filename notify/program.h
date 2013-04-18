@@ -26,17 +26,15 @@ class Options : private QSettings
 Q_OBJECT
 
 public:
-    QString network;
-    qreal opacity;
-    unsigned timeout;
+    unsigned group_port;
+    QString group_network;
+    qreal notice_opacity;
+    unsigned notice_timeout;
     bool show_icons;
 
     Options();
 
     void save(void);
-
-public slots:
-    void change(QString net);
 };
 
 class Fifo : public QThread
@@ -58,12 +56,28 @@ signals:
     void restart(void);
 };
 
+class Multicast : public QUdpSocket
+{
+    Q_OBJECT
+
+private:
+    char buffer[1024];
+    qint64 size;
+
+public:
+    Multicast(Options& options, QWidget *controller);
+
+private slots:
+    void process();
+};
+
 class Main : public CoastalDialog
 {
 Q_OBJECT
 
 private:
     Fifo *fifo;
+    Multicast *net;
 
 public:
     static bool restart_flag;

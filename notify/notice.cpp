@@ -59,12 +59,12 @@ Notice::Notice(Options& options, QString& title, QString& summary, QString& type
     }
 
     setWindowFlags(Qt::FramelessWindowHint);
-    setWindowOpacity(options.opacity);
+    setWindowOpacity(options.notice_opacity);
 
     ++instances;
 
     connect(&timer, SIGNAL(timeout()), this, SLOT(close()));
-    timer.start(options.timeout);
+    timer.start(options.notice_timeout);
     show();
 }
 
