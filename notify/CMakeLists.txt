@@ -22,7 +22,7 @@ if(Qt5Core_FOUND)
 else()
     find_package(Qt4 4.8.0 COMPONENTS QtCore QtGui QtNetwork REQUIRED)
     include_directories(${QT_QTNETWORK_INCLUDE_DIR})
-    set(QT_NETWORK ${QT_LIBRARIES} ${QT_QTNETWORK_LIBRARY)
+    set(QT_NETWORK ${QT_LIBRARIES} ${QT_QTNETWORK_LIBRARY})
 endif()
 
 configure_file(application.rc.cmake ${CMAKE_CURRENT_SOURCE_DIR}/application.rc)
