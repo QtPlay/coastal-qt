@@ -54,7 +54,7 @@ QUdpSocket(parent)
 	connect(send_timer, SIGNAL(timeout()),
 		this, SLOT(deliver()));
 
-	send_timer->start(250);
+	send_timer->start(options.group_sending);
 }
 
 void Multicast::process()

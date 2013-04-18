@@ -27,6 +27,7 @@ class Options : private QSettings
 Q_OBJECT
 
 public:
+    unsigned group_sending;
     unsigned group_port;
     QString group_network;
     qreal notice_opacity;
