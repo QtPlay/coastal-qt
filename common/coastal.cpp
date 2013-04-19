@@ -40,6 +40,24 @@
 #include <magic.h>
 #endif
 
+QString Coastal::userid()
+{
+#ifdef  Q_OS_WIN
+    char winUserName[UNLEN + 1];
+    DWORD winUserNameSize = sizeof(winUserName);
+
+#if defined(UNICODE)
+    if (qWinVersion() & Qt::WV_NT_based ) {
+        GetUserName( winUserName, &winUserNameSize );
+        return qt_winQString( winUserName );
+    }
+#endif
+    GetUserNameA( winUserName, &winUserNameSize );
+    return QString::fromLocal8Bit( winUserName );
+#endif
+    return QString(getlogin());
+}
+
 bool Coastal::env(const char *id, char *buffer, size_t size)
 {
     buffer[0] = 0;

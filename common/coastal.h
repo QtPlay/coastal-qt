@@ -189,6 +189,8 @@ public:
 
     static void icons(const char *check_id = "view-refresh");
 
+    static QString userid(void);
+
     static QString env(const QString& id);
 
     static QString extension(const QString& filename);

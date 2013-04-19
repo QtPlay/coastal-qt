@@ -46,6 +46,7 @@ Message::Message(char *msg, size_t mlen)
 
 static QList<Message *> outgoing;
 static QHash<Source, time_t> incoming;
+static Multicast *net;
 
 static bool operator==(const Source& s1, const Source& s2)
 {
@@ -60,6 +61,7 @@ static uint qHash(const Source& key)
 Multicast::Multicast(Options& options, QWidget *parent) :
 QUdpSocket(parent)
 {
+	net = this;
 	addr = options.group_network;
 	port = options.group_port;
 
@@ -120,12 +122,15 @@ void Multicast::deliver()
 	}
 }		
 
-void Multicast::send(char *msg, size_t mlen)
+void Multicast::send(char *msg, size_t mlen, bool immediate)
 {
 	static unsigned seq = 0;
 
 	msg[0] = seq / 256;
 	msg[1] = seq % 256;
 	++seq;
-	outgoing.append(new Message(msg, mlen));
+	if(immediate)
+		net->writeDatagram(msg, mlen, net->addr, net->port);
+	else
+		outgoing.append(new Message(msg, mlen));
 }	

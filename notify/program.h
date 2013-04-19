@@ -22,6 +22,19 @@
 #include <coastal.h>
 #include <QtNetwork>
 
+typedef enum
+{
+    MSG_NOTICE = 0,
+    MSG_WARNING,
+    MSG_ERROR,
+    MSG_FATAL,
+
+	USER_BUSY = 10,
+    USER_IDLE,
+    USER_AWAY,
+	USER_EXPIRES
+} msgtype_t;
+
 class Options : private QSettings
 {
 Q_OBJECT
@@ -72,7 +85,7 @@ private:
 public:
     Multicast(Options& options, QWidget *controller);
 
-    static void send(char *msg, size_t mlen);
+    static void send(char *msg, size_t mlen, bool immediate = false);
 
 private slots:
     void process();
@@ -85,9 +98,11 @@ class Main : public CoastalDialog
 Q_OBJECT
 
 private:
+    const char *userid;
     Fifo *fifo;
     Multicast *net;
-
+    QTimer *user_timer;
+ 
 public:
     static bool restart_flag;
 
@@ -104,6 +119,9 @@ public slots:
     void notice(QString title, QString summary, QString icon = "");
 
     void restart(void);
+
+private slots:
+    void status(void);
 };
 
 #ifndef QT_DBUS_LIB

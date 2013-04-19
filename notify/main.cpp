@@ -70,15 +70,32 @@ CoastalDialog()
     connect(trayicon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
             this, SLOT(action(QSystemTrayIcon::ActivationReason)));
 
+    userid = strdup(Coastal::userid().toUtf8());
+
     net = new Multicast(options, this);
     fifo = new Fifo();
     connect(fifo, SIGNAL(notice(QString,QString,QString)), this, SLOT(notice(QString,QString,QString)), Qt::QueuedConnection);
     connect(fifo, SIGNAL(restart()), this, SLOT(restart()), Qt::QueuedConnection);
     fifo->start();
+
+    user_timer = new QTimer(this);
+    connect(user_timer, SIGNAL(timeout()),
+		this, SLOT(status()));
+
+    status();   // initial posting
+	user_timer->start(25000);   // and every 25 seconds after...
 }
 
 Main::~Main()
 {
+    char buf[64];
+
+    buf[2] = USER_EXPIRES;
+    buf[3] = 0; // protocol version
+    memcpy(buf + 4, userid, 60);
+    buf[63] = 0;
+    Multicast::send(buf, strlen(buf + 4) + 5, true);
+
     stop();
 }
 
@@ -161,3 +178,17 @@ int main(int argc, char *argv[])
 #endif
 }
 
+void Main::status(void)
+{
+    char buf[64];
+
+    if(Coastal::away())
+        buf[2] = USER_AWAY;
+    else
+        buf[2] = USER_IDLE;
+
+    buf[3] = 0; // protocol version
+    memcpy(buf + 4, userid, 60);
+    buf[63] = 0;
+    Multicast::send(buf, strlen(buf + 4) + 5, true);
+}      
