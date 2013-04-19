@@ -21,6 +21,7 @@
 
 #ifdef Q_OS_WIN
 #include <windows.h>
+#include <lmcons.h>
 #else
 #include <sys/wait.h>
 #include <unistd.h>
@@ -54,8 +55,9 @@ QString Coastal::userid()
 #endif
     GetUserNameA( winUserName, &winUserNameSize );
     return QString::fromLocal8Bit( winUserName );
-#endif
+#else
     return QString(getlogin());
+#endif
 }
 
 bool Coastal::env(const char *id, char *buffer, size_t size)
