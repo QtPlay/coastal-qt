@@ -16,6 +16,7 @@
 // along with coastal-qt.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "program.h"
+#include <time.h>
 
 using namespace std;
 
