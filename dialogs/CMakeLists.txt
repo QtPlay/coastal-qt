@@ -29,5 +29,5 @@ set (ICONS_PROGNAME coastal-icons)
 add_executable(${ICONS_PROGNAME} WIN32 MACOSX_BUNDLE icons.cpp icons.h ${icons_moc} ${icons_ui})
 target_link_libraries(${ICONS_PROGNAME} coastal ${QT_LIBRARIES} ${QT_PLUGINS})
 add_dependencies(${ICONS_PROGNAME} coastal)
-install(TARGETS ${ICONS_PROGNAME} DESTINATION ${INSTALL_BINDIR})
+install(TARGETS ${ICONS_PROGNAME} DESTINATION bin)
 
