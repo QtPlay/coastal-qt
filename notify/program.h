@@ -81,7 +81,6 @@ private:
     QHostAddress addr;
     quint16 port;
     char buffer[1024];
-    qint64 size;
 
 public:
     Multicast(Options& options, QWidget *controller);
@@ -92,6 +91,9 @@ private slots:
     void process();
     void deliver();
     void expire();
+
+signals:
+	void user(const char *msg, QHostAddress from);
 };
 
 class Main : public CoastalDialog
@@ -120,6 +122,8 @@ public slots:
     void notice(QString title, QString summary, QString icon = "");
 
     void restart(void);
+
+	void user(const char *msg, QHostAddress from);
 
 private slots:
     void status(void);

@@ -113,6 +113,12 @@ void Main::restart(void)
     qApp->quit();
 }
 
+void Main::user(const char *msg, QHostAddress from)
+{
+    msgtype_t mtype = (msgtype_t)msg[3];
+    const char *id = msg + 4; 
+}
+
 void Main::notice(QString title, QString body, QString icon)
 {
 #ifdef  QT_DBUS_LIB
