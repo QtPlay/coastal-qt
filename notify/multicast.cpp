@@ -88,14 +88,18 @@ void Multicast::process()
 {
 	Source from;
 	quint16 recv_port;
+	time_t now;
+	time(&now);
 	while(hasPendingDatagrams()) {
 		size = readDatagram(buffer, sizeof(buffer), &from.host, &recv_port);
 		if(from.host != addr || port != recv_port)
 			continue;
 		if(buffer[2] != 0)
 			continue;
-
 		from.seq = buffer[1] * 256 + buffer[0];
+		if(incoming.contains(from))
+			continue;
+		incoming[from] = now;
 	}
 }
 
