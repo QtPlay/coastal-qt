@@ -91,7 +91,6 @@ Main::~Main()
     char buf[64];
 
     buf[2] = USER_EXPIRES;
-    buf[3] = 0; // protocol version
     memcpy(buf + 4, userid, 60);
     buf[63] = 0;
     Multicast::send(buf, strlen(buf + 4) + 5, true);

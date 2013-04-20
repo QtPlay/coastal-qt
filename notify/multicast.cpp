@@ -68,6 +68,7 @@ QUdpSocket(parent)
 
 	bind(options.group_port, ShareAddress);
 	joinMulticastGroup(addr);
+	setSocketOption(QAbstractSocket::MulticastTtlOption, options.group_hops);
 
 	connect(this, SIGNAL(readyRead()),
 		this, SLOT(process()));
@@ -85,8 +86,16 @@ QUdpSocket(parent)
 
 void Multicast::process()
 {
+	Source from;
+	quint16 recv_port;
 	while(hasPendingDatagrams()) {
-		size = readDatagram(buffer, sizeof(buffer));
+		size = readDatagram(buffer, sizeof(buffer), &from.host, &recv_port);
+		if(from.host != addr || port != recv_port)
+			continue;
+		if(buffer[2] != 0)
+			continue;
+
+		from.seq = buffer[1] * 256 + buffer[0];
 	}
 }
 
@@ -129,6 +138,7 @@ void Multicast::send(char *msg, size_t mlen, bool immediate)
 
 	msg[0] = seq / 256;
 	msg[1] = seq % 256;
+	msg[2] = 0;				// protocol 0
 	++seq;
 	if(immediate)
 		net->writeDatagram(msg, mlen, net->addr, net->port);

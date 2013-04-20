@@ -42,6 +42,7 @@ Q_OBJECT
 public:
     unsigned group_sending;
     unsigned group_port;
+	unsigned group_hops;
     QString group_network;
     qreal notice_opacity;
     unsigned notice_timeout;
@@ -78,7 +79,7 @@ class Multicast : public QUdpSocket
 private:
     QTimer *send_timer, *expire_timer;
     QHostAddress addr;
-    unsigned port;
+    quint16 port;
     char buffer[1024];
     qint64 size;
 

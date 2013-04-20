@@ -32,6 +32,7 @@ QSettings()
 	group_network = value("network", "239.255.43.21").toString();
 	group_port = value("port", 45654).toInt();
 	group_sending = value("sending", 250).toInt();
+	group_hops = value("hops", 1).toInt();
 	endGroup();
 }
 
@@ -46,6 +47,7 @@ void Options::save(void)
 	setValue("network", group_network);
 	setValue("port", group_port);
 	setValue("sending", group_sending);
+	setValue("hops", group_hops);
 	endGroup();
 	sync();
 }
