@@ -1,6 +1,8 @@
 Changes from 0.6.2 to 0.7.0
 - common core class for dialog based apps
 - revamp multicast notify for shared chat
+- subtle ui changes for about
+- about notify is tab bound
 
 Changes from 0.6.1 to 0.6.2
 - more intensive and complete Qt5 support

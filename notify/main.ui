@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>544</width>
-    <height>486</height>
+    <width>556</width>
+    <height>465</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -85,7 +85,7 @@
    <item>
     <layout class="QVBoxLayout" name="spineChat">
      <item>
-      <widget class="QTabWidget" name="Options">
+      <widget class="QTabWidget" name="tab">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -93,7 +93,7 @@
         </sizepolicy>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tabChat">
         <attribute name="title">

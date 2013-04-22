@@ -105,6 +105,7 @@ private:
     Fifo *fifo;
     Multicast *net;
     QTimer *user_timer;
+	CoastalAbout *info;
  
 public:
     static bool restart_flag;
@@ -122,6 +123,8 @@ public slots:
     void notice(QString title, QString summary, QString icon = "");
 
     void restart(void);
+
+	void about(void);
 
 	void user(const char *msg, QHostAddress from);
 

@@ -37,6 +37,20 @@ CoastalDialog()
     setWindowTitle(dialog_name);
     setWindowFlags(Qt::Window);
 
+    info = new CoastalAbout();
+    info->setVersion(tr("Version: ") + dialog_version);
+    info->setAbout(tr(dialog_about));
+    info->setCopyright(tr("Copyright (c) ") + dialog_copyright);
+
+    QIcon icon = QIcon(":/notify.png");
+    QPixmap image = icon.pixmap(48, 48, QIcon::Normal, QIcon::On);
+    QGraphicsScene scene;
+    QGraphicsPixmapItem *item = scene.addPixmap(image);
+    item->setVisible(true);
+    info->setImage(scene);
+    ui.tab->addTab(info, tr("About"));
+    ui.tab->setDocumentMode(true);
+
     QApplication::setQuitOnLastWindowClosed(true);
 
     connect(ui.aboutButton, SIGNAL(clicked()), this, SLOT(about()));
@@ -105,6 +119,12 @@ void Main::stop(void)
         fifo = NULL;
     }
 }
+
+void Main::about(void)
+{
+    ui.tab->setCurrentIndex(2);
+    show();
+} 
 
 void Main::restart(void)
 {

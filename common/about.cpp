@@ -20,9 +20,13 @@
 
 Ui::AboutDialog ui;
 
-CoastalAbout::CoastalAbout(QWidget *parent)
+CoastalAbout::CoastalAbout(QWidget *parent) :
+QDialog(parent)
 {
     ui.setupUi((QDialog *)this);
+    if(!parent) {
+        ui.closeButton->setHidden(true);
+    }
 }
 
 void CoastalAbout::setVersion(const QString& version)

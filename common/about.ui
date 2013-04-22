@@ -143,7 +143,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="closeButton">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -154,7 +154,9 @@
           <string>&amp;Close</string>
          </property>
          <property name="icon">
-          <iconset theme="dialog-close"/>
+          <iconset theme="dialog-close">
+           <normaloff/>
+          </iconset>
          </property>
         </widget>
        </item>
@@ -167,7 +169,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>pushButton</sender>
+   <sender>closeButton</sender>
    <signal>clicked()</signal>
    <receiver>AboutDialog</receiver>
    <slot>close()</slot>

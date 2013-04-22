@@ -39,11 +39,8 @@ class CoastalAbout : public QDialog
 {
 Q_OBJECT
 
-protected:
-    friend class CoastalMain;
-    friend class CoastalDialog;
-
-    CoastalAbout(QWidget *parent);
+public:
+    CoastalAbout(QWidget *parent = NULL);
 
     void setImage(QGraphicsScene& scene);
     void setVersion(const QString& text);

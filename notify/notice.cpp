@@ -42,6 +42,17 @@ Notice::Notice(Options& options, QString& title, QString& summary, QString& type
 
     ui.Text->setText(text);
 
+    info = new CoastalAbout(ui.tabAbout);
+    info->setVersion(tr("Version: ") + dialog_version);
+    info->setAbout(tr(dialog_about));
+    info->setCopyright(tr("Copyright (c) ") + dialog_copyright);
+    QIcon icon = windowIcon();
+    QPixmap image = icon.pixmap(48, 48, QIcon::Normal, QIcon::On);
+    QGraphicsScene scene;
+    QGraphicsPixmapItem *item = scene.addPixmap(image);
+    item->setVisible(true);
+    info->setImage(scene);
+
     setAttribute(Qt::WA_DeleteOnClose);
     if((type == "error") || (type == "dialog-error"))
         theme_icon = "dialog-error";
