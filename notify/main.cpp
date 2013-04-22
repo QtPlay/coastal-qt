@@ -49,7 +49,7 @@ CoastalDialog()
     item->setVisible(true);
     info->setImage(scene);
     ui.tab->addTab(info, tr("About"));
-    ui.tab->setDocumentMode(true);
+//    ui.tab->setDocumentMode(true);
 
     QApplication::setQuitOnLastWindowClosed(true);
 
