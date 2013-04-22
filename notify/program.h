@@ -126,6 +126,10 @@ public slots:
 
 	void about(void);
 
+	void config(void);
+
+	void menu(const QPoint& pos);
+
 	void user(const char *msg, QHostAddress from);
 
 private slots:

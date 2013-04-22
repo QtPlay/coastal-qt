@@ -57,36 +57,27 @@ CoastalDialog()
 
     QApplication::setQuitOnLastWindowClosed(true);
 
-    connect(ui.aboutButton, SIGNAL(clicked()), this, SLOT(about()));
-
-//    connect(ui.quitButton, SIGNAL(clicked()), qApp, SLOT(quit()));
-
     trayicon = new QSystemTrayIcon(this);
-    if(!trayicon) {
-        show();
-        return;
+    if(trayicon) {
+        QMenu *traymenu = new QMenu(NULL);
+        connect(ui.actionAbout, SIGNAL(triggered()), this, SLOT(about()));
+        connect(ui.actionOptions, SIGNAL(triggered()), this, SLOT(config()));
+        connect(ui.actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
+        traymenu->addAction(ui.actionAbout);
+        traymenu->addAction(ui.actionOptions);
+        traymenu->addAction(ui.actionQuit);
+        trayicon->setContextMenu(traymenu);
+        trayicon->setIcon(QIcon(":/notify.png"));
+        trayicon->show();
+        
+        connect(trayicon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
+                this, SLOT(action(QSystemTrayIcon::ActivationReason)));
     }
+    else
+        show();
 
-    QMenu *traymenu = new QMenu(NULL);
-
-    QAction *aboutAction = new QAction(tr("&About"), this);
-    aboutAction->setIcon(QIcon::fromTheme("help-about"));
-    aboutAction->setIconVisibleInMenu(true);
-    connect(aboutAction, SIGNAL(triggered()), this, SLOT(about()));
-    traymenu->addAction(aboutAction);
-
-    QAction *quitAction = new QAction(tr("&Quit"), this);
-    quitAction->setIcon(QIcon::fromTheme("application-exit"));
-    quitAction->setIconVisibleInMenu(true);
-    connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
-    traymenu->addAction(quitAction);
-
-    trayicon->setContextMenu(traymenu);
-    trayicon->setIcon(QIcon(":/notify.png"));
-    trayicon->show();
-    
-    connect(trayicon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
-            this, SLOT(action(QSystemTrayIcon::ActivationReason)));
+    setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(this, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(menu(const QPoint&)));
 
     userid = strdup(Coastal::userid().toUtf8());
 
@@ -116,6 +107,14 @@ Main::~Main()
     stop();
 }
 
+void Main::menu(const QPoint &pos)
+{
+    QMenu m;
+    m.addAction(ui.actionAbout);
+    m.addAction(ui.actionQuit);
+    m.exec(this->mapToGlobal(pos));
+}
+
 void Main::stop(void)
 {
     if(fifo) {
@@ -129,6 +128,12 @@ void Main::about(void)
     ui.tab->setCurrentIndex(2);
     show();
 } 
+
+void Main::config(void)
+{
+    ui.tab->setCurrentIndex(1);
+    show();
+}
 
 void Main::restart(void)
 {
