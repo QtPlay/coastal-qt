@@ -33,6 +33,9 @@ CoastalDialog()
 {
     ui.setupUi((QDialog *)this);
 
+    dialog_name = "Coastal Notify";
+    dialog_about = "Coastal Notifications and Multicast Chat";
+
     setWindowIcon(QIcon(":/notify.png"));
     setWindowTitle(dialog_name);
     setWindowFlags(Qt::Window);
@@ -42,9 +45,10 @@ CoastalDialog()
     info->setAbout(tr(dialog_about));
     info->setCopyright(tr("Copyright (c) ") + dialog_copyright);
 
-    QIcon icon = QIcon(":/notify.png");
-    QPixmap image = icon.pixmap(48, 48, QIcon::Normal, QIcon::On);
-    QGraphicsScene scene;
+    static QIcon icon = windowIcon();
+    static QPixmap image = icon.pixmap(48, 48, QIcon::Normal, QIcon::On);
+    static QGraphicsScene scene;
+    
     QGraphicsPixmapItem *item = scene.addPixmap(image);
     item->setVisible(true);
     info->setImage(scene);
