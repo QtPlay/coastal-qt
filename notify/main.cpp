@@ -24,9 +24,25 @@
 
 using namespace std;
 
+class User : public QListWidgetItem
+{
+public:
+	User(const QString& id);
+
+	QHostAddress from;
+	time_t	active;
+	time_t	update;
+};
+
 static Ui::MainDialog ui;
 
 bool Main::restart_flag = false;
+
+User::User(const QString& id) :
+QListWidgetItem(id)
+{
+    active = update = 0;
+}
 
 Main::Main() :
 CoastalDialog()
@@ -145,7 +161,21 @@ void Main::restart(void)
 void Main::user(const char *msg, QHostAddress from)
 {
     msgtype_t mtype = (msgtype_t)msg[3];
-    const char *id = msg + 4; 
+    QString id = msg + 4; 
+    User *item;
+    unsigned ind = ui.users->count();
+
+    while(ind) {
+        item = (User *)(ui.users->item(--ind));
+        if(item->text() == id) {
+            ++ind;
+            break;
+        }
+    } 
+    if(!ind) {
+        item = new User(id);
+        ui.users->addItem(item);
+    }
 }
 
 void Main::notice(QString title, QString body, QString icon)
