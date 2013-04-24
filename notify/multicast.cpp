@@ -97,13 +97,19 @@ void Multicast::process()
     time(&now);
     while(hasPendingDatagrams()) {
 	size = readDatagram(buffer, sizeof(buffer) - 1, &from.host, &recv_port);
-	if(size < 1)
+	if(size < 1) {
+	    qDebug() << "invalid packet";
 	    continue;
+	}
 	buffer[size] = 0;
-	if(from.host != addr || port != recv_port)
+	if(port != recv_port) {
+	    qDebug() << "invalid port " << recv_port;
 	    continue;
-	if(buffer[2] != 0)
+	}
+	if(buffer[2] != 0) {
+	    qDebug() << "invalid protocol version " << (unsigned)buffer[2];
 	    continue;
+	}
 	from.seq = buffer[1] * 256 + buffer[0];
 	if(incoming.contains(from))
 	    continue;
@@ -113,6 +119,9 @@ void Multicast::process()
 	case USER_BUSY:
 	case USER_AWAY:
 	    emit user(buffer, from.host);
+	    break;
+	default:
+	    qDebug() << "unknown msg type " << (unsigned)buffer[3];
 	}
     }
 }

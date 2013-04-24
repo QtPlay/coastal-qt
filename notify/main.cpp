@@ -115,7 +115,7 @@ Main::~Main()
 {
     char buf[64];
 
-    buf[2] = USER_EXPIRES;
+    buf[3] = USER_EXPIRES;
     memcpy(buf + 4, userid, 60);
     buf[63] = 0;
     Multicast::send(buf, strlen(buf + 4) + 5, true);
@@ -247,11 +247,11 @@ void Main::status(void)
     char buf[64];
 
     if(Coastal::away())
-        buf[2] = USER_AWAY;
+        buf[3] = USER_AWAY;
     else
-        buf[2] = USER_IDLE;
+        buf[3] = USER_IDLE;
 
-    buf[3] = 0; // protocol version
+    buf[2] = 0; // protocol version
     memcpy(buf + 4, userid, 60);
     buf[63] = 0;
     Multicast::send(buf, strlen(buf + 4) + 5, true);
