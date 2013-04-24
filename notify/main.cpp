@@ -164,7 +164,9 @@ void Main::user(const char *msg, QHostAddress from)
     QString id = msg + 4; 
     User *item;
     unsigned ind = ui.users->count();
+    time_t now;
 
+    time(&now);
     while(ind) {
         item = (User *)(ui.users->item(--ind));
         if(item->text() == id) {
@@ -175,6 +177,29 @@ void Main::user(const char *msg, QHostAddress from)
     if(!ind) {
         item = new User(id);
         ui.users->addItem(item);
+    }
+    if(!item->update || mtype == USER_IDLE)
+        item->from = from;
+    time(&item->update);
+    switch(mtype) {
+    case USER_IDLE:
+        time(&item->active);
+        item->setIcon(QIcon(":/user-idle.png"));
+        break;
+    case USER_EXPIRES:
+        item->setIcon(QIcon(":/user-expires.png"));
+        item->update -= 90;
+        break;
+    case USER_AWAY:
+        if(item->active + 30 < now)
+            item->setIcon(QIcon(":/user-away.png"));
+        break;
+    case USER_BUSY:
+        if(item->active + 30 < now)
+            item->setIcon(QIcon(":/user-busy.png"));
+        break;
+    default:
+        qDebug() << "invalid user message type " << mtype;
     }
 }
 
