@@ -8,6 +8,7 @@ CMakeFiles/
 *.rc
 *.pc
 *.desktop
+*.exe
 cmake_install.cmake
 Makefile
 moc_*
