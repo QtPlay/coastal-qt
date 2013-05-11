@@ -32,7 +32,9 @@ typedef enum
 	USER_BUSY = 10,
     USER_IDLE,
     USER_AWAY,
-	USER_EXPIRES
+	USER_EXPIRES,
+
+	CHAT_PUBLIC = 20
 } msgtype_t;
 
 class Options : private QSettings
@@ -94,6 +96,7 @@ private slots:
 
 signals:
 	void user(const char *msg, QHostAddress from);
+	void chat(const char *msg);
 };
 
 class Main : public CoastalDialog
@@ -132,8 +135,11 @@ public slots:
 
 	void user(const char *msg, QHostAddress from);
 
+	void chat(const char *msg);
+
 private slots:
     void status(void);
+	void input(void);
 };
 
 #ifndef QT_DBUS_LIB

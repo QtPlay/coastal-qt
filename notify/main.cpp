@@ -34,9 +34,48 @@ public:
 	time_t	update;
 };
 
+class Chat : public QStyledItemDelegate
+{
+public:
+    Chat(QObject *parent = NULL);
+
+    void paint(QPainter *painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
+
+    QSize sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & index ) const;
+};
+
 static Ui::MainDialog ui;
 
 bool Main::restart_flag = false;
+
+Chat::Chat(QObject *parent) :
+QStyledItemDelegate(parent)
+{
+}
+
+QSize Chat::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
+{
+    int l, t, r, b;
+    QListWidget *view = (QListWidget*)parent();
+    view->getContentsMargins(&l, &t, &r, &b);
+    return QSize(r - l + 1, 20);
+}
+
+void Chat::paint(QPainter *painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
+{
+    QString id = index.data(Qt::DisplayRole).toString();
+    QString t = index.data(Qt::UserRole + 1).toString();
+
+    if(option.state & QStyle::State_Selected) {
+        painter->fillRect(option.rect, option.palette.color(QPalette::Highlight));
+    }
+
+    QRect r = option.rect.adjusted(0, 0, 0, 0);
+    painter->drawText(r.left(), r.top(), r.width(), r.height(), Qt::AlignLeft|Qt::TextWordWrap, id, &r);
+
+    r = option.rect.adjusted(50, 0, -50, 0);
+    painter->drawText(r.left(), r.top(), r.width(), r.height(), Qt::AlignLeft|Qt::TextWordWrap, t, &r);
+}
 
 User::User(const QString& id) :
 QListWidgetItem(id)
@@ -103,12 +142,16 @@ CoastalDialog()
     connect(fifo, SIGNAL(restart()), this, SLOT(restart()), Qt::QueuedConnection);
     fifo->start();
 
+    connect(ui.chatEdit, SIGNAL(returnPressed()), this, SLOT(input()));
+
     user_timer = new QTimer(this);
     connect(user_timer, SIGNAL(timeout()),
 		this, SLOT(status()));
 
     status();   // initial posting
 	user_timer->start(25000);   // and every 25 seconds after...
+
+    ui.chatView->setItemDelegate(new Chat(ui.chatView));
 }
 
 Main::~Main()
@@ -156,6 +199,30 @@ void Main::restart(void)
     stop();
     restart_flag = true;
     qApp->quit();
+}
+
+void Main::input(void)
+{
+    char buf[64 + 256];
+    QString line = ui.chatEdit->text();
+    ui.chatEdit->clear();
+
+    buf[2] = 0; // protocol version
+    buf[3] = CHAT_PUBLIC; 
+    memcpy(buf + 4, userid, 60);
+    buf[63] = 0;
+    snprintf(buf + 64, 256, line.toUtf8().constData());
+    Multicast::send(buf, strlen(buf + 64) + 65, false);
+}
+
+void Main::chat(const char *msg)
+{
+    QListWidgetItem *item = new QListWidgetItem();
+
+    item->setData(Qt::DisplayRole, msg + 4);
+    item->setData(Qt::UserRole + 1, msg + 64);
+    ui.chatView->addItem(item);
+    ui.chatView->showMaximized();
 }
 
 void Main::user(const char *msg, QHostAddress from)

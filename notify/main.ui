@@ -82,7 +82,7 @@
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout">
          <item>
-          <widget class="QListView" name="listView"/>
+          <widget class="QListWidget" name="chatView"/>
          </item>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -94,7 +94,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="lineEdit"/>
+            <widget class="QLineEdit" name="chatEdit"/>
            </item>
           </layout>
          </item>

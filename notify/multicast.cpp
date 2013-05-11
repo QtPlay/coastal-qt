@@ -85,6 +85,9 @@ QUdpSocket(parent)
 
     connect(this, SIGNAL(user(const char *, QHostAddress)),
 	parent, SLOT(user(const char *, QHostAddress))); 
+
+    connect(this, SIGNAL(chat(const char *)),
+	parent, SLOT(chat(const char *)));
 }
 
 void Multicast::process()
@@ -119,6 +122,9 @@ void Multicast::process()
 	case USER_BUSY:
 	case USER_AWAY:
 	    emit user(buffer, from.host);
+	    break;
+	case CHAT_PUBLIC:
+	    emit chat(buffer);
 	    break;
 	default:
 	    qDebug() << "unknown msg type " << (unsigned)buffer[3];
