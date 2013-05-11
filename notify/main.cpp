@@ -221,6 +221,10 @@ void Main::chat(const char *msg)
 {
     QListWidgetItem *item = new QListWidgetItem();
 
+    if(ui.chatView->count() >= (int)options.max_lines) {
+        delete ui.chatView->takeItem(0);
+    }
+
     item->setData(Qt::DisplayRole, msg + 4);
     item->setData(Qt::UserRole + 1, msg + 64);
     ui.chatView->addItem(item);

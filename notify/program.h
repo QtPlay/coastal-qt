@@ -49,6 +49,7 @@ public:
     qreal notice_opacity;
     unsigned notice_timeout;
     bool show_icons;
+	unsigned max_lines;
 
     Options();
 

@@ -34,6 +34,9 @@ QSettings()
 	group_sending = value("sending", 250).toInt();
 	group_hops = value("hops", 1).toInt();
 	endGroup();
+	beginGroup("chat");
+	max_lines = value("lines", 1000).toInt();
+	endGroup();
 }
 
 void Options::save(void)
@@ -48,6 +51,9 @@ void Options::save(void)
 	setValue("port", group_port);
 	setValue("sending", group_sending);
 	setValue("hops", group_hops);
+	endGroup();
+	beginGroup("chat");
+	setValue("lines", max_lines);
 	endGroup();
 	sync();
 }
