@@ -29,8 +29,8 @@ QSettings()
 	notice_opacity = value("opacity", 0.6).toReal();
 	endGroup();
 	beginGroup("multicast");
-	group_network = value("network", "239.255.43.21").toString();
-	group_port = value("port", 45654).toInt();
+	group_network = value("network", "224.0.2.1").toString();
+	group_port = value("port", 4501).toInt();
 	group_sending = value("sending", 250).toInt();
 	group_hops = value("hops", 1).toInt();
 	endGroup();

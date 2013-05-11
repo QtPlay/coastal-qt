@@ -22,6 +22,8 @@
 #include <unistd.h>
 #endif
 
+#include <time.h>
+
 using namespace std;
 
 class User : public QListWidgetItem
