@@ -100,6 +100,26 @@ signals:
 	void chat(const char *msg);
 };
 
+class UserItem : public QListWidgetItem
+{
+public:
+	UserItem(const QString& id);
+
+	QHostAddress from;
+	time_t	active;
+	time_t	update;
+};
+
+class ChatDisplay : public QStyledItemDelegate
+{
+public:
+    ChatDisplay(QObject *parent = NULL);
+
+    void paint(QPainter *painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
+
+    QSize sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & index ) const;
+};
+
 class Main : public CoastalDialog
 {
 Q_OBJECT

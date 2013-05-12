@@ -26,64 +26,9 @@
 
 using namespace std;
 
-class User : public QListWidgetItem
-{
-public:
-	User(const QString& id);
-
-	QHostAddress from;
-	time_t	active;
-	time_t	update;
-};
-
-class Chat : public QStyledItemDelegate
-{
-public:
-    Chat(QObject *parent = NULL);
-
-    void paint(QPainter *painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
-
-    QSize sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & index ) const;
-};
-
 static Ui::MainDialog ui;
 
 bool Main::restart_flag = false;
-
-Chat::Chat(QObject *parent) :
-QStyledItemDelegate(parent)
-{
-}
-
-QSize Chat::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
-{
-    int l, t, r, b;
-    QListWidget *view = (QListWidget*)parent();
-    view->getContentsMargins(&l, &t, &r, &b);
-    return QSize(r - l + 1, 20);
-}
-
-void Chat::paint(QPainter *painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
-{
-    QString id = index.data(Qt::DisplayRole).toString();
-    QString t = index.data(Qt::UserRole + 1).toString();
-
-    if(option.state & QStyle::State_Selected) {
-        painter->fillRect(option.rect, option.palette.color(QPalette::Highlight));
-    }
-
-    QRect r = option.rect.adjusted(0, 0, 0, 0);
-    painter->drawText(r.left(), r.top(), r.width(), r.height(), Qt::AlignLeft|Qt::TextWordWrap, id, &r);
-
-    r = option.rect.adjusted(50, 0, -50, 0);
-    painter->drawText(r.left(), r.top(), r.width(), r.height(), Qt::AlignLeft|Qt::TextWordWrap, t, &r);
-}
-
-User::User(const QString& id) :
-QListWidgetItem(id)
-{
-    active = update = 0;
-}
 
 Main::Main() :
 CoastalDialog()
@@ -153,7 +98,7 @@ CoastalDialog()
     status();   // initial posting
 	user_timer->start(25000);   // and every 25 seconds after...
 
-    ui.chatView->setItemDelegate(new Chat(ui.chatView));
+    ui.chatView->setItemDelegate(new ChatDisplay(ui.chatView));
 }
 
 Main::~Main()
@@ -235,20 +180,20 @@ void Main::user(const char *msg, QHostAddress from)
 {
     msgtype_t mtype = (msgtype_t)msg[3];
     QString id = msg + 4; 
-    User *item;
+    UserItem *item;
     unsigned ind = ui.users->count();
     time_t now;
 
     time(&now);
     while(ind) {
-        item = (User *)(ui.users->item(--ind));
+        item = (UserItem *)(ui.users->item(--ind));
         if(item->text() == id) {
             ++ind;
             break;
         }
     } 
     if(!ind) {
-        item = new User(id);
+        item = new UserItem(id);
         ui.users->addItem(item);
     }
     if(!item->update || mtype == USER_IDLE)
