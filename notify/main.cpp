@@ -158,7 +158,7 @@ void Main::input(void)
     buf[3] = CHAT_PUBLIC; 
     memcpy(buf + 4, userid, 60);
     buf[63] = 0;
-    snprintf(buf + 64, 256, line.toUtf8().constData());
+    snprintf(buf + 64, 256, "%s", line.toUtf8().constData());
     Multicast::send(buf, strlen(buf + 64) + 65, false);
 }
 
