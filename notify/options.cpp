@@ -35,7 +35,7 @@ QSettings()
 	group_hops = value("hops", 1).toInt();
 	endGroup();
 	beginGroup("chat");
-	max_lines = value("lines", 1000).toInt();
+	max_lines = value("lines", 100).toInt();
 	endGroup();
 }
 

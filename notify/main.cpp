@@ -166,7 +166,7 @@ void Main::chat(const char *msg)
 {
     QListWidgetItem *item = new QListWidgetItem();
 
-    if(ui.chatView->count() >= (int)options.max_lines) {
+    while(ui.chatView->count() >= (int)options.max_lines) {
         delete ui.chatView->takeItem(0);
     }
 
