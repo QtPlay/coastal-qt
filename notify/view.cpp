@@ -36,7 +36,7 @@ QSize ChatDisplay::sizeHint(const QStyleOptionViewItem& option, const QModelInde
     int l, t, r, b;
     QListWidget *view = (QListWidget*)parent();
     view->getContentsMargins(&l, &t, &r, &b);
-    return QSize(r - l + 1, 20);
+    return QSize(r - l + 1, option.fontMetrics.height() + 4);
 }
 
 void ChatDisplay::paint(QPainter *painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
@@ -48,8 +48,14 @@ void ChatDisplay::paint(QPainter *painter, const QStyleOptionViewItem& option, c
         painter->fillRect(option.rect, option.palette.color(QPalette::Highlight));
     }
 
+    QString out = id;
+    if(option.fontMetrics.width(out) >= 46) {
+        while(option.fontMetrics.width(out + "...") > 46)
+            out.chop(1);
+        out += "...";
+    }    
     QRect r = option.rect.adjusted(0, 0, 0, 0);
-    painter->drawText(r.left(), r.top(), r.width(), r.height(), Qt::AlignLeft|Qt::TextWordWrap, id, &r);
+    painter->drawText(r.left(), r.top(), 46, r.height(), Qt::AlignLeft|Qt::TextWordWrap|Qt::ElideRight, out, &r);
 
     r = option.rect.adjusted(50, 0, -50, 0);
     painter->drawText(r.left(), r.top(), r.width(), r.height(), Qt::AlignLeft|Qt::TextWordWrap, t, &r);
