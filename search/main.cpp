@@ -282,7 +282,9 @@ void Main::options(void)
 
 void Main::reload(void)
 {
-    ui.statusbar->showMessage(tr("reloading..."));
+    ui.statusbar->showMessage(tr("searching..."));
+    ui.statusbar->update();
+    qApp->processEvents();
     ui.indexView->setModel(NULL);
     if(ind)
         delete ind;
