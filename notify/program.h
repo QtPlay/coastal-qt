@@ -118,6 +118,15 @@ public:
 	time_t	update;
 };
 
+class ChatItem : public QListWidgetItem
+{
+public:
+	ChatItem(const QString& id, const QString& msg);
+
+	QSize size;
+	unsigned series;
+};
+
 class ChatDisplay : public QStyledItemDelegate
 {
 public:
