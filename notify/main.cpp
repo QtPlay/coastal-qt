@@ -230,6 +230,14 @@ void Main::notice(QString title, QString body, QString icon)
 #endif
 }
 
+void Main::closeEvent(QCloseEvent *event)
+{
+    if(trayicon) {
+        hide();
+        event->ignore();
+    }
+}
+
 void Main::action(QSystemTrayIcon::ActivationReason reason)
 {
     switch(reason) {
@@ -237,8 +245,10 @@ void Main::action(QSystemTrayIcon::ActivationReason reason)
     case QSystemTrayIcon::DoubleClick:
         if(isVisible())
             hide();
-        else if(isEnabled())
+        else if(isEnabled()) {
             show();
+            ui.chatEdit->setFocus();
+        }
         return;
     default:
         return;

@@ -148,6 +148,8 @@ private:
     Multicast *net;
     QTimer *user_timer;
 	CoastalAbout *info;
+
+	void closeEvent(QCloseEvent *event);
  
 public:
     static bool restart_flag;
