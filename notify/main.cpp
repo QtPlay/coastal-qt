@@ -29,7 +29,7 @@ using namespace std;
 static Ui::MainDialog ui;
 
 bool Main::restart_flag = false;
-int Main::series = 1;
+unsigned Main::series = 1;
 
 Main::Main() :
 CoastalDialog()

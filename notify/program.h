@@ -142,7 +142,7 @@ class Main : public CoastalDialog
 Q_OBJECT
 
 private:
-	static int series;
+	static unsigned series;
     const char *userid;
     Fifo *fifo;
     Multicast *net;
@@ -161,7 +161,7 @@ public:
     
     void stop(void);
 
-	inline static int getSeries(void)
+	inline static unsigned getSeries(void)
 		{return series;}
 
 public slots:
