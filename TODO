@@ -6,3 +6,17 @@ Manpager
 
 	Viewer could add hyperlink support for urls and internal links for
 	page references
+
+Notify
+	Chat view sizes, etc, should be calculated at construction time once
+
+	Options enabled
+
+	Hyperlinks highlighted
+
+	Right-click context menus, user stuff, lots of things
+
+Notes
+	To be added
+
+	
