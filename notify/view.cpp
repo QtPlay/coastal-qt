@@ -35,8 +35,14 @@ QSize ChatDisplay::sizeHint(const QStyleOptionViewItem& option, const QModelInde
 {
     int l, t, r, b;
     QListWidget *view = (QListWidget*)parent();
+    QString text = index.data(Qt::UserRole + 1).toString();
+
     view->getContentsMargins(&l, &t, &r, &b);
-    return QSize(r - l + 1, option.fontMetrics.height() + 4);
+
+    QRect ta = option.rect.adjusted(50, 120, 0, 0);
+    ta = option.fontMetrics.boundingRect(ta, Qt::AlignLeft|Qt::TextWordWrap, text, 0);
+
+    return QSize(r - l + 1, ta.height() + 4);
 }
 
 void ChatDisplay::paint(QPainter *painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
@@ -55,9 +61,9 @@ void ChatDisplay::paint(QPainter *painter, const QStyleOptionViewItem& option, c
         out += "...";
     }    
     QRect r = option.rect.adjusted(0, 0, 0, 0);
-    painter->drawText(r.left(), r.top(), 46, r.height(), Qt::AlignLeft|Qt::TextWordWrap|Qt::ElideRight, out, &r);
+    painter->drawText(r.left(), r.top(), 46, r.height(), Qt::AlignLeft|Qt::TextWordWrap, out, &r);
 
-    r = option.rect.adjusted(50, 0, -50, 0);
+    r = option.rect.adjusted(50, 0, 0, 0);
     painter->drawText(r.left(), r.top(), r.width(), r.height(), Qt::AlignLeft|Qt::TextWordWrap, t, &r);
 }
 

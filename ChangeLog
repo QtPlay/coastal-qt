@@ -2,6 +2,7 @@ Changes from 0.7.0 to 0.7.1
 - fix for qt5 headers
 - smaller scroll window by default
 - smarter management of chat pane
+- calculate correct text sizes
 
 Changes from 0.6.2 to 0.7.0
 - common core class for dialog based apps

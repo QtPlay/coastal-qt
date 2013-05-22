@@ -78,6 +78,8 @@ CoastalDialog()
     else
         show();
 
+    connect(ui.chatView->model(), SIGNAL(rowsInserted(const QModelIndex &,int,int)), ui.chatView, SLOT(scrollToBottom()));
+
     setContextMenuPolicy(Qt::CustomContextMenu);
     connect(this, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(menu(const QPoint&)));
 
