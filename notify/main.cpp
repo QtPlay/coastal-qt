@@ -29,6 +29,7 @@ using namespace std;
 static Ui::MainDialog ui;
 
 bool Main::restart_flag = false;
+int Main::series = 1;
 
 Main::Main() :
 CoastalDialog()
@@ -172,8 +173,8 @@ void Main::chat(const char *msg)
         delete ui.chatView->takeItem(0);
     }
 
-    item->setData(Qt::DisplayRole, msg + 4);
-    item->setData(Qt::UserRole + 1, msg + 64);
+    item->setData(ITEM_ID, msg + 4);
+    item->setData(ITEM_TEXT, msg + 64);
     ui.chatView->addItem(item);
     ui.chatView->showMaximized();
 }

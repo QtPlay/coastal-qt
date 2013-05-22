@@ -37,6 +37,14 @@ typedef enum
 	CHAT_PUBLIC = 20
 } msgtype_t;
 
+enum {
+	ITEM_ID = Qt::DisplayRole,
+	ITEM_TEXT = Qt::UserRole + 1,
+	ITEM_SERIES,
+	ITEM_USER,
+	ITEM_SIZE	
+};
+
 class Options : private QSettings
 {
 Q_OBJECT
@@ -125,6 +133,7 @@ class Main : public CoastalDialog
 Q_OBJECT
 
 private:
+	static int series;
     const char *userid;
     Fifo *fifo;
     Multicast *net;
@@ -134,12 +143,15 @@ private:
 public:
     static bool restart_flag;
 
+    Options options;
+
     Main();
     virtual ~Main();
     
     void stop(void);
 
-    Options options;
+	inline static int getSeries(void)
+		{return series;}
 
 public slots:
     void action(QSystemTrayIcon::ActivationReason reason);

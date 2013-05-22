@@ -35,7 +35,7 @@ QSize ChatDisplay::sizeHint(const QStyleOptionViewItem& option, const QModelInde
 {
     int l, t, r, b;
     QListWidget *view = (QListWidget*)parent();
-    QString text = index.data(Qt::UserRole + 1).toString();
+    QString text = index.data(ITEM_TEXT).toString();
 
     view->getContentsMargins(&l, &t, &r, &b);
 
@@ -47,8 +47,8 @@ QSize ChatDisplay::sizeHint(const QStyleOptionViewItem& option, const QModelInde
 
 void ChatDisplay::paint(QPainter *painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
-    QString id = index.data(Qt::DisplayRole).toString();
-    QString t = index.data(Qt::UserRole + 1).toString();
+    QString id = index.data(ITEM_ID).toString();
+    QString t = index.data(ITEM_TEXT).toString();
 
     if(option.state & QStyle::State_Selected) {
         painter->fillRect(option.rect, option.palette.color(QPalette::Highlight));
