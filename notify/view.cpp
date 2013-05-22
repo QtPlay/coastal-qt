@@ -33,38 +33,52 @@ QStyledItemDelegate(parent)
 
 QSize ChatDisplay::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
-    int l, t, r, b;
+
     QListWidget *view = (QListWidget*)parent();
-    QString text = index.data(ITEM_TEXT).toString();
+    ChatItem *item = (ChatItem *)view->item(index.row());
+    if(item->series != Main::getSeries()) {
+        int l, t, r, b;
+        QString text = index.data(ITEM_TEXT).toString();
 
-    view->getContentsMargins(&l, &t, &r, &b);
+        view->getContentsMargins(&l, &t, &r, &b);
 
-    QRect ta = option.rect.adjusted(50, 120, 0, 0);
-    ta = option.fontMetrics.boundingRect(ta, Qt::AlignLeft|Qt::TextWordWrap, text, 0);
+        QRect ta = option.rect.adjusted(50, 120, 0, 0);
+        ta = option.fontMetrics.boundingRect(ta, Qt::AlignLeft|Qt::TextWordWrap, text, 0);
 
-    return QSize(r - l + 1, ta.height() + 4);
+        QString id = index.data(ITEM_ID).toString();
+        if(option.fontMetrics.width(id) >= 46) {
+            while(option.fontMetrics.width(id + "...") > 46)
+                id.chop(1);
+            id += "...";
+        }    
+        item->setData(ITEM_USER, id);
+        item->size = QSize(r - l + 1, ta.height() + 4);
+        item->series = Main::getSeries();
+    }
+    return item->size;
 }
 
 void ChatDisplay::paint(QPainter *painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
-    QString id = index.data(ITEM_ID).toString();
-    QString t = index.data(ITEM_TEXT).toString();
+    QString user = index.data(ITEM_USER).toString();
+    QString text = index.data(ITEM_TEXT).toString();
 
     if(option.state & QStyle::State_Selected) {
         painter->fillRect(option.rect, option.palette.color(QPalette::Highlight));
     }
 
-    QString out = id;
-    if(option.fontMetrics.width(out) >= 46) {
-        while(option.fontMetrics.width(out + "...") > 46)
-            out.chop(1);
-        out += "...";
-    }    
     QRect r = option.rect.adjusted(0, 0, 0, 0);
-    painter->drawText(r.left(), r.top(), 46, r.height(), Qt::AlignLeft|Qt::TextWordWrap, out, &r);
+    painter->drawText(r.left(), r.top(), 46, r.height(), Qt::AlignLeft|Qt::TextWordWrap, user, &r);
 
     r = option.rect.adjusted(50, 0, 0, 0);
-    painter->drawText(r.left(), r.top(), r.width(), r.height(), Qt::AlignLeft|Qt::TextWordWrap, t, &r);
+    painter->drawText(r.left(), r.top(), r.width(), r.height(), Qt::AlignLeft|Qt::TextWordWrap, text, &r);
+}
+
+ChatItem::ChatItem(const QString& id, const QString &msg) :
+QListWidgetItem(id)
+{
+    setData(ITEM_USER, id);
+    setData(ITEM_TEXT, msg);
 }
 
 UserItem::UserItem(const QString& id) :

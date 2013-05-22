@@ -167,16 +167,13 @@ void Main::input(void)
 
 void Main::chat(const char *msg)
 {
-    QListWidgetItem *item = new QListWidgetItem();
-
     while(ui.chatView->count() >= (int)options.max_lines) {
         delete ui.chatView->takeItem(0);
     }
 
-    item->setData(ITEM_ID, msg + 4);
-    item->setData(ITEM_TEXT, msg + 64);
+    ChatItem *item = new ChatItem(msg + 4, msg + 64);
     ui.chatView->addItem(item);
-    ui.chatView->showMaximized();
+//    ui.chatView->showMaximized();
 }
 
 void Main::user(const char *msg, QHostAddress from)
