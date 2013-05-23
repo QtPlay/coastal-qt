@@ -76,6 +76,7 @@ cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} \
       -DSYSCONFDIR=%{_sysconfdir} \
       -DMANDIR=%{_mandir} \
       -DDATADIR=%{_datadir} \
+	  -DLIBDIR=%{_libdir} \
       -DCMAKE_VERBOSE_MAKEFILE=TRUE \
       -DCMAKE_C_FLAGS_RELEASE:STRING="$RPM_OPT_FLAGS" \
       -DCMAKE_CXX_FLAGS_RELEASE:STRING="$RPM_OPT_FLAGS" \

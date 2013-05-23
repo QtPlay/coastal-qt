@@ -61,6 +61,20 @@ endif()
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/common")
 set(DEFAULT_TRANSLATIONS ${CMAKE_INSTALL_PREFIX}/${TRANSLATIONS})
 
+# target directories
+if(NOT LIBDIR)
+    set(LIBDIR lib)
+endif()
+
+if(NOT BINDIR)
+    set(BINDIR bin)
+endif()
+
+if(NOT DATADIR)
+    set(DATADIR share)
+endif()
+
+
 # make sure qt dbus set if used
 if(BUILD_DBUS)
     set(QT_USE_QTDBUS 1)

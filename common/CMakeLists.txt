@@ -37,5 +37,5 @@ IF(WIIN32)
     install(TARGETS coastal DESTINATION bin)    # dll's kept with bin
 else()
     install(FILES coastal.h DESTINATION include)
-    install(TARGETS coastal DESTINATION lib)
+    install(TARGETS coastal DESTINATION ${LIBDIR})
 endif()
