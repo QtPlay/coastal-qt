@@ -33,6 +33,11 @@ Group: Applications/System
 Summary: QT Desktop Applications
 Requires: %{name} = %{version}-%{release}
 
+%package dialogs
+Group: Applications/System
+Summary: QT Dialog Applications
+Requires: %{name} = %{version}-%{release}
+
 %description apps
 Generic QT desktop system applications.  This includes coastal-manpager
 and coastal-search.
