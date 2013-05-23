@@ -1,6 +1,7 @@
 Changes from 0.7.2 to 0.7.3
 - improved window event handling in notify
 - simpler and more consistent chat items
+- reorganized rpm spec file
 
 Changes from 0.7.1 to 0.7.2
 - only recompute item sizes when fonts change

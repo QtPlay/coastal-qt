@@ -31,7 +31,7 @@ Requires: qt4-devel >= 4.8.0
 Group: Development/Libraries
 Summary: Headers for building coastal applications
 
-%description
+%description apps
 Generic QT desktop system applications.  This includes coastal-manpager
 and coastal-search.
 
@@ -39,9 +39,12 @@ and coastal-search.
 Header files for building applications with coastal library.  Used in
 conjunction with Qt.
 
-%description runtime
+%description
 Runtime library required by coastal applications.  This offers extensions
 for the Qt framework that we use.
+
+%description dialogs
+Small coastal qt dialog applications.
 
 %prep
 %setup -q
@@ -58,7 +61,6 @@ cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} \
 %{__make} %{?_smp_mflags}
 
 %install
-cd build
 %{__rm} -rf %{buildroot}
 %{__make} install DESTDIR=%{buildroot}
 %{__rm} -rf %{buildroot}%{_libdir}/*.la
@@ -66,19 +68,25 @@ cd build
 %clean
 %{__rm} -rf %{buildroot}
 
-%files
+%files apps
 %defattr(-,root,root,-)
-%doc README COPYING TODO NOTES ChangeLog
 %{_bindir}/coastal-manpager
 %{_bindir}/coastal-search
+%{_bindir}/coastal-notify
 %{_datadir}/applications/coastal-manpager.desktop
 %{_datadir}/applications/coastal-search.desktop
 %{_datadir}/icons/coastal-manpager.png
 %{_datadir}/icons/coastal-search.png
+%{_datadir}/icons/coastal-notify.png
 
-%files runtime
+%files
+%doc README COPYING TODO NOTES ChangeLog
 %defattr(-,root,root,-)
 %{_libdir}/*.so.*
+
+%files dialogs
+%defattr(-,root,root,-)
+%{_bindir}/coastal-icons
 
 %files devel
 %defattr(-,root,root,-)
