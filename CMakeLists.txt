@@ -63,17 +63,20 @@ set(DEFAULT_TRANSLATIONS ${CMAKE_INSTALL_PREFIX}/${TRANSLATIONS})
 
 # target directories
 if(NOT LIBDIR)
-    set(LIBDIR lib)
+    set(LIBDIR "lib")
 endif()
 
 if(NOT BINDIR)
-    set(BINDIR bin)
+    set(BINDIR "bin")
 endif()
 
 if(NOT DATADIR)
-    set(DATADIR share)
+    set(DATADIR "share")
 endif()
 
+if(NOT INCLUDEDIR)
+    set(INCLUDEDIR "include")
+endif()
 
 # make sure qt dbus set if used
 if(BUILD_DBUS)

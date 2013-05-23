@@ -36,6 +36,6 @@ target_link_libraries(coastal ${QT_LIBRARIES} ${COASTAL_EXTRA_LIBS})
 IF(WIIN32)
     install(TARGETS coastal DESTINATION bin)    # dll's kept with bin
 else()
-    install(FILES coastal.h DESTINATION include)
+    install(FILES coastal.h DESTINATION ${INCLUDEDIR})
     install(TARGETS coastal DESTINATION ${LIBDIR})
 endif()
