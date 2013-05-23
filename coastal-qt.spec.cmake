@@ -101,10 +101,10 @@ cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} \
 %{_includedir}/coastal.h
 %{_libdir}/pkgconfig/*.pc
 
-%post runtime
+%post
 /sbin/ldconfig
 
-%postun runtime
+%postun
 /sbin/ldconfig
 
 %changelog
