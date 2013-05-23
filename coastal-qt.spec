@@ -26,11 +26,19 @@ Requires: qt4-devel >= 4.8.0
 Group: Development/Libraries
 Summary: Headers for building coastal applications
 
-# this may later be separated into separate per app packages like we do
-# in debian
-%package apps
+%package manpager
 Group: Applications/System
-Summary: QT Desktop Applications
+Summary: Desktop manpage viewer
+Requires: %{name} = %{version}-%{release}
+
+%package search
+Group: Applications/System
+Summary: Simple file search tool
+Requires: %{name} = %{version}-%{release}
+
+%package notify
+Group: Applications/System
+Summary: User daemon for notifications
 Requires: %{name} = %{version}-%{release}
 
 %package dialogs
@@ -38,9 +46,16 @@ Group: Applications/System
 Summary: QT Dialog Applications
 Requires: %{name} = %{version}-%{release}
 
-%description apps
-Generic QT desktop system applications.  This includes coastal-manpager
-and coastal-search.
+%description manpager
+Coastal Qt manpager application.
+
+%description search
+Coastal Qt search tool.  Is somewhat like old gnome search tool.
+
+%description notify
+Coastal Qt notifications user deamon.  This offers common desktop
+user services for network alerts, desktop notifications, and multicast
+chat.
 
 %description devel
 Header files for building applications with coastal library.  Used in
@@ -75,15 +90,21 @@ cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} \
 %clean
 %{__rm} -rf %{buildroot}
 
-%files apps
+%files manpager
 %defattr(-,root,root,-)
 %{_bindir}/coastal-manpager
-%{_bindir}/coastal-search
-%{_bindir}/coastal-notify
 %{_datadir}/applications/coastal-manpager.desktop
-%{_datadir}/applications/coastal-search.desktop
 %{_datadir}/icons/coastal-manpager.png
+
+%files search
+%defattr(-,root,root,-)
+%{_bindir}/coastal-search
+%{_datadir}/applications/coastal-search.desktop
 %{_datadir}/icons/coastal-search.png
+
+%files notify
+%defattr(-,root,root,-)
+%{_bindir}/coastal-notify
 %{_datadir}/icons/coastal-notify.png
 
 %files
