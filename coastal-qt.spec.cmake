@@ -9,20 +9,16 @@
 # PARTICULAR PURPOSE.
 
 Name: coastal-qt
-Summary: QT Desktop Applications
+Group: Development/Libraries
+Summary: Runtime library support for coastal applications
 Version: @VERSION@
 Release: 0%{?dist}
 License: GPLv3+
 URL: http://www.gnutelephony.org
-Group: Applications/System
 Source: http://www.gnutelephony.org/dist/tarballs/coastal-qt-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires: qt4-devel >= 4.8.0
 BuildRequires: cmake >= 2.6.0
-
-%package
-Group: Development/Libraries
-Summary: Runtime library support for coastal applications
 
 %package devel
 Requires: %{name}-runtime = %{version}-%{release}
@@ -30,6 +26,8 @@ Requires: qt4-devel >= 4.8.0
 Group: Development/Libraries
 Summary: Headers for building coastal applications
 
+# this may later be separated into separate per app packages like we do
+# in debian
 %package apps
 Group: Applications/System
 Summary: QT Desktop Applications
