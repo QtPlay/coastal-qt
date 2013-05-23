@@ -107,7 +107,7 @@ cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} \
 %files notify
 %defattr(-,root,root,-)
 %{_bindir}/coastal-notify
-%{_datadir}/pixmaps/coastal-notify.png
+#%{_datadir}/pixmaps/coastal-notify.png
 
 %files
 %doc README COPYING TODO ChangeLog
