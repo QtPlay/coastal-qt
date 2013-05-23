@@ -21,6 +21,7 @@ if(UNIX AND NOT APPLE)
 
     install(FILES ${ICON_PATH}/coastal-manpager.png DESTINATION ${DATADIR}/pixmaps)
     install(FILES ${ICON_PATH}/coastal-search.png DESTINATION ${DATADIR}/pixmaps)
+    install(FILES ${ICON_PATH}/coastal-notify.png DESTINATION ${DATADIR}/pixmaps)
     install(FILES ${DESKTOP_PATH}/coastal-manpager.desktop DESTINATION ${DATADIR}/applications)
     install(FILES ${DESKTOP_PATH}/coastal-search.desktop DESTINATION ${DATADIR}/applications)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libcoastal.pc DESTINATION ${LIBDIR}/pkgconfig)
