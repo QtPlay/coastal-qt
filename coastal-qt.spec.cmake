@@ -19,9 +19,8 @@ Source: http://www.gnutelephony.org/dist/tarballs/coastal-qt-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires: qt4-devel >= 4.8.0
 BuildRequires: cmake >= 2.6.0
-Requires: %{name}-runtime = %{version}-%{release}
 
-%package runtime
+%package
 Group: Development/Libraries
 Summary: Runtime library support for coastal applications
 
@@ -30,6 +29,11 @@ Requires: %{name}-runtime = %{version}-%{release}
 Requires: qt4-devel >= 4.8.0
 Group: Development/Libraries
 Summary: Headers for building coastal applications
+
+%package apps
+Group: Applications/System
+Summary: QT Desktop Applications
+Requires: %{name} = %{version}-%{release}
 
 %description apps
 Generic QT desktop system applications.  This includes coastal-manpager
