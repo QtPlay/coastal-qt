@@ -73,11 +73,13 @@ void ChatDisplay::paint(QPainter *painter, const QStyleOptionViewItem& option, c
     painter->drawText(r.left(), r.top(), r.width(), r.height(), Qt::AlignLeft|Qt::TextWordWrap, item->text, &r);
 }
 
-ChatItem::ChatItem(const QString& id, const QString &msg) :
+ChatItem::ChatItem(const QString& id, const QString &msg, item_t t) :
 QListWidgetItem(id)
 {
     user = id;
     text = msg;
+    type = t;
+    series = Main::getSeries() - 1;
 }
 
 UserItem::UserItem(const QString& id) :

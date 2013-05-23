@@ -171,9 +171,12 @@ void Main::chat(const char *msg)
         delete ui.chatView->takeItem(0);
     }
 
-    ChatItem *item = new ChatItem(msg + 4, msg + 64);
+    enum ChatItem::item_t type = ChatItem::SELF;
+    if(!strcmp(msg + 4, userid))
+        type = ChatItem::OTHER;
+
+    ChatItem *item = new ChatItem(msg + 4, msg + 64, type);
     ui.chatView->addItem(item);
-//    ui.chatView->showMaximized();
 }
 
 void Main::user(const char *msg, QHostAddress from)

@@ -113,8 +113,19 @@ public:
 class ChatItem : public QListWidgetItem
 {
 public:
-	ChatItem(const QString& id, const QString& msg);
+	// to be used for coloring
+	enum item_t {
+		SELF,
+		OTHER,
+		PRIVATE,
+		NOTICE
+	};
 
+	ChatItem(const QString& id, const QString& msg, item_t t = OTHER);
+
+private:
+	friend class ChatDisplay;
+	item_t type;
 	QSize size;
 	unsigned series;
 	QString user, text;
