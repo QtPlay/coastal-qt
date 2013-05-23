@@ -37,14 +37,6 @@ typedef enum
 	CHAT_PUBLIC = 20
 } msgtype_t;
 
-enum {
-	ITEM_ID = Qt::DisplayRole,
-	ITEM_TEXT = Qt::UserRole + 1,
-	ITEM_SERIES,
-	ITEM_USER,
-	ITEM_SIZE	
-};
-
 class Options : private QSettings
 {
 Q_OBJECT
@@ -125,6 +117,7 @@ public:
 
 	QSize size;
 	unsigned series;
+	QString user, text;
 };
 
 class ChatDisplay : public QStyledItemDelegate
