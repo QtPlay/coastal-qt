@@ -87,7 +87,7 @@ cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} \
 %{_datadir}/icons/coastal-notify.png
 
 %files
-%doc README COPYING TODO NOTES ChangeLog
+%doc README COPYING TODO ChangeLog
 %defattr(-,root,root,-)
 %{_libdir}/*.so.*
 
