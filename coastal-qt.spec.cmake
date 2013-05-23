@@ -74,14 +74,14 @@ Small coastal qt dialog applications.
 %build
 cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} \
       -DSYSCONFDIR=%{_sysconfdir} \
-      -DMANDIR=%{_mandir} \
-      -DDATADIR=%{_datadir} \
-	  -DLIBDIR=%{_libdir} \
-	  -DBINDIR=%{_bindir} \
-	  -DINCLUDEDIR=%{_includrdir} \
       -DCMAKE_VERBOSE_MAKEFILE=TRUE \
       -DCMAKE_C_FLAGS_RELEASE:STRING="$RPM_OPT_FLAGS" \
       -DCMAKE_CXX_FLAGS_RELEASE:STRING="$RPM_OPT_FLAGS" \
+	  -DINSTALL_MANDIR=%{_mandir} \
+      -DINSTALL_DATADIR=%{_datadir} \
+	  -DINSTALL_LIBDIR=%{_libdir} \
+	  -DINSTALL_BINDIR=%{_bindir} \
+	  -DINSTALL_INCLUDEDIR=%{_includrdir}
 
 %{__make} %{?_smp_mflags}
 

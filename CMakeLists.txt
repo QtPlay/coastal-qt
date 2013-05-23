@@ -62,20 +62,32 @@ include_directories("${CMAKE_CURRENT_SOURCE_DIR}/common")
 set(DEFAULT_TRANSLATIONS ${CMAKE_INSTALL_PREFIX}/${TRANSLATIONS})
 
 # target directories
-if(NOT LIBDIR)
-    set(LIBDIR "lib")
+
+if(WIN32)
+    set(INSTALL_DATADIR ".")
+    set(INSTALL_LIBDIR "bin")
 endif()
 
-if(NOT BINDIR)
-    set(BINDIR "bin")
+
+if(NOT INSTALL_LIBDIR)
+    set(INSTALL_LIBDIR "lib")
 endif()
 
-if(NOT DATADIR)
-    set(DATADIR "share")
+if(NOT INSTALL_BINDIR)
+    set(INSTALL_BINDIR "bin")
 endif()
 
-if(NOT INCLUDEDIR)
-    set(INCLUDEDIR "include")
+if(NOT INSTALL_DATADIR)
+    set(INSTALL_DATADIR "share")
+endif()
+
+if(NOT INSTALL_MANDIR)
+    set(INSTALL_MANDIR "${INSTALL_DATADIR}/man")
+endif()
+
+
+if(NOT INSTALL_INCLUDEDIR)
+    set(INSTALL_INCLUDEDIR "include")
 endif()
 
 # make sure qt dbus set if used
