@@ -236,6 +236,14 @@ void Main::closeEvent(QCloseEvent *event)
         hide();
         event->ignore();
     }
+    else
+        QDialog::closeEvent(event);
+}
+
+void Main::resizeEvent(QResizeEvent *event)
+{
+    ++series;
+    QDialog::resizeEvent(event);
 }
 
 void Main::action(QSystemTrayIcon::ActivationReason reason)

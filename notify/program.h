@@ -150,6 +150,7 @@ private:
 	CoastalAbout *info;
 
 	void closeEvent(QCloseEvent *event);
+	void resizeEvent(QResizeEvent *event);
  
 public:
     static bool restart_flag;
