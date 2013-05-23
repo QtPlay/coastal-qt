@@ -42,5 +42,5 @@ set (PROGNAME coastal-notify)
 add_executable(${PROGNAME} WIN32 MACOSX_BUNDLE ${qt_src} ${qt_inc} ${qt_moc} ${qt_qrc} ${qt_ui})
 target_link_libraries(${PROGNAME} coastal ${QT_NETWORK} ${QT_PLUGINS})
 add_dependencies(${PROGNAME} coastal)
-install(TARGETS ${PROGNAME} DESTINATION bin)
+install(TARGETS ${PROGNAME} DESTINATION ${BINDIR})
 

@@ -77,6 +77,7 @@ cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} \
       -DMANDIR=%{_mandir} \
       -DDATADIR=%{_datadir} \
 	  -DLIBDIR=%{_libdir} \
+	  -DBINDIR=%{_bindir} \
       -DCMAKE_VERBOSE_MAKEFILE=TRUE \
       -DCMAKE_C_FLAGS_RELEASE:STRING="$RPM_OPT_FLAGS" \
       -DCMAKE_CXX_FLAGS_RELEASE:STRING="$RPM_OPT_FLAGS" \
@@ -95,18 +96,18 @@ cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} \
 %defattr(-,root,root,-)
 %{_bindir}/coastal-manpager
 %{_datadir}/applications/coastal-manpager.desktop
-%{_datadir}/icons/coastal-manpager.png
+%{_datadir}/pixmaps/coastal-manpager.png
 
 %files search
 %defattr(-,root,root,-)
 %{_bindir}/coastal-search
 %{_datadir}/applications/coastal-search.desktop
-%{_datadir}/icons/coastal-search.png
+%{_datadir}/pixmaps/coastal-search.png
 
 %files notify
 %defattr(-,root,root,-)
 %{_bindir}/coastal-notify
-%{_datadir}/icons/coastal-notify.png
+%{_datadir}/pixmaps/coastal-notify.png
 
 %files
 %doc README COPYING TODO ChangeLog
