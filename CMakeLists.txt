@@ -30,6 +30,8 @@ if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING "Choose the type of build, options are: None Debug Release RelWithDebInfo MinSizeRel." FORCE)
 endif ()
 
+option(BUILD_QT4ONLY "Set to ON to ignore Qt5" OFF)
+
 if( APPLE OR WIN32)
     option(BUILD_DBUS "Set to ON to use DBUS" OFF)
 else()
@@ -99,7 +101,9 @@ endif()
 
 MESSAGE( STATUS "Configuring ${PACKAGE} ${VERSION}...")
 
-find_package(Qt5Core QUIET)
+if(NOT BUILD_QT4ONLY)
+    find_package(Qt5Core QUIET)
+endif()
 if(Qt5Core_FOUND)
     find_package(Qt5Gui REQUIRED)
     find_package(Qt5Widgets REQUIRED)
