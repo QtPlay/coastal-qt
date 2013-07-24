@@ -181,6 +181,16 @@ public slots:
     void enter(void);
 };
 
+class CoastalBusy : public QObject
+{
+private:
+    bool eventFilter(QObject *obj, QEvent *event);
+
+public:
+    CoastalBusy();
+    ~CoastalBusy();
+};
+
 class Coastal
 {
 public:

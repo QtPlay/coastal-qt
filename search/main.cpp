@@ -282,6 +282,8 @@ void Main::options(void)
 
 void Main::reload(void)
 {
+    CoastalBusy busy;
+
     ui.statusbar->showMessage(tr("searching..."));
     ui.statusbar->update();
     qApp->processEvents();

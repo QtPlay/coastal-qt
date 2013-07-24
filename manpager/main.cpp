@@ -383,6 +383,7 @@ void Main::reload(void)
     ui.searchBox->clear();
     ui.searchBox->setEnabled(false);
     status(tr("loading..."));
+    CoastalBusy busy;
 
     for(unsigned pos = 0; pos < 10; ++pos)
         hidden[pos] = !amap[pos]->isChecked();

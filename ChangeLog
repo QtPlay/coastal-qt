@@ -1,3 +1,6 @@
+Changes from 0.7.3 to 0.7.4
+- busy mode application state support
+
 Changes from 0.7.2 to 0.7.3
 - improved window event handling in notify
 - simpler and more consistent chat items
