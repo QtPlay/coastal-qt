@@ -27,7 +27,7 @@ QDialog(NULL)
     dialog_copyright = "2013 David Sugar";
 
     trayicon = NULL;
-    traymenu = appmenu = NULL;
+    traymenu = NULL;
     url_support = "https://github.com/dyfet/coastal-qt/issues";
 
     Q_INIT_RESOURCE(coastal);

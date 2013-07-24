@@ -115,13 +115,18 @@ class CoastalMain : public QMainWindow
 {
 Q_OBJECT
 
+private:
+    QMenu *_appmenu;
+
 protected:
     const char *program_version, *program_about, *program_copyright, *program_name;
     const char *url_support;
     QSystemTrayIcon *trayicon;
-    QMenu *traymenu, *appmenu;
+    QMenu *traymenu;
 
     CoastalMain(bool tray = false);
+
+    QMenu *appmenu(const char *id);
 
 public slots:
     void about(void);
@@ -137,7 +142,7 @@ protected:
     const char *url_support;
 
     QSystemTrayIcon *trayicon;
-    QMenu *traymenu, *appmenu;
+    QMenu *traymenu;
 
     CoastalDialog(bool tray = false);
 

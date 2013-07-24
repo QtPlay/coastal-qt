@@ -27,7 +27,7 @@ QMainWindow(NULL)
     program_copyright = "2011 David Sugar";
 
     trayicon = NULL;
-    traymenu = appmenu = NULL;
+    traymenu = _appmenu = NULL;
     url_support = "https://github.com/dyfet/coastal-qt/issues";
 
     setToolButtonStyle(Qt::ToolButtonFollowStyle);
@@ -46,6 +46,20 @@ QMainWindow(NULL)
         traymenu = new QMenu();
 #endif
 
+}
+
+QMenu *appmenu(const char *id)
+{
+#if defined(Q_WS_MAC)
+    if(!_appmenu) {
+        _appmenu = QMenuBar(0);
+
+        return _appmenu->addMenu(id);
+    }
+    return NULL;
+#else
+    return NULL;
+#endif
 }
 
 void CoastalMain::support(void)
