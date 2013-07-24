@@ -1,5 +1,7 @@
-Changes from 0.7.3 to 0.7.4
+Changes from 0.7.3 to 0.8.0
 - busy mode application state support
+- dialog support for generic tray menus
+- ipv4 & ipv6 multicast support
 
 Changes from 0.7.2 to 0.7.3
 - improved window event handling in notify

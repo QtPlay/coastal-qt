@@ -66,7 +66,11 @@ QUdpSocket(parent)
     addr = options.group_network;
     port = options.group_port;
 
-    bind(options.group_port, ShareAddress);
+    if(options.group_network.indexOf(QChar(':')) > -1)
+    	bind(QHostAddress::AnyIPv6, options.group_port, ShareAddress);
+    else
+        bind(QHostAddress::AnyIPv4, options.group_port, ShareAddress);
+
     joinMulticastGroup(addr);
     setSocketOption(QAbstractSocket::MulticastTtlOption, options.group_hops);
 

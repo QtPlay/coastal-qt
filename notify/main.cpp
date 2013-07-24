@@ -32,7 +32,7 @@ bool Main::restart_flag = false;
 unsigned Main::series = 1;
 
 Main::Main() :
-CoastalDialog()
+CoastalDialog(true)
 {
     ui.setupUi((QDialog *)this);
 
@@ -61,14 +61,16 @@ CoastalDialog()
     QApplication::setQuitOnLastWindowClosed(true);
 
     trayicon = new QSystemTrayIcon(this);
-    if(trayicon) {
-        QMenu *traymenu = new QMenu(NULL);
+    if(traymenu) {
         connect(ui.actionAbout, SIGNAL(triggered()), this, SLOT(about()));
         connect(ui.actionOptions, SIGNAL(triggered()), this, SLOT(config()));
         connect(ui.actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
         traymenu->addAction(ui.actionAbout);
         traymenu->addAction(ui.actionOptions);
         traymenu->addAction(ui.actionQuit);
+    }
+
+    if(trayicon) {
         trayicon->setContextMenu(traymenu);
         trayicon->setIcon(QIcon(":/notify.png"));
         trayicon->show();

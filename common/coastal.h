@@ -119,8 +119,9 @@ protected:
     const char *program_version, *program_about, *program_copyright, *program_name;
     const char *url_support;
     QSystemTrayIcon *trayicon;
+    QMenu *traymenu, *appmenu;
 
-    CoastalMain();
+    CoastalMain(bool tray = false);
 
 public slots:
     void about(void);
@@ -134,9 +135,11 @@ Q_OBJECT
 protected:
     const char *dialog_version, *dialog_about, *dialog_copyright, *dialog_name;
     const char *url_support;
-    QSystemTrayIcon *trayicon;
 
-    CoastalDialog();
+    QSystemTrayIcon *trayicon;
+    QMenu *traymenu, *appmenu;
+
+    CoastalDialog(bool tray = false);
 
 public slots:
     void about(void);

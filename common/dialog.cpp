@@ -19,7 +19,7 @@
 #include <coastal.h>
 #include <ui_about.h>
 
-CoastalDialog::CoastalDialog() :
+CoastalDialog::CoastalDialog(bool tray) :
 QDialog(NULL)
 {
     dialog_version = VERSION;
@@ -27,9 +27,22 @@ QDialog(NULL)
     dialog_copyright = "2013 David Sugar";
 
     trayicon = NULL;
+    traymenu = appmenu = NULL;
     url_support = "https://github.com/dyfet/coastal-qt/issues";
 
     Q_INIT_RESOURCE(coastal);
+
+    if(!tray)
+        return;
+
+#if defined(Q_WS_MAC)
+    traymenu = new QMenu();
+    qt_mac_set_dock_menu(traymenu);
+#else
+    trayicon = new QSystemTrayIcon(this);
+    if(trayicon)
+        traymenu = new QMenu();
+#endif
 }
 
 void CoastalDialog::support(void)
