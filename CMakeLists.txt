@@ -12,7 +12,7 @@
 cmake_minimum_required(VERSION 2.6)
 PROJECT(coastal-qt)
 set (PACKAGE coastal-qt)
-set (VERSION 0.7.3)
+set (VERSION 0.8.0)
 
 set(RC_VERSION ${VERSION})
 STRING(REGEX REPLACE "[.]" "," RC_VERSION ${RC_VERSION})
