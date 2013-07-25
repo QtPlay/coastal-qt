@@ -21,7 +21,7 @@ BuildRequires: qt4-devel >= 4.8.0
 BuildRequires: cmake >= 2.6.0
 
 %package devel
-Requires: %{name}-runtime = %{version}-%{release}
+Requires: %{name} = %{version}-%{release}
 Requires: qt4-devel >= 4.8.0
 Group: Development/Libraries
 Summary: Headers for building coastal applications
