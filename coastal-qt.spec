@@ -81,7 +81,7 @@ cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} \
       -DINSTALL_DATADIR=%{_datadir} \
 	  -DINSTALL_LIBDIR=%{_libdir} \
 	  -DINSTALL_BINDIR=%{_bindir} \
-	  -DINSTALL_INCLUDEDIR=%{_includrdir}
+	  -DINSTALL_INCLUDEDIR=%{_includedir}
 
 %{__make} %{?_smp_mflags}
 
