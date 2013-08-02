@@ -15,7 +15,7 @@ Version: 0.8.0
 Release: 0%{?dist}
 License: GPLv3+
 URL: http://www.gnutelephony.org
-Source: http://www.gnutelephony.org/dist/tarballs/coastal-qt-%{version}.tar.gz
+Source: http://dev.gnutelephony.org/dist/tarballs/coastal-qt-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires: qt4-devel >= 4.8.0
 BuildRequires: cmake >= 2.6.0
