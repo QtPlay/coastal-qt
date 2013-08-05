@@ -73,9 +73,8 @@ Small coastal qt dialog applications.
 
 %build
 cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} \
-      -DSYSCONFDIR=%{_sysconfdir} \
-      -DCMAKE_VERBOSE_MAKEFILE=TRUE \
-      -DCMAKE_C_FLAGS_RELEASE:STRING="$RPM_OPT_FLAGS" \
+      -DCMAKE_VERBOSE_MAKEFILE=ON \
+	  -DCMAKE_BUILD_TYPE=RELEASE \
       -DCMAKE_CXX_FLAGS_RELEASE:STRING="$RPM_OPT_FLAGS" \
 	  -DINSTALL_MANDIR=%{_mandir} \
       -DINSTALL_DATADIR=%{_datadir} \
