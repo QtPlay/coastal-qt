@@ -1,0 +1,84 @@
+Source: coastal-qt
+Priority: optional
+Maintainer: David Sugar <dyfet@gnutelephony.org>
+Build-Depends: debhelper (>= 7.0.50),
+               dpkg-dev (>= 1.13.19),
+               libqt4-dev (>= 4.8.0),
+               cmake (>= 2.6.1),
+               libxss-dev, libmagic-dev
+Standards-Version: 3.9.3
+Homepage: http://www.gnutelephony.org
+Section: utils
+
+Package: libcoastal-dev
+Section: libdevel
+Architecture: any
+Depends: libcoastal0 (= ${binary:Version}), ${misc:Depends}
+Description: Headers and development files for libcoastal
+ This package offers header files for developing applications that use the
+ coastal qt library extensions.
+
+Package: coastal-qt-dbg
+Architecture: any
+Section: debug
+Priority: extra
+Recommends: libcoastal-dev
+Depends: libcoastal0 (= ${binary:Version}), ${misc:Depends}
+Description: Debugging symbols for coastal applications
+ This package includes debugging symbols for coastal applications.
+ .
+ Most people will not need this package.
+
+Package: libcoastal0
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Runtime library for coastal applications
+ This is the runtime library used by coastal applications.  This includes
+ runtime library extensions to Qt.
+
+Package: coastal-dialogs
+Section: utils
+Architecture: any
+Depends: libcoastal0 (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
+Description: Extra utilities and dialog applications
+ These gui helper applications are not meant to be used as stand-alone, but 
+ are often used with other tools and applications.  Some are just used for
+ testing purposes.
+
+Package: coastal-manpager
+Section: doc
+Architecture: any
+Depends: libcoastal0 (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
+XB-AppName: Coastal Manpager
+XB-Icon: coastal-manpager.png
+XB-Screenshot-Url: http://www.gnutelephony.org/screenshots/coastal-manpager.png
+XB-Thumbnail-Url: http://www.gnutelephony.org/screenshots/coastal-manpager-mini.png
+XB-Category: Application;Utility;
+Description: man-like desktop application
+ This is a desktop manpage viewer much like xman.  This offers selection,
+ search, indexing, and viewing of system man pages.  It includes it's own
+ man page formatter.
+
+Package: coastal-search
+Section: doc
+Architecture: any
+Depends: libcoastal0 (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
+XB-AppName: Coastal Search
+XB-Icon: coastal-search.png
+XB-Screenshot-Url: http://www.gnutelephony.org/screenshots/coastal-search.png
+XB-Thumbnail-Url: http://www.gnutelephony.org/screenshots/coastal-search-mini.png
+XB-Category: Application;Utility;
+Description: text search application
+ A simple directory search and viewer for text files.  This offers very
+ basic pattern searching and selection, and uses a tabbed viewer much like
+ the coastal-manpager.
+
+Package: coastal-notify
+Section: libs
+Architecture: any
+Depends: libcoastal0 (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
+Description: sends desktop notifications
+ This is a utility to send desktop notifications through dbus.  Future
+ versions will also act as desktop notify helper daemon.
+

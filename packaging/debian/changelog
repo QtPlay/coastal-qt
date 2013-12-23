@@ -1,0 +1,139 @@
+coastal-qt (0.8.0-0gt1) UNRELEASED; urgency=low
+
+  * Updated tray support
+  * Manpager and Search busy cursor when blocked
+
+ -- David Sugar <dyfet@gnutelephony.org>  Thu, 25 Jul 2013 08:53:34 -0400
+
+coastal-qt (0.7.3-0gt1) UNRELEASED; urgency=low
+
+  * Cleaner handling of chat items
+
+ -- David Sugar <dyfet@gnutelephony.org>  Thu, 13 Jun 2013 12:09:47 -0400
+
+coastal-qt (0.7.2-0gt1) UNRELEASED; urgency=low
+
+  * Lots of small ui improvements
+
+ -- David Sugar <dyfet@gnutelephony.org>  Wed, 22 May 2013 13:57:04 -0400
+
+coastal-qt (0.7.1-0gt1) UNRELEASED; urgency=low
+
+  * Greatly improved chat management
+
+ -- David Sugar <dyfet@gnutelephony.org>  Wed, 22 May 2013 05:24:18 -0400
+
+coastal-qt (0.7.0-0gt1) UNRELEASED; urgency=low
+
+  * coastal-notify offers multicast chat, very priliminary
+
+ -- David Sugar <dyfet@gnutelephony.org>  Sun, 12 May 2013 10:12:27 -0400
+
+coastal-qt (0.6.2-0gt1) UNRELEASED; urgency=low
+
+  * API stabilization for qt5
+
+ -- David Sugar <dyfet@gnutelephony.org>  Thu, 11 Apr 2013 10:18:03 -0400
+
+coastal-qt (0.6.1-0gt1) UNRELEASED; urgency=low
+
+  * Introduction of dialogs helper package
+  * Fixed filename sort ordering for search
+
+ -- David Sugar <dyfet@gnutelephony.org>  Fri, 08 Mar 2013 11:58:50 -0400
+
+coastal-qt (0.6.0-0gt1) UNRELEASED; urgency=low
+
+  * Library now carries coastal icon theme, use of themes extended
+  * Toolbar mode connected to desktop settings
+
+ -- David Sugar <dyfet@gnutelephony.org>  Mon, 04 Mar 2013 09:19:07 -0400
+
+coastal-qt (0.5.1-0gt1) UNRELEASED; urgency=low
+
+  * Fixed desktop menu icons
+  * Changed preferences theme icon
+
+ -- David Sugar <dyfet@gnutelephony.org>  Fri, 01 Feb 2013 08:26:51 -0400
+
+coastal-qt (0.5.0-0gt1) UNRELEASED; urgency=medium
+
+  * fixed location of icons
+  * fixed various icon theming issues
+
+ -- David Sugar <dyfet@gnutelephony.org>  Sat, 26 Jan 2013 12:58:02 -0400
+
+coastal-qt (0.4.2-0gt1) UNRELEASED; urgency=low
+
+  * start of notify desktop user daemon support
+  * case sensitive settings for text search
+
+ -- David Sugar <dyfet@gnutelephony.org>  Fri, 04 Jan 2013 08:36:48 -0400
+
+coastal-qt (0.4.1-0gt1) UNRELEASED; urgency=low
+
+  * Minimum QT version now 4.8.0
+  * Options config page added to manpager
+  * Cleanup of headers
+
+ -- David Sugar <dyfet@gnutelephony.org>  Thu, 27 Dec 2012 08:02:09 -0400
+
+coastal-qt (0.4.0-0gt1) UNRELEASED; urgency=low
+
+  * coastal search and manpager text search in views
+  * common coastal view class
+  * start of what will become coastal multicast services
+
+ -- David Sugar <dyfet@gnutelephony.org>  Mon, 24 Dec 2012 09:22:30 -0400
+
+coastal-qt (0.3.4-0gt1) UNRELEASED; urgency=low
+
+  * Coastal Search text cleanup
+
+ -- David Sugar <dyfet@gnutelephony.org>  Tue, 04 Dec 2012 13:35:04 -0400
+
+coastal-qt (0.3.2-0gt1) UNRELEASED; urgency=low
+
+  * Supports screensaver detection, requires -lXss
+  * Supports mimetype detection, requires -lmagic
+
+ -- David Sugar <dyfet@gnutelephony.org>  Tue, 21 Aug 2012 14:29:23 -0400
+
+coastal-qt (0.3.0-0gt1) UNRELEASED; urgency=low
+
+  * Support for desktop notifications added to libcoastal
+  * new coastal-notify utility
+
+ -- David Sugar <dyfet@gnutelephony.org>  Tue, 24 Jul 2012 09:48:37 -0400
+
+coastal-qt (0.2.1-0gt0) UNRELEASED; urgency=low
+
+  * more consistent gui, right click context menus
+
+ -- David Sugar <dyfet@gnutelephony.org>  Tue, 03 Jul 2012 10:16:04 -0400
+
+coastal-qt (0.2.0-0gt1) UNRELEASED; urgency=low
+
+  * coastal-search added
+
+ -- David Sugar <dyfet@gnutelephony.org>  Sat, 16 Jun 2012 14:51:21 -0400
+
+coastal-qt (0.1.2-1) UNRELEASED; urgency=low
+
+  * fix for cmake options for qemu-user-static
+
+ -- David Sugar <dyfet@gnutelephony.org>  Tue, 01 May 2012 09:07:33 -0400
+
+coastal-qt (0.1.1-1) UNRELEASED; urgency=low
+
+  * Added pkgconfig
+  * Updated manpage parsing
+
+ -- David Sugar <dyfet@gnutelephony.org>  Mon, 12 Dec 2011 15:41:49 -0500
+
+coastal-qt (0.1.0-1) UNRELEASED; urgency=low
+
+  * Initial packaging. 
+
+ -- David Sugar <dyfet@gnutelephony.org>  Sun, 04 Dec 2011 16:52:20 -0400
+

@@ -1,0 +1,3 @@
+usr/include/coastal.h
+usr/lib/lib*.so
+usr/lib/pkgconfig/libcoastal.pc
