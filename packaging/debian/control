@@ -37,48 +37,11 @@ Description: Runtime library for coastal applications
  This is the runtime library used by coastal applications.  This includes
  runtime library extensions to Qt.
 
-Package: coastal-dialogs
+Package: coastal-apps
 Section: utils
 Architecture: any
 Depends: libcoastal0 (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
-Description: Extra utilities and dialog applications
- These gui helper applications are not meant to be used as stand-alone, but 
- are often used with other tools and applications.  Some are just used for
- testing purposes.
-
-Package: coastal-manpager
-Section: doc
-Architecture: any
-Depends: libcoastal0 (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
-XB-AppName: Coastal Manpager
-XB-Icon: coastal-manpager.png
-XB-Screenshot-Url: http://www.gnutelephony.org/screenshots/coastal-manpager.png
-XB-Thumbnail-Url: http://www.gnutelephony.org/screenshots/coastal-manpager-mini.png
-XB-Category: Application;Utility;
-Description: man-like desktop application
- This is a desktop manpage viewer much like xman.  This offers selection,
- search, indexing, and viewing of system man pages.  It includes it's own
- man page formatter.
-
-Package: coastal-search
-Section: doc
-Architecture: any
-Depends: libcoastal0 (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
-XB-AppName: Coastal Search
-XB-Icon: coastal-search.png
-XB-Screenshot-Url: http://www.gnutelephony.org/screenshots/coastal-search.png
-XB-Thumbnail-Url: http://www.gnutelephony.org/screenshots/coastal-search-mini.png
-XB-Category: Application;Utility;
-Description: text search application
- A simple directory search and viewer for text files.  This offers very
- basic pattern searching and selection, and uses a tabbed viewer much like
- the coastal-manpager.
-
-Package: coastal-notify
-Section: libs
-Architecture: any
-Depends: libcoastal0 (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
-Description: sends desktop notifications
- This is a utility to send desktop notifications through dbus.  Future
- versions will also act as desktop notify helper daemon.
+Description: Applications and extra utilities
+ This includes stand-alone applications built with coastal-qt, and helper
+ applications. 
 
