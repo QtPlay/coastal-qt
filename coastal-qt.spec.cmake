@@ -31,6 +31,10 @@ Group: Applications/System
 Summary: Stand-alone applications and utilities
 Requires: %{name} = %{version}-%{release}
 
+%description apps
+This includes stand-alone applications built with coastal-qt and some helper
+applications. 
+
 %description devel
 Header files for building applications with coastal library.  Used in
 conjunction with Qt.
@@ -89,9 +93,6 @@ for the Qt framework that we use.
 /sbin/ldconfig
 
 %changelog
-* Wed Mar 05 2014 David Sugar <dyfet@gnutelephony.org> - 0.8.1-1
-- Updated...
-
 * Wed Mar 05 2014 David Sugar <dyfet@gnutelephony.org> - 0.8.1-0
 - Initial packaging for redhat/fedora submission policies.
 
