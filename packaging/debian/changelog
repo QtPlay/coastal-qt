@@ -1,4 +1,4 @@
-coastal-qt (0.8.0-0gt2) UNRELEASED; urgency=low
+coastal-qt (0.8.1-0gt1) UNRELEASED; urgency=low
 
   * Consolidated packaging of apps under coastal-apps.
 

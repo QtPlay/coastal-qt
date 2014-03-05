@@ -12,7 +12,7 @@
 cmake_minimum_required(VERSION 2.6)
 PROJECT(coastal-qt)
 set (PACKAGE coastal-qt)
-set (VERSION 0.8.0)
+set (VERSION 0.8.1)
 
 set(RC_VERSION ${VERSION})
 STRING(REGEX REPLACE "[.]" "," RC_VERSION ${RC_VERSION})
@@ -228,6 +228,12 @@ if(CMAKE_GENERATOR MATCHES "Unix Makefiles")
         COMMAND rm -f "${CMAKE_CURRENT_BINARY_DIR}/*coastal*[-_]*.deb"
         COMMAND rm -f "${CMAKE_CURRENT_BINARY_DIR}/${PACKAGE}-*.zip"
         COMMAND rm -f "${CMAKE_CURRENT_BINARY_DIR}/*coastal*.changes"
+    )
+
+    add_custom_target(srpm
+        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+        COMMAND rm -f *.rpm
+        COMMAND rpmbuild  -bs --nodeps --define "_sourcedir ." --define "_srcrpmdir ." --sign cape-devtools.spec
     )
 
     add_custom_target(dist

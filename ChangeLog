@@ -1,3 +1,7 @@
+Changes from 0.8.0 to 0.8.1
+- reorganized packaging
+- make srpm target added
+
 Changes from 0.7.3 to 0.8.0
 - busy mode application state support
 - dialog support for generic tray menus
