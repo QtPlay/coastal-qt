@@ -233,7 +233,7 @@ if(CMAKE_GENERATOR MATCHES "Unix Makefiles")
     add_custom_target(srpm
         WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
         COMMAND rm -f *.rpm
-        COMMAND rpmbuild  -bs --nodeps --define "_sourcedir ." --define "_srcrpmdir ." --sign cape-devtools.spec
+        COMMAND rpmbuild  -bs --nodeps --define "_sourcedir ." --define "_srcrpmdir ." --sign coastal-qt.spec
     )
 
     add_custom_target(dist
