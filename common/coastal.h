@@ -36,6 +36,9 @@
 #include <QCheckBox>
 #include <QListWidgetItem>
 #include <QStyledItemDelegate>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QPushButton>
 
 class CoastalAbout : public QDialog
 {
