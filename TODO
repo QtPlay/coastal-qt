@@ -1,5 +1,8 @@
 Likely issues to remain at initial release:
 
+Dialog
+	Lots of zenity and dialog features and synonyms to add
+
 Manpager
 
 	Viewer rendering still too limited a subset of nroff for some pages

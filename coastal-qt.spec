@@ -74,6 +74,7 @@ for the Qt framework that we use.
 %{_bindir}/coastal-notify
 %{_datadir}/pixmaps/coastal-notify.png
 %{_bindir}/coastal-icons
+%{_bindir}/coastal-dialog
 
 %files
 %doc README COPYING TODO ChangeLog

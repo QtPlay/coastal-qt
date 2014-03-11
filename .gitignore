@@ -19,6 +19,7 @@ dbus_*
 *.depends
 common/libcoastal.*
 dialogs/coastal-icons
+dialogs/coastal-dialog
 manpager/coastal-manpager
 search/coastal-search
 notify/coastal-notify
