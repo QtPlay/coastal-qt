@@ -52,11 +52,19 @@ CoastalDialog()
         if(textstring) {
             text->setText(textstring);
         }
-        else if(filename) {
-            QFile file(filename);
+        else {
+            QFile file;
             QString temp;
+            bool opened;
+
+            if(filename) {
+                file.setFileName(filename);
+                opened = file.open(QIODevice::ReadOnly | QIODevice::Text);
+            }
+            else
+                opened = file.open(stdin, QIODevice::ReadOnly | QIODevice::Text);
             int pos;
-            if(file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            if(opened) {
                 while(!file.atEnd()) {
                     temp = file.readLine();
                     while((pos = temp.indexOf("\002")) > -1) {
