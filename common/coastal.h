@@ -131,6 +131,9 @@ protected:
 
     QMenu *appmenu(const char *id);
 
+public:
+    bool notify(const QString& title, const QString& body, QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::Information, int timeout = 10000);
+
 public slots:
     void about(void);
     void support(void);
@@ -148,6 +151,9 @@ protected:
     QMenu *traymenu;
 
     CoastalDialog(bool tray = false);
+
+public:
+    bool notify(const QString& title, const QString& body, QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::Information, int timeout = 10000);
 
 public slots:
     void about(void);

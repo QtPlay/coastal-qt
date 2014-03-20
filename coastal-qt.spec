@@ -11,7 +11,7 @@
 Name: coastal-qt
 Group: Development/Libraries
 Summary: Runtime library support for coastal applications
-Version: 0.8.1
+Version: 0.9.0
 Release: 0%{?dist}
 License: GPLv3+
 URL: http://www.gnutelephony.org
@@ -71,8 +71,6 @@ for the Qt framework that we use.
 %{_bindir}/coastal-search
 %{_datadir}/applications/coastal-search.desktop
 %{_datadir}/pixmaps/coastal-search.png
-%{_bindir}/coastal-notify
-%{_datadir}/pixmaps/coastal-notify.png
 %{_bindir}/coastal-icons
 %{_bindir}/coastal-dialog
 

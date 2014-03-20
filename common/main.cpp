@@ -62,6 +62,37 @@ QMenu *appmenu(const char *id)
 #endif
 }
 
+bool CoastalMain::notify(const QString& title, const QString& body, QSystemTrayIcon::MessageIcon iconcode, int timeout)
+{
+    QString icon = "info";
+
+    switch(iconcode)
+    {
+    case QSystemTrayIcon::Critical:
+        icon = "error";
+        break;
+    case QSystemTrayIcon::Warning:
+        icon = "warn";
+        break;
+    case QSystemTrayIcon::NoIcon:
+        icon = "";
+    case QSystemTrayIcon::Information:
+        break;
+    }
+
+    if(Coastal::notify(title, body, icon))
+        return true;
+
+    if(!trayicon)
+        return false;
+
+    if(!trayicon->supportsMessages())
+        return false;
+
+    trayicon->showMessage(title, body, iconcode, timeout);
+    return true;
+}
+
 void CoastalMain::support(void)
 {
     Coastal::browser(url_support);

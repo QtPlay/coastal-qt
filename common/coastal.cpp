@@ -230,56 +230,11 @@ bool Coastal::notify(const QString& title, const QString& body, const QString& i
     return notify.update();
 }
 
-#elif defined(Q_OS_WIN)
-
-bool Coastal::notify(const QString& title, const QString& body, const QString& icon)
-{
-    QByteArray _title = title.toUtf8();
-    QByteArray _body = body.toUtf8();
-    QByteArray _icon = icon.toUtf8();
-    bool result = true;
-
-    char buf[512];
-    snprintf(buf, sizeof(buf), "notify\t%s\t%s\t%s\n",
-        _title.data(), _body.data(), _icon.data());
-
-    HANDLE fd = CreateFile("\\\\.\\mailslot\\notify_ctrl", GENERIC_WRITE, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-    if(fd == INVALID_HANDLE_VALUE)
-        return false;
-
-    if(!WriteFile(fd, buf, (DWORD)strlen(buf), NULL, NULL))
-        result = false;
-
-    CloseHandle(fd);
-
-    return result;
-}
-
 #else
 
 bool Coastal::notify(const QString& title, const QString& body, const QString& icon)
 {
-    QByteArray _title = title.toUtf8();
-    QByteArray _body = body.toUtf8();
-    QByteArray _icon = icon.toUtf8();
-
-    char buf[512];
-    snprintf(buf, sizeof(buf), "notify\t%s\t%s\t%s\n",
-        _title.data(), _body.data(), _icon.data());
-
-    char *env = getenv("HOME");
-    if(!env)
-        return false;
-
-    char path[512];
-    snprintf(path, sizeof(path), "%s/.coastal-notify", env);
-    int fd = ::open(path, O_WRONLY);
-    if(fd < 0)
-        return false;
-
-    ::write(fd, buf, strlen(buf));
-    ::close(fd);
-    return true;
+    return false;
 }
 
 #endif
