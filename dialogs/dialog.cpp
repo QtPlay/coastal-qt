@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with coastal-qt.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <dialog.h>
+#include "dialog.h"
 
 static enum {NONE, TEXT} mode;
 static const char *filename = NULL;
