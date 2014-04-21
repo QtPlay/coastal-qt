@@ -356,6 +356,31 @@ QString Coastal::mimetype(const QString& ext)
     return NULL;
 }
 
+bool Coastal::emailto(QString& to, QString& topic, QString& body)
+{
+#ifndef Q_OS_WIN
+    if(QFile::exists("/usr/bin/xdg-email")) {
+        QString cmd = "xdg-email";
+        QStringList args;
+        args << to << "--subject" << topic << "--body" << body;
+        return QProcess::startDetached(cmd, args);
+    }
+#endif
+
+#if defined(Q_OS_MAC)
+    QString url("mailto:%1?subject=%2&body=%3");
+    QString etopic(QUrl::toPercentEncoding(topic));
+    QString ebody(QUrl::toPercentEncoding(body));
+    QString formattedContent(QString(url).arg(to).arg(etopic).arg(ebody));
+    return QDesktopServices::openUrl(QUrl(url)); 
+#else
+    QString url("mailto:%1?subject=%2&body=%3");
+    QString encoded(QUrl::toPercentEncoding(body));
+    QString formattedContent(QString(url).arg(to).arg(topic).arg(encoded));
+    return QDesktopServices::openUrl(QUrl(url)); 
+#endif
+}
+
 bool Coastal::email(QString& topic, QString& body)
 {
 #ifndef Q_OS_WIN

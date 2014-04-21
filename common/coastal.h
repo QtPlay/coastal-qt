@@ -234,6 +234,9 @@ public:
     static bool away(void);
 
     static bool email(QString& title, QString& body);
+
+    static bool emailto(QString& to, QString& title, QString& body);
+
 };
 
 #endif
