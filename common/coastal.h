@@ -232,6 +232,8 @@ public:
     static bool notify(const QString& title, const QString& body, const QString& icon = "info");
 
     static bool away(void);
+
+    static bool email(QString& title, QString& body);
 };
 
 #endif
