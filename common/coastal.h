@@ -242,7 +242,7 @@ public:
 
     static bool applyStyle(QApplication& app, QString& style);
 
-    static bool paintRect(QPainter *painter, const QRect& rect, QColor color, bool fill, qreal xradius = 0.0, qreal yradius = 0.0);
+    static bool paintRect(QPainter *painter, const QRect& rect, QColor color, qreal outline = 0.0, qreal xradius = 0.0, qreal yradius = 0.0);
 
     static bool paintBadge(QPainter *painter, QRect rect, QString text, QColor badge_color, QColor text_color, QFont text_font = qApp->font());
 };

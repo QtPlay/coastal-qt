@@ -419,12 +419,15 @@ bool Coastal::applyStyle(QApplication& app, QString& style)
     return false;
 }
 
-bool Coastal::paintRect(QPainter *painter, const QRect& rect, QColor color, bool fill, qreal xradius, qreal yradius)
+bool Coastal::paintRect(QPainter *painter, const QRect& rect, QColor color, qreal outline, qreal xradius, qreal yradius)
 {
     QPen pen = painter->pen();
-    painter->setPen(QPen(color));
-    if(fill)
+    QPen frame = QPen(color);
+    if(outline > 0.0) {
+        frame.setWidth(outline);
+        painter->setPen(frame);
         painter->drawRoundedRect(rect, xradius, yradius);
+    }
     else {
         QPainterPath path;
         path.addRoundedRect(rect, xradius, yradius);
