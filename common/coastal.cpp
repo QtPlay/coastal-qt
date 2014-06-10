@@ -419,7 +419,7 @@ bool Coastal::applyStyle(QApplication& app, QString& style)
     return false;
 }
 
-bool Coastal::paintRect(QPainter *painter, const QRect& rect, QColor color, qreal outline, qreal xradius, qreal yradius)
+void Coastal::paintRect(QPainter *painter, const QRect& rect, QColor color, qreal outline, qreal xradius, qreal yradius)
 {
     QPen pen = painter->pen();
     QPen frame = QPen(color);
@@ -436,7 +436,7 @@ bool Coastal::paintRect(QPainter *painter, const QRect& rect, QColor color, qrea
     painter->setPen(pen);
 }
 
-bool Coastal::paintBadge(QPainter *painter, QRect rect, QString text, QColor badge_color, QColor text_color, QFont text_font)
+void Coastal::paintBadge(QPainter *painter, QRect rect, QString text, QColor badge_color, QColor text_color, QFont text_font)
 {
     QPainter::CompositionMode mode = painter->compositionMode();
     QPainter::RenderHints hints = painter->renderHints();
