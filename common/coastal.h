@@ -39,6 +39,9 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QPushButton>
+#include <QPainter>
+#include <QPainterPath>
+#include <QPen>
 
 class CoastalAbout : public QDialog
 {
@@ -237,6 +240,11 @@ public:
 
     static bool emailto(QString& to, QString& title, QString& body);
 
+    static bool applyStyle(QApplication& app, QString& style);
+
+    static bool paintRect(QPainter *painter, const QRect& rect, QColor color, bool fill, qreal xradius = 0.0, qreal yradius = 0.0);
+
+    static bool paintBadge(QPainter *painter, QRect rect, QString text, QColor badge_color, QColor text_color, QFont text_font = qApp->font());
 };
 
 #endif

@@ -381,7 +381,7 @@ bool Coastal::emailto(QString& to, QString& topic, QString& body)
 #endif
 }
 
-bool Coastal::email(QString& topic, QString& body)
+bool Coastal::email(QString &topic, QString &body)
 {
 #ifndef Q_OS_WIN
     if(QFile::exists("/usr/bin/xdg-email")) {
@@ -404,4 +404,60 @@ bool Coastal::email(QString& topic, QString& body)
     QString formattedContent(QString(url).arg(topic).arg(encoded));
     return QDesktopServices::openUrl(QUrl(url)); 
 #endif
+}
+
+bool Coastal::applyStyle(QApplication& app, QString& style)
+{
+    QFile file(style);
+    if (file.exists()) {
+        file.open(QFile::ReadOnly);
+        QString styleSheet = QLatin1String(file.readAll());
+        app.setStyleSheet(styleSheet);
+        file.close();
+        return true;
+    }
+    return false;
+}
+
+bool Coastal::paintRect(QPainter *painter, const QRect& rect, QColor color, bool fill, qreal xradius, qreal yradius)
+{
+    QPen pen = painter->pen();
+    painter->setPen(QPen(color));
+    if(fill)
+        painter->drawRoundedRect(rect, xradius, yradius);
+    else {
+        QPainterPath path;
+        path.addRoundedRect(rect, xradius, yradius);
+        painter->fillPath(path, color);
+    }
+    painter->setPen(pen);
+}
+
+bool Coastal::paintBadge(QPainter *painter, QRect rect, QString text, QColor badge_color, QColor text_color, QFont text_font)
+{
+    QPainter::CompositionMode mode = painter->compositionMode();
+    QPainter::RenderHints hints = painter->renderHints();
+    QFont font = painter->font();
+    QPen pen = painter->pen();
+
+    painter->setCompositionMode(QPainter::CompositionMode_Source);
+    painter->setRenderHints(QPainter::Antialiasing|QPainter::TextAntialiasing);
+
+    QPainterPath path;
+    path.addEllipse(QRectF(rect));
+    painter->fillPath(path, badge_color);
+
+    unsigned size = (rect.height() - 1) * (text.size() > 1 ? .95 : .75);
+    text_font.setPixelSize((int)(size / text.size()));
+    painter->setFont(text_font);
+    rect.adjust(0, 5, 0, 0);
+
+    QPen text_pen(text_color);
+    painter->setPen(text_pen);
+    painter->drawText(rect, Qt::AlignCenter, text);
+
+    painter->setCompositionMode(mode);
+    painter->setRenderHints(hints);
+    painter->setFont(font);
+    painter->setPen(pen);
 }
