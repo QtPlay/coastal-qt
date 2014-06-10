@@ -16,7 +16,6 @@
 // along with coastal-qt.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "program.h"
-#include "ui_main.h"
 #include <cstring>
 #include <cctype>
 
