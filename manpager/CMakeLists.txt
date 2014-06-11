@@ -10,7 +10,7 @@
 #
 
 file(GLOB qt_src *.cpp)
-file(GLOB qt_inc *.h)
+file(GLOB qt_inc manpager.h)
 file(GLOB ui_src *.ui)
 file(GLOB rc_src *.qrc)
 
@@ -25,7 +25,7 @@ set (ts_manpager ${ts_common} ${qt_src} ${ui_src} ${qt_inc} PARENT_SCOPE)
 configure_file(application.rc.cmake ${CMAKE_CURRENT_SOURCE_DIR}/application.rc)
 
 QT_ADD_RESOURCES(qt_qrc ${rc_src})
-QT_WRAP_CPP(qt_moc program.h)
+QT_WRAP_CPP(qt_moc manpager.h)
 QT_WRAP_UI(qt_ui ${ui_src})
 
 if(WIN32)
