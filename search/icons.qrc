@@ -6,7 +6,7 @@
     <file alias="Scalable/edit-clear.svg">../icons/edit-clear.svg</file>
 	<file alias="Scalable/system-search.svg">../icons/system-search.svg</file>
 </qresource>
-<qresource>
+<qresource prefix="apps">
     <file alias="search.png">../icons/coastal-search.png</file>
 </qresource>
 </RCC>
