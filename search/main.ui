@@ -168,7 +168,7 @@
      <x>0</x>
      <y>0</y>
      <width>760</width>
-     <height>25</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -254,7 +254,9 @@
   </action>
   <action name="actionSearch">
    <property name="icon">
-    <iconset theme="system-search"/>
+    <iconset theme="system-search">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Search</string>
@@ -264,6 +266,10 @@
    </property>
   </action>
   <action name="actionSupport">
+   <property name="icon">
+    <iconset resource="../common/coastal.qrc">
+     <normaloff>:/web/github.png</normaloff>:/web/github.png</iconset>
+   </property>
    <property name="text">
     <string>Support</string>
    </property>
@@ -310,7 +316,9 @@
   </action>
   <action name="actionOptions">
    <property name="icon">
-    <iconset theme="preferences-desktop"/>
+    <iconset theme="preferences-desktop">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>&amp;Options</string>
@@ -320,6 +328,8 @@
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="../common/coastal.qrc"/>
+ </resources>
  <connections/>
 </ui>

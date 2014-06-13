@@ -78,8 +78,6 @@ CoastalMain()
         settings.endArray();
     }
 
-    ui.actionSupport->setIcon(QIcon(":/github.png"));
-
     ui.indexView->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(ui.indexView, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(open(const QPoint&)));
 

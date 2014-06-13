@@ -45,7 +45,7 @@
 	<file alias="Scalable/list-add.svg">../icons/list-add.svg</file>
 	<file alias="Scalable/list-remove.svg">../icons/list-remove.svg</file>
 </qresource>
-<qresource>
+<qresource prefix="web">
     <file alias="github.png">../icons/github.png</file>
 </qresource>
 </RCC>

@@ -109,7 +109,7 @@
      <x>0</x>
      <y>0</y>
      <width>540</width>
-     <height>25</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -483,6 +483,10 @@
    </property>
   </action>
   <action name="actionSupport">
+   <property name="icon">
+    <iconset resource="../common/coastal.qrc">
+     <normaloff>:/web/github.png</normaloff>:/web/github.png</iconset>
+   </property>
    <property name="text">
     <string>Support</string>
    </property>
@@ -547,6 +551,8 @@
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="../common/coastal.qrc"/>
+ </resources>
  <connections/>
 </ui>

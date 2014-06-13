@@ -87,8 +87,6 @@ CoastalMain()
     ui.actionSectionn->setChecked(settings.value("n", ui.actionSectionn->isChecked()).toBool());
     settings.endGroup();
 
-    ui.actionSupport->setIcon(QIcon(":/github.png"));
-
     searchGroup = new QActionGroup(this);
     ui.actionIndex->setActionGroup(searchGroup);
     ui.actionKeywords->setActionGroup(searchGroup);
