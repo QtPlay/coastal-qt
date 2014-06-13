@@ -6,7 +6,7 @@
     <file alias="Scalable/stock_select-all.svg">../icons/stock_select-all.svg</file>
 	<file alias="Scalable/edit-clear.svg">../icons/edit-clear.svg</file>
 </qresource>
-<qresource prefix="apps">
+<qresource prefix="icons/apps">
 	<file alias="manpager.png">../icons/coastal-manpager.png</file>
 </qresource>
 </RCC>

@@ -34,7 +34,7 @@ CoastalMain()
 
     program_name = "Coastal Manpager";
     program_about = "Coastal Manual Page Viewer";
-    setWindowIcon(QIcon(":/apps/manpager.png"));
+    setWindowIcon(QIcon(":/icons/apps/manpager.png"));
     setWindowTitle(program_name);
 
     QSettings settings;
