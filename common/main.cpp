@@ -30,7 +30,13 @@ QMainWindow(NULL)
     traymenu = _appmenu = NULL;
     url_support = "https://github.com/dyfet/coastal-qt/issues";
 
+#if defined(Q_OS_WIN)
+    setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+#elif defined(Q_OS_MAC)
+    setToolButtonStyle(Qt::ToolButtonIconOnly);
+#else
     setToolButtonStyle(Qt::ToolButtonFollowStyle);
+#endif
 
     Q_INIT_RESOURCE(coastal);
 
