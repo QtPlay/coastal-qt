@@ -263,7 +263,7 @@ QString Coastal::mimeFile(const QString& filename)
 
 #elif QT_VERSION >= 0x050000
 
-QString Coastal::mimefile(const QString& filename)
+QString Coastal::mimeFile(const QString& filename)
 {
     QMimeDatabase db;
     QMimeType mime = db.mimeTypeForFile(filename);
@@ -296,7 +296,7 @@ QString Coastal::mimefile(const QString& filename)
         return "text/plain";
 
     QString ext = extension(filename);
-    return mimetype(ext);
+    return mimeType(ext);
 }
 
 #else
@@ -311,7 +311,7 @@ QString Coastal::mimeFile(const QString& filename)
 #endif
 
     // fallback to minetype...
-    return mimetype(ext);
+    return mimeType(ext);
 }
 
 #endif
@@ -337,7 +337,7 @@ QString Coastal::extension(const QString& filename)
     return filename.mid(exp);
 }
 
-QString Coastal::mimetype(const QString& ext)
+QString Coastal::mimeType(const QString& ext)
 {
     if(ext.compare(".txt", Qt::CaseInsensitive) ||
        ext.compare(".text", Qt::CaseInsensitive) ||
@@ -399,7 +399,7 @@ QString Coastal::mimetype(const QString& ext)
     return NULL;
 }
 
-bool Coastal::emailto(QString& to, QString& topic, QString& body)
+bool Coastal::emailTo(QString& to, QString& topic, QString& body)
 {
 #ifndef Q_OS_WIN
     if(QFile::exists("/usr/bin/xdg-email")) {
@@ -464,11 +464,11 @@ bool Coastal::applyStyle(QApplication& app, QString& style)
 
 void Coastal::paintRect(QPainter *painter, const QRect& rect, QColor color, qreal outline, qreal xradius, qreal yradius)
 {
-    QPen pen = painter->pen();
-    QPen frame = QPen(color);
+    painter->save();
     if(outline > 0.0) {
-        frame.setWidth(outline);
-        painter->setPen(frame);
+        QPen pen(color);
+        pen.setWidth(outline);
+        painter->setPen(pen);
         painter->drawRoundedRect(rect, xradius, yradius);
     }
     else {
@@ -476,24 +476,23 @@ void Coastal::paintRect(QPainter *painter, const QRect& rect, QColor color, qrea
         path.addRoundedRect(rect, xradius, yradius);
         painter->fillPath(path, color);
     }
-    painter->setPen(pen);
+    painter->restore();
 }
 
-void Coastal::paintBadge(QPainter *painter, QRect rect, QString text, QColor badge_color, QColor text_color, QFont text_font)
+void Coastal::paintBadge(QPainter *painter, QPoint pos, unsigned size, unsigned radius, QString text, QColor badge_color, QColor text_color, QFont text_font)
 {
-    QPainter::CompositionMode mode = painter->compositionMode();
-    QPainter::RenderHints hints = painter->renderHints();
-    QFont font = painter->font();
-    QPen pen = painter->pen();
+    if(radius > size / 2)
+        radius = size - 2;
 
-    painter->setCompositionMode(QPainter::CompositionMode_Source);
-    painter->setRenderHints(QPainter::Antialiasing|QPainter::TextAntialiasing);
+    QRect rect(pos.x(), pos.y(), size, size);
+    painter->save();
 
     QPainterPath path;
-    path.addEllipse(QRectF(rect));
+    path.addRoundedRect(rect, radius, radius);
     painter->fillPath(path, badge_color);
 
-    unsigned size = (rect.height() - 1) * (text.size() > 1 ? .95 : .75);
+    painter->setRenderHints(QPainter::Antialiasing|QPainter::TextAntialiasing);
+    size = (size - 1) * (text.size() > 1 ? .95 : .75);
     text_font.setPixelSize((int)(size / text.size()));
     painter->setFont(text_font);
     rect.adjust(0, 5, 0, 0);
@@ -501,9 +500,5 @@ void Coastal::paintBadge(QPainter *painter, QRect rect, QString text, QColor bad
     QPen text_pen(text_color);
     painter->setPen(text_pen);
     painter->drawText(rect, Qt::AlignCenter, text);
-
-    painter->setCompositionMode(mode);
-    painter->setRenderHints(hints);
-    painter->setFont(font);
-    painter->setPen(pen);
+    painter->restore();
 }

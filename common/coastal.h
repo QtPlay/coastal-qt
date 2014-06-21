@@ -222,7 +222,7 @@ public:
 
     static QString env(const QString& id);
 
-    static QString mimeExtension(const QString& filename);
+    static QString extension(const QString& filename);
 
     static QString mimeFile(const QString& filename);
 
@@ -238,13 +238,13 @@ public:
 
     static bool email(QString& title, QString& body);
 
-    static bool emailto(QString& to, QString& title, QString& body);
+    static bool emailTo(QString& to, QString& title, QString& body);
 
     static bool applyStyle(QApplication& app, QString& style);
 
     static void paintRect(QPainter *painter, const QRect& rect, QColor color, qreal outline = 0.0, qreal xradius = 0.0, qreal yradius = 0.0);
 
-    static void paintBadge(QPainter *painter, QRect rect, QString text, QColor badge_color, QColor text_color, QFont text_font = qApp->font());
+    static void paintBadge(QPainter *painter, QPoint pos, unsigned size, unsigned radius, QString text, QColor badge_color, QColor text_color, QFont text_font = qApp->font());
 };
 
 #endif
