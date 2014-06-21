@@ -244,7 +244,7 @@ bool Coastal::notify(const QString& title, const QString& body, const QString& i
 #define RUNTIME_MAGIC   NULL
 #endif
 
-QString Coastal::mimefile(const QString& filename)
+QString Coastal::mimeFile(const QString& filename)
 {
     static magic_t mdb = NULL;
 
@@ -258,7 +258,7 @@ QString Coastal::mimefile(const QString& filename)
 
 #else
 
-QString Coastal::mimefile(const QString& filename)
+QString Coastal::mimeFile(const QString& filename)
 {
     QString ext = extension(filename);
 

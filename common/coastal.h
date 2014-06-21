@@ -222,11 +222,11 @@ public:
 
     static QString env(const QString& id);
 
-    static QString extension(const QString& filename);
+    static QString mimeExtension(const QString& filename);
 
-    static QString mimefile(const QString& filename);
+    static QString mimeFile(const QString& filename);
 
-    static QString mimetype(const QString& extension);
+    static QString mimeType(const QString& extension);
 
     static bool browser(const QString& url);
 
