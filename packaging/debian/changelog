@@ -1,3 +1,9 @@
+coastal-qt (1:0.9.1-1) UNRELEASED; urgency=low
+
+  * Updated for epoch numbering going forward
+
+ -- David Sugar <dyfet@gnutelephony.org>  Sat, 21 Jun 2014 09:30:04 -0400
+
 coastal-qt (0.9.1-0gt1) UNRELEASED; urgency=low
 
   * Lots of core library improvements
