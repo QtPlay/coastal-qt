@@ -37,6 +37,11 @@
 #include <X11/extensions/scrnsaver.h>
 #endif
 
+#if QT_VERSION >= 0x050000
+#include <QMimeDatabase>
+#include <QMimeType>
+#endif
+
 #ifdef  HAVE_MAGIC
 #include <magic.h>
 #endif
@@ -254,6 +259,44 @@ QString Coastal::mimeFile(const QString& filename)
     }
     QByteArray fn = filename.toUtf8();
     return magic_file(mdb, fn.data());
+}
+
+#elif QT_VERSION >= 0x050000
+
+QString Coastal::mimefile(const QString& filename)
+{
+    QMimeDatabase db;
+    QMimeType mime = db.mimeTypeForFile(filename);
+
+    if(mime.inherits("video/mp4"))
+        return "video/mp4";
+    else if(mime.inherits("video/mpeg"))
+        return "video/mpeg";
+    else if(mime.inherits("video/ogg"))
+        return "video/ogg";
+    else if(mime.inherits("video/quicktime"))
+        return "video/quicktime";
+    else if(mime.inherits("video/x-msvideo"))
+        return "video/x-msvideo";
+    else if(mime.inherits("video/x-flv"))
+        return "video/x-flv";
+    else if(mime.inherits("video/webm"))
+        return "video/webm";
+    else if(mime.inherits("image/jpeg"))
+        return "image/jpeg";
+    else if(mime.inherits("image/png"))
+        return "image/png";
+    else if(mime.inherits("audio/wav"))
+        return "audio/wav";
+    else if(mime.inherits("audio/basic"))
+        return "audio/basic";
+    else if(mime.inherits("text/html"))
+        return "text/html";
+    else if(mime.inherits("text/plain"))
+        return "text/plain";
+
+    QString ext = extension(filename);
+    return mimetype(ext);
 }
 
 #else
