@@ -27,7 +27,7 @@ QMainWindow(NULL)
     program_copyright = "2011 David Sugar";
 
     trayicon = NULL;
-    traymenu = _appmenu = NULL;
+    traymenu = dockmenu = _appmenu = NULL;
     url_support = "https://github.com/dyfet/coastal-qt/issues";
 
 #if defined(Q_OS_WIN)
@@ -40,18 +40,17 @@ QMainWindow(NULL)
 
     Q_INIT_RESOURCE(coastal);
 
+#if defined(Q_WS_MAC)
+    dockmenu = new QMenu();
+    qt_mac_set_dock_menu(dockmenu);
+#endif
+
     if(!tray)
         return;
 
-#if defined(Q_WS_MAC)
-    traymenu = new QMenu();
-    qt_mac_set_dock_menu(traymenu);
-#else
     trayicon = new QSystemTrayIcon(this);
     if(trayicon)
         traymenu = new QMenu();
-#endif
-
 }
 
 QMenu *appmenu(const char *id)

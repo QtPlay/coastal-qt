@@ -128,7 +128,7 @@ protected:
     const char *program_version, *program_about, *program_copyright, *program_name;
     const char *url_support;
     QSystemTrayIcon *trayicon;
-    QMenu *traymenu;
+    QMenu *traymenu, *dockmenu;
 
     CoastalMain(bool tray = false);
 
@@ -151,7 +151,7 @@ protected:
     const char *url_support;
 
     QSystemTrayIcon *trayicon;
-    QMenu *traymenu;
+    QMenu *traymenu, *dockmenu;
 
     CoastalDialog(bool tray = false);
 

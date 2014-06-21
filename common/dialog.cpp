@@ -28,21 +28,22 @@ QDialog(NULL)
 
     trayicon = NULL;
     traymenu = NULL;
+    dockmenu = NULL;
     url_support = "https://github.com/dyfet/coastal-qt/issues";
 
     Q_INIT_RESOURCE(coastal);
 
+#if defined(Q_WS_MAC)
+    dockmenu = new QMenu();
+    qt_mac_set_dock_menu(dockmenu);
+#endif
+
     if(!tray)
         return;
 
-#if defined(Q_WS_MAC)
-    traymenu = new QMenu();
-    qt_mac_set_dock_menu(traymenu);
-#else
     trayicon = new QSystemTrayIcon(this);
     if(trayicon)
         traymenu = new QMenu();
-#endif
 }
 
 bool CoastalDialog::notify(const QString& title, const QString& body, QSystemTrayIcon::MessageIcon iconcode, int timeout)
