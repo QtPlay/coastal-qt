@@ -32,7 +32,7 @@ QMainWindow(NULL)
 
 #if defined(Q_OS_WIN)
     setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-    Q_INIT_RESOURCE(coastal-mgw);
+    Q_INIT_RESOURCE(coastal_mgw);
 #elif defined(Q_OS_MAC)
     setToolButtonStyle(Qt::ToolButtonIconOnly);
     Q_INIT_RESOURCE(coastal);
@@ -124,7 +124,7 @@ void CoastalMain::about(void)
 void Coastal::icons(const char *id)
 {
 #ifdef Q_WS_WIN
-    Q_INIT_RESOURCE(coastal-mgw)
+    Q_INIT_RESOURCE(coastal_mgw)
 #else
     Q_INIT_RESOURCE(coastal);
 #endif

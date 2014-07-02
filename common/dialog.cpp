@@ -36,7 +36,7 @@ QDialog(NULL)
     qt_mac_set_dock_menu(dockmenu);
     Q_INIT_RESOURCE(coastal);
 #elif defined(Q_WS_WIN)
-    Q_INIT_RESOURCE(coastal-mgw);
+    Q_INIT_RESOURCE(coastal_mgw);
 #else
     Q_INIT_RESOURCE(coastal);
 #endif
