@@ -12,7 +12,12 @@
 file(GLOB qt_src *.cpp)
 file(GLOB qt_inc *.h)
 file(GLOB ui_src *.ui)
-file(GLOB rc_src *.qrc)
+
+if(WIN32)
+    set(rc_src coastal_mgw.qrc)
+else()
+    set(rc_src coastal.qrc)
+endif()
 
 list(REMOVE_ITEM qt_src ${CMAKE_CURRENT_SOURCE_DIR}/dbus_notify.cpp)
 list(REMOVE_ITEM qt_src ${CMAKE_CURRENT_SOURCE_DIR}/dbus_notify.h)

@@ -32,13 +32,14 @@ QMainWindow(NULL)
 
 #if defined(Q_OS_WIN)
     setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+    Q_INIT_RESOURCE(coastal-mgw);
 #elif defined(Q_OS_MAC)
     setToolButtonStyle(Qt::ToolButtonIconOnly);
+    Q_INIT_RESOURCE(coastal);
 #else
     setToolButtonStyle(Qt::ToolButtonFollowStyle);
-#endif
-
     Q_INIT_RESOURCE(coastal);
+#endif
 
 #if defined(Q_WS_MAC)
     dockmenu = new QMenu();
@@ -122,7 +123,11 @@ void CoastalMain::about(void)
 
 void Coastal::icons(const char *id)
 {
+#ifdef Q_WS_WIN
+    Q_INIT_RESOURCE(coastal-mgw)
+#else
     Q_INIT_RESOURCE(coastal);
+#endif
 
     if(!QIcon::hasThemeIcon(id))
         QIcon::setThemeName("coastal");

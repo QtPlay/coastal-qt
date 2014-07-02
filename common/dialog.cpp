@@ -31,11 +31,14 @@ QDialog(NULL)
     dockmenu = NULL;
     url_support = "https://github.com/dyfet/coastal-qt/issues";
 
-    Q_INIT_RESOURCE(coastal);
-
 #if defined(Q_WS_MAC)
     dockmenu = new QMenu();
     qt_mac_set_dock_menu(dockmenu);
+    Q_INIT_RESOURCE(coastal);
+#elif defined(Q_WS_WIN)
+    Q_INIT_RESOURCE(coastal-mgw);
+#else
+    Q_INIT_RESOURCE(coastal);
 #endif
 
     if(!tray)

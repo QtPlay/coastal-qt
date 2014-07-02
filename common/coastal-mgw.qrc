@@ -1,0 +1,109 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="icons/coastal">
+	<file alias="index.theme">../icons/index.theme</file>
+
+	<file alias="16x16/preferences-desktop.png">../icons/generic/preferences-desktop-16.png</file>
+	<file alias="16x16/preferences-other.png">../icons/generic/preferences-other-16.png</file>
+	<file alias="16x16/application-exit.png">../icons/mgw/application-exit-16.png</file>
+	<file alias="16x16/view-refresh.png">../icons/generic/view-refresh-16.png</file>
+	<file alias="16x16/help-about.png">../icons/generic/help-about-16.png</file>
+	<file alias="16x16/window-new.png">../icons/generic/window-new-16.png</file>
+	<file alias="16x16/window-close.png">../icons/generic/window-close-16.png</file>
+	<file alias="16x16/tab-new.png">../icons/generic/tab-new-16.png</file>
+
+	<file alias="16x16/dialog-warning.png">../icons/generic/dialog-warning-16.png</file>
+	<file alias="16x16/dialog-error.png">../icons/generic/dialog-error-16.png</file>
+	<file alias="16x16/dialog-information.png">../icons/generic/dialog-information-16.png</file>
+	<file alias="16x16/edit-clear.png">../icons/generic/edit-clear-16.png</file>
+	<file alias="16x16/stock_select-all.png">../icons/generic/stock_select-all-16.png</file>
+	<file alias="16x16/system-search.png">../icons/mgw/system-search-16.png</file>
+
+	<file alias="16x16/folder.png">../icons/generic/folder-16.png</file>
+	<file alias="16x16/go-home.png">../icons/generic/go-home-16.png</file>
+	<file alias="16x16/go-next.png">../icons/generic/go-next-16.png</file>
+	<file alias="16x16/go-previous.png">../icons/generic/go-previous-16.png</file>
+	<file alias="16x16/go-up.png">../icons/generic/go-up-16.png</file>
+	<file alias="16x16/go-down.png">../icons/generic/go-down-16.png</file>
+	<file alias="16x16/list-add.png">../icons/generic/list-add-16.png</file>
+	<file alias="16x16/list-remove.png">../icons/generic/list-remove-16.png</file>
+	
+	<file alias="24x24/preferences-desktop.png">../icons/generic/preferences-desktop-24.png</file>
+	<file alias="24x24/preferences-other.png">../icons/generic/preferences-other-24.png</file>
+	<file alias="24x24/application-exit.png">../icons/mgw/application-exit-24.png</file>
+	<file alias="24x24/view-refresh.png">../icons/generic/view-refresh-24.png</file>
+	<file alias="24x24/help-about.png">../icons/generic/help-about-24.png</file>
+	<file alias="24x24/window-new.png">../icons/generic/window-new-24.png</file>
+	<file alias="24x24/window-close.png">../icons/generic/window-close-24.png</file>
+	<file alias="24x24/tab-new.png">../icons/generic/tab-new-24.png</file>
+
+	<file alias="24x24/dialog-warning.png">../icons/generic/dialog-warning-24.png</file>
+	<file alias="24x24/dialog-error.png">../icons/generic/dialog-error-24.png</file>
+	<file alias="24x24/dialog-information.png">../icons/generic/dialog-information-24.png</file>
+	<file alias="24x24/edit-clear.png">../icons/generic/edit-clear-24.png</file>
+	<file alias="24x24/stock_select-all.png">../icons/generic/stock_select-all-24.png</file>
+	<file alias="24x24/system-search.png">../icons/mgw/system-search-24.png</file>
+
+	<file alias="24x24/folder.png">../icons/generic/folder-24.png</file>
+	<file alias="24x24/go-home.png">../icons/generic/go-home-24.png</file>
+	<file alias="24x24/go-next.png">../icons/generic/go-next-24.png</file>
+	<file alias="24x24/go-previous.png">../icons/generic/go-previous-24.png</file>
+	<file alias="24x24/go-up.png">../icons/generic/go-up-24.png</file>
+	<file alias="24x24/go-down.png">../icons/generic/go-down-24.png</file>
+	<file alias="24x24/list-add.png">../icons/generic/list-add-24.png</file>
+	<file alias="24x24/list-remove.png">../icons/generic/list-remove-24.png</file>
+
+	<file alias="32x32/preferences-desktop.png">../icons/generic/preferences-desktop-32.png</file>
+	<file alias="32x32/preferences-other.png">../icons/generic/preferences-other-32.png</file>
+	<file alias="32x32/application-exit.png">../icons/mgw/application-exit-32.png</file>
+	<file alias="32x32/view-refresh.png">../icons/generic/view-refresh-32.png</file>
+	<file alias="32x32/help-about.png">../icons/generic/help-about-32.png</file>
+	<file alias="32x32/window-new.png">../icons/generic/window-new-32.png</file>
+	<file alias="32x32/window-close.png">../icons/generic/window-close-32.png</file>
+	<file alias="32x32/tab-new.png">../icons/generic/tab-new-32.png</file>
+
+	<file alias="32x32/dialog-warning.png">../icons/generic/dialog-warning-32.png</file>
+	<file alias="32x32/dialog-error.png">../icons/generic/dialog-error-32.png</file>
+	<file alias="32x32/dialog-information.png">../icons/generic/dialog-information-32.png</file>
+	<file alias="32x32/edit-clear.png">../icons/generic/edit-clear-32.png</file>
+	<file alias="32x32/stock_select-all.png">../icons/generic/stock_select-all-32.png</file>
+	<file alias="32x32/system-search.png">../icons/mgw/system-search-32.png</file>
+
+	<file alias="32x32/folder.png">../icons/generic/folder-32.png</file>
+	<file alias="32x32/go-home.png">../icons/generic/go-home-32.png</file>
+	<file alias="32x32/go-next.png">../icons/generic/go-next-32.png</file>
+	<file alias="32x32/go-previous.png">../icons/generic/go-previous-32.png</file>
+	<file alias="32x32/go-up.png">../icons/generic/go-up-32.png</file>
+	<file alias="32x32/go-down.png">../icons/generic/go-down-32.png</file>
+	<file alias="32x32/list-add.png">../icons/generic/list-add-32.png</file>
+	<file alias="32x32/list-remove.png">../icons/generic/list-remove-32.png</file>
+
+	<file alias="48x48/preferences-desktop.png">../icons/generic/preferences-desktop-48.png</file>
+	<file alias="48x48/preferences-other.png">../icons/generic/preferences-other-48.png</file>
+	<file alias="48x48/application-exit.png">../icons/mgw/application-exit-48.png</file>
+	<file alias="48x48/view-refresh.png">../icons/generic/view-refresh-48.png</file>
+	<file alias="48x48/help-about.png">../icons/generic/help-about-48.png</file>
+	<file alias="48x48/window-new.png">../icons/generic/window-new-48.png</file>
+	<file alias="48x48/window-close.png">../icons/generic/window-close-48.png</file>
+	<file alias="48x48/tab-new.png">../icons/generic/tab-new-48.png</file>
+
+	<file alias="48x48/dialog-warning.png">../icons/generic/dialog-warning-48.png</file>
+	<file alias="48x48/dialog-error.png">../icons/generic/dialog-error-48.png</file>
+	<file alias="48x48/dialog-information.png">../icons/generic/dialog-information-48.png</file>
+	<file alias="48x48/edit-clear.png">../icons/generic/edit-clear-48.png</file>
+	<file alias="48x48/stock_select-all.png">../icons/generic/stock_select-all-48.png</file>
+	<file alias="48x48/system-search.png">../icons/mgw/system-search-48.png</file>
+
+	<file alias="48x48/folder.png">../icons/generic/folder-48.png</file>
+	<file alias="48x48/go-home.png">../icons/generic/go-home-48.png</file>
+	<file alias="48x48/go-next.png">../icons/generic/go-next-48.png</file>
+	<file alias="48x48/go-previous.png">../icons/generic/go-previous-48.png</file>
+	<file alias="48x48/go-up.png">../icons/generic/go-up-48.png</file>
+	<file alias="48x48/go-down.png">../icons/generic/go-down-48.png</file>
+	<file alias="48x48/list-add.png">../icons/generic/list-add-48.png</file>
+	<file alias="48x48/list-remove.png">../icons/generic/list-remove-48.png</file>
+
+</qresource>
+<qresource prefix="icons/web">
+    <file alias="github.png">../icons/github.png</file>
+</qresource>
+</RCC>

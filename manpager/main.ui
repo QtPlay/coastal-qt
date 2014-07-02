@@ -181,6 +181,9 @@
    <property name="windowTitle">
     <string>toolBar</string>
    </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
    </attribute>
@@ -485,7 +488,7 @@
   <action name="actionSupport">
    <property name="icon">
     <iconset resource="../common/coastal.qrc">
-	<normaloff>:/icons/web/github.png</normaloff>:/web/github.png</iconset>
+     <normaloff>:/icons/web/github.png</normaloff>:/icons/web/github.png</iconset>
    </property>
    <property name="text">
     <string>Support</string>
