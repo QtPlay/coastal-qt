@@ -41,7 +41,7 @@ QMainWindow(NULL)
     Q_INIT_RESOURCE(coastal);
 #endif
 
-#if defined(Q_WS_MAC)
+#if defined(Q_OS_MAC)
     dockmenu = new QMenu();
     qt_mac_set_dock_menu(dockmenu);
 #endif
@@ -56,7 +56,7 @@ QMainWindow(NULL)
 
 QMenu *appmenu(const char *id)
 {
-#if defined(Q_WS_MAC)
+#if defined(Q_OS_MAC)
     if(!_appmenu) {
         _appmenu = QMenuBar(0);
 
@@ -123,8 +123,8 @@ void CoastalMain::about(void)
 
 void Coastal::icons(const char *id)
 {
-#ifdef Q_WS_WIN
-    Q_INIT_RESOURCE(coastal_mgw)
+#ifdef Q_OS_WIN
+    Q_INIT_RESOURCE(coastal_mgw);
 #else
     Q_INIT_RESOURCE(coastal);
 #endif
