@@ -46,6 +46,23 @@
 #include <magic.h>
 #endif
 
+bool Coastal::internal_icons = false;
+
+bool Coastal::icons(const char *id)
+{
+#ifdef Q_OS_WIN
+    Q_INIT_RESOURCE(coastal_mgw);
+#else
+    Q_INIT_RESOURCE(coastal);
+#endif
+
+    if(!QIcon::hasThemeIcon(id)) {
+        internal_icons = true;
+        QIcon::setThemeName("coastal");
+    }
+    return internal_icons;
+}
+
 QString Coastal::userid()
 {
 #ifdef  Q_OS_WIN

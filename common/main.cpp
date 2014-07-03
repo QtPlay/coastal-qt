@@ -40,6 +40,8 @@ QMainWindow(NULL)
 #else
     setToolButtonStyle(Qt::ToolButtonFollowStyle);
     Q_INIT_RESOURCE(coastal);
+    if(Coastal::internal_icons)      // our internal theme is 24, not 22 per freedesktop
+        setIconSize(QSize(24, 24));
 #endif
 
 #if defined(Q_OS_MAC)
@@ -120,18 +122,6 @@ void CoastalMain::about(void)
     item->setVisible(true);
     info.setImage(scene);
     info.exec();
-}
-
-void Coastal::icons(const char *id)
-{
-#ifdef Q_OS_WIN
-    Q_INIT_RESOURCE(coastal_mgw);
-#else
-    Q_INIT_RESOURCE(coastal);
-#endif
-
-    if(!QIcon::hasThemeIcon(id))
-        QIcon::setThemeName("coastal");
 }
 
 #ifdef  Q_OS_WIN
