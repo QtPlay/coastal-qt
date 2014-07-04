@@ -11,9 +11,9 @@
 	<file alias="16x16/window-close.png">../icons/generic/window-close-16.png</file>
 	<file alias="16x16/tab-new.png">../icons/generic/tab-new-16.png</file>
 
-	<file alias="16x16/dialog-warning.png">../icons/generic/dialog-warning-16.png</file>
-	<file alias="16x16/dialog-error.png">../icons/generic/dialog-error-16.png</file>
-	<file alias="16x16/dialog-information.png">../icons/generic/dialog-information-16.png</file>
+	<file alias="16x16/dialog-warning.png">../icons/mgw/dialog-warning-16.png</file>
+	<file alias="16x16/dialog-error.png">../icons/mgw/application-exit-16.png</file>
+	<file alias="16x16/dialog-information.png">../icons/mgw/help-about-16.png</file>
 	<file alias="16x16/edit-clear.png">../icons/generic/edit-clear-16.png</file>
 	<file alias="16x16/stock_select-all.png">../icons/generic/stock_select-all-16.png</file>
 	<file alias="16x16/system-search.png">../icons/mgw/system-search-16.png</file>
@@ -36,9 +36,9 @@
 	<file alias="24x24/window-close.png">../icons/generic/window-close-24.png</file>
 	<file alias="24x24/tab-new.png">../icons/generic/tab-new-24.png</file>
 
-	<file alias="24x24/dialog-warning.png">../icons/generic/dialog-warning-24.png</file>
-	<file alias="24x24/dialog-error.png">../icons/generic/dialog-error-24.png</file>
-	<file alias="24x24/dialog-information.png">../icons/generic/dialog-information-24.png</file>
+	<file alias="24x24/dialog-warning.png">../icons/mgw/dialog-warning-24.png</file>
+	<file alias="24x24/dialog-error.png">../icons/mgw/application-exit-24.png</file>
+	<file alias="24x24/dialog-information.png">../icons/mgw/help-about-24.png</file>
 	<file alias="24x24/edit-clear.png">../icons/generic/edit-clear-24.png</file>
 	<file alias="24x24/stock_select-all.png">../icons/generic/stock_select-all-24.png</file>
 	<file alias="24x24/system-search.png">../icons/mgw/system-search-24.png</file>
@@ -61,9 +61,9 @@
 	<file alias="32x32/window-close.png">../icons/generic/window-close-32.png</file>
 	<file alias="32x32/tab-new.png">../icons/generic/tab-new-32.png</file>
 
-	<file alias="32x32/dialog-warning.png">../icons/generic/dialog-warning-32.png</file>
-	<file alias="32x32/dialog-error.png">../icons/generic/dialog-error-32.png</file>
-	<file alias="32x32/dialog-information.png">../icons/generic/dialog-information-32.png</file>
+	<file alias="32x32/dialog-warning.png">../icons/mgw/dialog-warning-32.png</file>
+	<file alias="32x32/dialog-error.png">../icons/mgw/application-exit-32.png</file>
+	<file alias="32x32/dialog-information.png">../icons/mgw/help-about-32.png</file>
 	<file alias="32x32/edit-clear.png">../icons/generic/edit-clear-32.png</file>
 	<file alias="32x32/stock_select-all.png">../icons/generic/stock_select-all-32.png</file>
 	<file alias="32x32/system-search.png">../icons/mgw/system-search-32.png</file>
@@ -86,9 +86,9 @@
 	<file alias="48x48/window-close.png">../icons/generic/window-close-48.png</file>
 	<file alias="48x48/tab-new.png">../icons/generic/tab-new-48.png</file>
 
-	<file alias="48x48/dialog-warning.png">../icons/generic/dialog-warning-48.png</file>
-	<file alias="48x48/dialog-error.png">../icons/generic/dialog-error-48.png</file>
-	<file alias="48x48/dialog-information.png">../icons/generic/dialog-information-48.png</file>
+	<file alias="48x48/dialog-warning.png">../icons/mgw/dialog-warning-48.png</file>
+	<file alias="48x48/dialog-error.png">../icons/mgw/application-exit-48.png</file>
+	<file alias="48x48/dialog-information.png">../icons/mgw/help-about-48.png</file>
 	<file alias="48x48/edit-clear.png">../icons/generic/edit-clear-48.png</file>
 	<file alias="48x48/stock_select-all.png">../icons/generic/stock_select-all-48.png</file>
 	<file alias="48x48/system-search.png">../icons/mgw/system-search-48.png</file>
