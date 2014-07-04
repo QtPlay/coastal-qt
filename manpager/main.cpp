@@ -17,8 +17,10 @@
 
 #include "manpager.h"
 #include "ui_main.h"
+#include "ui_toolbar.h"
 
 static Ui::MainWindow ui;
+static Ui::Toolbar tb;
 static QAction *amap[10];
 
 QStringList Main::manpaths;
@@ -37,16 +39,11 @@ CoastalMain()
     setWindowIcon(QIcon(":/icons/apps/manpager.png"));
     setWindowTitle(program_name);
 
-    extendToolbar(ui.toolBar, ui.menubar);
+    QWidget *toolbar = extendToolbar(ui.toolBar, ui.menubar);
+    tb.setupUi(toolbar);
 
     QSettings settings;
     resize(settings.value("size", QSize(760, 540)).toSize());
-    ui.actionMenubar->setChecked(settings.value("menubar", true).toBool());
-    ui.actionToolbar->setChecked(settings.value("toolbar", false).toBool());
-    ui.actionStatus->setChecked(settings.value("stats", true).toBool());
-    ui.toolBar->setVisible(ui.actionToolbar->isChecked());
-    ui.statusbar->setVisible(ui.actionStatus->isChecked());
-    ui.menubar->setVisible(ui.actionMenubar->isChecked());
 
 #ifdef Q_OS_WIN
     const char *separator = ";";
@@ -120,12 +117,12 @@ CoastalMain()
 
     // input validation
 
-    ui.searchBox->setValidator(&index_validator);
+    tb.searchBox->setValidator(&index_validator);
 
     // forms, tabs, and view signals
 
-    connect(ui.searchBox, SIGNAL(editTextChanged(const QString&)), this, SLOT(search(const QString&)));
-    connect(ui.searchBox, SIGNAL(activated(const QString&)), this, SLOT(load(const QString&)));
+    connect(tb.searchBox, SIGNAL(editTextChanged(const QString&)), this, SLOT(search(const QString&)));
+    connect(tb.searchBox, SIGNAL(activated(const QString&)), this, SLOT(load(const QString&)));
     connect(ui.tabs, SIGNAL(tabCloseRequested(int)), this, SLOT(close(int)));
     connect(ui.indexView, SIGNAL(activated(const QModelIndex&)), this, SLOT(load(const QModelIndex&)));
     connect(ui.actionView, SIGNAL(triggered()), this, SLOT(view()));
@@ -138,9 +135,6 @@ CoastalMain()
 
     setContextMenuPolicy(Qt::CustomContextMenu);
     connect(this, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(menu(const QPoint&)));
-    connect(ui.actionToolbar, SIGNAL(toggled(bool)), ui.toolBar, SLOT(setVisible(bool)));
-    connect(ui.actionStatus, SIGNAL(toggled(bool)), ui.statusbar, SLOT(setVisible(bool)));
-    connect(ui.actionMenubar, SIGNAL(toggled(bool)), ui.menubar, SLOT(setVisible(bool)));
 
     emit startup();
 }
@@ -167,9 +161,6 @@ Main::~Main()
 
     settings.setValue("manpath", manpath);
     settings.setValue("size", size());
-    settings.setValue("menubar", ui.actionMenubar->isChecked());
-    settings.setValue("toolbar", ui.actionToolbar->isChecked());
-    settings.setValue("status", ui.actionStatus->isChecked());
 
     settings.beginGroup("Sections");
     settings.setValue("1", ui.actionSection1->isChecked());
@@ -380,8 +371,8 @@ void Main::all(void)
 
 void Main::reload(void)
 {
-    ui.searchBox->clear();
-    ui.searchBox->setEnabled(false);
+    tb.searchBox->clear();
+    tb.searchBox->setEnabled(false);
     status(tr("loading..."));
     CoastalBusy busy;
 
@@ -390,20 +381,20 @@ void Main::reload(void)
 
     ui.indexView->setModel(NULL);
     if(indexData) {
-        disconnect(indexData, SIGNAL(selected(const QString&)), ui.searchBox, SLOT(setEditText(const QString&)));
+        disconnect(indexData, SIGNAL(selected(const QString&)), tb.searchBox, SLOT(setEditText(const QString&)));
         delete indexData;
     }
 
     indexData = new Index(ui.indexView);
     ui.indexView->setModel(indexData);
-    connect(indexData, SIGNAL(selected(const QString&)), ui.searchBox, SLOT(setEditText(const QString&)));
+    connect(indexData, SIGNAL(selected(const QString&)), tb.searchBox, SLOT(setEditText(const QString&)));
 
     columns();
     ui.indexView->setEnabled(true);
     ui.indexView->selectRow(0);
-    ui.searchBox->setEnabled(true);
-    ui.searchBox->setFocus();
-    ui.searchBox->repaint();
+    tb.searchBox->setEnabled(true);
+    tb.searchBox->setFocus();
+    tb.searchBox->repaint();
     status(tr("ready"));
 }
 
@@ -438,10 +429,6 @@ void Main::menu(const QPoint& pos)
     sections->addAction(ui.actionSection8);
     sections->addAction(ui.actionSectionl);
     sections->addAction(ui.actionSectionn);
-    QMenu *view = m.addMenu(tr("View"));
-    view->addAction(ui.actionMenubar);
-    view->addAction(ui.actionToolbar);
-    view->addAction(ui.actionStatus);
 
     m.addSeparator();
     m.addAction(ui.actionReload);
