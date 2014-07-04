@@ -25,11 +25,26 @@ static int current = -1;
 static int last = -1;
 static Ui::Config ui;
 static Main *main;
+static QCheckBox *sections[10];
 
 Config::Config(QTabWidget *tabs) :
 QDialog()
 {
     ui.setupUi((QDialog *)this);
+
+    sections[0] = ui.section1;
+    sections[1] = ui.section2;
+    sections[2] = ui.section3;
+    sections[3] = ui.section4;
+    sections[4] = ui.section5;
+    sections[5] = ui.section6;
+    sections[6] = ui.section7;
+    sections[7] = ui.section8;
+    sections[8] = ui.sectionl;
+    sections[9] = ui.sectionn;
+
+    for(unsigned index = 0; index < 10; ++index)
+        sections[index]->setChecked(Main::sections[index]->isChecked());
 
     int views = tabs->count();
 
@@ -92,6 +107,9 @@ void Config::accept(void)
             main->manpaths << item->text();
         }
     }
+    for(unsigned index = 0; index < 10; ++index)
+        Main::sections[index]->setChecked(sections[index]->isChecked());
+
     emit closeRequested(last);
     emit reload();
 }
