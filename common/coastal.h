@@ -221,8 +221,6 @@ private:
 public:
     static bool env(const char *id, char *buffer, size_t size);
 
-    static bool icons(const char *check_id = "view-refresh");
-
     static QString userid(void);
 
     static QString env(const QString& id);

@@ -248,8 +248,6 @@ int main(int argc, char *argv[])
     translator.load(QLocale::system().name(), TRANSLATIONS);
     app.installTranslator(&translator);
 
-    Coastal::icons();
-
     Viewer w;
     app.exec();
     return exitresult;

@@ -67,8 +67,6 @@ int main(int argc, char *argv[])
     if(argv[1])
         QIcon::setThemeName(argv[1]);
 
-    Coastal::icons();
-
     Icons w;
     app.exec();
 }

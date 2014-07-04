@@ -35,10 +35,15 @@ QDialog(NULL)
     dockmenu = new QMenu();
     qt_mac_set_dock_menu(dockmenu);
     Q_INIT_RESOURCE(coastal);
+    QIcon::setThemeName("coastal");
 #elif defined(Q_OS_WIN)
     Q_INIT_RESOURCE(coastal_mgw);
+    QIcon::setThemeName("coastal");
 #else
     Q_INIT_RESOURCE(coastal);
+    if(!QIcon::hasThemeIcon("view-refresh")) {
+        QIcon::setThemeName("coastal");
+    }
 #endif
 
     if(!tray)

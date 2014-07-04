@@ -33,15 +33,19 @@ QMainWindow(NULL)
 #if defined(Q_OS_WIN)
     setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
     Q_INIT_RESOURCE(coastal_mgw);
+    QIcon::setThemeName("coastal");    
     setIconSize(QSize(24, 24));         // uniform icon size...
 #elif defined(Q_OS_MAC)
     setToolButtonStyle(Qt::ToolButtonIconOnly);
     Q_INIT_RESOURCE(coastal);
+    QIcon::setThemeName("coastal");
 #else
     setToolButtonStyle(Qt::ToolButtonFollowStyle);
     Q_INIT_RESOURCE(coastal);
-    if(Coastal::internal_icons)      // our internal theme is 24, not 22 per freedesktop
+    if(!QIcon::hasThemeIcon("view-refresh")) {
+        QIcon::setThemeName("coastal");
         setIconSize(QSize(24, 24));
+    }
 #endif
 
 #if defined(Q_OS_MAC)
