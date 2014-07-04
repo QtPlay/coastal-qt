@@ -75,6 +75,7 @@ CoastalToolbarHelper::CoastalToolbarHelper(QToolBar *tb, QMainWindow *mp, QMenuB
 {
     t = tb;
     m = mb;
+    moving = false;
     window = mp;
     tb->addWidget(this);
     tb->installEventFilter(this);
