@@ -33,13 +33,19 @@ QMainWindow(NULL)
 #if defined(Q_OS_WIN)
     setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
     Q_INIT_RESOURCE(coastal_mgw);
+    QIcon::setThemeName("coastal");    
     setIconSize(QSize(24, 24));         // uniform icon size...
 #elif defined(Q_OS_MAC)
     setToolButtonStyle(Qt::ToolButtonIconOnly);
     Q_INIT_RESOURCE(coastal);
+    QIcon::setThemeName("coastal");
 #else
     setToolButtonStyle(Qt::ToolButtonFollowStyle);
     Q_INIT_RESOURCE(coastal);
+    if(!QIcon::hasThemeIcon("view-refresh")) {
+        QIcon::setThemeName("coastal");
+        setIconSize(QSize(24, 24));
+    }
 #endif
 
 #if defined(Q_OS_MAC)
@@ -120,18 +126,6 @@ void CoastalMain::about(void)
     item->setVisible(true);
     info.setImage(scene);
     info.exec();
-}
-
-void Coastal::icons(const char *id)
-{
-#ifdef Q_OS_WIN
-    Q_INIT_RESOURCE(coastal_mgw);
-#else
-    Q_INIT_RESOURCE(coastal);
-#endif
-
-    if(!QIcon::hasThemeIcon(id))
-        QIcon::setThemeName("coastal");
 }
 
 #ifdef  Q_OS_WIN
