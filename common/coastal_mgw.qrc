@@ -6,7 +6,7 @@
 	<file alias="16x16/preferences-other.png">../icons/generic/preferences-other-16.png</file>
 	<file alias="16x16/application-exit.png">../icons/mgw/application-exit-16.png</file>
 	<file alias="16x16/view-refresh.png">../icons/mgw/view-refresh-16.png</file>
-	<file alias="16x16/help-about.png">../icons/generic/help-about-16.png</file>
+	<file alias="16x16/help-about.png">../icons/mgw/help-about-16.png</file>
 	<file alias="16x16/window-new.png">../icons/generic/window-new-16.png</file>
 	<file alias="16x16/window-close.png">../icons/generic/window-close-16.png</file>
 	<file alias="16x16/tab-new.png">../icons/generic/tab-new-16.png</file>
@@ -31,7 +31,7 @@
 	<file alias="24x24/preferences-other.png">../icons/generic/preferences-other-24.png</file>
 	<file alias="24x24/application-exit.png">../icons/mgw/application-exit-24.png</file>
 	<file alias="24x24/view-refresh.png">../icons/mgw/view-refresh-24.png</file>
-	<file alias="24x24/help-about.png">../icons/generic/help-about-24.png</file>
+	<file alias="24x24/help-about.png">../icons/mgw/help-about-24.png</file>
 	<file alias="24x24/window-new.png">../icons/generic/window-new-24.png</file>
 	<file alias="24x24/window-close.png">../icons/generic/window-close-24.png</file>
 	<file alias="24x24/tab-new.png">../icons/generic/tab-new-24.png</file>
@@ -56,7 +56,7 @@
 	<file alias="32x32/preferences-other.png">../icons/generic/preferences-other-32.png</file>
 	<file alias="32x32/application-exit.png">../icons/mgw/application-exit-32.png</file>
 	<file alias="32x32/view-refresh.png">../icons/mgw/view-refresh-32.png</file>
-	<file alias="32x32/help-about.png">../icons/generic/help-about-32.png</file>
+	<file alias="32x32/help-about.png">../icons/mgw/help-about-32.png</file>
 	<file alias="32x32/window-new.png">../icons/generic/window-new-32.png</file>
 	<file alias="32x32/window-close.png">../icons/generic/window-close-32.png</file>
 	<file alias="32x32/tab-new.png">../icons/generic/tab-new-32.png</file>
@@ -81,7 +81,7 @@
 	<file alias="48x48/preferences-other.png">../icons/generic/preferences-other-48.png</file>
 	<file alias="48x48/application-exit.png">../icons/mgw/application-exit-48.png</file>
 	<file alias="48x48/view-refresh.png">../icons/mgw/view-refresh-48.png</file>
-	<file alias="48x48/help-about.png">../icons/generic/help-about-48.png</file>
+	<file alias="48x48/help-about.png">../icons/mgw/help-about-48.png</file>
 	<file alias="48x48/window-new.png">../icons/generic/window-new-48.png</file>
 	<file alias="48x48/window-close.png">../icons/generic/window-close-48.png</file>
 	<file alias="48x48/tab-new.png">../icons/generic/tab-new-48.png</file>
