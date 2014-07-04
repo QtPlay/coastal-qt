@@ -226,7 +226,7 @@ public slots:
 class CoastalView : public QTextEdit
 {
 private:
-    friend class CoastalFind;
+    friend class CoastalFindHelper;
 
     void keyPressEvent(QKeyEvent *event);
 
@@ -250,7 +250,7 @@ public:
  * This provides the view search/replace functionality.
  * @author David Sugar <dyfet@gnutelephony.org>
  */
-class CoastalFind : public QDialog
+class CoastalFindHelper : public QDialog
 {
 Q_OBJECT
 
@@ -259,7 +259,7 @@ private:
 
     QLineEdit *edit;
 
-    CoastalFind(CoastalView *view);
+    CoastalFindHelper(CoastalView *view);
 
 private slots:
     void next(void);

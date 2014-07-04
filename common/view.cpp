@@ -56,7 +56,7 @@ void CoastalView::keyPressEvent(QKeyEvent *e)
     case 115:
     case 70:
     case 83:
-        new CoastalFind(this);
+        new CoastalFindHelper(this);
     default:
         break;
     }
@@ -76,7 +76,7 @@ bool CoastalView::isSearching(void) const
     return !seeking.isEmpty();
 }
 
-CoastalFind::CoastalFind(CoastalView *view) :
+CoastalFindHelper::CoastalFindHelper(CoastalView *view) :
 QDialog(view)
 {
     QString text;
@@ -99,7 +99,7 @@ QDialog(view)
     show();
 }
 
-void CoastalFind::enter(void)
+void CoastalFindHelper::enter(void)
 {
     CoastalView *view = (CoastalView *)parent();
 
@@ -112,7 +112,7 @@ void CoastalFind::enter(void)
     emit close();
 }
 
-void CoastalFind::next(void)
+void CoastalFindHelper::next(void)
 {
     CoastalView *view = (CoastalView *)parent();
     QString seeking = edit->text();
@@ -136,7 +136,7 @@ void CoastalFind::next(void)
     view->search();
 }
 
-void CoastalFind::prev(void)
+void CoastalFindHelper::prev(void)
 {
     CoastalView *view = (CoastalView *)parent();
     QString seeking = edit->text();
