@@ -42,6 +42,7 @@
 #include <QPainter>
 #include <QPainterPath>
 #include <QPen>
+#include <QToolBar>
 
 /**
  * @brief Create a coastal styled about box.
