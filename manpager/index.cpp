@@ -222,6 +222,9 @@ int Index::find(const QString& name)
     unsigned diff = rows / 2;
     unsigned pos = diff;
     unsigned len = name.length();
+    if(rows < 1)
+        return -1;
+
     QString check = names[map[pos]].left(len);
 
     while(diff > 0) {

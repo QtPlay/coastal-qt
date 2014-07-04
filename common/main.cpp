@@ -71,7 +71,8 @@ QWidget *CoastalMain::extendToolbar(QToolBar *bar, QMenuBar *menu)
     return tbh;
 }
 
-CoastalToolbarHelper::CoastalToolbarHelper(QToolBar *tb, QMainWindow *mp, QMenuBar *mb)
+CoastalToolbarHelper::CoastalToolbarHelper(QToolBar *tb, QMainWindow *mp, QMenuBar *mb) :
+QWidget(NULL)
 {
     t = tb;
     m = mb;

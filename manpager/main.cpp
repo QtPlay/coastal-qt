@@ -243,7 +243,7 @@ void Main::search(const QString& entry)
         text = entry.left(ext);
 
     pos = indexData->find(text);
-
+    
     ui.indexView->setModel(NULL);
 
     if(text.length() < 1) {
