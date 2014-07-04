@@ -61,19 +61,20 @@ QMainWindow(NULL)
         traymenu = new QMenu();
 }
 
-QWidget *CoastalMain::extendToolbar(QToolBar *bar)
+QWidget *CoastalMain::extendToolbar(QToolBar *bar, QMenuBar *menu)
 {
     CoastalToolbarHelper *tbh = toolbar_helpers.value(bar, NULL);
     if(!tbh) {
-        tbh = new CoastalToolbarHelper(bar, this);
+        tbh = new CoastalToolbarHelper(bar, this, menu);
         toolbar_helpers[bar] = tbh;
     }
     return tbh;
 }
 
-CoastalToolbarHelper::CoastalToolbarHelper(QToolBar *tb, QMainWindow *mp)
+CoastalToolbarHelper::CoastalToolbarHelper(QToolBar *tb, QMainWindow *mp, QMenuBar *mb)
 {
     t = tb;
+    m = mb;
     window = mp;
     tb->addWidget(this);
     tb->installEventFilter(this);
@@ -98,6 +99,11 @@ bool CoastalToolbarHelper::eventFilter(QObject *object, QEvent *event)
         return true;
     case QEvent::MouseButtonPress:
         moving = false;
+#if defined(Q_OS_WIN)
+        if(m && m->isVisible())
+            break;
+#endif
+#if defined(Q_OS_MAC) || defined(Q_OS_WIN)
         if(mouse->button() != Qt::LeftButton)
             break;
 
@@ -105,6 +111,9 @@ bool CoastalToolbarHelper::eventFilter(QObject *object, QEvent *event)
         mpos = mouse->globalPos();
         event->accept();
         return true;
+#else
+        break;      // use native window manager on linux, bsd, etc...
+#endif
     case QEvent::MouseButtonRelease:
     case QEvent::MouseButtonDblClick:
     case QEvent::MouseTrackingChange:

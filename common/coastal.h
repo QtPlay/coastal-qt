@@ -43,6 +43,8 @@
 #include <QPainterPath>
 #include <QPen>
 #include <QToolBar>
+#include <QMenuBar>
+#include <QStatusBar>
 
 /**
  * @brief Create a coastal styled about box.
@@ -172,9 +174,10 @@ private:
     QPoint mpos;
     bool moving;
     QToolBar *t;
+    QMenuBar *m;
     QMainWindow *window;
 
-    CoastalToolbarHelper(QToolBar *tb, QMainWindow *mp);
+    CoastalToolbarHelper(QToolBar *tb, QMainWindow *mp, QMenuBar *mb = NULL);
 
     bool eventFilter(QObject *, QEvent *);
 };
@@ -209,7 +212,7 @@ protected:
 public:
     bool notify(const QString& title, const QString& body, QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::Information, int timeout = 10000);
 
-    QWidget *extendToolbar(QToolBar *bar);
+    QWidget *extendToolbar(QToolBar *bar, QMenuBar *menu = NULL);
 
 public slots:
     void about(void);
