@@ -27,7 +27,9 @@
           <string>A&amp;ppend</string>
          </property>
          <property name="icon">
-          <iconset theme="list-add"/>
+          <iconset theme="list-add">
+           <normaloff/>
+          </iconset>
          </property>
         </widget>
        </item>
@@ -37,7 +39,9 @@
           <string>&amp;Remove</string>
          </property>
          <property name="icon">
-          <iconset theme="list-remove"/>
+          <iconset theme="list-remove">
+           <normaloff/>
+          </iconset>
          </property>
         </widget>
        </item>
@@ -67,9 +71,87 @@
        </item>
        <item>
         <widget class="QPushButton" name="restoreButton">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="text">
           <string>Restore</string>
          </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>Sections</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QCheckBox" name="section1">
+            <property name="text">
+             <string>1: Commands</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="section2">
+            <property name="text">
+             <string>2: System Calls</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="section3">
+            <property name="text">
+             <string>3: Subroutines</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="section4">
+            <property name="text">
+             <string>4: Devices</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="section5">
+            <property name="text">
+             <string>5: File Formats</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="section6">
+            <property name="text">
+             <string>6: Games</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="section7">
+            <property name="text">
+             <string>7: Other</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="section8">
+            <property name="text">
+             <string>8: Admin</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="sectionl">
+            <property name="text">
+             <string>l: local</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
       </layout>
