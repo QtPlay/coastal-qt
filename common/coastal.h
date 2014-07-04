@@ -43,19 +43,55 @@
 #include <QPainterPath>
 #include <QPen>
 
+/**
+ * @brief Create a coastal styled about box.
+ * This is used to show basic application information.
+ * @author David Sugar <dyfet@gnutelephony.org>
+ */
 class CoastalAbout : public QDialog
 {
 Q_OBJECT
 
 public:
+    /**
+     * @brief Create coastal about window.
+     * @param parent window
+     */
     CoastalAbout(QWidget *parent = NULL);
 
+    /**
+     * @brief set the graphic splash to show.
+     * @param scene
+     */
     void setImage(QGraphicsScene& scene);
+
+    /**
+     * @brief setVersion
+     * @param text of application version to present.
+     */
     void setVersion(const QString& text);
+
+    /**
+     * @brief set text we present about the application.
+     * @param text to show
+     */
     void setAbout(const QString& text);
+
+    /**
+     * @brief set text of copyright message
+     * @param text for copyright
+     */
     void setCopyright(const QString& text);
 };
 
+/**
+ * @brief Interface to generic OSD notifications
+ * This provides an interface to desktop notification services.
+ * These might include the freedesktop dbus notify service, or
+ * other platform specific services.  This is used to augment
+ * the Qt systray notification services in CoastalMain.
+ * @author David Sugar <dyfet@gnutelephony.org>
+ */
 class CoastalNotify : public QObject
 {
     Q_OBJECT
@@ -117,6 +153,15 @@ private:
     int _timeout;
 };
 
+/**
+ * @brief An augmented main window class.
+ * This provides many enhancements over the generic QMainWindow
+ * class, including setup of application toolbars, desktop icon
+ * themes, expanded notification services, and system tray/dock
+ * integration.  It also provides for integration of about splash
+ * pages and access to support services.
+ * @author David Sugar <dyfet@gnutelephony.org>
+ */
 class CoastalMain : public QMainWindow
 {
 Q_OBJECT
@@ -142,6 +187,15 @@ public slots:
     void support(void);
 };
 
+/**
+ * @brief An augmented main dialog window class.
+ * For applications that do not have a "main window", this provides
+ * an enhanced dialog class to use as an application "main".  This
+ * includes integration of system tray/dock functionality, integration
+ * of system notification services, and some of the support also
+ * found in CoastalMain.
+ * @author David Sugar <dyfet@gnutelephony.org>
+ */
 class CoastalDialog : public QDialog
 {
 Q_OBJECT
@@ -163,6 +217,12 @@ public slots:
     void support(void);
 };
 
+/**
+ * @brief Enhanced text view class.
+ * Mostly this provides a text viewer that also has an integrated
+ * text search capability.
+ * @author David Sugar <dyfet@gnutelephony.org>
+ */
 class CoastalView : public QTextEdit
 {
 private:
@@ -185,22 +245,35 @@ public:
     static void setSensitive(bool enable = true);
 };
 
+/**
+ * @brief Helper class for coastal view.
+ * This provides the view search/replace functionality.
+ * @author David Sugar <dyfet@gnutelephony.org>
+ */
 class CoastalFind : public QDialog
 {
 Q_OBJECT
 
 private:
+    friend class CoastalView;
+
     QLineEdit *edit;
 
-public:
     CoastalFind(CoastalView *view);
 
-public slots:
+private slots:
     void next(void);
     void prev(void);
     void enter(void);
 };
 
+/**
+ * @brief Busy state for modal applications
+ * This is used to set an application to "busy" while it
+ * performs some long operation that may happen in the gui
+ * thread context.  The application icon is set to busy.
+ * @author David Sugar <dyfet@gnutelephony.org>
+ */
 class CoastalBusy : public QObject
 {
 private:
@@ -211,6 +284,10 @@ public:
     ~CoastalBusy();
 };
 
+/**
+ * @brief A collection of coastal utility functions.
+ * @author David Sugar <dyfet@gnutelephony.org>
+ */
 class Coastal
 {
 private:
