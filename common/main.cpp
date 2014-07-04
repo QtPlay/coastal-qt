@@ -21,7 +21,7 @@
 
 CoastalMain::CoastalMain(bool tray) :
 QMainWindow(NULL)
-{
+{    
     program_version = VERSION;
     program_about = program_name = "Coastal Application";
     program_copyright = "2011 David Sugar";
@@ -59,6 +59,65 @@ QMainWindow(NULL)
     trayicon = new QSystemTrayIcon(this);
     if(trayicon)
         traymenu = new QMenu();
+}
+
+QWidget *CoastalMain::extendToolbar(QToolBar *bar)
+{
+    CoastalToolbarHelper *tbh = toolbar_helpers.value(bar, NULL);
+    if(!tbh) {
+        tbh = new CoastalToolbarHelper(bar, this);
+        toolbar_helpers[bar] = tbh;
+    }
+    return tbh;
+}
+
+CoastalToolbarHelper::CoastalToolbarHelper(QToolBar *tb, QMainWindow *mp)
+{
+    t = tb;
+    window = mp;
+    tb->addWidget(this);
+    tb->installEventFilter(this);
+}
+
+bool CoastalToolbarHelper::eventFilter(QObject *object, QEvent *event)
+{
+    QMouseEvent *mouse = static_cast<QMouseEvent *>(event);
+    QPoint pos;
+
+    switch(event->type()) {
+    case QEvent::MouseMove:
+        if(!moving)
+            break;
+
+        pos = window->pos();
+        pos.rx() += mouse->globalPos().x() - mpos.x();
+        pos.ry() += mouse->globalPos().y() - mpos.y();
+        window->move(pos);
+        mpos = mouse->globalPos();
+        event->accept();
+        return true;
+    case QEvent::MouseButtonPress:
+        moving = false;
+        if(mouse->button() != Qt::LeftButton)
+            break;
+
+        moving = true;
+        mpos = mouse->globalPos();
+        event->accept();
+        return true;
+    case QEvent::MouseButtonRelease:
+    case QEvent::MouseButtonDblClick:
+    case QEvent::MouseTrackingChange:
+        if(!moving)
+            break;
+
+        moving = false;
+        event->accept();
+        return true;
+    default:
+        break;
+    }
+    return QObject::eventFilter(object, event);
 }
 
 QMenu *appmenu(const char *id)

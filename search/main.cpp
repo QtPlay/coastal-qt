@@ -34,6 +34,8 @@ CoastalMain()
     setWindowIcon(QIcon(":/icons/apps/search.png"));
     setWindowTitle(program_name);
 
+    extendToolbar(ui.toolBar);
+
     ind = NULL;
 
     if(prefix)

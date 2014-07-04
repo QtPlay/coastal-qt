@@ -154,6 +154,31 @@ private:
 };
 
 /**
+ * @brief Helper class for extending main window toolbars.
+ * This helper allows one to move the application when the
+ * toolbar is moved.  This is particularly helpful for OS/X
+ * when the toolbar has been "blended" with the titlebar.
+ * It also provides a place to attach widgets and layouts to
+ * a toolbar.
+ */
+class CoastalToolbarHelper : public QWidget
+{
+Q_OBJECT
+
+private:
+    friend class CoastalMain;
+
+    QPoint mpos;
+    bool moving;
+    QToolBar *t;
+    QMainWindow *window;
+
+    CoastalToolbarHelper(QToolBar *tb, QMainWindow *mp);
+
+    bool eventFilter(QObject *, QEvent *);
+};
+
+/**
  * @brief An augmented main window class.
  * This provides many enhancements over the generic QMainWindow
  * class, including setup of application toolbars, desktop icon
@@ -168,6 +193,7 @@ Q_OBJECT
 
 private:
     QMenu *_appmenu;
+    QMap <QToolBar *, CoastalToolbarHelper *> toolbar_helpers;
 
 protected:
     const char *program_version, *program_about, *program_copyright, *program_name;
@@ -181,6 +207,8 @@ protected:
 
 public:
     bool notify(const QString& title, const QString& body, QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::Information, int timeout = 10000);
+
+    QWidget *extendToolbar(QToolBar *bar);
 
 public slots:
     void about(void);

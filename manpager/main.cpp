@@ -37,6 +37,8 @@ CoastalMain()
     setWindowIcon(QIcon(":/icons/apps/manpager.png"));
     setWindowTitle(program_name);
 
+    extendToolbar(ui.toolBar);
+
     QSettings settings;
     resize(settings.value("size", QSize(760, 540)).toSize());
     ui.actionMenubar->setChecked(settings.value("menubar", true).toBool());
