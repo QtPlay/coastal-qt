@@ -21,8 +21,8 @@
 
 static Ui::MainWindow ui;
 static Ui::Toolbar tb;
-static QAction *amap[10];
 
+QAction *Main::sections[10];
 QStringList Main::manpaths;
 bool Main::hidden[10];
 
@@ -62,16 +62,16 @@ CoastalMain()
 
     manpaths = manpath.split(separator, QString::SkipEmptyParts);
 
-    amap[0] = ui.actionSection1;
-    amap[1] = ui.actionSection2;
-    amap[2] = ui.actionSection3;
-    amap[3] = ui.actionSection4;
-    amap[4] = ui.actionSection5;
-    amap[5] = ui.actionSection6;
-    amap[6] = ui.actionSection7;
-    amap[7] = ui.actionSection8;
-    amap[8] = ui.actionSectionl;
-    amap[9] = ui.actionSectionn;
+    sections[0] = ui.actionSection1;
+    sections[1] = ui.actionSection2;
+    sections[2] = ui.actionSection3;
+    sections[3] = ui.actionSection4;
+    sections[4] = ui.actionSection5;
+    sections[5] = ui.actionSection6;
+    sections[6] = ui.actionSection7;
+    sections[7] = ui.actionSection8;
+    sections[8] = ui.actionSectionl;
+    sections[9] = ui.actionSectionn;
 
     settings.beginGroup("Sections");
     ui.actionSection1->setChecked(settings.value("1", ui.actionSection1->isChecked()).toBool());
@@ -113,7 +113,7 @@ CoastalMain()
     connect(ui.actionClear, SIGNAL(triggered()), this, SLOT(clear()));
 
     for(unsigned pos = 0; pos < 10; ++pos)
-        connect(amap[pos], SIGNAL(triggered()), this, SLOT(reload()));
+        connect(sections[pos], SIGNAL(triggered()), this, SLOT(reload()));
 
     // input validation
 
@@ -356,7 +356,7 @@ void Main::load(int row)
 void Main::clear(void)
 {
     for(unsigned pos = 0; pos < 10; ++pos)
-        amap[pos]->setChecked(false);
+        sections[pos]->setChecked(false);
 
     reload();
 }
@@ -364,7 +364,7 @@ void Main::clear(void)
 void Main::all(void)
 {
     for(unsigned pos = 0; pos < 10; ++pos)
-        amap[pos]->setChecked(true);
+        sections[pos]->setChecked(true);
 
     reload();
 }
@@ -377,7 +377,7 @@ void Main::reload(void)
     CoastalBusy busy;
 
     for(unsigned pos = 0; pos < 10; ++pos)
-        hidden[pos] = !amap[pos]->isChecked();
+        hidden[pos] = !sections[pos]->isChecked();
 
     ui.indexView->setModel(NULL);
     if(indexData) {

@@ -21,6 +21,9 @@
      </item>
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_2">
+       <property name="spacing">
+        <number>0</number>
+       </property>
        <item>
         <widget class="QPushButton" name="appendButton">
          <property name="text">
@@ -70,24 +73,23 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="restoreButton">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>Restore</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QGroupBox" name="groupBox">
          <property name="title">
           <string>Sections</string>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+         </property>
+         <property name="flat">
+          <bool>false</bool>
+         </property>
          <layout class="QVBoxLayout" name="verticalLayout">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>4</number>
+          </property>
           <item>
            <widget class="QCheckBox" name="section1">
             <property name="text">
@@ -147,7 +149,14 @@
           <item>
            <widget class="QCheckBox" name="sectionl">
             <property name="text">
-             <string>l: local</string>
+             <string>l: Local</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="sectionn">
+            <property name="text">
+             <string>n: New</string>
             </property>
            </widget>
           </item>

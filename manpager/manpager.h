@@ -94,6 +94,7 @@ private:
 public:
     static QStringList manpaths;
     static bool hidden[10];
+    static QAction *sections[10];
 
     QActionGroup *searchGroup, *selectGroup;
 
