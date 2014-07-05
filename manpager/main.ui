@@ -28,7 +28,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Coastal Manual Page Viewer</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="manpager.qrc">
+    <normaloff>:/icons/apps/manpager.png</normaloff>:/icons/apps/manpager.png</iconset>
   </property>
   <property name="unifiedTitleAndToolBarOnMac">
    <bool>true</bool>
@@ -512,6 +516,7 @@
  </widget>
  <resources>
   <include location="../common/coastal.qrc"/>
+  <include location="manpager.qrc"/>
  </resources>
  <connections/>
 </ui>

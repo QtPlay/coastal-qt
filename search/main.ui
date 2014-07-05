@@ -28,7 +28,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Coastal Search</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="search.qrc">
+    <normaloff>:/icons/apps/search.png</normaloff>:/icons/apps/search.png</iconset>
   </property>
   <property name="unifiedTitleAndToolBarOnMac">
    <bool>true</bool>
@@ -335,6 +339,7 @@
   </action>
  </widget>
  <resources>
+  <include location="search.qrc"/>
   <include location="../common/coastal.qrc"/>
  </resources>
  <connections/>

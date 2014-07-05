@@ -36,8 +36,6 @@ CoastalMain()
 
     program_name = "Coastal Manpager";
     program_about = "Coastal Manual Page Viewer";
-    setWindowIcon(QIcon(":/icons/apps/manpager.png"));
-    setWindowTitle(program_name);
 
     QWidget *toolbar = extendToolbar(ui.toolBar, ui.menubar);
     tb.setupUi(toolbar);

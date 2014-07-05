@@ -31,8 +31,6 @@ CoastalMain()
 
     program_name = "Coastal Search";
     program_about = "Coastal File Search Utility";
-    setWindowIcon(QIcon(":/icons/apps/search.png"));
-    setWindowTitle(program_name);
 
     extendToolbar(ui.toolBar, ui.menuBar);
 
