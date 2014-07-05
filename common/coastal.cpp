@@ -449,7 +449,7 @@ bool Coastal::email(QString &topic, QString &body)
 #endif
 }
 
-bool Coastal::applyStyle(QApplication& app, QString& style)
+bool Coastal::applyStyle(QApplication& app, QString style)
 {
     QFile file(style);
     if (file.exists()) {
