@@ -1,7 +1,7 @@
 QComboBox#searchBox {
 	border: 1px solid black;
 	border-radius: 10px;
-	padding: 1px;
+	padding: 2px;
 }
 
 QComboBox#searchBox::drop-down {
