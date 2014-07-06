@@ -454,7 +454,12 @@ int main(int argc, char *argv[])
     app.installTranslator(&translator);
 
     Q_INIT_RESOURCE(manpager);
+#ifdef Q_OS_WIN
     Coastal::applyStyle(app, ":/qss/manpager.css");
+#else  // let others optionally style our apps from common dir...
+    if(!Coastal::applyStyle(app, "/usr/share/coastal/manpager.css"))
+        Coastal::applyStyle(app, ":/qss/manpager.css");
+#endif
 
     Main w;
     w.show();
