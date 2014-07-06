@@ -453,6 +453,9 @@ int main(int argc, char *argv[])
     translator.load(QLocale::system().name(), TRANSLATIONS);
     app.installTranslator(&translator);
 
+    Q_INIT_RESOURCE(manpager);
+    Coastal::applyStyle(app, ":/qss/manpager.css");
+
     Main w;
     w.show();
     return app.exec();

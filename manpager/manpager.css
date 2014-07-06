@@ -1,0 +1,13 @@
+QComboBox#searchBox {
+	border: 1px solid black;
+	border-radius: 10px;
+	padding: 1px;
+}
+
+QComboBox#searchBox::drop-down {
+	border-width: 1px;
+}
+
+QComboBox#searchBox::down-arrow {
+	image:url(:/images/downarrow.png)
+}

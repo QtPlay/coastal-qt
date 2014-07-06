@@ -2,4 +2,10 @@
 <qresource prefix="icons/apps">
 	<file alias="manpager.png">../icons/coastal-manpager.png</file>
 </qresource>
+<qresource prefix="qss">
+	<file>manpager.css</file>
+</qresource>
+<qresource prefix="images">
+	<file>downarrow.png</file>
+</qresource>
 </RCC>
