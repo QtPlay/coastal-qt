@@ -19,5 +19,8 @@
 #cmakedefine    RUNTIME_MAGIC   "${RUNTIME_MAGIC}"
 
 #ifdef  HAVE_WINDOWS_H
+#ifdef _MSC_VER
+#define NOMINMAX
+#endif
 #include <windows.h>
 #endif
