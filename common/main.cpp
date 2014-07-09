@@ -81,7 +81,7 @@ QWidget(NULL)
     tb->addWidget(this);
     tb->installEventFilter(this);
 #ifdef Q_OS_WIN
-    tb->setStyleSheet("background: #60A0ff; color: white;");
+    tb->setStyleSheet("QToolBar, CoastalToolbarHelper {background: #60A0ff; color: white;}");
     if(mb)
         mb->setStyleSheet("QMenuBar { border-bottom: 0px;}");
 #endif
