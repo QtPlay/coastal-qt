@@ -7,5 +7,6 @@
 </qresource>
 <qresource prefix="images">
 	<file>downarrow.png</file>
+	<file>searchicon.png</file>
 </qresource>
 </RCC>

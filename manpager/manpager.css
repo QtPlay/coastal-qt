@@ -1,7 +1,13 @@
 QComboBox#searchBox {
-	border: 1px solid black;
-	border-radius: 10px;
+	border: 1px solid gray;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	border-left: 0px;
 	padding: 2px;
+	margin: 2px;
+	padding-left: 0px;
+	margin-left: 0px;
+	height: 16px;
 }
 
 QComboBox#searchBox::drop-down {
@@ -10,4 +16,17 @@ QComboBox#searchBox::drop-down {
 
 QComboBox#searchBox::down-arrow {
 	image:url(:/images/downarrow.png)
+}
+
+QToolButton#searchButton {
+	border: 1px solid gray;
+	border-right: 0px;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+	padding: 2px;
+	margin: 2px;
+	padding-right: 0px;
+	margin-right: 0px;
+	background: white;
+	height: 13px;
 }

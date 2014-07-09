@@ -121,6 +121,7 @@ CoastalMain()
 
     connect(tb.searchBox, SIGNAL(editTextChanged(const QString&)), this, SLOT(search(const QString&)));
     connect(tb.searchBox, SIGNAL(activated(const QString&)), this, SLOT(load(const QString&)));
+    connect(tb.searchButton, SIGNAL(clicked()), this, SLOT(load()));
     connect(ui.tabs, SIGNAL(tabCloseRequested(int)), this, SLOT(close(int)));
     connect(ui.indexView, SIGNAL(activated(const QModelIndex&)), this, SLOT(load(const QModelIndex&)));
     connect(ui.actionView, SIGNAL(triggered()), this, SLOT(view()));
@@ -283,6 +284,11 @@ void Main::load(const QString& text)
     }
 
     load(pos);
+}
+
+void Main::load()
+{
+    load(tb.searchBox->currentText());
 }
 
 void Main::view(void)

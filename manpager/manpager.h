@@ -116,6 +116,7 @@ public slots:
     void reload(void);
     void load(const QModelIndex& index);
     void load(const QString& text);
+    void load();
     void close(int tab);
     void columns(void);
     void search(const QString& text);
