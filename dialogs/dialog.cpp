@@ -16,19 +16,24 @@
 // along with coastal-qt.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "dialog.h"
+#include <QTextStream>
 
 static enum {NONE, TEXT, VIEW, INPUT} mode = NONE;
 static const char *filename = NULL;
 static unsigned tabs = 8;
 static unsigned hsize = 0, vsize = 0;
+static unsigned spacing = 0;
 static bool password = false;   // password sub-mode
 static enum {ACCEPT, CANCEL, DEFAULT} focus = ACCEPT;
 static QString textString;
 static QString titleString;
 static QString inputString;
+static QString placeholderString;
 static QString acceptString;
 static QString cancelString;
 static QString inputIcon;
+static QString styleString;
+static QLineEdit *edit;
 static unsigned exitResult = 1;     // default for cancel button/exit ...
 
 Process::Process() :
@@ -57,16 +62,31 @@ CoastalDialog()
     if(!titleString.isEmpty())
         window()->setWindowTitle(titleString);
 
-    if(mode == INPUT && textString.isEmpty())
-        textString = tr("Enter new text:");
-    else if(mode == INPUT && password && textString.isEmpty())
-        textString = tr("Type your password");
+	if(mode == INPUT) {
+		if(textString.isEmpty() && password)
+			textString = tr("Type your password");
+		else if(textString.isEmpty())
+			textString = tr("Enter new text:");
+		if(password && inputString.isEmpty())
+			inputString = tr("Password:");
 
-    if(mode == INPUT && password && inputString.isEmpty())
-        inputString = tr("Password:");
+		if(password && inputIcon.isEmpty())
+			inputIcon = ":/images/password.png";
 
-    if(mode == INPUT && password && inputIcon.isEmpty())
-        inputIcon = ":/images/password.jpg";
+		input = new QHBoxLayout();
+		if(!inputString.isEmpty()) {
+			QLabel *prompt = new QLabel(this);
+			prompt->setText(inputString);
+			input->addWidget(prompt);
+		}
+		spine->setSpacing(16);
+		edit = new QLineEdit(this);
+		if(password)
+			edit->setEchoMode(QLineEdit::Password);
+		if(!placeholderString.isEmpty())
+			edit->setPlaceholderText(placeholderString);
+		input->addWidget(edit);
+	}
 
     if(((mode == INPUT) || (mode == TEXT)) && !inputIcon.isEmpty()) {
         if(!header)
@@ -119,7 +139,10 @@ CoastalDialog()
 			}
 		}
         text->setText(textString);
-        text->setAlignment(Qt::AlignLeft|Qt::AlignTop|Qt::AlignJustify);
+		if(inputIcon.isEmpty())
+	        text->setAlignment(Qt::AlignLeft|Qt::AlignTop|Qt::AlignJustify);
+        else
+            text->setAlignment(Qt::AlignHCenter|Qt::AlignVCenter|Qt::AlignJustify);
         text->setText(textString);  
         header->addWidget(text);
     }
@@ -175,6 +198,9 @@ CoastalDialog()
         }
     }
 
+	if(spacing)
+		spine->setSpacing(spacing);
+
     if(header)
         spine->addLayout(header);
 
@@ -207,6 +233,12 @@ CoastalDialog()
         buttons->addItem(tail);
     }   
 
+	if(edit) {
+		edit->setFocus();
+		edit->clear();
+		edit->update();
+	}
+
     show();
 }
 
@@ -233,7 +265,19 @@ int Process::main(int argc, char *argv[])
         while(*arg == '-')
             ++arg;
 
-		if(!strcmp(arg, "prompt")) {
+		if(!strcmp(arg, "input") || !strcmp(arg, "entry") || !strcmp(arg, "password")) {
+			if(mode != NONE) {
+                fprintf(stderr, "*** coastal-dialog: mode already selected\n");
+                return 3;
+            }
+			mode = INPUT;
+			focus = DEFAULT;
+			if(!strcmp(arg, "password"))
+				password = true;
+			continue;
+		}
+
+		if(!strcmp(arg, "show")) {
             if(mode != NONE) {
                 fprintf(stderr, "*** coastal-dialog: mode already selected\n");
                 return 3;
@@ -286,6 +330,17 @@ int Process::main(int argc, char *argv[])
 			cancelString = "";
 			acceptString = QString(arg + 3);
 			focus = ACCEPT;
+			continue;
+		}
+
+		if(!strncmp(arg, "prompt=", 7)) {
+			inputString = QString(arg + 7);
+			continue;
+		}
+
+		if(!strncmp(arg, "placeholder=", 12)) {
+			placeholderString = QString(arg + 12);
+			continue;
 		}
 
         if(!strncmp(arg, "accept=", 7)) {
@@ -293,11 +348,32 @@ int Process::main(int argc, char *argv[])
             continue;
         }
 
+		if(!strncmp(arg, "spacing=", 8)) {
+			spacing = atoi(arg + 8);
+            continue;
+        }
+
+		if(!strcmp(arg, "prompt")) {
+			inputString = QString(*(++argv));
+			continue;
+		}
+
+		if(!strcmp(arg, "placeholder")) {
+			placeholderString = QString(*(++argv));
+			continue;
+		}
+
 		if(!strcmp(arg, "ok")) {
 			cancelString = "";
 			acceptString = QString(*(++argv));
 			focus = ACCEPT;
+			continue;
 		}
+
+		if(!strcmp(arg, "spacing")) {
+			spacing = atoi(*(++argv));
+            continue;
+        }
 
         if(!strcmp(arg, "accept")) {
             acceptString = QString(*(++argv));
@@ -319,8 +395,13 @@ int Process::main(int argc, char *argv[])
             continue;
         }
 
-        if(!strcmp(arg, "title")) {
-            titleString = QString(*(++argv));
+		if(!strncmp(arg, "style=", 6)) {
+            styleString = QString(arg + 6);
+            continue;
+        }
+
+        if(!strcmp(arg, "style")) {
+            styleString = QString(*(++argv));
             continue;
         }
 
@@ -382,8 +463,22 @@ int Process::main(int argc, char *argv[])
     translator.load(QLocale::system().name(), TRANSLATIONS);
     app.installTranslator(&translator);
 
+    Q_INIT_RESOURCE(dialog);
+	if(styleString.isEmpty()) {
+#ifdef Q_OS_WIN
+	    Coastal::applyStyle(app, ":/qss/dialog.css");
+#else  // let others optionally style our apps from common dir...
+		if(!Coastal::applyStyle(app, "/usr/share/coastal/dialog.css"))
+			Coastal::applyStyle(app, ":/qss/dialog.css");
+#endif
+	}
+	else
+		Coastal::applyStyle(app, styleString);
+
     Process w;
     app.exec();
+	if(!exitResult && edit)
+		QTextStream(stdout) << edit->text() << "\n";
     return exitResult;
 }
 

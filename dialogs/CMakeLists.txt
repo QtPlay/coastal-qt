@@ -12,10 +12,10 @@
 file(GLOB qt_src *.cpp)
 file(GLOB qt_inc program.h)
 file(GLOB ui_src *.ui)
-file(GLOB rc_src *.qrc)
 
 # configure_file(application.rc.cmake ${CMAKE_CURRENT_SOURCE_DIR}/application.rc)
 
+QT_ADD_RESOURCES(dialog_qrc dialog.qrc)
 QT_WRAP_CPP(icons_moc icons.h)
 QT_WRAP_CPP(dialog_moc dialog.h)
 QT_WRAP_UI(icons_ui icons.ui)
@@ -33,7 +33,7 @@ target_link_libraries(${ICONS_PROGNAME} coastal ${QT_LIBRARIES} ${QT_PLUGINS})
 add_dependencies(${ICONS_PROGNAME} coastal)
 install(TARGETS ${ICONS_PROGNAME} DESTINATION ${INSTALL_BINDIR})
 
-add_executable(${DIALOG_PROGNAME} WIN32 MACOSX_BUNDLE dialog.cpp dialog.h ${dialog_moc})
+add_executable(${DIALOG_PROGNAME} WIN32 MACOSX_BUNDLE dialog.cpp dialog.h ${dialog_moc} ${dialog_qrc})
 target_link_libraries(${DIALOG_PROGNAME} coastal ${QT_LIBRARIES} ${QT_PLUGINS})
 add_dependencies(${DIALOG_PROGNAME} coastal)
 install(TARGETS ${DIALOG_PROGNAME} DESTINATION ${INSTALL_BINDIR})
