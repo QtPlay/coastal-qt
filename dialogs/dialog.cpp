@@ -36,6 +36,7 @@ CoastalDialog()
     QApplication::setQuitOnLastWindowClosed(true);
 
     QHBoxLayout *header = NULL;
+    QHBoxLayout *input = NULL;
 
     if (objectName().isEmpty())
         setObjectName(QString::fromUtf8("Viewer"));
@@ -126,6 +127,9 @@ CoastalDialog()
 
     if(header)
         spine->addLayout(header);
+
+    if(input)
+        spine->addLayout(input);
 
     QHBoxLayout *buttons = new QHBoxLayout();
     spine->addLayout(buttons);
