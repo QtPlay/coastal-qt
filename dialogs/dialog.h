@@ -28,6 +28,8 @@ public:
 public slots:
     void accepted(void);
 
+    void timeout(void);
+
     void editing(QString string);
 
     static int main(int argc, char **argv);

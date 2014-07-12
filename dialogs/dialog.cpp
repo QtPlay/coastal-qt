@@ -39,6 +39,8 @@ static QLabel *prompt = NULL;
 static unsigned exitResult = 1;     // default for cancel button/exit ...
 static QPushButton *acceptButton = NULL;
 static QPushButton *cancelButton = NULL;
+static QTimer timer;
+static unsigned timing = 0;
 
 Process::Process() :
 CoastalDialog()
@@ -250,6 +252,11 @@ CoastalDialog()
 	}
 
     show();
+
+    if(timing) {
+        connect(&timer, SIGNAL(timeout()), this, SLOT(timeout()));
+        timer.start(timing * 1000l);
+    }
 }
 
 void Process::editing(QString string)
@@ -266,6 +273,12 @@ void Process::editing(QString string)
 void Process::accepted(void)
 {
     exitResult = 0;
+    qApp->quit();
+}
+
+void Process::timeout(void)
+{
+    exitResult = 2;
     qApp->quit();
 }
 
@@ -433,6 +446,16 @@ int Process::main(int argc, char *argv[])
 
         if(!strcmp(arg, "style")) {
             styleString = QString(*(++argv));
+            continue;
+        }
+
+        if(!strncmp(arg, "timeout=", 8)) {
+            timing = atoi(arg + 8);
+            continue;
+        }
+
+        if(!strcmp(arg, "timeout")) {
+            timing = atoi(*(++argv));
             continue;
         }
 
