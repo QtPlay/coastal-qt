@@ -27,6 +27,8 @@ public:
 
 public slots:
     void accept(void);
+
+    static int main(int argc, char **argv);
 };
 
 

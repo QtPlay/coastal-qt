@@ -17,14 +17,15 @@
 
 #include "dialog.h"
 
-static enum {NONE, TEXT} mode;
+static enum {NONE, TEXT, INPUT, PASSWORD} mode;
 static const char *filename = NULL;
 static unsigned tabs = 8;
 static unsigned hsize = 300, vsize = 400;
-static const char *textstring = NULL;
-static const char *titlestring = NULL;
-static const char *acceptstring = "&Accept";
-static const char *cancelstring = "&Cancel";
+static QString textstring;
+static QString titlestring;
+static QString inputstring;
+static QString acceptstring;
+static QString cancelstring;
 static unsigned exitresult = 1;     // default for cancel button/exit ...
 
 Viewer::Viewer() :
@@ -37,10 +38,18 @@ CoastalDialog()
     resize(hsize, vsize);
     QVBoxLayout *spine = new QVBoxLayout(this);
 
-    if(titlestring)
+    if(!titlestring.isEmpty())
         window()->setWindowTitle(titlestring);
 
-    if(mode == TEXT) {
+    if(mode == INPUT && textstring.isEmpty())
+        textstring = tr("Enter new text:");
+    else if(mode == PASSWORD && textstring.isEmpty())
+        textstring = tr("Type your password");
+
+    if(mode == PASSWORD && inputstring.isEmpty())
+        inputstring = tr("Password:");
+
+    if(mode == TEXT || !textstring.isEmpty()) {
         CoastalView *text = new CoastalView(this);
         text->setEnabled(true);
         spine->addWidget(text);
@@ -49,7 +58,7 @@ CoastalDialog()
         QFontMetrics metrics(font);
         text->setTabStopWidth(tabs * metrics.width(' '));
 
-        if(textstring) {
+        if(!textstring.isEmpty()) {
             text->setText(textstring);
         }
         else {
@@ -94,15 +103,15 @@ CoastalDialog()
 
     QSpacerItem *spacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
     buttons->addItem(spacer);
-    if(acceptstring && *acceptstring) {
+    if(!acceptstring.isEmpty()) {
         QPushButton *accept = new QPushButton(this);
-        accept->setText(tr(acceptstring));
+        accept->setText(acceptstring);
         connect(accept, SIGNAL(clicked()), this, SLOT(accept()));
         buttons->addWidget(accept);
     }
-    if(cancelstring && *cancelstring) {
+    if(!cancelstring.isEmpty()) {
         QPushButton *cancel = new QPushButton(this);
-        cancel->setText(tr(cancelstring));
+        cancel->setText(cancelstring);
         connect(cancel, SIGNAL(clicked()), qApp, SLOT(quit()));
         buttons->addWidget(cancel);    
     }
@@ -120,7 +129,7 @@ void Viewer::accept(void)
     qApp->quit();
 }
 
-int main(int argc, char *argv[])
+int Viewer::main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
@@ -128,6 +137,9 @@ int main(int argc, char *argv[])
         fprintf(stderr, "use: coastal-dialog mode [options]\n");
         return 2;
     }
+
+    acceptstring = tr("&Accept");
+    cancelstring = tr("&Cancel");
 
     while(*(++argv)) {
         char *arg = *argv;
@@ -154,42 +166,42 @@ int main(int argc, char *argv[])
         }
 
         if(!strncmp(arg, "text=", 5)) {
-            textstring = arg + 5;
+            textstring = QString(arg + 5);
             continue;
         }
 
         if(!strcmp(arg, "text")) {
-            textstring = *(++argv);
+            textstring = QString(*(++argv));
             continue;
         }
 
         if(!strncmp(arg, "accept=", 7)) {
-            acceptstring = arg + 7;
+            acceptstring = QString(arg + 7);
             continue;
         }
 
         if(!strcmp(arg, "accept")) {
-            acceptstring = *(++argv);
+            acceptstring = QString(*(++argv));
             continue;
         }
 
         if(!strncmp(arg, "cancel=", 7)) {
-            cancelstring = arg + 7;
+            cancelstring = QString(arg + 7);
             continue;
         }
 
         if(!strcmp(arg, "cancel")) {
-            cancelstring = *(++argv);
+            cancelstring = QString(*(++argv));
             continue;
         }
 
         if(!strncmp(arg, "title=", 6)) {
-            titlestring = arg + 6;
+            titlestring = QString(arg + 6);
             continue;
         }
 
         if(!strcmp(arg, "title")) {
-            titlestring = *(++argv);
+            titlestring = QString(*(++argv));
             continue;
         }
 
@@ -253,4 +265,10 @@ int main(int argc, char *argv[])
     return exitresult;
 }
 
+extern "C" {
+    int main(int argc, char **argv) {
+        return Viewer::main(argc, argv);
+    }
+}
 
+        
