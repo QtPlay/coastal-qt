@@ -17,10 +17,11 @@
 
 #include "dialog.h"
 
-static enum {NONE, TEXT, INPUT, PASSWORD} mode;
+static enum {NONE, TEXT, INPUT} mode;
 static const char *filename = NULL;
 static unsigned tabs = 8;
 static unsigned hsize = 300, vsize = 400;
+static bool password = false;   // password sub-mode
 static QString textString;
 static QString titleString;
 static QString inputString;
@@ -46,16 +47,16 @@ CoastalDialog()
 
     if(mode == INPUT && textString.isEmpty())
         textString = tr("Enter new text:");
-    else if(mode == PASSWORD && textString.isEmpty())
+    else if(mode == INPUT && password && textString.isEmpty())
         textString = tr("Type your password");
 
-    if(mode == PASSWORD && inputString.isEmpty())
+    if(mode == INPUT && password && inputString.isEmpty())
         inputString = tr("Password:");
 
-    if(mode == PASSWORD && inputIcon.isEmpty())
+    if(mode == INPUT && password && inputIcon.isEmpty())
         inputIcon = ":/images/password.jpg";
 
-    if((mode == INPUT || mode == PASSWORD) && !textString.isEmpty()) {
+    if((mode == INPUT) && !textString.isEmpty()) {
         if(!header)
             header = new QHBoxLayout();
 
