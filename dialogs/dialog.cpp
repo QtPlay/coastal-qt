@@ -34,6 +34,7 @@ static QString cancelString;
 static QString inputIcon;
 static QString styleString;
 static QLineEdit *edit;
+static QLabel *prompt = NULL;
 static unsigned exitResult = 1;     // default for cancel button/exit ...
 
 Process::Process() :
@@ -73,7 +74,7 @@ CoastalDialog()
 
 		input = new QHBoxLayout();
 		if(!inputString.isEmpty()) {
-			QLabel *prompt = new QLabel(this);
+            prompt = new QLabel(this);
 			prompt->setText(inputString);
 			input->addWidget(prompt);
 		}
@@ -91,7 +92,11 @@ CoastalDialog()
             header = new QHBoxLayout();
 
         QLabel *icon = new QLabel(this);
-        icon->setPixmap(QPixmap(inputIcon));
+        QPixmap image(inputIcon);
+        icon->setPixmap(image);
+        icon->setFixedSize(image.size());
+        if(prompt)
+            prompt->setFixedWidth(image.width());
         header->addWidget(icon);
     }
  
