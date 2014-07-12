@@ -45,6 +45,7 @@
 #include <QToolBar>
 #include <QMenuBar>
 #include <QStatusBar>
+#include <QLabel>
 
 /**
  * @brief Create a coastal styled about box.
