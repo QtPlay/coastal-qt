@@ -68,23 +68,60 @@ CoastalDialog()
     if(mode == INPUT && password && inputIcon.isEmpty())
         inputIcon = ":/images/password.jpg";
 
-    if(((mode == INPUT) || (mode == TEXT)) && !textString.isEmpty()) {
+    if(((mode == INPUT) || (mode == TEXT)) && !inputIcon.isEmpty()) {
         if(!header)
             header = new QHBoxLayout();
 
-        if(!inputIcon.isEmpty()) {
-            QLabel *icon = new QLabel(this);
-            icon->setPixmap(QPixmap(inputIcon));
-            header->addWidget(icon);
-        }
+        QLabel *icon = new QLabel(this);
+        icon->setPixmap(QPixmap(inputIcon));
+        header->addWidget(icon);
+    }
+ 
+    if((mode == TEXT) || ((mode == INPUT) && !textString.isEmpty())) {
+        if(!header)
+            header = new QHBoxLayout();
 
-        if(!textString.isEmpty()) {
-            QLabel *label = new QLabel(this);
-            if(mode == TEXT)
-                label->setAlignment(Qt::AlignLeft|Qt::AlignTop|Qt::AlignJustify);
-            label->setText(textString);
-            header->addWidget(label);
-        }
+        QLabel *text = new QLabel(this);
+
+		if(textString.isEmpty()) {
+			QFile file;
+            QString temp;
+            bool opened;
+        
+            if(filename) {
+                file.setFileName(filename);
+                opened = file.open(QIODevice::ReadOnly | QIODevice::Text);
+            }
+            else
+                opened = file.open(stdin, QIODevice::ReadOnly | QIODevice::Text);
+            int pos;
+            if(opened) {
+                while(!file.atEnd()) {
+                    temp = file.readLine();
+                    while((pos = temp.indexOf("\002")) > -1) {
+                        temp.remove(pos, 1);
+                    }
+                    while((pos = temp.indexOf("\003")) > -1) {
+                        temp.remove(pos, 3);
+                    }
+                    while((pos = temp.indexOf("\010")) > -1) {
+                        temp.remove(pos, 1);
+                    }
+                    while((pos = temp.indexOf("\017")) > -1) {
+                        temp.remove(pos, 1);
+                    }
+                    if(temp.endsWith( '\n' )) 
+                        temp.chop(1);
+                    if(temp.endsWith( '\r' )) 
+                        temp.chop(1);
+                    textString += temp;
+                }
+			}
+		}
+        text->setText(textString);
+        text->setAlignment(Qt::AlignLeft|Qt::AlignTop|Qt::AlignJustify);
+        text->setText(textString);  
+        header->addWidget(text);
     }
     else if(mode == VIEW) {
         if(!header)
