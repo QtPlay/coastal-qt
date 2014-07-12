@@ -21,45 +21,60 @@ static enum {NONE, TEXT, INPUT, PASSWORD} mode;
 static const char *filename = NULL;
 static unsigned tabs = 8;
 static unsigned hsize = 300, vsize = 400;
-static QString textstring;
-static QString titlestring;
-static QString inputstring;
-static QString acceptstring;
-static QString cancelstring;
-static unsigned exitresult = 1;     // default for cancel button/exit ...
+static QString textString;
+static QString titleString;
+static QString inputString;
+static QString acceptString;
+static QString cancelString;
+static unsigned exitResult = 1;     // default for cancel button/exit ...
 
-Viewer::Viewer() :
+Process::Process() :
 CoastalDialog()
 {
     QApplication::setQuitOnLastWindowClosed(true);
+
+    QHBoxLayout *header = NULL;
 
     if (objectName().isEmpty())
         setObjectName(QString::fromUtf8("Viewer"));
     resize(hsize, vsize);
     QVBoxLayout *spine = new QVBoxLayout(this);
 
-    if(!titlestring.isEmpty())
-        window()->setWindowTitle(titlestring);
+    if(!titleString.isEmpty())
+        window()->setWindowTitle(titleString);
 
-    if(mode == INPUT && textstring.isEmpty())
-        textstring = tr("Enter new text:");
-    else if(mode == PASSWORD && textstring.isEmpty())
-        textstring = tr("Type your password");
+    if(mode == INPUT && textString.isEmpty())
+        textString = tr("Enter new text:");
+    else if(mode == PASSWORD && textString.isEmpty())
+        textString = tr("Type your password");
 
-    if(mode == PASSWORD && inputstring.isEmpty())
-        inputstring = tr("Password:");
+    if(mode == PASSWORD && inputString.isEmpty())
+        inputString = tr("Password:");
 
-    if(mode == TEXT || !textstring.isEmpty()) {
+    if((mode == INPUT || mode == PASSWORD) && !textString.isEmpty()) {
+        if(!header)
+            header = new QHBoxLayout();
+
+        if(!textString.isEmpty()) {
+            QLabel *label = new QLabel(this);
+            label->setText(textString);
+            header->addWidget(label);
+        }
+    }
+    else if(mode == TEXT) {
+        if(!header)
+            header = new QHBoxLayout();
+
         CoastalView *text = new CoastalView(this);
         text->setEnabled(true);
-        spine->addWidget(text);
+        header->addWidget(text);
 
         QFont font = text->font();
         QFontMetrics metrics(font);
         text->setTabStopWidth(tabs * metrics.width(' '));
 
-        if(!textstring.isEmpty()) {
-            text->setText(textstring);
+        if(!textString.isEmpty()) {
+            text->setText(textString);
         }
         else {
             QFile file;
@@ -98,20 +113,23 @@ CoastalDialog()
         }
     }
 
+    if(header)
+        spine->addLayout(header);
+
     QHBoxLayout *buttons = new QHBoxLayout();
     spine->addLayout(buttons);
 
     QSpacerItem *spacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
     buttons->addItem(spacer);
-    if(!acceptstring.isEmpty()) {
+    if(!acceptString.isEmpty()) {
         QPushButton *accept = new QPushButton(this);
-        accept->setText(acceptstring);
+        accept->setText(acceptString);
         connect(accept, SIGNAL(clicked()), this, SLOT(accept()));
         buttons->addWidget(accept);
     }
-    if(!cancelstring.isEmpty()) {
+    if(!cancelString.isEmpty()) {
         QPushButton *cancel = new QPushButton(this);
-        cancel->setText(cancelstring);
+        cancel->setText(cancelString);
         connect(cancel, SIGNAL(clicked()), qApp, SLOT(quit()));
         buttons->addWidget(cancel);    
     }
@@ -123,13 +141,13 @@ CoastalDialog()
     show();
 }
 
-void Viewer::accept(void)
+void Process::accept(void)
 {
-    exitresult = 0;
+    exitResult = 0;
     qApp->quit();
 }
 
-int Viewer::main(int argc, char *argv[])
+int Process::main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
@@ -138,8 +156,8 @@ int Viewer::main(int argc, char *argv[])
         return 2;
     }
 
-    acceptstring = tr("&Accept");
-    cancelstring = tr("&Cancel");
+    acceptString = tr("&Accept");
+    cancelString = tr("&Cancel");
 
     while(*(++argv)) {
         char *arg = *argv;
@@ -166,42 +184,42 @@ int Viewer::main(int argc, char *argv[])
         }
 
         if(!strncmp(arg, "text=", 5)) {
-            textstring = QString(arg + 5);
+            textString = QString(arg + 5);
             continue;
         }
 
         if(!strcmp(arg, "text")) {
-            textstring = QString(*(++argv));
+            textString = QString(*(++argv));
             continue;
         }
 
         if(!strncmp(arg, "accept=", 7)) {
-            acceptstring = QString(arg + 7);
+            acceptString = QString(arg + 7);
             continue;
         }
 
         if(!strcmp(arg, "accept")) {
-            acceptstring = QString(*(++argv));
+            acceptString = QString(*(++argv));
             continue;
         }
 
         if(!strncmp(arg, "cancel=", 7)) {
-            cancelstring = QString(arg + 7);
+            cancelString = QString(arg + 7);
             continue;
         }
 
         if(!strcmp(arg, "cancel")) {
-            cancelstring = QString(*(++argv));
+            cancelString = QString(*(++argv));
             continue;
         }
 
         if(!strncmp(arg, "title=", 6)) {
-            titlestring = QString(arg + 6);
+            titleString = QString(arg + 6);
             continue;
         }
 
         if(!strcmp(arg, "title")) {
-            titlestring = QString(*(++argv));
+            titleString = QString(*(++argv));
             continue;
         }
 
@@ -260,14 +278,14 @@ int Viewer::main(int argc, char *argv[])
     translator.load(QLocale::system().name(), TRANSLATIONS);
     app.installTranslator(&translator);
 
-    Viewer w;
+    Process w;
     app.exec();
-    return exitresult;
+    return exitResult;
 }
 
 extern "C" {
     int main(int argc, char **argv) {
-        return Viewer::main(argc, argv);
+        return Process::main(argc, argv);
     }
 }
 

@@ -18,12 +18,12 @@
 #include <coastal-qt-config.h>
 #include <coastal.h>
 
-class Viewer : public CoastalDialog
+class Process : public CoastalDialog
 {
 Q_OBJECT
 
 public:
-    Viewer();
+    Process();
 
 public slots:
     void accept(void);
