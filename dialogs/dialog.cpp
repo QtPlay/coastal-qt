@@ -17,10 +17,10 @@
 
 #include "dialog.h"
 
-static enum {NONE, TEXT, INPUT} mode;
+static enum {NONE, TEXT, VIEW, INPUT} mode = NONE;
 static const char *filename = NULL;
 static unsigned tabs = 8;
-static unsigned hsize = 300, vsize = 400;
+static unsigned hsize = 0, vsize = 0;
 static bool password = false;   // password sub-mode
 static enum {ACCEPT, CANCEL, DEFAULT} focus = ACCEPT;
 static QString textString;
@@ -40,8 +40,18 @@ CoastalDialog()
     QHBoxLayout *input = NULL;
 
     if (objectName().isEmpty())
-        setObjectName(QString::fromUtf8("Viewer"));
-    resize(hsize, vsize);
+        setObjectName(QString::fromUtf8("Process"));
+
+    if(mode == VIEW && !vsize)
+        vsize = 400;
+
+    if(vsize && !hsize)
+        hsize = 300;
+    else if(hsize && !vsize)
+        vsize = 400;
+
+    if(vsize || hsize)
+        resize(hsize, vsize);
     QVBoxLayout *spine = new QVBoxLayout(this);
 
     if(!titleString.isEmpty())
@@ -58,7 +68,7 @@ CoastalDialog()
     if(mode == INPUT && password && inputIcon.isEmpty())
         inputIcon = ":/images/password.jpg";
 
-    if((mode == INPUT) && !textString.isEmpty()) {
+    if(((mode == INPUT) || (mode == TEXT)) && !textString.isEmpty()) {
         if(!header)
             header = new QHBoxLayout();
 
@@ -70,11 +80,13 @@ CoastalDialog()
 
         if(!textString.isEmpty()) {
             QLabel *label = new QLabel(this);
+            if(mode == TEXT)
+                label->setAlignment(Qt::AlignLeft|Qt::AlignTop|Qt::AlignJustify);
             label->setText(textString);
             header->addWidget(label);
         }
     }
-    else if(mode == TEXT) {
+    else if(mode == VIEW) {
         if(!header)
             header = new QHBoxLayout();
 
@@ -184,12 +196,21 @@ int Process::main(int argc, char *argv[])
         while(*arg == '-')
             ++arg;
 
-        if(!strcmp(arg, "text-info") || !strcmp(arg, "text-view")) {
+        if(!strcmp(arg, "text-info")) {
             if(mode != NONE) {
                 fprintf(stderr, "*** coastal-dialog: mode already selected\n");
                 return 3;
             }
-            mode = TEXT;    
+            mode = TEXT; 
+            continue;
+        }
+
+        if(!strcmp(arg, "text-view")) {
+            if(mode != NONE) {
+                fprintf(stderr, "*** coastal-dialog: mode already selected\n");
+                return 3;
+            }
+            mode = VIEW; 
             continue;
         }
 
