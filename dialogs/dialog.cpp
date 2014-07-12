@@ -261,6 +261,11 @@ CoastalDialog()
 
 void Process::editing(QString string)
 {
+	if(timing) {
+		timer.stop();
+		timer.start(timing * 1000);
+	}
+
     if(!acceptButton)
         return;
 
