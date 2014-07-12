@@ -1,3 +1,13 @@
+Changes from 0.9.1 to 0.9.2
+- reorganized apps for search in toolbar and nicer styling
+- mingw builds now support blue toolbars
+- manpager reorganized for sections in options, can become menu free
+- handling of empty index bug in manpager
+- internal toolbar helper support class
+- mingw specific icon theme introduced
+- icons reorganized for standard setup and use
+- epoch numbering
+
 Changes from 0.9.0 to 0.9.1
 - dock menus for mac support
 - mime file type support improved
