@@ -21,7 +21,7 @@
 static enum {NONE, TEXT, VIEW, INPUT} mode = NONE;
 static const char *filename = NULL;
 static unsigned tabs = 8;
-static unsigned hsize = 0, vsize = 0;
+static unsigned hsize = 300, vsize = 0;
 static unsigned spacing = 0;
 static bool password = false;   // password sub-mode
 static enum {ACCEPT, CANCEL, DEFAULT} focus = ACCEPT;
@@ -50,10 +50,8 @@ CoastalDialog()
     if(mode == VIEW && !vsize)
         vsize = 400;
 
-    if(vsize && !hsize)
-        hsize = 300;
-    else if(hsize && !vsize)
-        vsize = 400;
+	if(mode == VIEW && !hsize)
+		hsize = 300;
 
     if(vsize || hsize)
         resize(hsize, vsize);
@@ -142,7 +140,7 @@ CoastalDialog()
 		if(inputIcon.isEmpty())
 	        text->setAlignment(Qt::AlignLeft|Qt::AlignTop|Qt::AlignJustify);
         else
-            text->setAlignment(Qt::AlignHCenter|Qt::AlignVCenter|Qt::AlignJustify);
+            text->setAlignment(Qt::AlignVCenter|Qt::AlignVCenter|Qt::AlignJustify);
         text->setText(textString);  
         header->addWidget(text);
     }
@@ -399,6 +397,11 @@ int Process::main(int argc, char *argv[])
             styleString = QString(arg + 6);
             continue;
         }
+
+		if(!strcmp(arg, "title")) {
+			titleString = QString(*(++argv));
+			continue;
+		}
 
         if(!strcmp(arg, "style")) {
             styleString = QString(*(++argv));
