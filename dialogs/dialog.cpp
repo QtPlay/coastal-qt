@@ -26,6 +26,7 @@ static QString titleString;
 static QString inputString;
 static QString acceptString;
 static QString cancelString;
+static QString inputIcon;
 static unsigned exitResult = 1;     // default for cancel button/exit ...
 
 Process::Process() :
@@ -51,9 +52,18 @@ CoastalDialog()
     if(mode == PASSWORD && inputString.isEmpty())
         inputString = tr("Password:");
 
+    if(mode == PASSWORD && inputIcon.isEmpty())
+        inputIcon = ":/images/password.jpg";
+
     if((mode == INPUT || mode == PASSWORD) && !textString.isEmpty()) {
         if(!header)
             header = new QHBoxLayout();
+
+        if(!inputIcon.isEmpty()) {
+            QLabel *icon = new QLabel(this);
+            icon->setPixmap(QPixmap(inputIcon));
+            header->addWidget(icon);
+        }
 
         if(!textString.isEmpty()) {
             QLabel *label = new QLabel(this);
