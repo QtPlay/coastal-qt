@@ -34,8 +34,11 @@ static QString cancelString;
 static QString inputIcon;
 static QString styleString;
 static QLineEdit *edit;
+static bool triggered = false;
 static QLabel *prompt = NULL;
 static unsigned exitResult = 1;     // default for cancel button/exit ...
+static QPushButton *acceptButton = NULL;
+static QPushButton *cancelButton = NULL;
 
 Process::Process() :
 CoastalDialog()
@@ -80,6 +83,8 @@ CoastalDialog()
 		}
 		spine->setSpacing(16);
 		edit = new QLineEdit(this);
+        if(triggered)
+            connect(edit, SIGNAL(textChanged(QString)), this, SLOT(editing(QString)));
 		if(password)
 			edit->setEchoMode(QLineEdit::Password);
 		if(!placeholderString.isEmpty())
@@ -216,20 +221,22 @@ CoastalDialog()
     QSpacerItem *spacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
     buttons->addItem(spacer);
     if(!acceptString.isEmpty()) {
-        QPushButton *accept = new QPushButton(this);
-        if(focus == ACCEPT)
-            accept->setFocus();
-        accept->setText(acceptString);
-        connect(accept, SIGNAL(clicked()), this, SLOT(accept()));
-        buttons->addWidget(accept);
+        acceptButton = new QPushButton(this);
+        if(focus == ACCEPT && !triggered)
+            acceptButton->setFocus();
+        acceptButton->setText(acceptString);
+        connect(acceptButton, SIGNAL(clicked()), this, SLOT(accepted()));
+        buttons->addWidget(acceptButton);
+        if(triggered)
+            acceptButton->setEnabled(false);
     }
     if(!cancelString.isEmpty()) {
-        QPushButton *cancel = new QPushButton(this);
-        if(focus == CANCEL)
-            cancel->setFocus();
-        cancel->setText(cancelString);
-        connect(cancel, SIGNAL(clicked()), qApp, SLOT(quit()));
-        buttons->addWidget(cancel);    
+        cancelButton = new QPushButton(this);
+        if(focus == CANCEL || triggered)
+            cancelButton->setFocus();
+        cancelButton->setText(cancelString);
+        connect(cancelButton, SIGNAL(clicked()), qApp, SLOT(quit()));
+        buttons->addWidget(cancelButton);
     }
     else {
         QSpacerItem *tail = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
@@ -245,7 +252,18 @@ CoastalDialog()
     show();
 }
 
-void Process::accept(void)
+void Process::editing(QString string)
+{
+    if(!acceptButton)
+        return;
+
+    if(string.isEmpty())
+        acceptButton->setEnabled(false);
+    else
+        acceptButton->setEnabled(true);
+}
+
+void Process::accepted(void)
 {
     exitResult = 0;
     qApp->quit();
@@ -360,6 +378,11 @@ int Process::main(int argc, char *argv[])
 			inputString = QString(*(++argv));
 			continue;
 		}
+
+        if(!strcmp(arg, "triggered")) {
+            triggered = true;
+            continue;
+        }
 
 		if(!strcmp(arg, "placeholder")) {
 			placeholderString = QString(*(++argv));

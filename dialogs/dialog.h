@@ -26,7 +26,9 @@ public:
     Process();
 
 public slots:
-    void accept(void);
+    void accepted(void);
+
+    void editing(QString string);
 
     static int main(int argc, char **argv);
 };
