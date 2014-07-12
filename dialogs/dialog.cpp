@@ -233,6 +233,17 @@ int Process::main(int argc, char *argv[])
         while(*arg == '-')
             ++arg;
 
+		if(!strcmp(arg, "prompt")) {
+            if(mode != NONE) {
+                fprintf(stderr, "*** coastal-dialog: mode already selected\n");
+                return 3;
+            }
+			cancelString = "";
+			acceptString = tr("&Ok");
+            mode = TEXT; 
+            continue;
+        }
+
         if(!strcmp(arg, "text-info")) {
             if(mode != NONE) {
                 fprintf(stderr, "*** coastal-dialog: mode already selected\n");
@@ -271,10 +282,22 @@ int Process::main(int argc, char *argv[])
             continue;
         }
 
+		if(!strncmp(arg, "ok=", 3)) {
+			cancelString = "";
+			acceptString = QString(arg + 3);
+			focus = ACCEPT;
+		}
+
         if(!strncmp(arg, "accept=", 7)) {
             acceptString = QString(arg + 7);
             continue;
         }
+
+		if(!strcmp(arg, "ok")) {
+			cancelString = "";
+			acceptString = QString(*(++argv));
+			focus = ACCEPT;
+		}
 
         if(!strcmp(arg, "accept")) {
             acceptString = QString(*(++argv));
@@ -342,6 +365,9 @@ int Process::main(int argc, char *argv[])
         fprintf(stderr, "*** coastal-dialog: %s: unknown option\n", *argv);
         return 5;
     }
+
+	if(mode == NONE && !textString.isEmpty())
+		mode = TEXT;
 
     if(mode == NONE) {
         fprintf(stderr, "*** coastal-dialog: no mode selected\n");
