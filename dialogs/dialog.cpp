@@ -22,6 +22,7 @@ static const char *filename = NULL;
 static unsigned tabs = 8;
 static unsigned hsize = 300, vsize = 400;
 static bool password = false;   // password sub-mode
+static enum {ACCEPT, CANCEL, DEFAULT} focus = ACCEPT;
 static QString textString;
 static QString titleString;
 static QString inputString;
@@ -138,12 +139,16 @@ CoastalDialog()
     buttons->addItem(spacer);
     if(!acceptString.isEmpty()) {
         QPushButton *accept = new QPushButton(this);
+        if(focus == ACCEPT)
+            accept->setFocus();
         accept->setText(acceptString);
         connect(accept, SIGNAL(clicked()), this, SLOT(accept()));
         buttons->addWidget(accept);
     }
     if(!cancelString.isEmpty()) {
         QPushButton *cancel = new QPushButton(this);
+        if(focus == CANCEL)
+            cancel->setFocus();
         cancel->setText(cancelString);
         connect(cancel, SIGNAL(clicked()), qApp, SLOT(quit()));
         buttons->addWidget(cancel);    
