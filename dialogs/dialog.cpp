@@ -18,7 +18,7 @@
 #include "dialog.h"
 #include <QTextStream>
 
-static enum {NONE, TEXT, VIEW, INPUT} mode = NONE;
+static enum {NONE, TEXT, VIEW, ENTRY} mode = NONE;
 static const char *filename = NULL;
 static unsigned tabs = 8;
 static unsigned hsize = 300, vsize = 0;
@@ -60,7 +60,7 @@ CoastalDialog()
     if(!titleString.isEmpty())
         window()->setWindowTitle(titleString);
 
-	if(mode == INPUT) {
+	if(mode == ENTRY) {
 		if(textString.isEmpty() && password)
 			textString = tr("Type your password");
 		else if(textString.isEmpty())
@@ -86,7 +86,7 @@ CoastalDialog()
 		input->addWidget(edit);
 	}
 
-    if(((mode == INPUT) || (mode == TEXT)) && !inputIcon.isEmpty()) {
+    if(((mode == ENTRY) || (mode == TEXT)) && !inputIcon.isEmpty()) {
         if(!header)
             header = new QHBoxLayout();
 
@@ -95,7 +95,7 @@ CoastalDialog()
         header->addWidget(icon);
     }
  
-    if((mode == TEXT) || ((mode == INPUT) && !textString.isEmpty())) {
+    if((mode == TEXT) || ((mode == ENTRY) && !textString.isEmpty())) {
         if(!header)
             header = new QHBoxLayout();
 
@@ -268,7 +268,7 @@ int Process::main(int argc, char *argv[])
                 fprintf(stderr, "*** coastal-dialog: mode already selected\n");
                 return 3;
             }
-			mode = INPUT;
+			mode = ENTRY;
 			focus = DEFAULT;
 			if(!strcmp(arg, "password"))
 				password = true;
