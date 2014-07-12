@@ -32,7 +32,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="manpager.qrc">
-    <normaloff>:/icons/apps/manpager.png</normaloff>:/icons/apps/manpager.png</iconset>
+    <normaloff>:/images/manpager.png</normaloff>:/images/manpager.png</iconset>
   </property>
   <property name="unifiedTitleAndToolBarOnMac">
    <bool>true</bool>

@@ -17,8 +17,10 @@
 
 #include "search.h"
 #include "ui_main.h"
+#include "ui_toolbar.h"
 
 static Ui::MainWindow ui;
+static Ui::Toolbar tb;
 static const char *types = NULL;
 
 bool Main::casefilter = false;
@@ -32,7 +34,8 @@ CoastalMain()
     program_name = "Coastal Search";
     program_about = "Coastal File Search Utility";
 
-    extendToolbar(ui.toolBar, ui.menuBar);
+    QWidget *toolbar = extendToolbar(ui.toolBar, ui.menuBar);
+    tb.setupUi(toolbar);
 
     ind = NULL;
 
@@ -90,7 +93,7 @@ CoastalMain()
     connect(ui.pathButton, SIGNAL(clicked()), this, SLOT(changeDir()));
     connect(ui.pathBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectDir(int)));
 
-    connect(ui.searchText, SIGNAL(returnPressed()), this, SLOT(reload()));
+    connect(tb.searchText, SIGNAL(returnPressed()), this, SLOT(reload()));
     connect(ui.searchName, SIGNAL(returnPressed()), this, SLOT(reload()));
     connect(ui.filterTypes, SIGNAL(returnPressed()), this, SLOT(reload()));
 
@@ -198,9 +201,9 @@ void Main::changeDir(void)
 void Main::clear(void)
 {
     ui.indexView->setModel(NULL);
-    ui.searchText->setText("");
+    tb.searchText->setText("");
     ui.searchName->setText("*");
-    ui.searchText->setFocus();
+    tb.searchText->setFocus();
     ui.statusbar->showMessage(tr("ready"));
 
     if(ind) {
@@ -294,7 +297,7 @@ void Main::reload(void)
     filters.remove(QChar('*'));
     filters.remove(QChar(' '));
 
-    ind = new Index(ui.indexView, ui.searchName->text(), filters.split(";"), ui.searchText->text());
+    ind = new Index(ui.indexView, ui.searchName->text(), filters.split(";"), tb.searchText->text());
     ui.indexView->setModel(ind);
     ui.statusbar->showMessage(tr("ready"));
 }
@@ -331,6 +334,14 @@ int main(int argc, char *argv[])
     QTranslator translator;
     translator.load(QLocale::system().name(), TRANSLATIONS);
     app.installTranslator(&translator);
+
+    Q_INIT_RESOURCE(search);
+#ifdef Q_OS_WIN
+    Coastal::applyStyle(app, ":/qss/search.css");
+#else  // let others optionally style our apps from common dir...
+    if(!Coastal::applyStyle(app, "/usr/share/coastal/search.css"))
+        Coastal::applyStyle(app, ":/qss/search.css");
+#endif
 
     if(argv[1] && argv[2])
         types = argv[2];

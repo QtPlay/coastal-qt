@@ -1,11 +1,9 @@
 <!DOCTYPE RCC><RCC version="1.0">
-<qresource prefix="icons/apps">
-	<file alias="manpager.png">../icons/coastal-manpager.png</file>
-</qresource>
 <qresource prefix="qss">
 	<file>manpager.css</file>
 </qresource>
 <qresource prefix="images">
+	<file>manpager.png</file>
 	<file>downarrow.png</file>
 	<file>searchicon.png</file>
 </qresource>

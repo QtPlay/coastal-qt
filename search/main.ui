@@ -32,7 +32,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="search.qrc">
-    <normaloff>:/icons/apps/search.png</normaloff>:/icons/apps/search.png</iconset>
+    <normaloff>:/images/search.png</normaloff>:/images/search.png</iconset>
   </property>
   <property name="unifiedTitleAndToolBarOnMac">
    <bool>true</bool>
@@ -64,35 +64,32 @@
       </item>
       <item>
        <layout class="QGridLayout" name="gridLayout">
-        <item row="1" column="1">
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>Filename:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLabel" name="label_2">
-          <property name="text">
-           <string>Search:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QLineEdit" name="searchText"/>
-        </item>
-        <item row="1" column="2">
-         <widget class="QLineEdit" name="searchName"/>
-        </item>
-        <item row="2" column="1">
+        <item row="0" column="3">
          <widget class="QLabel" name="label_3">
           <property name="text">
            <string>Filter:</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="2">
-         <widget class="QLineEdit" name="filterTypes"/>
+        <item row="0" column="1">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Filename:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLineEdit" name="searchName"/>
+        </item>
+        <item row="0" column="4">
+         <widget class="QLineEdit" name="filterTypes">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>

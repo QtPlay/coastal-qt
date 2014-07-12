@@ -1,5 +1,11 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource prefix="icons/apps">
-    <file alias="search.png">../icons/coastal-search.png</file>
+</qresource>
+<qresource prefix="images">
+	<file>searchicon.png</file>
+	<file>search.png</file>
+</qresource>
+<qresource prefix="qss">
+	<file>search.css</file>
 </qresource>
 </RCC>
