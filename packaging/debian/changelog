@@ -1,3 +1,10 @@
+coastal-qt (1:0.9.3-1) UNRELEASED; urgency=low
+
+  * Search pure toolbar application
+  * Coastal-dialog much more functional
+
+ -- David Sugar <dyfet@gnutelephony.org>  Sun, 13 Jul 2014 04:32:19 -0400
+
 coastal-qt (1:0.9.2-1) UNRELEASED; urgency=low
 
   * Updated for epoch numbering going forward
