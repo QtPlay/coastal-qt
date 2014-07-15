@@ -1,3 +1,7 @@
+Changes from 0.9.2 to 0.9.3
+- expanded coastal-dialog
+- search is really now a pure toolbar application
+
 Changes from 0.9.1 to 0.9.2
 - reorganized apps for search in toolbar and nicer styling
 - mingw builds now support blue toolbars
