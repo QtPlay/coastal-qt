@@ -18,6 +18,7 @@
 #include <coastal-qt-config.h>
 #include <coastal.h>
 #include <ui_about.h>
+#include <QCoreApplication>
 
 #ifdef Q_OS_WIN
 #include <windows.h>
@@ -501,4 +502,98 @@ void Coastal::paintBadge(QPainter *painter, QPoint pos, unsigned size, unsigned 
     painter->setPen(text_pen);
     painter->drawText(rect, Qt::AlignCenter, text);
     painter->restore();
+}
+
+QDir Coastal::localCache()
+{
+    QString org;
+    QString app = QCoreApplication::applicationName();
+    QString cache = QDir::homePath() + "/.cache";
+    if(app.isEmpty()) {
+        app = QCoreApplication::applicationFilePath();
+        int pos = app.lastIndexOf('/');
+        if(pos > -1)
+            app = app.mid(++pos);
+    }
+#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
+    QString org = QCoreApplication::organizationName();
+    if(org.isEmpty())
+        org = QCoreApplication::organizationDomain();
+#endif
+#ifdef Q_OS_MAC
+    cache = QDir::homePath() + "/Library/Application Support";
+#endif
+#ifdef Q_OS_WIN
+    cache = env("LOCALAPPDATA");
+    if(cache.isEmpty())
+        cache = env("USERPROFILE") + "/Local Settings/Application Data";
+#endif
+
+    if(org.isEmpty())
+        return QDir(cache + "/" + app);
+    else
+        return QDir(cache + "/" + org + "/" + app);
+}
+
+QDir Coastal::sharedData()
+{
+    QString programData = "/usr/share";
+    QString org;
+    QString app = QCoreApplication::applicationName();
+    if(app.isEmpty()) {
+        app = QCoreApplication::applicationFilePath();
+        int pos = app.lastIndexOf('/');
+        if(pos > -1)
+            app = app.mid(++pos);
+    }
+
+#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
+    QString org = QCoreApplication::organizationName();
+    if(org.isEmpty())
+        org = QCoreApplication::organizationDomain();
+#endif
+#ifdef Q_OS_WIN
+    QString programData = env("ProgramData");
+    if(programData.isEmpty())
+        programData = env("ALLUSERSPROFILE");
+    if(programData.isEmpty())
+        programData = "C:/ProgramData";
+#endif
+    if(org.isEmpty())
+        return QDir(programData + "/" + app);
+    else
+        return QDir(programData + "/" + org + "/" + app);
+}
+
+QString Coastal::documentsPath()
+{
+#if QT_VERSION >= 0x050000
+    QString path = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+    if(path.isEmpty())
+        path = QDir::homePath();
+    return path;
+#else
+    QString path = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
+    if(path.isEmpty() || !QDir(path).exists())
+        path = QDir::homePath();
+    return path;
+#endif
+}
+
+QString Coastal::downloadsPath()
+{
+#if QT_VERSION >= 0x050000
+    QString path = QStandardPaths::writableLocation(QStandardPaths::DownloadLocation);
+    if(path.isEmpty())
+        path = QDir::homePath();
+    return path;
+#else
+    QString path = QDir::homePath() + "/Downloads";
+    if(path.isEmpty() || !QDir(path).exists()) {
+        path = QDir::homePath() + "/save";
+        if(path.isEmpty() || !QDir(path).exists())
+            path = QDir::homePath();
+    }
+    return path;
+#endif
 }
