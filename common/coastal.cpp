@@ -450,13 +450,13 @@ bool Coastal::email(QString &topic, QString &body)
 #endif
 }
 
-bool Coastal::applyStyle(QApplication& app, QString style)
+bool Coastal::applyStyle(QString style)
 {
     QFile file(style);
     if (file.exists()) {
         file.open(QFile::ReadOnly);
         QString styleSheet = QLatin1String(file.readAll());
-        app.setStyleSheet(styleSheet);
+        qApp->setStyleSheet(styleSheet);
         file.close();
         return true;
     }

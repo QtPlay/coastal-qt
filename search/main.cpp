@@ -317,10 +317,10 @@ int main(int argc, char *argv[])
 
     Q_INIT_RESOURCE(search);
 #ifdef Q_OS_WIN
-    Coastal::applyStyle(app, ":/qss/search.css");
+    Coastal::applyStyle(":/qss/search.css");
 #else  // let others optionally style our apps from common dir...
-    if(!Coastal::applyStyle(app, "/usr/share/coastal/search.css"))
-        Coastal::applyStyle(app, ":/qss/search.css");
+    if(!Coastal::applyStyle("/usr/share/coastal/search.css"))
+        Coastal::applyStyle(":/qss/search.css");
 #endif
 
     if(argv[1] && argv[2])

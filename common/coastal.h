@@ -361,7 +361,7 @@ public:
 
     static bool emailTo(QString& to, QString& title, QString& body);
 
-    static bool applyStyle(QApplication& app, QString style);
+    static bool applyStyle(QString style);
 
     static void paintRect(QPainter *painter, const QRect& rect, QColor color, qreal outline = 0.0, qreal xradius = 0.0, qreal yradius = 0.0);
 

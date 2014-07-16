@@ -525,14 +525,14 @@ int Process::main(int argc, char *argv[])
     Q_INIT_RESOURCE(dialog);
 	if(styleString.isEmpty()) {
 #ifdef Q_OS_WIN
-	    Coastal::applyStyle(app, ":/qss/dialog.css");
+        Coastal::applyStyle(":/qss/dialog.css");
 #else  // let others optionally style our apps from common dir...
-		if(!Coastal::applyStyle(app, "/usr/share/coastal/dialog.css"))
-			Coastal::applyStyle(app, ":/qss/dialog.css");
+        if(!Coastal::applyStyle("/usr/share/coastal/dialog.css"))
+            Coastal::applyStyle(":/qss/dialog.css");
 #endif
 	}
 	else
-		Coastal::applyStyle(app, styleString);
+        Coastal::applyStyle(styleString);
 
     Process w;
     app.exec();
