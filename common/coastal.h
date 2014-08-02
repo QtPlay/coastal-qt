@@ -329,13 +329,15 @@ private:
     static bool internal_icons;
 
 public:
-    static QDir sharedData(void);
+    static QString sharedData(void);
 
-    static QDir localCache(void);
+    static QString localCache(void);
 
     static QString documentsPath(void);
 
     static QString downloadsPath(void);
+
+    static QString desktopPath(void);
 
     static bool env(const char *id, char *buffer, size_t size);
 

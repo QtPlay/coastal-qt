@@ -504,7 +504,7 @@ void Coastal::paintBadge(QPainter *painter, QPoint pos, unsigned size, unsigned 
     painter->restore();
 }
 
-QDir Coastal::localCache()
+QString Coastal::localCache()
 {
     QString org;
     QString app = QCoreApplication::applicationName();
@@ -530,12 +530,12 @@ QDir Coastal::localCache()
 #endif
 
     if(org.isEmpty())
-        return QDir(cache + "/" + app);
+        return cache + "/" + app;
     else
-        return QDir(cache + "/" + org + "/" + app);
+        return cache + "/" + org + "/" + app;
 }
 
-QDir Coastal::sharedData()
+QString Coastal::sharedData()
 {
     QString programData = "/usr/share";
     QString org;
@@ -560,9 +560,9 @@ QDir Coastal::sharedData()
         programData = "C:/ProgramData";
 #endif
     if(org.isEmpty())
-        return QDir(programData + "/" + app);
+        return programData + "/" + app;
     else
-        return QDir(programData + "/" + org + "/" + app);
+        return programData + "/" + org + "/" + app;
 }
 
 QString Coastal::documentsPath()
@@ -580,19 +580,34 @@ QString Coastal::documentsPath()
 #endif
 }
 
+QString Coastal::desktopPath()
+{
+#if QT_VERSION >= 0x050000
+    QString path = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
+    if(path.isEmpty())
+        path = QDir::homePath();
+    return path;
+#else
+    QString path = QDesktopServices::storageLocation(QDesktopServices::DesktopLocation);
+    if(path.isEmpty() || !QDir(path).exists())
+        path = QDir::homePath();
+    return path;
+#endif
+}
+
 QString Coastal::downloadsPath()
 {
 #if QT_VERSION >= 0x050000
     QString path = QStandardPaths::writableLocation(QStandardPaths::DownloadLocation);
     if(path.isEmpty())
-        path = QDir::homePath();
+        path = desktopPath();
     return path;
 #else
     QString path = QDir::homePath() + "/Downloads";
     if(path.isEmpty() || !QDir(path).exists()) {
         path = QDir::homePath() + "/save";
         if(path.isEmpty() || !QDir(path).exists())
-            path = QDir::homePath();
+            path = desktopPath();
     }
     return path;
 #endif
