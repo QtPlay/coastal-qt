@@ -1,3 +1,10 @@
+coastal-qt (1:0.9.4-1) UNRELEASED; urgency=low
+
+  * Style sheet management
+  * Odd apps package naming deprecated
+
+ -- David Sugar <dyfet@gnutelephony.org>  Sat, 02 Aug 2014 10:23:11 -0400
+
 coastal-qt (1:0.9.3-1) UNRELEASED; urgency=low
 
   * Search pure toolbar application

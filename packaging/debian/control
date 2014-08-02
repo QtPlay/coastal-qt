@@ -37,7 +37,9 @@ Description: Runtime library for coastal applications
  This is the runtime library used by coastal applications.  This includes
  runtime library extensions to Qt.
 
-Package: coastal-apps
+Package: coastal-qt
+Replaces: coastal-apps
+Conflicts: coastal-apps
 Section: utils
 Architecture: any
 Depends: libcoastal0 (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
