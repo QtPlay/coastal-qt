@@ -516,7 +516,7 @@ QString Coastal::localCache()
             app = app.mid(++pos);
     }
 #if defined(Q_OS_WIN) || defined(Q_OS_MAC)
-    QString org = QCoreApplication::organizationName();
+    org = QCoreApplication::organizationName();
     if(org.isEmpty())
         org = QCoreApplication::organizationDomain();
 #endif
@@ -548,12 +548,12 @@ QString Coastal::sharedData()
     }
 
 #if defined(Q_OS_WIN) || defined(Q_OS_MAC)
-    QString org = QCoreApplication::organizationName();
+    org = QCoreApplication::organizationName();
     if(org.isEmpty())
         org = QCoreApplication::organizationDomain();
 #endif
 #ifdef Q_OS_WIN
-    QString programData = env("ProgramData");
+    programData = env("ProgramData");
     if(programData.isEmpty())
         programData = env("ALLUSERSPROFILE");
     if(programData.isEmpty())
