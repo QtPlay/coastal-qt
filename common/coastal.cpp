@@ -463,18 +463,26 @@ bool Coastal::applyStyle(QString style)
     return false;
 }
 
-void Coastal::paintRect(QPainter *painter, const QRect& rect, QColor color, qreal outline, qreal xradius, qreal yradius)
+void Coastal::paintRect(QPainter *painter, const QRectF& rect, QColor color, qreal outline, qreal xradius, qreal yradius)
 {
     painter->save();
+    QPainterPath path;
+
+    if(outline < 1.1)
+        painter->setRenderHint(QPainter::Antialiasing, true);
+    else
+        painter->setRenderHint(QPainter::Antialiasing, false);
+
+    path.addRoundedRect(rect.translated(0.5, 0.5), xradius, yradius);
+
     if(outline > 0.0) {
         QPen pen(color);
         pen.setWidth(outline);
         painter->setPen(pen);
-        painter->drawRoundedRect(rect, xradius, yradius);
+        painter->drawPath(path);
     }
     else {
         QPainterPath path;
-        path.addRoundedRect(rect, xradius, yradius);
         painter->fillPath(path, color);
     }
     painter->restore();

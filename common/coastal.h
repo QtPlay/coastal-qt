@@ -365,7 +365,7 @@ public:
 
     static bool applyStyle(QString style);
 
-    static void paintRect(QPainter *painter, const QRect& rect, QColor color, qreal outline = 0.0, qreal xradius = 0.0, qreal yradius = 0.0);
+    static void paintRect(QPainter *painter, const QRectF& rect, QColor color, qreal outline = 0.0, qreal xradius = 0.0, qreal yradius = 0.0);
 
     static void paintLabel(QPainter *painter, QPoint pos, unsigned size, unsigned radius, QString text, QColor badge_color, QColor text_color, QFont text_font = qApp->font());
 };
