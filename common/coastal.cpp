@@ -480,7 +480,7 @@ void Coastal::paintRect(QPainter *painter, const QRect& rect, QColor color, qrea
     painter->restore();
 }
 
-void Coastal::paintBadge(QPainter *painter, QPoint pos, unsigned size, unsigned radius, QString text, QColor badge_color, QColor text_color, QFont text_font)
+void Coastal::paintLabel(QPainter *painter, QPoint pos, unsigned size, unsigned radius, QString text, QColor badge_color, QColor text_color, QFont text_font)
 {
     if(radius > size / 2)
         radius = size - 2;

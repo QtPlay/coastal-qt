@@ -367,7 +367,7 @@ public:
 
     static void paintRect(QPainter *painter, const QRect& rect, QColor color, qreal outline = 0.0, qreal xradius = 0.0, qreal yradius = 0.0);
 
-    static void paintBadge(QPainter *painter, QPoint pos, unsigned size, unsigned radius, QString text, QColor badge_color, QColor text_color, QFont text_font = qApp->font());
+    static void paintLabel(QPainter *painter, QPoint pos, unsigned size, unsigned radius, QString text, QColor badge_color, QColor text_color, QFont text_font = qApp->font());
 };
 
 #endif
