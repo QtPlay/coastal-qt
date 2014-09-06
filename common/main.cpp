@@ -32,7 +32,7 @@ QMainWindow(NULL)
 
 #if defined(Q_OS_WIN)
     setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-    Q_INIT_RESOURCE(coastal_mgw);
+    Q_INIT_RESOURCE(mingw);
     QIcon::setThemeName("coastal");    
     setIconSize(QSize(24, 24));         // uniform icon size...
 #elif defined(Q_OS_MAC)

@@ -14,7 +14,7 @@ file(GLOB qt_inc *.h)
 file(GLOB ui_src *.ui)
 
 if(WIN32)
-    set(rc_src coastal_mgw.qrc)
+    set(rc_src mingw.qrc)
 else()
     set(rc_src coastal.qrc)
 endif()

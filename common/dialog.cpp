@@ -37,7 +37,7 @@ QDialog(NULL)
     Q_INIT_RESOURCE(coastal);
     QIcon::setThemeName("coastal");
 #elif defined(Q_OS_WIN)
-    Q_INIT_RESOURCE(coastal_mgw);
+    Q_INIT_RESOURCE(mingw);
     QIcon::setThemeName("coastal");
 #else
     Q_INIT_RESOURCE(coastal);
