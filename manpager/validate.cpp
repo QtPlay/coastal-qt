@@ -15,8 +15,9 @@
 // You should have received a copy of the GNU General Public License
 // along with coastal-qt.  If not, see <http://www.gnu.org/licenses/>.
 
-#include "manpager.h"
-#include <cctype>
+#include <coastal-qt-config.h>
+#include "validate.h"
+#include "main.h"
 
 ValidateIndex::ValidateIndex() :
 QValidator()

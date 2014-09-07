@@ -9,8 +9,8 @@
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 #
 
-file(GLOB qt_src *.cpp)
-file(GLOB qt_inc *.h)
+file(GLOB qt_src about.cpp busy.cpp coastal.cpp dialog.cpp main.cpp notify.cpp view.cpp)
+file(GLOB qt_inc coastal.h)
 file(GLOB ui_src *.ui)
 
 if(WIN32)
@@ -18,9 +18,6 @@ if(WIN32)
 else()
     set(rc_src coastal.qrc)
 endif()
-
-list(REMOVE_ITEM qt_src ${CMAKE_CURRENT_SOURCE_DIR}/dbus_notify.cpp)
-list(REMOVE_ITEM qt_src ${CMAKE_CURRENT_SOURCE_DIR}/dbus_notify.h)
 
 set (ts_common ${ts_src} ${qt_src} ${ui_src} ${qt_inc} PARENT_SCOPE)
 

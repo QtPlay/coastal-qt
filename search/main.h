@@ -15,63 +15,9 @@
 // You should have received a copy of the GNU General Public License
 // along with coastal-qt.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef MAIN_H_
-#define MAIN_H_
-
-#include <coastal-qt-config.h>
 #include <coastal.h>
 
-class Index : public QAbstractTableModel
-{
-    Q_OBJECT
-
-private:
-    QStringList filters;
-    QStringList names;
-    int rows;
-
-protected:
-    virtual int rowCount(const QModelIndex& parent) const;
-    virtual int columnCount(const QModelIndex& parent) const;
-    virtual QVariant data(const QModelIndex &index, int role) const;
-    virtual QVariant headerData(int section, Qt::Orientation orientation, int role) const;
-
-public:
-    Index(QObject *parent, QString basename, QStringList ext, QString match);
-    virtual ~Index();
-
-    void scan(QString path, QString match);
-    bool grep(QString& path, QString& match);
-
-    QString name(int row);
-};
-
-class Config : public QDialog
-{
-Q_OBJECT
-
-private:
-    Config(QTabWidget *tabs);
-
-public:
-    ~Config();
-    static void create(QTabWidget *tabs);
-    static bool destroy(QTabWidget *tabs, int tab);
-
-public slots:
-    void filename(int state);
-    void sensitive(int state);
-};
-
-class View : public CoastalView
-{
-Q_OBJECT
-
-public:
-    View(QTabWidget *tabs, QString& title);
-
-    static bool find(QTabWidget *tabs, QString& title);
-};
+class Index;
 
 class Main : public CoastalMain
 {
@@ -101,6 +47,4 @@ public slots:
     void open(const QPoint& pos);
     void options(void);
 };
-
-#endif
 

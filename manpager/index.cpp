@@ -15,7 +15,9 @@
 // You should have received a copy of the GNU General Public License
 // along with coastal-qt.  If not, see <http://www.gnu.org/licenses/>.
 
-#include "manpager.h"
+#include <coastal-qt-config.h>
+#include "index.h"
+#include "main.h"
 
 static const char *cmap = "12345678ln";
 static QStringList mandirs = QStringList() << "man1" << "man2" << "man3" << "man4" << "man5" << "man6" << "man7" << "man8" << "manl" << "mann";

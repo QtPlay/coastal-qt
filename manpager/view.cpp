@@ -15,9 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with coastal-qt.  If not, see <http://www.gnu.org/licenses/>.
 
-#include "manpager.h"
-#include <cstring>
-#include <cctype>
+#include <coastal-qt-config.h>
+#include "view.h"
 
 #define BOLD        0x01
 #define ITALIC      0x02

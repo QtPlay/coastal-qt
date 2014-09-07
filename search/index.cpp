@@ -15,7 +15,9 @@
 // You should have received a copy of the GNU General Public License
 // along with coastal-qt.  If not, see <http://www.gnu.org/licenses/>.
 
-#include "search.h"
+#include <coastal-qt-config.h>
+#include "index.h"
+#include "main.h"
 
 Index::Index(QObject *parent, QString basename, QStringList ext, QString match) :
 QAbstractTableModel(parent)

@@ -15,7 +15,13 @@
 // You should have received a copy of the GNU General Public License
 // along with coastal-qt.  If not, see <http://www.gnu.org/licenses/>.
 
-#include "manpager.h"
+#include <coastal-qt-config.h>
+#include <cctype>
+#include "main.h"
+#include "validate.h"
+#include "config.h"
+#include "index.h"
+#include "view.h"
 #include "ui_main.h"
 #include "ui_toolbar.h"
 
@@ -33,11 +39,12 @@ CoastalMain()
     status(tr("loading..."));
 
     indexData = NULL;
+    index_validator = new ValidateIndex;
 
     program_name = "Coastal Manpager";
     program_about = "Coastal Manual Page Viewer";
 
-    QWidget *toolbar = extendToolbar(ui.toolBar, ui.menubar);
+    QWidget *toolbar = extendToolbar(ui.toolBar);
     tb.setupUi(toolbar);
 
     QSettings settings;
@@ -115,7 +122,7 @@ CoastalMain()
 
     // input validation
 
-    tb.searchBox->setValidator(&index_validator);
+    tb.searchBox->setValidator(index_validator);
 
     // forms, tabs, and view signals
 

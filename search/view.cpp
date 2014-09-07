@@ -15,11 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with coastal-qt.  If not, see <http://www.gnu.org/licenses/>.
 
-#include "search.h"
-#include "ui_main.h"
-#include <cstring>
-#include <cstdio>
-#include <cctype>
+#include <coastal-qt-config.h>
+#include "view.h"
 
 View::View(QTabWidget *tabs, QString& title) :
 CoastalView()

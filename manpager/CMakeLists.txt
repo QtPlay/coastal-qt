@@ -9,8 +9,8 @@
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 #
 
-file(GLOB qt_src *.cpp)
-file(GLOB qt_inc manpager.h)
+file(GLOB qt_src main.cpp index.cpp validate.cpp view.cpp config.cpp)
+file(GLOB qt_inc main.h index.h validate.h view.h config.h)
 file(GLOB ui_src *.ui)
 file(GLOB rc_src *.qrc)
 
@@ -25,7 +25,7 @@ set (ts_manpager ${ts_common} ${qt_src} ${ui_src} ${qt_inc} PARENT_SCOPE)
 configure_file(application.rc.cmake ${CMAKE_CURRENT_SOURCE_DIR}/application.rc)
 
 QT_ADD_RESOURCES(qt_qrc ${rc_src})
-QT_WRAP_CPP(qt_moc manpager.h)
+QT_WRAP_CPP(qt_moc main.h index.h view.h config.h)
 QT_WRAP_UI(qt_ui ${ui_src})
 
 if(WIN32)

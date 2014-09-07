@@ -15,12 +15,12 @@
 // You should have received a copy of the GNU General Public License
 // along with coastal-qt.  If not, see <http://www.gnu.org/licenses/>.
 
-#include "search.h"
-#include "ui_main.h"
-#include "ui_config.h"
+#include <coastal-qt-config.h>
 #include <cstring>
 #include <cstdio>
-#include <cctype>
+#include "config.h"
+#include "ui_config.h"
+#include "main.h"
 
 static int last = -1;
 static Ui::Config ui;

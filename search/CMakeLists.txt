@@ -9,8 +9,8 @@
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 #
 
-file(GLOB qt_src *.cpp)
-file(GLOB qt_inc search.h)
+file(GLOB qt_src config.cpp index.cpp view.cpp main.cpp)
+file(GLOB qt_inc config.h index.h view.h main.h)
 file(GLOB ui_src *.ui)
 file(GLOB rc_src *.qrc)
 
@@ -26,7 +26,7 @@ set (ts_out ../translations/coastal-search.ts)
 configure_file(application.rc.cmake ${CMAKE_CURRENT_SOURCE_DIR}/application.rc)
 
 QT_ADD_RESOURCES(qt_qrc ${rc_src})
-QT_WRAP_CPP(qt_moc search.h)
+QT_WRAP_CPP(qt_moc config.h index.h view.h main.h)
 QT_WRAP_UI(qt_ui ${ui_src})
 
 if(WIN32)
