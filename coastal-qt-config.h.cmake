@@ -11,7 +11,7 @@
 
 #define PACKAGE "${PROJECT_NAME}"
 #define VERSION "${VERSION}"
-#define TRANSLATIONS "${DEFAULT_TRANSLATIONS}"
+#define TRANSLATIONS "${CMAKE_INSTALL_FULL_DATADIR}/coastal-qt"
 #cmakedefine    HAVE_WINDOWS_H  1
 #cmakedefine	HAVE_UNISTD_H	1
 #cmakedefine    HAVE_LIBXSS		1

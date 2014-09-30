@@ -47,12 +47,7 @@ for the Qt framework that we use.
 %setup -q
 
 %build
-%cmake	-DINSTALL_MANDIR=%{_mandir} \
-		-DINSTALL_DATADIR=%{_datadir} \
-		-DINSTALL_LIBDIR=%{_libdir} \
-		-DINSTALL_BINDIR=%{_bindir} \
-		-DINSTALL_INCLUDEDIR=%{_includedir} .
-
+%cmake	.
 %{__make} %{?_smp_mflags}
 
 %install

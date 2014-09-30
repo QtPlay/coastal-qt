@@ -25,10 +25,9 @@ set (COASTAL_VERSION ${VERSION})
 
 INCLUDE(FindPkgConfig)
 INCLUDE(CheckIncludeFiles)
+INCLUDE(GNUInstallDirs)
 
-if (NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING "Choose the type of build, options are: None Debug Release RelWithDebInfo MinSizeRel." FORCE)
-endif ()
+set(TRANSLATIONS $(CMAKE_INSTALL_DATADIR)/coastal-qt)
 
 option(BUILD_QT4ONLY "Set to ON to ignore Qt5" OFF)
 
@@ -47,12 +46,6 @@ if( APPLE )
     endif()
 endif()
 
-if(WIN32 AND NOT MSYS AND NOT CYGWIN AND NOT MINGW)
-    set(TRANSLATIONS translations)
-else()
-    set(TRANSLATIONS share/coastal-qt/translations)
-endif()
-
 if(WIN32)
     set(COASTAL_LIBRARY_TYPE "STATIC")
 else()
@@ -60,36 +53,6 @@ else()
 endif()
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/common")
-set(DEFAULT_TRANSLATIONS ${CMAKE_INSTALL_PREFIX}/${TRANSLATIONS})
-
-# target directories
-
-if(WIN32)
-    set(INSTALL_DATADIR ".")
-    set(INSTALL_LIBDIR "bin")
-endif()
-
-
-if(NOT INSTALL_LIBDIR)
-    set(INSTALL_LIBDIR "lib")
-endif()
-
-if(NOT INSTALL_BINDIR)
-    set(INSTALL_BINDIR "bin")
-endif()
-
-if(NOT INSTALL_DATADIR)
-    set(INSTALL_DATADIR "share")
-endif()
-
-if(NOT INSTALL_MANDIR)
-    set(INSTALL_MANDIR "${INSTALL_DATADIR}/man")
-endif()
-
-
-if(NOT INSTALL_INCLUDEDIR)
-    set(INSTALL_INCLUDEDIR "include")
-endif()
 
 # make sure qt dbus set if used
 if(BUILD_DBUS)
@@ -181,8 +144,8 @@ else()
     if(HAVE_MAGIC)
         set(COASTAL_EXTRA_LIBS ${COASTAL_EXTRA_LIBS} magic)
         if(WIN32)
-            set(RUNTIME_MAGIC "C:/Program Files/Common Files/GNU Telephony/misc/magic")
             set(COASTAL_EXTRA_LIBS ${COASTAL_EXTRA_LIBS} regex shlwapi)
+            set(RUNTIME_MAGIC ${CMAKE_INSTALL_FULL_SYSCONFDIR}/magic)
         endif()
     endif()
 endif()

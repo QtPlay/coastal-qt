@@ -35,9 +35,6 @@ add_library(coastal ${COASTAL_LIBRARY_TYPE} ${qt_src} ${qt_inc} ${qt_moc} ${qt_u
 set_target_properties(coastal PROPERTIES VERSION ${VERSION} SOVERSION ${SOVERSION})
 target_link_libraries(coastal ${QT_LIBRARIES} ${COASTAL_EXTRA_LIBS})
 
-IF(WIN32)
-    install(TARGETS coastal DESTINATION bin)    # dll's kept with bin
-else()
-    install(FILES coastal.h DESTINATION ${INSTALL_INCLUDEDIR})
-    install(TARGETS coastal DESTINATION ${INSTALL_LIBDIR})
-endif()
+install(TARGETS coastal DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(FILES coastal.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+

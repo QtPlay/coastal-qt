@@ -38,7 +38,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 add_executable(${PROGNAME} WIN32 MACOSX_BUNDLE ${qt_src} ${qt_inc} ${qt_moc} ${qt_qrc} ${qt_ui} ${qm_out})
 target_link_libraries(${PROGNAME} coastal ${QT_LIBRARIES} ${QT_PLUGINS})
 add_dependencies(${PROGNAME} coastal)
-install(TARGETS ${PROGNAME} DESTINATION ${INSTALL_BINDIR})
+install(TARGETS ${PROGNAME} DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 if(APPLE)
     set(SEARCH_RESOURCES ${CMAKE_CURRENT_BINARY_DIR}/${PROGNAME}.app/Contents/Resources)

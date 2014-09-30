@@ -4,6 +4,6 @@ Type=Application
 Name=Coastal Manpager
 GenericName=Manual Viewer
 Comment=Manual page viwer
-Exec=${CMAKE_INSTALL_PREFIX}/bin/coastal-manpager
+Exec=${CMAKE_INSTALL_FULL_BINDIR}/coastal-manpager
 Categories=Application;Utility;
 Icon=coastal-manpager

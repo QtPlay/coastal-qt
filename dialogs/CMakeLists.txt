@@ -31,10 +31,10 @@ set (DIALOG_PROGNAME coastal-dialog)
 add_executable(${ICONS_PROGNAME} WIN32 MACOSX_BUNDLE icons.cpp icons.h ${icons_moc} ${icons_ui})
 target_link_libraries(${ICONS_PROGNAME} coastal ${QT_LIBRARIES} ${QT_PLUGINS})
 add_dependencies(${ICONS_PROGNAME} coastal)
-install(TARGETS ${ICONS_PROGNAME} DESTINATION ${INSTALL_BINDIR})
+install(TARGETS ${ICONS_PROGNAME} DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 add_executable(${DIALOG_PROGNAME} WIN32 MACOSX_BUNDLE dialog.cpp dialog.h ${dialog_moc} ${dialog_qrc})
 target_link_libraries(${DIALOG_PROGNAME} coastal ${QT_LIBRARIES} ${QT_PLUGINS})
 add_dependencies(${DIALOG_PROGNAME} coastal)
-install(TARGETS ${DIALOG_PROGNAME} DESTINATION ${INSTALL_BINDIR})
+install(TARGETS ${DIALOG_PROGNAME} DESTINATION ${CMAKE_INSTALL_BINDIR})
 
