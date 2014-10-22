@@ -1,3 +1,6 @@
+Changes from 0.9.5 to 0.9.6
+- multi-arch packaging, revised cmake build, fixed png
+
 Changes from 0.9.4 to 0.9.5
 - reorganized and improved application layouts
 - standardized around menuless apps for core apps
