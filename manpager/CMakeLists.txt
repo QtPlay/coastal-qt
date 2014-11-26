@@ -45,3 +45,13 @@ if(APPLE)
         COMMAND mkdir ARGS ${MANPAGER_RESOURCES})
 endif()
 
+if(UNIX AND NOT APPLE)
+    set(DESKTOP_PATH ${CMAKE_CURRENT_BINARY_DIR})
+
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/manpager.desktop.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/manpager.desktop)
+
+    install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/manpager.png DESTINATION ${CMAKE_INSTALL_DATADIR}/pixmaps/coastal-manpager.png)
+    install(FILES ${DESKTOP_PATH}/manpager.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications/coastal-manpager.desktop)
+endif()
+

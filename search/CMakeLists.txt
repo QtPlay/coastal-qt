@@ -45,3 +45,14 @@ if(APPLE)
     add_custom_command(TARGET ${PROGNAME} POST_BUILD
         COMMAND mkdir ARGS ${SEARCH_RESOURCES})
 endif()
+
+if(UNIX AND NOT APPLE)
+    set(DESKTOP_PATH ${CMAKE_CURRENT_BINARY_DIR})
+
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/search.desktop.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/search.desktop)
+
+    install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/search.png DESTINATION ${CMAKE_INSTALL_DATADIR}/pixmaps/coastal-search.png)
+    install(FILES ${DESKTOP_PATH}/search.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications/coastal-search.desktop)
+endif()
+
