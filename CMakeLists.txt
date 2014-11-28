@@ -181,7 +181,6 @@ add_subdirectory(common)
 add_subdirectory(manpager)
 add_subdirectory(search)
 add_subdirectory(dialogs)
-add_subdirectory(translations)
 
 if(CMAKE_GENERATOR MATCHES "Unix Makefiles")
     add_custom_target(cleandist

@@ -24,6 +24,7 @@ set (ts_manpager ${ts_common} ${qt_src} ${ui_src} ${qt_inc} PARENT_SCOPE)
 
 configure_file(application.rc.cmake ${CMAKE_CURRENT_SOURCE_DIR}/application.rc)
 
+QT_CREATE_TRANSLATION(qm_manpager ${ts_manpager} manpager.ts)
 QT_ADD_RESOURCES(qt_qrc ${rc_src})
 QT_WRAP_CPP(qt_moc main.h index.h view.h config.h)
 QT_WRAP_UI(qt_ui ${ui_src})
@@ -33,6 +34,8 @@ if(WIN32)
 endif()
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
+
+add_custom_target(translate DEPENDS ${qm_manpager})
 
 add_executable(${PROGNAME} WIN32 MACOSX_BUNDLE ${qt_src} ${qt_inc} ${qt_moc} ${qt_qrc} ${qt_ui})
 target_link_libraries(${PROGNAME} coastal ${QT_LIBRARIES} ${QT_PLUGINS})

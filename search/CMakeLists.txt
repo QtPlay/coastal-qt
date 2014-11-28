@@ -25,6 +25,7 @@ set (ts_out ../translations/coastal-search.ts)
 
 configure_file(application.rc.cmake ${CMAKE_CURRENT_SOURCE_DIR}/application.rc)
 
+QT_CREATE_TRANSLATION(qm_search ${ts_search} search.ts)
 QT_ADD_RESOURCES(qt_qrc ${rc_src})
 QT_WRAP_CPP(qt_moc config.h index.h view.h main.h)
 QT_WRAP_UI(qt_ui ${ui_src})
@@ -39,6 +40,8 @@ add_executable(${PROGNAME} WIN32 MACOSX_BUNDLE ${qt_src} ${qt_inc} ${qt_moc} ${q
 target_link_libraries(${PROGNAME} coastal ${QT_LIBRARIES} ${QT_PLUGINS})
 add_dependencies(${PROGNAME} coastal)
 install(TARGETS ${PROGNAME} DESTINATION ${CMAKE_INSTALL_BINDIR})
+
+add_custom_target(translate DEPENDS ${qm_search})
 
 if(APPLE)
     set(SEARCH_RESOURCES ${CMAKE_CURRENT_BINARY_DIR}/${PROGNAME}.app/Contents/Resources)
