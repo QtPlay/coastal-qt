@@ -22,7 +22,7 @@ endif()
 
 set (ts_manpager ${ts_common} ${qt_src} ${ui_src} ${qt_inc} PARENT_SCOPE)
 
-configure_file(application.rc.cmake ${CMAKE_CURRENT_SOURCE_DIR}/application.rc)
+configure_file(manpager.rc.cmake ${CMAKE_CURRENT_SOURCE_DIR}/manpager.rc)
 
 QT_CREATE_TRANSLATION(qm_manpager ${ts_manpager} manpager.ts)
 QT_ADD_RESOURCES(qt_qrc ${rc_src})
@@ -30,12 +30,10 @@ QT_WRAP_CPP(qt_moc main.h index.h view.h config.h)
 QT_WRAP_UI(qt_ui ${ui_src})
 
 if(WIN32)
-    set(qt_qrc ${qt_qrc} application.rc)
+    set(qt_qrc ${qt_qrc} manpager.rc)
 endif()
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
-
-add_custom_target(coastal-manpager-translate DEPENDS ${qm_manpager})
 
 add_executable(${PROGNAME} WIN32 MACOSX_BUNDLE ${qt_src} ${qt_inc} ${qt_moc} ${qt_qrc} ${qt_ui})
 target_link_libraries(${PROGNAME} coastal ${QT_LIBRARIES} ${QT_PLUGINS})
@@ -56,5 +54,12 @@ if(UNIX AND NOT APPLE)
 
     install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/manpager.png DESTINATION ${CMAKE_INSTALL_DATADIR}/pixmaps/coastal-manpager.png)
     install(FILES ${DESKTOP_PATH}/manpager.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications/coastal-manpager.desktop)
+endif()
+
+if(CMAKE_GENERATOR MATCHES "Unix Makefiles")
+    add_custom_target(translate
+        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+        COMMAND lupdate -locations none ${qt_src} ${qt_inc} ${qt_ui} -ts ${CMAKE_CURRENT_SOURCE_DIR}/manpager.ts
+    )
 endif()
 

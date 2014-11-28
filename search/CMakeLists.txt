@@ -23,7 +23,7 @@ endif()
 set (ts_search ${ts_common} ${qt_src} ${ui_src} ${qt_inc} PARENT_SCOPE)
 set (ts_out ../translations/coastal-search.ts)
 
-configure_file(application.rc.cmake ${CMAKE_CURRENT_SOURCE_DIR}/application.rc)
+configure_file(search.rc.cmake ${CMAKE_CURRENT_SOURCE_DIR}/search.rc)
 
 QT_CREATE_TRANSLATION(qm_search ${ts_search} search.ts)
 QT_ADD_RESOURCES(qt_qrc ${rc_src})
@@ -31,12 +31,10 @@ QT_WRAP_CPP(qt_moc config.h index.h view.h main.h)
 QT_WRAP_UI(qt_ui ${ui_src})
 
 if(WIN32)
-    set(qt_qrc ${qt_qrc} application.rc)
+    set(qt_qrc ${qt_qrc} search.rc)
 endif()
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
-
-add_custom_target(coastal-search-translate DEPENDS ${qm_search})
 
 add_executable(${PROGNAME} WIN32 MACOSX_BUNDLE ${qt_src} ${qt_inc} ${qt_moc} ${qt_qrc} ${qt_ui} ${qm_out})
 target_link_libraries(${PROGNAME} coastal ${QT_LIBRARIES} ${QT_PLUGINS})
@@ -57,5 +55,12 @@ if(UNIX AND NOT APPLE)
 
     install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/search.png DESTINATION ${CMAKE_INSTALL_DATADIR}/pixmaps/coastal-search.png)
     install(FILES ${DESKTOP_PATH}/search.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications/coastal-search.desktop)
+endif()
+
+if(CMAKE_GENERATOR MATCHES "Unix Makefiles")
+    add_custom_target(translate
+        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+        COMMAND lupdate -locations none ${qt_src} ${qt_inc} ${qt_ui} -ts ${CMAKE_CURRENT_SOURCE_DIR}/search.ts
+    )
 endif()
 

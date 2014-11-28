@@ -25,6 +25,7 @@ if(BUILD_DBUS)
     QT_ADD_DBUS_INTERFACE(qt_src ../dbus/org.freedesktop.Notifications.xml dbus_notify)
 endif()
 
+QT_CREATE_TRANSLATION(qm_libcoastal ${ts_libcoastal} libcoastal.ts)
 QT_ADD_RESOURCES(qt_qrc ${rc_src})
 QT_WRAP_CPP(qt_moc coastal.h)
 QT_WRAP_UI(qt_ui ${ui_src})
@@ -42,4 +43,11 @@ target_link_libraries(coastal ${QT_LIBRARIES} ${COASTAL_EXTRA_LIBS})
 install(TARGETS coastal DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(FILES coastal.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libcoastal.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
+
+if(CMAKE_GENERATOR MATCHES "Unix Makefiles")
+    add_custom_target(translate
+        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+        COMMAND lupdate -locations none ${qt_src} ${qt_inc} ${qt_ui} -ts ${CMAKE_CURRENT_SOURCE_DIR}/libcoastal.ts
+    )
+endif()
 

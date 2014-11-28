@@ -1,5 +1,4 @@
-IDI_ICON1               ICON    DISCARDABLE     "application.ico"
-//CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST "coastal-search.exe.manifest"
+IDI_ICON1               ICON    DISCARDABLE     "manpager.ico"
 1 VERSIONINFO
     FILEVERSION @RC_VERSION@
     PRODUCTVERSION @RC_VERSION@
@@ -17,12 +16,12 @@ BEGIN
         BLOCK "040904E4"
         BEGIN
             VALUE "CompanyName", "Tycho Softworks"
-            VALUE "FileDescription", "Coastal File Search"
+            VALUE "FileDescription", "Coastal Manual Page Reader"
             VALUE "FileVersion", "@VERSION@"
-            VALUE "InternalName", "coastal-search"
+            VALUE "InternalName", "coastal-manpager"
             VALUE "LegalCopyright", "(C) 2012 David Sugar, Tycho Softworks"
-            VALUE "OriginalFilename", "coastal-search.exe"
-            VALUE "ProductName", "Coastal Search"
+            VALUE "OriginalFilename", "coastal-manpager.exe"
+            VALUE "ProductName", "Coastal Manpager"
             VALUE "ProductVersion", "@VERSION@"
         END
     END
