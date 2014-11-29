@@ -46,7 +46,35 @@
 #include <QMenuBar>
 #include <QStatusBar>
 #include <QLabel>
+#include <QMutex>
+#include <QWaitCondition>
 #include <cctype>
+
+/**
+ * @brief A convenience class to use conditionals.
+ * @author Davod Sugar <dyfet@gnutelephony.org>
+ */
+class CoastalConditional : public QMutex
+{
+protected:
+    QWaitCondition cond;
+
+    virtual bool initialize(bool result);
+    virtual bool finalize(bool result);
+
+public:
+    CoastalConditional();
+
+    bool wait(unsigned long time = ULONG_MAX);
+
+    inline void wakeOne(void) {
+        cond.wakeOne();
+    }
+
+    inline void wakeAll(void) {
+        cond.wakeAll();
+    }
+};
 
 /**
  * @brief Create a coastal styled about box.
