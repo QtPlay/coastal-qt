@@ -1,3 +1,9 @@
+coastal-qt (1:0.9.8-1) UNRELEASED; urgency=low
+
+  * conditional class added to api
+
+ -- David Sugar <dyfet@gnutelephony.org>  Mon, 22 Dec 2014 10:30:59 -0400
+
 coastal-qt (1:0.9.6-1) UNRELEASED; urgency=low
 
   * Updated for multi-arch and improved cmake build
