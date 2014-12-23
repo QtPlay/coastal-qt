@@ -58,7 +58,7 @@ if(UNIX AND NOT APPLE)
 endif()
 
 if(CMAKE_GENERATOR MATCHES "Unix Makefiles")
-    add_custom_target(translate
+    add_custom_target(translate-search
         WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
         COMMAND lupdate -locations none ${qt_src} ${qt_inc} ${qt_ui} -ts ${CMAKE_CURRENT_SOURCE_DIR}/search.ts
     )
