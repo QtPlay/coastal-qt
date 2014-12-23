@@ -5,5 +5,5 @@ Name=Coastal Manpager
 GenericName=Manual Viewer
 Comment=Manual page viwer
 Exec=${CMAKE_INSTALL_FULL_BINDIR}/coastal-manpager
-Categories=Application;Utility;
+Categories=Application;Utility;DesktopUtility;Qt;Viewer;
 Icon=coastal-manpager

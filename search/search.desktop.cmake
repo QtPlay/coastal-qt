@@ -5,5 +5,5 @@ Name=Coastal Search
 GenericName=Text Search
 Comment=Text search and view
 Exec=${CMAKE_INSTALL_FULL_BINDIR}/coastal-search
-Categories=Application;Utility;
+Categories=Application;Utility;DesktopUtility;Qt;Filesystem;
 Icon=coastal-search
