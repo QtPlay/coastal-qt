@@ -56,7 +56,7 @@ if(UNIX AND NOT APPLE)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/search.png
         ${CMAKE_CURRENT_BINARY_DIR}/coastal-search.png COPYONLY)
 
-    install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/coastal-search.png DESTINATION ${CMAKE_INSTALL_DATADIR}/pixmaps)
+    install(FILES ${DESKTOP_PATH}/coastal-search.png DESTINATION ${CMAKE_INSTALL_DATADIR}/pixmaps)
     install(FILES ${DESKTOP_PATH}/coastal-search.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
 endif()
 

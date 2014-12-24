@@ -55,7 +55,7 @@ if(UNIX AND NOT APPLE)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/manpager.png 
         ${CMAKE_CURRENT_BINARY_DIR}/coastal-manpager.png COPYONLY)
 
-    install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/coastal-manpager.png DESTINATION ${CMAKE_INSTALL_DATADIR}/pixmaps)
+    install(FILES ${DESKTOP_PATH}/coastal-manpager.png DESTINATION ${CMAKE_INSTALL_DATADIR}/pixmaps)
     install(FILES ${DESKTOP_PATH}/coastal-manpager.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
 endif()
 
