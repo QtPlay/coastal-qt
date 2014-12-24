@@ -51,10 +51,13 @@ if(UNIX AND NOT APPLE)
     set(DESKTOP_PATH ${CMAKE_CURRENT_BINARY_DIR})
 
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/search.desktop.cmake
-        ${CMAKE_CURRENT_BINARY_DIR}/search.desktop)
+        ${CMAKE_CURRENT_BINARY_DIR}/coastal-search.desktop)
 
-    install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/search.png DESTINATION ${CMAKE_INSTALL_DATADIR}/pixmaps/coastal-search.png)
-    install(FILES ${DESKTOP_PATH}/search.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications/coastal-search.desktop)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/search.png
+        ${CMAKE_CURRENT_BINARY_DIR}/coastal-search.png COPYONLY)
+
+    install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/coastal-search.png DESTINATION ${CMAKE_INSTALL_DATADIR}/pixmaps)
+    install(FILES ${DESKTOP_PATH}/coastal-search.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
 endif()
 
 if(CMAKE_GENERATOR MATCHES "Unix Makefiles")

@@ -50,10 +50,13 @@ if(UNIX AND NOT APPLE)
     set(DESKTOP_PATH ${CMAKE_CURRENT_BINARY_DIR})
 
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/manpager.desktop.cmake
-        ${CMAKE_CURRENT_BINARY_DIR}/manpager.desktop)
+        ${CMAKE_CURRENT_BINARY_DIR}/coastal-manpager.desktop)
 
-    install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/manpager.png DESTINATION ${CMAKE_INSTALL_DATADIR}/pixmaps/coastal-manpager.png)
-    install(FILES ${DESKTOP_PATH}/manpager.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications/coastal-manpager.desktop)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/manpager.png 
+        ${CMAKE_CURRENT_BINARY_DIR}/coastal-manpager.png COPYONLY)
+
+    install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/coastal-manpager.png DESTINATION ${CMAKE_INSTALL_DATADIR}/pixmaps)
+    install(FILES ${DESKTOP_PATH}/coastal-manpager.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
 endif()
 
 if(CMAKE_GENERATOR MATCHES "Unix Makefiles")
