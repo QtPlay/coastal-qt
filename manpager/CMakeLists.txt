@@ -28,15 +28,16 @@ configure_file(manpager.rc.cmake ${CMAKE_CURRENT_SOURCE_DIR}/manpager.rc)
 
 QT_WRAP_CPP(qt_moc ${qt_inc})
 QT_WRAP_UI(qt_ui ${ui_src})
-MESSAGE(STATUS "QT ${qt_qrc}")
 
 if(WIN32)
-    set(qt_qrc ${qt_qrc} manpager.rc)
+    set(qt_qrc qrc_manpager.cxx manpager.rc)
+else()
+    set(qt_qrc qrc_manpager.cxx)
 endif()
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
-add_executable(${PROGNAME} WIN32 MACOSX_BUNDLE ${qt_src} ${qt_inc} ${qt_moc} ${qt_ui} qrc_manpager.cxx)
+add_executable(${PROGNAME} WIN32 MACOSX_BUNDLE ${qt_src} ${qt_inc} ${qt_moc} ${qt_ui} ${qt_qrc})
 target_link_libraries(${PROGNAME} coastal ${QT_LIBRARIES} ${QT_PLUGINS})
 add_dependencies(${PROGNAME} coastal)
 install(TARGETS ${PROGNAME} DESTINATION ${CMAKE_INSTALL_BINDIR})
@@ -60,13 +61,18 @@ if(UNIX AND NOT APPLE)
     install(FILES ${DESKTOP_PATH}/coastal-manpager.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
 endif()
 
-add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/qrc_manpager.cxx
+add_custom_command(OUTPUT ${qm_out}
     DEPENDS ${qt_src} ${qt_inc} ${qt_ui} ${qm_src}
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-    COMMAND lupdate 
+    COMMAND lupdate
     ARGS -locations none ${qt_src} ${qt_inc} ${qt_ui} -ts ${qm_src}
     COMMAND 
     ARGS lrelease ${qm_src}
+)
+
+add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/qrc_manpager.cxx
+    DEPENDS ${qt_src} ${qt_inc} ${qt_ui} ${qm_src} ${qm_out}
+    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
     COMMAND ${qt_rcc_executable} 
     ARGS ${qt_rcc_name_option} manpager -o ${CMAKE_CURRENT_BINARY_DIR}/qrc_manpager.cxx manpager.qrc
 )

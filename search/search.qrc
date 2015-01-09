@@ -8,4 +8,8 @@
 <qresource prefix="qss">
 	<file>search.css</file>
 </qresource>
+<qresource prefix="translations">
+	<file>search_es.qm</file>
+	<file>search_de.qm</file>
+</qresource>
 </RCC>
