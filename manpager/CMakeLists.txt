@@ -63,9 +63,12 @@ endif()
 add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/qrc_manpager.cxx
     DEPENDS ${qt_src} ${qt_inc} ${qt_ui} ${qm_src}
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-    COMMAND lupdate -locations none ${qt_src} ${qt_inc} ${qt_ui} -ts ${qm_src}
-    COMMAND lrelease ${qm_src}
-    COMMAND rcc --name manpager -o ${CMAKE_CURRENT_BINARY_DIR}/qrc_manpager.cxx manpager.qrc
+    COMMAND lupdate 
+    ARGS -locations none ${qt_src} ${qt_inc} ${qt_ui} -ts ${qm_src}
+    COMMAND 
+    ARGS lrelease ${qm_src}
+    COMMAND ${qt_rcc_executable} 
+    ARGS ${qt_rcc_name_option} manpager -o ${CMAKE_CURRENT_BINARY_DIR}/qrc_manpager.cxx manpager.qrc
 )
 
 

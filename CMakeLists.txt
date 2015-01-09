@@ -101,7 +101,8 @@ if(Qt5Core_FOUND)
     macro(qt_wrap_ui)
         qt5_wrap_ui(${ARGN})
     endmacro()
-
+    set(qt_rcc_executable ${Qt5Core_RCC_EXECUTABLE})
+    set(qt_rcc_name_option "--name")
 else()
     macro(qt_add_dbus_interface)
         qt4_add_dbus_interface(${ARGN})
@@ -139,6 +140,8 @@ else()
         message(ERROR "Building without QT")
     endif()
 
+    set(qt_rcc_executable ${QT_RCC_EXECUTABLE})
+    set(qt_rcc_name_option "-name")
     # for qt5 we use mimeinfo...
     check_include_files(magic.h HAVE_MAGIC)
     if(HAVE_MAGIC)
