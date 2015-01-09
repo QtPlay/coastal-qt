@@ -60,11 +60,12 @@ if(UNIX AND NOT APPLE)
     install(FILES ${DESKTOP_PATH}/coastal-manpager.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
 endif()
 
-add_custom_command(OUTPUT qrc_manpager.cxx
+add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/qrc_manpager.cxx
+    DEPENDS ${qt_src} ${qt_inc} ${qt_ui} ${qm_src}
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
     COMMAND lupdate -locations none ${qt_src} ${qt_inc} ${qt_ui} -ts ${qm_src}
     COMMAND lrelease ${qm_src}
-    COMMAND rcc --name manpager -o qrc_manpager.cxx manpager.qrc
+    COMMAND rcc --name manpager -o ${CMAKE_CURRENT_BINARY_DIR}/qrc_manpager.cxx manpager.qrc
 )
 
 

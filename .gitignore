@@ -9,6 +9,8 @@ CMakeFiles/
 *.pc
 *.desktop
 *.exe
+*.qm
+qrc_*.cxx
 cmake_install.cmake
 Makefile
 moc_*
