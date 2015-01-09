@@ -19,6 +19,7 @@
 
 class ValidateIndex : public QValidator
 {
+    Q_OBJECT
 public:
     ValidateIndex();
 

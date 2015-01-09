@@ -7,4 +7,8 @@
 	<file>downarrow.png</file>
 	<file>searchicon.png</file>
 </qresource>
+<qresource prefix="/translations">
+	<file>manpager_es.qm</file>
+	<file>manpager_de.qm</file>
+</qresource>
 </RCC>

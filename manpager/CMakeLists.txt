@@ -13,6 +13,8 @@ file(GLOB qt_src main.cpp index.cpp validate.cpp view.cpp config.cpp)
 file(GLOB qt_inc main.h index.h validate.h view.h config.h)
 file(GLOB ui_src *.ui)
 file(GLOB rc_src *.qrc)
+set(qm_src manpager_es.ts manpager_de.ts)
+set(qm_out manpager_es.qm manpager_de.qm)
 
 if( APPLE )
     set(PROGNAME "Coastal Manpager")
@@ -24,10 +26,9 @@ set (ts_manpager ${ts_common} ${qt_src} ${ui_src} ${qt_inc} PARENT_SCOPE)
 
 configure_file(manpager.rc.cmake ${CMAKE_CURRENT_SOURCE_DIR}/manpager.rc)
 
-QT_CREATE_TRANSLATION(qm_manpager ${ts_manpager} manpager.ts)
-QT_ADD_RESOURCES(qt_qrc ${rc_src})
-QT_WRAP_CPP(qt_moc main.h index.h view.h config.h)
+QT_WRAP_CPP(qt_moc ${qt_inc})
 QT_WRAP_UI(qt_ui ${ui_src})
+MESSAGE(STATUS "QT ${qt_qrc}")
 
 if(WIN32)
     set(qt_qrc ${qt_qrc} manpager.rc)
@@ -35,7 +36,7 @@ endif()
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
-add_executable(${PROGNAME} WIN32 MACOSX_BUNDLE ${qt_src} ${qt_inc} ${qt_moc} ${qt_qrc} ${qt_ui})
+add_executable(${PROGNAME} WIN32 MACOSX_BUNDLE ${qt_src} ${qt_inc} ${qt_moc} ${qt_ui} qrc_manpager.cxx)
 target_link_libraries(${PROGNAME} coastal ${QT_LIBRARIES} ${QT_PLUGINS})
 add_dependencies(${PROGNAME} coastal)
 install(TARGETS ${PROGNAME} DESTINATION ${CMAKE_INSTALL_BINDIR})
@@ -59,10 +60,11 @@ if(UNIX AND NOT APPLE)
     install(FILES ${DESKTOP_PATH}/coastal-manpager.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
 endif()
 
-if(CMAKE_GENERATOR MATCHES "Unix Makefiles")
-    add_custom_target(translate-manpager
-        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-        COMMAND lupdate -locations none ${qt_src} ${qt_inc} ${qt_ui} -ts ${CMAKE_CURRENT_SOURCE_DIR}/manpager.ts
-    )
-endif()
+add_custom_command(OUTPUT qrc_manpager.cxx
+    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+    COMMAND lupdate -locations none ${qt_src} ${qt_inc} ${qt_ui} -ts ${qm_src}
+    COMMAND lrelease ${qm_src}
+    COMMAND rcc --name manpager -o qrc_manpager.cxx manpager.qrc
+)
+
 
