@@ -12,6 +12,8 @@
 file(GLOB qt_src about.cpp busy.cpp coastal.cpp dialog.cpp main.cpp notify.cpp view.cpp conditional.cpp)
 file(GLOB qt_inc coastal.h)
 file(GLOB ui_src *.ui)
+set(qm_src coastal_es.ts coastal_de.ts)
+set(qm_out coastal_es.qm coastal_de.qm)
 
 if(WIN32)
     set(rc_src mingw.qrc)
@@ -19,16 +21,13 @@ else()
     set(rc_src coastal.qrc)
 endif()
 
-set (ts_common ${ts_src} ${qt_src} ${ui_src} ${qt_inc} PARENT_SCOPE)
-
 if(BUILD_DBUS)
     QT_ADD_DBUS_INTERFACE(qt_src ../dbus/org.freedesktop.Notifications.xml dbus_notify)
 endif()
 
-QT_CREATE_TRANSLATION(qm_libcoastal ${ts_libcoastal} libcoastal.ts)
-QT_ADD_RESOURCES(qt_qrc ${rc_src})
 QT_WRAP_CPP(qt_moc coastal.h)
 QT_WRAP_UI(qt_ui ${ui_src})
+set(qt_qrc qrc_coastal.cxx)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
@@ -44,10 +43,19 @@ install(TARGETS coastal DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(FILES coastal.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libcoastal.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 
-if(CMAKE_GENERATOR MATCHES "Unix Makefiles")
-    add_custom_target(translate
-        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-        COMMAND lupdate -locations none ${qt_src} ${qt_inc} ${qt_ui} -ts ${CMAKE_CURRENT_SOURCE_DIR}/coastal.ts
-    )
-endif()
+add_custom_command(OUTPUT ${qm_out}
+    DEPENDS ${qt_src} ${qt_inc} ${qt_ui} ${qm_src}
+    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+    COMMAND lupdate
+        ARGS -locations none ${qt_src} ${qt_inc} ${qt_ui} -ts ${qm_src}
+    COMMAND 
+        ARGS lrelease ${qm_src}
+)
+
+add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/qrc_coastal.cxx
+    DEPENDS ${qm_out} coastal.qrc
+    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+    COMMAND ${qt_rcc_executable} 
+        ARGS ${qt_rcc_name_option} coastal -o ${CMAKE_CURRENT_BINARY_DIR}/qrc_coastal.cxx coastal.qrc
+)
 

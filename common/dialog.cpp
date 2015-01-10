@@ -16,8 +16,8 @@
 // along with coastal-qt.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <coastal-qt-config.h>
-#include <coastal.h>
-#include <ui_about.h>
+#include "coastal.h"
+#include "ui_about.h"
 
 CoastalDialog::CoastalDialog(bool tray) :
 QDialog(NULL)
