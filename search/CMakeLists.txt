@@ -63,15 +63,15 @@ add_custom_command(OUTPUT ${qm_out}
     DEPENDS ${qt_src} ${qt_inc} ${qt_ui} ${qm_src}
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
     COMMAND lupdate
-    ARGS -locations none ${qt_src} ${qt_inc} ${qt_ui} -ts ${qm_src}
+        ARGS -locations none ${qt_src} ${qt_inc} ${qt_ui} -ts ${qm_src}
     COMMAND 
-    ARGS lrelease ${qm_src}
+        ARGS lrelease ${qm_src}
 )
 
 add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/qrc_search.cxx
-    DEPENDS ${qt_src} ${qt_inc} ${qt_ui} ${qm_src} ${qm_out} search.qrc
+    DEPENDS ${qm_out} search.qrc
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
     COMMAND ${qt_rcc_executable} 
-    ARGS ${qt_rcc_name_option} search -o ${CMAKE_CURRENT_BINARY_DIR}/qrc_search.cxx search.qrc
+        ARGS ${qt_rcc_name_option} search -o ${CMAKE_CURRENT_BINARY_DIR}/qrc_search.cxx search.qrc
 )
 
