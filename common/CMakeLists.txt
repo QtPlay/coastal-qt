@@ -43,11 +43,16 @@ install(TARGETS coastal DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(FILES coastal.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libcoastal.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 
-add_custom_command(OUTPUT ${qm_out}
-    DEPENDS ${qt_src} ${qt_inc} ${qt_ui} ${qm_src}
+add_custom_command(OUTPUT ${qm_src}
+    DEPENDS CMakeLists.txt ${qt_src} ${qt_inc} ${qt_ui}
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
     COMMAND lupdate
         ARGS -locations none ${qt_src} ${qt_inc} ${qt_ui} -ts ${qm_src}
+)
+
+add_custom_command(OUTPUT ${qm_out}
+    DEPENDS ${qm_src}
+    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
     COMMAND 
         ARGS lrelease ${qm_src}
 )

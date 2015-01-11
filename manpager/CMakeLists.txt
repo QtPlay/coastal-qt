@@ -61,8 +61,17 @@ if(UNIX AND NOT APPLE)
     install(FILES ${DESKTOP_PATH}/coastal-manpager.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
 endif()
 
+add_custom_command(OUTPUT ${qm_src}
+    DEPENDS CMakeLists.txt ${qt_src} ${qt_inc} ${qt_ui}
+    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+    COMMAND lupdate
+        ARGS -locations none ${qt_src} ${qt_inc} ${qt_ui} -ts ${qm_src}
+    COMMAND 
+        ARGS lrelease ${qm_src}
+)
+
 add_custom_command(OUTPUT ${qm_out}
-    DEPENDS ${qt_src} ${qt_inc} ${qt_ui} ${qm_src}
+    DEPENDS ${qm_src}
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
     COMMAND lupdate
         ARGS -locations none ${qt_src} ${qt_inc} ${qt_ui} -ts ${qm_src}
