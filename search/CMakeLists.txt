@@ -12,9 +12,9 @@
 file(GLOB qt_src config.cpp index.cpp view.cpp main.cpp)
 file(GLOB qt_inc config.h index.h view.h main.h)
 file(GLOB ui_src *.ui)
-file(GLOB rc_src *.qrc)
 set(qm_src search_es.ts search_de.ts)
 set(qm_out search_es.qm search_de.qm)
+set(style search_default.qrc)
 
 if( APPLE )
     set (PROGNAME "Coastal Search")
@@ -70,10 +70,14 @@ add_custom_command(OUTPUT .lupdate
 add_custom_command(OUTPUT ${qm_out}
     DEPENDS .lupdate
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-    COMMAND 
-        ARGS lrelease ${qm_src}
+    COMMAND lrelease
+        ARGS ${qm_src}
 )
 
-add_custom_target(search.qrc
-    DEPENDS ${qm_out}
+add_custom_command(OUTPUT search.qrc
+    DEPENDS ${qm_out} ${style}
+    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+    COMMAND ${CMAKE_COMMAND}
+        ARGS -E copy ${style} search.qrc
+
 )

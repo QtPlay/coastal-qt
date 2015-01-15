@@ -16,16 +16,16 @@ set(qm_src coastal_es.ts coastal_de.ts)
 set(qm_out coastal_es.qm coastal_de.qm)
 
 if(WIN32)
-    set(rc_src mingw.qrc)
+    set(style coastal_mingw.qrc)
 else()
-    set(rc_src coastal.qrc)
+    set(style coastal_default.qrc)
 endif()
 
 if(BUILD_DBUS)
     QT_ADD_DBUS_INTERFACE(qt_src ../dbus/org.freedesktop.Notifications.xml dbus_notify)
 endif()
 
-QT_ADD_RESOURCES(qt_qrc ${rc_src})
+QT_ADD_RESOURCES(qt_qrc coastal.qrc)
 QT_WRAP_CPP(qt_moc coastal.h)
 QT_WRAP_UI(qt_ui ${ui_src})
 
@@ -54,10 +54,13 @@ add_custom_command(OUTPUT .lupdate
 add_custom_command(OUTPUT ${qm_out}
     DEPENDS .lupdate
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-    COMMAND 
-        ARGS lrelease ${qm_src}
+    COMMAND lrelease
+        ARGS ${qm_src}
 )
 
-add_custom_target(${rc_src}
-    DEPENDS ${qm_out}
+add_custom_command(OUTPUT coastal.qrc
+    DEPENDS ${Style} ${qm_out}
+    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+    COMMAND ${CMAKE_COMMAND}
+        ARGS -E copy ${style} coastal.qrc
 )

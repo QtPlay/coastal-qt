@@ -12,9 +12,9 @@
 file(GLOB qt_src main.cpp index.cpp validate.cpp view.cpp config.cpp)
 file(GLOB qt_inc main.h index.h validate.h view.h config.h)
 file(GLOB ui_src *.ui)
-file(GLOB rc_src *.qrc)
 set(qm_src manpager_es.ts manpager_de.ts)
 set(qm_out manpager_es.qm manpager_de.qm)
+set(style manpager_default.qrc)
 
 if( APPLE )
     set(PROGNAME "Coastal Manpager")
@@ -76,8 +76,11 @@ add_custom_command(OUTPUT ${qm_out}
         ARGS ${qm_src}
 )
 
-add_custom_target(manpager.qrc
-    DEPENDS ${qm_out}
+add_custom_command(OUTPUT manpager.qrc
+    DEPENDS ${qm_out} ${style}
+    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+    COMMAND ${CMAKE_COMMAND}
+        ARGS -E copy ${style} manpager.qrc
 )
 
 
