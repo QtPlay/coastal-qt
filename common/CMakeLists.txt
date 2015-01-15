@@ -59,7 +59,7 @@ add_custom_command(OUTPUT ${qm_out}
 )
 
 add_custom_command(OUTPUT coastal.qrc
-    DEPENDS ${Style} ${qm_out}
+    DEPENDS ${style} ${qm_out}
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
     COMMAND ${CMAKE_COMMAND}
         ARGS -E copy ${style} coastal.qrc
