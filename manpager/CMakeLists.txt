@@ -63,7 +63,7 @@ endif()
 add_custom_command(OUTPUT .lupdate
     DEPENDS ${qt_src} ${qt_inc} ${qt_ui} ${qm_src}
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-    COMMAND lupdate 
+    COMMAND ${QT_LUPDATE_EXECUTABLE}
         ARGS -locations none ${qt_src} ${qt_inc} ${qt_ui} -ts ${qm_src}
     COMMAND ${CMAKE_COMMAND}
         ARGS -E touch .lupdate
@@ -72,7 +72,7 @@ add_custom_command(OUTPUT .lupdate
 add_custom_command(OUTPUT ${qm_out}
     DEPENDS .lupdate 
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-    COMMAND lrelease
+    COMMAND ${QT_LRELEASE_EXECUTABLE}
         ARGS ${qm_src}
 )
 
