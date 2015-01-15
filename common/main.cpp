@@ -21,7 +21,9 @@
 
 CoastalMain::CoastalMain(bool tray) :
 QMainWindow(NULL)
-{    
+{   
+    Q_INIT_RESOURCE(coastal);
+
     program_version = VERSION;
     program_about = program_name = "Coastal Application";
     program_copyright = "2011 David Sugar";
@@ -32,16 +34,13 @@ QMainWindow(NULL)
 
 #if defined(Q_OS_WIN)
     setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-    Q_INIT_RESOURCE(mingw);
     QIcon::setThemeName("coastal");    
     setIconSize(QSize(24, 24));         // uniform icon size...
 #elif defined(Q_OS_MAC)
     setToolButtonStyle(Qt::ToolButtonIconOnly);
-    Q_INIT_RESOURCE(coastal);
     QIcon::setThemeName("coastal");
 #else
     setToolButtonStyle(Qt::ToolButtonFollowStyle);
-    Q_INIT_RESOURCE(coastal);
     if(!QIcon::hasThemeIcon("view-refresh")) {
         QIcon::setThemeName("coastal");
         setIconSize(QSize(24, 24));
