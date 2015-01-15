@@ -24,13 +24,12 @@ endif()
 
 configure_file(search.rc.cmake ${CMAKE_CURRENT_SOURCE_DIR}/search.rc)
 
+QT_ADD_RESOURCES(qt_qrc search.qrc)
 QT_WRAP_CPP(qt_moc config.h index.h view.h main.h)
 QT_WRAP_UI(qt_ui ${ui_src})
 
 if(WIN32)
-    set(qt_qrc qrc_search.cxx search.rc)
-else()
-    set(qt_qrc qrc_search.cxx)
+    set(qt_qrc ${qt_qrc} search.rc)
 endif()
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
@@ -59,24 +58,22 @@ if(UNIX AND NOT APPLE)
     install(FILES ${DESKTOP_PATH}/coastal-search.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
 endif()
 
-add_custom_command(OUTPUT ${qm_src}
-    DEPENDS CMakeLists.txt ${qt_src} ${qt_inc} ${qt_ui}
+add_custom_command(OUTPUT .lupdate
+    DEPENDS ${qt_src} ${qt_inc} ${qt_ui} ${qm_src}
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
     COMMAND lupdate
         ARGS -locations none ${qt_src} ${qt_inc} ${qt_ui} -ts ${qm_src}
+    COMMAND ${CMAKE_COMMAND}
+        ARGS -E touch .lupdate
 )
 
 add_custom_command(OUTPUT ${qm_out}
-    DEPENDS ${qm_src}
+    DEPENDS .lupdate
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
     COMMAND 
         ARGS lrelease ${qm_src}
 )
 
-add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/qrc_search.cxx
-    DEPENDS ${qm_out} search.qrc
-    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-    COMMAND ${qt_rcc_executable} 
-        ARGS ${qt_rcc_name_option} search -o ${CMAKE_CURRENT_BINARY_DIR}/qrc_search.cxx search.qrc
+add_custom_target(search.qrc
+    DEPENDS ${qm_out}
 )
-

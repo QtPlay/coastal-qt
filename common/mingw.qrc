@@ -106,4 +106,8 @@
 <qresource prefix="icons/web">
     <file alias="github.png">../icons/github.png</file>
 </qresource>
+<qresource prefix="/translations">
+	<file>coastal_es.qm</file>
+	<file>coastal_de.qm</file>
+</qresource>
 </RCC>

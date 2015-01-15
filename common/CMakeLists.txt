@@ -25,15 +25,14 @@ if(BUILD_DBUS)
     QT_ADD_DBUS_INTERFACE(qt_src ../dbus/org.freedesktop.Notifications.xml dbus_notify)
 endif()
 
+QT_ADD_RESOURCES(qt_qrc ${rc_src})
 QT_WRAP_CPP(qt_moc coastal.h)
 QT_WRAP_UI(qt_ui ${ui_src})
-set(qt_qrc qrc_coastal.cxx)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/libcoastal.pc.cmake
         ${CMAKE_CURRENT_BINARY_DIR}/libcoastal.pc)
-
 
 add_library(coastal ${COASTAL_LIBRARY_TYPE} ${qt_src} ${qt_inc} ${qt_moc} ${qt_ui} ${qt_qrc})
 set_target_properties(coastal PROPERTIES VERSION ${VERSION} SOVERSION ${SOVERSION})
@@ -43,24 +42,22 @@ install(TARGETS coastal DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(FILES coastal.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libcoastal.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 
-add_custom_command(OUTPUT ${qm_src}
-    DEPENDS CMakeLists.txt ${qt_src} ${qt_inc} ${qt_ui}
+add_custom_command(OUTPUT .lupdate
+    DEPENDS ${qt_src} ${qt_inc} ${qt_ui} ${qm_src}
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
     COMMAND lupdate
         ARGS -locations none ${qt_src} ${qt_inc} ${qt_ui} -ts ${qm_src}
+    COMMAND ${CMAKE_COMMAND}
+        ARGS -E touch .lupdate
 )
 
 add_custom_command(OUTPUT ${qm_out}
-    DEPENDS ${qm_src}
+    DEPENDS .lupdate
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
     COMMAND 
         ARGS lrelease ${qm_src}
 )
 
-add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/qrc_coastal.cxx
-    DEPENDS ${qm_out} coastal.qrc
-    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-    COMMAND ${qt_rcc_executable} 
-        ARGS ${qt_rcc_name_option} coastal -o ${CMAKE_CURRENT_BINARY_DIR}/qrc_coastal.cxx coastal.qrc
+add_custom_target(${rc_src}
+    DEPENDS ${qm_out}
 )
-
