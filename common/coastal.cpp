@@ -47,6 +47,21 @@
 #include <magic.h>
 #endif
 
+void Coastal::bind()
+{
+    static bool updated = false;
+
+    if(updated)
+        return;
+
+#ifdef  Q_OS_WIN
+    Q_INIT_RESOURCE(coastal_mingw);
+#else
+    Q_INIT_RESOURCE(coastal_default);
+#endif
+    updated = true;
+}
+
 QString Coastal::userid()
 {
 #ifdef  Q_OS_WIN

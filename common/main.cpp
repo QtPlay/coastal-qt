@@ -22,7 +22,7 @@
 CoastalMain::CoastalMain(bool tray) :
 QMainWindow(NULL)
 {   
-    Q_INIT_RESOURCE(coastal);
+    Coastal::bind();
 
     program_version = VERSION;
     program_about = program_name = "Coastal Application";

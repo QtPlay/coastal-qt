@@ -382,6 +382,8 @@ public:
 
     static bool browser(const QString& url);
 
+    static void bind(void);
+
     static bool open(const QString& filename);
 
     static bool notify(const QString& title, const QString& body, const QString& icon = "info");

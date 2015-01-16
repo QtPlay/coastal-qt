@@ -22,6 +22,8 @@
 CoastalDialog::CoastalDialog(bool tray) :
 QDialog(NULL)
 {
+    Coastal::bind();
+
     dialog_version = VERSION;
     dialog_about = dialog_name = "Coastal Dialog";
     dialog_copyright = "2013 David Sugar";
@@ -31,7 +33,6 @@ QDialog(NULL)
     dockmenu = NULL;
     url_support = "https://github.com/dyfet/coastal-qt/issues";
 
-    Q_INIT_RESOURCE(coastal);
 #if defined(Q_OS_MAC)
     dockmenu = new QMenu();
     qt_mac_set_dock_menu(dockmenu);

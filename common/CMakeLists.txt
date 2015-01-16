@@ -12,8 +12,7 @@
 file(GLOB qt_src about.cpp busy.cpp coastal.cpp dialog.cpp main.cpp notify.cpp view.cpp conditional.cpp)
 file(GLOB qt_inc coastal.h)
 file(GLOB ui_src *.ui)
-set(qm_src coastal_es.ts coastal_de.ts)
-set(qm_out coastal_es.qm coastal_de.qm)
+file(GLOB qm_src *.ts)
 
 if(WIN32)
     set(style coastal_mingw.qrc)
@@ -25,7 +24,12 @@ if(BUILD_DBUS)
     QT_ADD_DBUS_INTERFACE(qt_src ../dbus/org.freedesktop.Notifications.xml dbus_notify)
 endif()
 
-QT_ADD_RESOURCES(qt_qrc coastal.qrc)
+execute_process(
+    COMMAND ${QT_LRELEASE_EXECUTABLE} -silent ${qm_src}
+    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+)
+
+QT_ADD_RESOURCES(qt_qrc ${style})
 QT_WRAP_CPP(qt_moc coastal.h)
 QT_WRAP_UI(qt_ui ${ui_src})
 
@@ -42,25 +46,10 @@ install(TARGETS coastal DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(FILES coastal.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libcoastal.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 
-add_custom_command(OUTPUT .lupdate
+add_custom_target(translate-coastal
     DEPENDS ${qt_src} ${qt_inc} ${qt_ui} ${qm_src}
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-    COMMAND ${QT_LUPDATE_EXECUTABLE}
-        ARGS -locations none ${qt_src} ${qt_inc} ${qt_ui} -ts ${qm_src}
-    COMMAND ${CMAKE_COMMAND}
-        ARGS -E touch .lupdate
-)
-
-add_custom_command(OUTPUT ${qm_out}
-    DEPENDS .lupdate
-    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-    COMMAND ${QT_LRELEASE_EXECUTABLE}
-        ARGS ${qm_src}
-)
-
-add_custom_command(OUTPUT coastal.qrc
-    DEPENDS ${style} ${qm_out}
-    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-    COMMAND ${CMAKE_COMMAND}
-        ARGS -E copy ${style} coastal.qrc
+    COMMAND ${QT_LUPDATE_EXECUTABLE} -locations none ${qt_src} ${qt_inc} ${qt_ui} -ts ${qm_src}
+    COMMAND ${QT_LRELEASE_EXECUTABLE} ${qm_src}
+    COMMAND ${CMAKE_COMMAND} -E touch ${style}
 )

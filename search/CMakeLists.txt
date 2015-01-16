@@ -12,8 +12,7 @@
 file(GLOB qt_src config.cpp index.cpp view.cpp main.cpp)
 file(GLOB qt_inc config.h index.h view.h main.h)
 file(GLOB ui_src *.ui)
-set(qm_src search_es.ts search_de.ts)
-set(qm_out search_es.qm search_de.qm)
+file(GLOB qm_src *.qm)
 set(style search_default.qrc)
 
 if( APPLE )
@@ -23,6 +22,11 @@ else()
 endif()
 
 configure_file(search.rc.cmake ${CMAKE_CURRENT_SOURCE_DIR}/search.rc)
+
+execute_process(
+    COMMAND ${QT_LRELEASE_EXECUTABLE} -silent ${qm_src}
+    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+)
 
 QT_ADD_RESOURCES(qt_qrc search.qrc)
 QT_WRAP_CPP(qt_moc config.h index.h view.h main.h)
@@ -58,26 +62,11 @@ if(UNIX AND NOT APPLE)
     install(FILES ${DESKTOP_PATH}/coastal-search.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
 endif()
 
-add_custom_command(OUTPUT .lupdate
+add_custom_target(translate-search
     DEPENDS ${qt_src} ${qt_inc} ${qt_ui} ${qm_src}
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-    COMMAND ${QT_LUPDATE_EXECUTABLE}
-        ARGS -locations none ${qt_src} ${qt_inc} ${qt_ui} -ts ${qm_src}
-    COMMAND ${CMAKE_COMMAND}
-        ARGS -E touch .lupdate
+    COMMAND ${QT_LUPDATE_EXECUTABLE} -locations none ${qt_src} ${qt_inc} ${qt_ui} -ts ${qm_src}
+    COMMAND ${QT_LRELEASE_EXECUTABLE} ${qm_src}
+    COMMAND ${CMAKE_COMMAND} -E touch search.qrc
 )
 
-add_custom_command(OUTPUT ${qm_out}
-    DEPENDS .lupdate
-    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-    COMMAND ${QT_LRELEASE_EXECUTABLE}
-        ARGS ${qm_src}
-)
-
-add_custom_command(OUTPUT search.qrc
-    DEPENDS ${qm_out} ${style}
-    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-    COMMAND ${CMAKE_COMMAND}
-        ARGS -E copy ${style} search.qrc
-
-)
