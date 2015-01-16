@@ -12,7 +12,7 @@
 file(GLOB qt_src config.cpp index.cpp view.cpp main.cpp)
 file(GLOB qt_inc config.h index.h view.h main.h)
 file(GLOB ui_src *.ui)
-file(GLOB qm_src *.qm)
+file(GLOB qm_src *.ts)
 set(style search_default.qrc)
 
 if( APPLE )
