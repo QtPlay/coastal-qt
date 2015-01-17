@@ -456,11 +456,9 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationDomain("gnutelephony.org");
     QCoreApplication::setApplicationName("coastal-manpager");
 
-    QTranslator translator;
-    translator.load(QLocale::system().name(), TRANSLATIONS);
-    app.installTranslator(&translator);
-
     Q_INIT_RESOURCE(manpager);
+    Coastal::bind(app, "manpager");
+
 #ifdef Q_OS_WIN
     Coastal::applyStyle(":/qss/manpager.css");
 #else  // let others optionally style our apps from common dir...

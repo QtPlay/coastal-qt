@@ -357,6 +357,10 @@ private:
 
     static bool internal_icons;
 
+    static QTranslator apptran;
+
+    static QTranslator systran;
+
 public:
     static QString sharedData(void);
 
@@ -383,6 +387,8 @@ public:
     static bool browser(const QString& url);
 
     static void bind(void);
+
+    static void bind(QApplication& app, QString name);
 
     static bool open(const QString& filename);
 

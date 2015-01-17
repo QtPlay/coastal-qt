@@ -47,6 +47,9 @@
 #include <magic.h>
 #endif
 
+QTranslator Coastal::apptran;
+QTranslator Coastal::systran;
+
 void Coastal::bind()
 {
     static bool updated = false;
@@ -60,6 +63,18 @@ void Coastal::bind()
     Q_INIT_RESOURCE(coastal_default);
 #endif
     updated = true;
+}
+
+void Coastal::bind(QApplication& app, QString name)
+{
+    bind();
+    systran.load(QLocale::system().name(), "coastal", "_", ":/translations", ".qm");
+    if(!systran.isEmpty())
+        app.installTranslator(&systran);
+
+    apptran.load(QLocale::system().name(), name, "_", ":/translations", ".qm");
+    if(!apptran.isEmpty())
+        app.installTranslator(&apptran);
 }
 
 QString Coastal::userid()
