@@ -63,11 +63,10 @@ if(UNIX AND NOT APPLE)
     install(FILES ${DESKTOP_PATH}/coastal-manpager.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
 endif()
 
-add_custom_target(translate-manpager
+add_custom_target(lupdate-manpager
     DEPENDS ${qt_src} ${qt_inc} ${qt_ui} ${qm_src}
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
     COMMAND ${QT_LUPDATE_EXECUTABLE} -locations none ${qt_src} ${qt_inc} ${qt_ui} -ts ${qm_src}
-    COMMAND ${QT_LRELEASE_EXECUTABLE} ${qm_src}
     COMMAND ${CMAKE_COMMAND} -E touch manpager.qrc
 )
 
