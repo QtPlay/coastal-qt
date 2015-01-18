@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string notr="true">Dialog</string>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -74,7 +74,7 @@
      <item>
       <widget class="QLabel" name="labelAbout">
        <property name="text">
-        <string>N</string>
+        <string notr="true">N</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -84,7 +84,7 @@
      <item>
       <widget class="QLabel" name="labelCopyright">
        <property name="text">
-        <string>1</string>
+        <string notr="true">1</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -107,7 +107,7 @@
      <item>
       <widget class="QLabel" name="labelVersion">
        <property name="text">
-        <string>3</string>
+        <string notr="true">3</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
