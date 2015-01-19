@@ -290,6 +290,8 @@ void Process::timeout(void)
 int Process::main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+	Q_INIT_RESOURCE(dialog);
+	Coastal::bind(app, "dialog");
 
     if(!argv[1]) {
         fprintf(stderr, "use: coastal-dialog mode [options]\n");
@@ -518,11 +520,6 @@ int Process::main(int argc, char *argv[])
     QCoreApplication::setOrganizationDomain("gnutelephony.org");
     QCoreApplication::setApplicationName("coastal-dialog");
 
-    QTranslator translator;
-    translator.load(QLocale::system().name(), TRANSLATIONS);
-    app.installTranslator(&translator);
-
-    Q_INIT_RESOURCE(dialog);
 	if(styleString.isEmpty()) {
 #ifdef Q_OS_WIN
         Coastal::applyStyle(":/qss/dialog.css");

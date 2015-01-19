@@ -5,4 +5,8 @@
 <qresource prefix="images">
 	<file>password.png</file>
 </qresource>
+<qresource prefix="/translations">
+	<file>dialog_es.qm</file>
+	<file>dialog_de.qm</file>
+</qresource>
 </RCC>
