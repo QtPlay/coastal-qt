@@ -524,7 +524,7 @@ int Process::main(int argc, char *argv[])
 #ifdef Q_OS_WIN
         Coastal::applyStyle(":/qss/dialog.css");
 #else  // let others optionally style our apps from common dir...
-        if(!Coastal::applyStyle("/usr/share/coastal/dialog.css"))
+        if(!Coastal::applyStyle(QCoreApplication::applicationDirPath() + "/../share/qtcoastal/dialog.css"))
             Coastal::applyStyle(":/qss/dialog.css");
 #endif
 	}

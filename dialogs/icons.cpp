@@ -60,10 +60,6 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationDomain("gnutelephony.org");
     QCoreApplication::setApplicationName("coastal-icons");
 
-    QTranslator translator;
-    translator.load(QLocale::system().name(), TRANSLATIONS);
-    app.installTranslator(&translator);
-
     if(argv[1])
         QIcon::setThemeName(argv[1]);
 

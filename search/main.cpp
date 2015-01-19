@@ -321,7 +321,7 @@ int main(int argc, char *argv[])
 #ifdef Q_OS_WIN
     Coastal::applyStyle(":/qss/search.css");
 #else  // let others optionally style our apps from common dir...
-    if(!Coastal::applyStyle("/usr/share/coastal/search.css"))
+    if(!Coastal::applyStyle(QCoreApplication::applicationFilePath() + "/../share/qtcoastal/search.css"))
         Coastal::applyStyle(":/qss/search.css");
 #endif
 

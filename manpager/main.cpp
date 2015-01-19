@@ -462,7 +462,7 @@ int main(int argc, char *argv[])
 #ifdef Q_OS_WIN
     Coastal::applyStyle(":/qss/manpager.css");
 #else  // let others optionally style our apps from common dir...
-    if(!Coastal::applyStyle("/usr/share/coastal/manpager.css"))
+    if(!Coastal::applyStyle(QCoreApplication::applicationDirPath() + "/../share/qtcoastal/manpager.css"))
         Coastal::applyStyle(":/qss/manpager.css");
 #endif
 

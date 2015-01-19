@@ -361,6 +361,8 @@ private:
 
     static QTranslator systran;
 
+    static QTranslator usrtran;
+
 public:
     static QString sharedData(void);
 

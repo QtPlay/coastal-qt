@@ -49,6 +49,7 @@
 
 QTranslator Coastal::apptran;
 QTranslator Coastal::systran;
+QTranslator Coastal::usrtran;
 
 void Coastal::bind()
 {
@@ -67,6 +68,12 @@ void Coastal::bind()
 
 void Coastal::bind(QApplication& app, QString name)
 {
+#if defined(Q_OS_WIN)
+    QString transpath = QCoreApplication::applicationDirPath() + "/translations";
+#else
+    QString transpath = QCoreApplication::applicationDirPath() + "/../share/qtcoastal";
+#endif
+
     bind();
     systran.load(QLocale::system().name(), "coastal", "_", ":/translations", ".qm");
     if(!systran.isEmpty())
@@ -75,6 +82,10 @@ void Coastal::bind(QApplication& app, QString name)
     apptran.load(QLocale::system().name(), name, "_", ":/translations", ".qm");
     if(!apptran.isEmpty())
         app.installTranslator(&apptran);
+
+    usrtran.load(QLocale::system().name(), name, "_", transpath, ".qm");
+    if(!usrtran.isEmpty())
+        app.installTranslator(&usrtran);
 }
 
 QString Coastal::userid()
