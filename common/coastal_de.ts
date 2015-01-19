@@ -5,14 +5,14 @@
     <name>AboutDialog</name>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation>S&amp;chließen</translation>
     </message>
 </context>
 <context>
     <name>CoastalDialog</name>
     <message>
         <source>About </source>
-        <translation type="unfinished"></translation>
+        <translation>Über </translation>
     </message>
     <message>
         <source>Version: </source>
@@ -27,14 +27,14 @@
     <name>CoastalFindHelper</name>
     <message>
         <source>Find Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Suchen von Text</translation>
     </message>
 </context>
 <context>
     <name>CoastalMain</name>
     <message>
         <source>About </source>
-        <translation type="unfinished"></translation>
+        <translation>Über </translation>
     </message>
     <message>
         <source>Version: </source>
@@ -49,11 +49,11 @@
     <name>FindDialog</name>
     <message>
         <source>&amp;Prev</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vorh</translation>
     </message>
     <message>
         <source>&amp;Next</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Näch</translation>
     </message>
 </context>
 </TS>
