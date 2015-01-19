@@ -77,7 +77,7 @@ bool CoastalView::isSearching(void) const
 }
 
 CoastalFindHelper::CoastalFindHelper(CoastalView *view) :
-QDialog(view)
+QDialog(view, Qt::Dialog|Qt::WindowTitleHint|Qt::WindowCloseButtonHint)
 {
     QString text;
 

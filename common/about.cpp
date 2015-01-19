@@ -21,7 +21,7 @@
 Ui::AboutDialog ui;
 
 CoastalAbout::CoastalAbout(QWidget *parent) :
-QDialog(parent)
+QDialog(parent, Qt::Dialog|Qt::WindowTitleHint|Qt::CustomizeWindowHint|Qt::MSWindowsFixedSizeDialogHint)
 {
     ui.setupUi((QDialog *)this);
     if(!parent) {
