@@ -291,10 +291,19 @@ bool Coastal::notify(const QString& title, const QString& body, const QString& i
 #define RUNTIME_MAGIC   NULL
 #endif
 
+static magic_t mdb = NULL;
+
+QString Coastal::mimeData(const QByteArray& data, const char *exthint)
+{
+    if(!mdb) {
+        mdb = magic_open(MAGIC_ERROR|MAGIC_MIME_TYPE|MAGIC_SYMLINK|MAGIC_PRESERVE_ATIME);
+        magic_load(mdb, RUNTIME_MAGIC);
+    }
+    return magic_buffer(mdb, data.data(), data.size());
+}
+
 QString Coastal::mimeFile(const QString& filename)
 {
-    static magic_t mdb = NULL;
-
     if(!mdb) {
         mdb = magic_open(MAGIC_ERROR|MAGIC_MIME_TYPE|MAGIC_SYMLINK|MAGIC_PRESERVE_ATIME);
         magic_load(mdb, RUNTIME_MAGIC);
@@ -304,6 +313,13 @@ QString Coastal::mimeFile(const QString& filename)
 }
 
 #elif QT_VERSION >= 0x050000
+
+QString Coastal::mimeData(const QByteArray& data, const char *exthint)
+{
+    QMimeDatabase db;
+    QMimeType mime = db.mimeTypeForData(data);
+    return mime.name();
+}
 
 QString Coastal::mimeFile(const QString& filename)
 {
@@ -354,6 +370,14 @@ QString Coastal::mimeFile(const QString& filename)
 
     // fallback to minetype...
     return mimeType(ext);
+}
+
+QString Coastal::mimeData(const QByteArray& data, const char *exthint)
+{
+    if(!exthint)
+        return "";
+
+    return mimeType(exthint);
 }
 
 #endif

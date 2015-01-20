@@ -384,6 +384,8 @@ public:
 
     static QString mimeFile(const QString& filename);
 
+    static QString mimeData(const QByteArray& data, const char *exthint = NULL);
+
     static QString mimeType(const QString& extension);
 
     static bool browser(const QString& url);
