@@ -9,7 +9,7 @@
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 #
 
-file(GLOB qt_src about.cpp busy.cpp coastal.cpp dialog.cpp main.cpp notify.cpp view.cpp conditional.cpp)
+file(GLOB qt_src about.cpp busy.cpp coastal.cpp dialog.cpp main.cpp notify.cpp view.cpp conditional.cpp mapped.cpp)
 file(GLOB qt_inc coastal.h)
 file(GLOB ui_src *.ui)
 file(GLOB qm_src *.ts)

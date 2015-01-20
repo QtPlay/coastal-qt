@@ -76,6 +76,75 @@ public:
     }
 };
 
+class CoastalMapped : public QFile
+{
+protected:
+    uchar *mapaddr;
+    size_t mapsize;
+
+    virtual void fault(void) const;
+
+public:
+    CoastalMapped(QString path);
+    virtual ~CoastalMapped();
+    
+    void release(void);
+    
+    void *offset(size_t pos) const;
+
+    bool copy(size_t offset, void *buffer, size_t bufsize) const;
+
+    inline void *addr(void) {
+        return mapaddr;
+    }
+
+    inline size_t size(void) {
+        return mapsize;
+    }
+};
+
+template <class T>
+class mapped_object : protected CoastalMapped
+{
+public:
+    /**
+     * Map existing named memory segment.  The size of the map is derived
+     * from the existing map alone.
+     * @param name of memory segment to map.
+     */
+    inline mapped_object(const char *name) :
+        CoastalMapped(name) {}
+
+    /**
+     * Access typed member object in the mapped segment.
+     * @param member to access.
+     * @return typed object pointer.
+     */
+    inline volatile const T *operator()(unsigned member)
+        {return static_cast<const T*>(offset(member * sizeof(T)));}
+
+    /**
+     * Reference typed member object in the mapped segment.
+     * @param member to access.
+     * @return typed object reference.
+     */
+    inline volatile const T &operator[](unsigned member)
+        {return *(operator()(member));}
+
+    inline volatile const T *get(unsigned member)
+        {return static_cast<const T*>(offset(member * sizeof(T)));}
+
+    inline void copy(unsigned member, T& buffer)
+        {CoastalMapped::copy(member * sizeof(T), &buffer, sizeof(T));}
+
+    /**
+     * Get count of typed member objects held in this map.
+     * @return count of typed member objects.
+     */
+    inline unsigned count(void) const
+        {return (unsigned)(mapsize / sizeof(T));}
+};
+
 /**
  * @brief Create a coastal styled about box.
  * This is used to show basic application information.
