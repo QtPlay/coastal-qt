@@ -3,6 +3,7 @@ Changes from 0.9.9 to 0.10.0
 - fixes crappy cmake qt5 linguist support that isnt
 - standardization of translations and localization paths
 - actual localization of core library
+- memory mapped objects
 
 Changes from 0.9.8 to 0.9,9
 - generic support for localization integrated
