@@ -1,3 +1,9 @@
+coastal-qt (1:0.10.0-1) UNRELEASED; urgency=low
+
+  * Standardization of user stylesheet and internationalization paths
+
+ -- David Sugar <dyfet@gnutelephony.org>  Tue, 20 Jan 2015 10:16:44 -0400
+
 coastal-qt (1:0.9.9-1) UNRELEASED; urgency=low
 
   * Updated for internationalization support
