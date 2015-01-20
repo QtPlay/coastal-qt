@@ -101,8 +101,12 @@ if(Qt5Core_FOUND)
     macro(qt_wrap_ui)
         qt5_wrap_ui(${ARGN})
     endmacro()
-    set(QT_LUPDATE_EXECUTABLE ${Qt5_LUPDATE_EXECUTABLE})
-    set(QT_LRELEASE_EXECUTABLE ${Qt5_LRELEASE_EXECUTABLE})
+    FIND_PROGRAM(QT_LUPDATE_EXECUTABLE NAMES lupdate-qt5 lupdate PATHS
+        $ENV{QTDIR}/bin
+    )
+    FIND_PROGRAM(QT_LRELEASE_EXECUTABLE NAMES lrelease-qt5 lrelease PATHS
+        $ENV{QTDIR}/bin
+    )
 else()
     macro(qt_add_dbus_interface)
         qt4_add_dbus_interface(${ARGN})
