@@ -459,12 +459,8 @@ int main(int argc, char *argv[])
     Q_INIT_RESOURCE(manpager);
     Coastal::bind(app, "manpager");
 
-#ifdef Q_OS_WIN
-    Coastal::applyStyle(":/qss/manpager.css");
-#else  // let others optionally style our apps from common dir...
-    if(!Coastal::applyStyle(QCoreApplication::applicationDirPath() + "/../share/qtcoastal/manpager.css"))
+    if(app.styleSheet().isEmpty())
         Coastal::applyStyle(":/qss/manpager.css");
-#endif
 
     Main w;
     w.show();

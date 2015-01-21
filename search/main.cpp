@@ -318,12 +318,8 @@ int main(int argc, char *argv[])
     Q_INIT_RESOURCE(search);
     Coastal::bind(app, "search");
 
-#ifdef Q_OS_WIN
-    Coastal::applyStyle(":/qss/search.css");
-#else  // let others optionally style our apps from common dir...
-    if(!Coastal::applyStyle(QCoreApplication::applicationFilePath() + "/../share/qtcoastal/search.css"))
+    if(app.styleSheet().isEmpty())
         Coastal::applyStyle(":/qss/search.css");
-#endif
 
     if(argv[1] && argv[2])
         types = argv[2];

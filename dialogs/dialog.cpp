@@ -32,7 +32,6 @@ static QString placeholderString;
 static QString acceptString;
 static QString cancelString;
 static QString inputIcon;
-static QString styleString;
 static QLineEdit *edit;
 static bool triggered = false;
 static QLabel *prompt = NULL;
@@ -441,20 +440,10 @@ int Process::main(int argc, char *argv[])
             continue;
         }
 
-		if(!strncmp(arg, "style=", 6)) {
-            styleString = QString(arg + 6);
-            continue;
-        }
-
 		if(!strcmp(arg, "title")) {
 			titleString = QString(*(++argv));
 			continue;
 		}
-
-        if(!strcmp(arg, "style")) {
-            styleString = QString(*(++argv));
-            continue;
-        }
 
         if(!strncmp(arg, "timeout=", 8)) {
             timing = atoi(arg + 8);
@@ -520,16 +509,8 @@ int Process::main(int argc, char *argv[])
     QCoreApplication::setOrganizationDomain("gnutelephony.org");
     QCoreApplication::setApplicationName("coastal-dialog");
 
-	if(styleString.isEmpty()) {
-#ifdef Q_OS_WIN
+	if(app.styleSheet().isEmpty())
         Coastal::applyStyle(":/qss/dialog.css");
-#else  // let others optionally style our apps from common dir...
-        if(!Coastal::applyStyle(QCoreApplication::applicationDirPath() + "/../share/qtcoastal/dialog.css"))
-            Coastal::applyStyle(":/qss/dialog.css");
-#endif
-	}
-	else
-        Coastal::applyStyle(styleString);
 
     Process w;
     app.exec();
