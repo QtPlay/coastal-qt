@@ -71,7 +71,7 @@ void Coastal::bind(QApplication& app, QString name)
 #if defined(Q_OS_WIN)
     QString transpath = app.applicationDirPath() + "/translations";
 #elif defined(Q_OS_MAC)
-    QString transpath = app.applicationDirPath() + "../Resources";
+    QString transpath = app.applicationDirPath() + "/../Resources";
 #else
     QString transpath = app.applicationDirPath() + "/../share/qtcoastal";
 #endif
