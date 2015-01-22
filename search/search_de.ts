@@ -4,10 +4,6 @@
 <context>
     <name>Config</name>
     <message>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Case Sensitive Filenames</source>
         <translation type="unfinished"></translation>
     </message>
@@ -111,13 +107,6 @@
     </message>
     <message>
         <source>toolBar</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>Toolbar</name>
-    <message>
-        <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
