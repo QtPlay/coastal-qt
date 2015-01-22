@@ -80,58 +80,58 @@
     <name>Index</name>
     <message>
         <source>loading </source>
-        <translation type="unfinished"></translation>
+        <translation>carga de </translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre</translation>
     </message>
     <message>
         <source>Section</source>
-        <translation type="unfinished"></translation>
+        <translation>Divisor</translation>
     </message>
 </context>
 <context>
     <name>Main</name>
     <message>
         <source>loading...</source>
-        <translation type="unfinished"></translation>
+        <translation>carga...</translation>
     </message>
     <message>
         <source>ready</source>
-        <translation type="unfinished"></translation>
+        <translation>listo</translation>
     </message>
     <message>
         <source>searching </source>
-        <translation type="unfinished"></translation>
+        <translation>la búsqueda de </translation>
     </message>
     <message>
         <source>not found </source>
-        <translation type="unfinished"></translation>
+        <translation>no se encontrado </translation>
     </message>
     <message>
         <source>specify section in input</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>opening </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>failed to load </source>
-        <translation type="unfinished"></translation>
+        <translation>carga fracasó por </translation>
     </message>
     <message>
         <source>loading </source>
-        <translation type="unfinished"></translation>
+        <translation>carga de </translation>
     </message>
     <message>
         <source>loaded </source>
-        <translation type="unfinished"></translation>
+        <translation>cargado el </translation>
     </message>
     <message>
         <source>Sections</source>
-        <translation type="unfinished">Divisor</translation>
+        <translation>Divisores</translation>
+    </message>
+    <message>
+        <source>opening </source>
+        <translation>abrir el </translation>
     </message>
 </context>
 <context>
@@ -142,43 +142,43 @@
     </message>
     <message>
         <source>&amp;Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>D&amp;ejar</translation>
     </message>
     <message>
         <source>Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>Dejar</translation>
     </message>
     <message>
         <source>Exit Application</source>
-        <translation type="unfinished"></translation>
+        <translation>Salir de la Aplicación</translation>
     </message>
     <message>
         <source>&amp;All Sections</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Todas las Divisiones</translation>
     </message>
     <message>
         <source>All Sections</source>
-        <translation type="unfinished"></translation>
+        <translation>Todas las Divisiones</translation>
     </message>
     <message>
         <source>Selects all man page sections</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccione todas las divisiones</translation>
     </message>
     <message>
         <source>All &amp;But Selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Todos los &amp;demás Divsions</translation>
     </message>
     <message>
         <source>&amp;Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Borrar</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar</translation>
     </message>
     <message>
         <source>Clears all man section selections</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar todas las divisiones</translation>
     </message>
     <message>
         <source>&amp;1: User Commands</source>
