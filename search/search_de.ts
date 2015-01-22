@@ -62,10 +62,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>About</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Search</source>
         <translation type="unfinished"></translation>
     </message>
@@ -107,6 +103,10 @@
     </message>
     <message>
         <source>toolBar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;About</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
