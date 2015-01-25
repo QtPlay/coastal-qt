@@ -1,4 +1,4 @@
-// Copyright (C) 2011-2013 David Sugar, Tycho Softworks
+// Copyright (C) 2011-2015 David Sugar, Tycho Softworks
 //
 // This file is part of coastal-qt.
 //
