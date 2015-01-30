@@ -23,5 +23,7 @@ common/libcoastal.*
 dialogs/coastal-icons
 dialogs/coastal-dialog
 manpager/coastal-manpager
+manpager/coastal-manpager.png
 search/coastal-search
+search/coastal-search.png
 notify/coastal-notify
