@@ -1,6 +1,8 @@
 coastal-qt (1:0.10.0-1) UNRELEASED; urgency=low
 
-  * Standardization of user stylesheet and internationalization paths
+  * Initial application translations
+  * Standardized user override of localizations
+  * Expanded api for memory mapped objects, etc...
 
  -- David Sugar <dyfet@gnutelephony.org>  Tue, 20 Jan 2015 10:16:44 -0400
 

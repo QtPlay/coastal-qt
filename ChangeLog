@@ -1,4 +1,13 @@
 Changes from 0.9.9 to 0.10.0
+- initial application translations
+- cleaner share path
+- some support for memory mapped objects
+- mime types of memory blobs
+- fixes crappy cmake qt5 linguist support that isnt
+- standardized user overridable translations...
+- some dialog fixes
+
+Changes from 0.9.9 to 0.10.0
 - mime types of binary blobs
 - fixes crappy cmake qt5 linguist support that isnt
 - standardization of translations and localization paths
