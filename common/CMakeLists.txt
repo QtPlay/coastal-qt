@@ -39,7 +39,7 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/libcoastal.pc.cmake
         ${CMAKE_CURRENT_BINARY_DIR}/libcoastal.pc)
 
 add_library(coastal ${COASTAL_LIBRARY_TYPE} ${qt_src} ${qt_inc} ${qt_moc} ${qt_ui} ${qt_qrc})
-set_target_properties(coastal PROPERTIES VERSION ${VERSION} SOVERSION ${SOVERSION})
+set_target_properties(coastal PROPERTIES VERSION ${LIB_VERSION} SOVERSION ${SOVERSION})
 target_link_libraries(coastal ${QT_LIBRARIES} ${COASTAL_EXTRA_LIBS})
 
 install(TARGETS coastal DESTINATION ${CMAKE_INSTALL_LIBDIR})

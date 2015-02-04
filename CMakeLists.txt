@@ -13,13 +13,21 @@ cmake_minimum_required(VERSION 2.6)
 PROJECT(coastal-qt)
 set (PACKAGE coastal-qt)
 set (VERSION 0.10.0)
+if(WIN32)
+    set(LIB_VERSION VERSION)
+else()
+    set (LIB_VERSION 0.0.10)
+endif()
 
 set(RC_VERSION ${VERSION})
 STRING(REGEX REPLACE "[.]" "," RC_VERSION ${RC_VERSION})
 set(RC_VERSION "${RC_VERSION},0")
 
-set(SOVERSION ${VERSION})
+set(SOVERSION ${LIB_VERSION})
 STRING(REGEX REPLACE "[.].*$" "" SOVERSION ${SOVERSION})
+if(ABI_MAJORONLY)
+    set(LIB_VERSION ${SOVERSION})
+endif()
 
 set (COASTAL_VERSION ${VERSION})
 
