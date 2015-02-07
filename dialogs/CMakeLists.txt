@@ -12,14 +12,6 @@
 file(GLOB qt_src *.cpp)
 file(GLOB qt_inc program.h)
 file(GLOB ui_src *.ui)
-file(GLOB qm_src *.ts)
-
-# configure_file(application.rc.cmake ${CMAKE_CURRENT_SOURCE_DIR}/application.rc)
-
-execute_process(
-    COMMAND ${QT_LRELEASE_EXECUTABLE} -silent ${qm_src}
-    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-)
 
 QT_ADD_RESOURCES(dialog_qrc dialog.qrc)
 QT_WRAP_CPP(icons_moc icons.h)
@@ -44,10 +36,5 @@ target_link_libraries(${DIALOG_PROGNAME} coastal ${QT_LIBRARIES} ${QT_PLUGINS})
 add_dependencies(${DIALOG_PROGNAME} coastal)
 install(TARGETS ${DIALOG_PROGNAME} DESTINATION ${CMAKE_INSTALL_BINDIR})
 
-add_custom_target(lupdate-dialog
-    DEPENDS dialog.cpp ${qm_src}
-    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-    COMMAND ${QT_LUPDATE_EXECUTABLE} -locations none dialog.cpp -ts ${qm_src}
-    COMMAND ${CMAKE_COMMAND} -E touch dialog.qrc
-)
+create_languages(dialog)
 

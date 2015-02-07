@@ -12,7 +12,6 @@
 file(GLOB qt_src main.cpp index.cpp validate.cpp view.cpp config.cpp)
 file(GLOB qt_inc main.h index.h validate.h view.h config.h)
 file(GLOB ui_src *.ui)
-file(GLOB qm_src *.ts)
 
 if( APPLE )
     set(PROGNAME "Coastal Manpager")
@@ -23,11 +22,6 @@ endif()
 set (ts_manpager ${ts_common} ${qt_src} ${ui_src} ${qt_inc} PARENT_SCOPE)
 
 configure_file(manpager.rc.cmake ${CMAKE_CURRENT_SOURCE_DIR}/manpager.rc)
-
-execute_process(
-    COMMAND ${QT_LRELEASE_EXECUTABLE} -silent ${qm_src}
-    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-)
 
 QT_ADD_RESOURCES(qt_qrc manpager.qrc)
 QT_WRAP_CPP(qt_moc ${qt_inc})
@@ -63,12 +57,7 @@ if(UNIX AND NOT APPLE)
     install(FILES ${DESKTOP_PATH}/coastal-manpager.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
 endif()
 
-add_custom_target(lupdate-manpager
-    DEPENDS ${qt_src} ${qt_inc} ${qt_ui} ${qm_src}
-    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-    COMMAND ${QT_LUPDATE_EXECUTABLE} -locations none ${qt_src} ${qt_inc} ${qt_ui} -ts ${qm_src}
-    COMMAND ${CMAKE_COMMAND} -E touch manpager.qrc
-)
+create_languages(manpager)
 
 
 

@@ -11,7 +11,6 @@
 
 cmake_minimum_required(VERSION 2.6)
 PROJECT(coastal-qt)
-set (PACKAGE coastal-qt)
 set (VERSION 0.10.0)
 if(UNIX)
     set(LIB_VERSION 0.0.10)
@@ -34,16 +33,7 @@ set (COASTAL_VERSION ${VERSION})
 INCLUDE(FindPkgConfig)
 INCLUDE(CheckIncludeFiles)
 INCLUDE(GNUInstallDirs)
-
-set(TRANSLATIONS $(CMAKE_INSTALL_DATADIR)/coastal-qt)
-
-option(BUILD_QT4ONLY "Set to ON to ignore Qt5" OFF)
-
-if( APPLE OR WIN32 OR MINGW)
-    option(BUILD_DBUS "Set to ON to use DBUS" OFF)
-else()
-    option(BUILD_DBUS "Set to OFF to disable DBUS" ON)
-endif()
+INCLUDE(CoastalConfig)
 
 if( APPLE )
     SET( MACOSX_BUNDLE_SHORT_VERSION_STRING ${VERSION} )
@@ -62,97 +52,14 @@ endif()
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/common")
 
-# make sure qt dbus set if used
-if(BUILD_DBUS)
-    set(QT_USE_QTDBUS 1)
-    add_definitions(-DQT_DBUS_LIB)
-    include_directories(${QT_QTDBUS_INCLUDE_DIR})
-endif()
+qt_config_core_library(any)
+qt_config_dbus_support()
+qt_config_gui_widgets()
+qt_config_coastal_macros()
 
 MESSAGE( STATUS "Configuring ${PACKAGE} ${VERSION}...")
 
-if(NOT BUILD_QT4ONLY)
-    find_package(Qt5Core QUIET)
-endif()
-if(Qt5Core_FOUND)
-    find_package(Qt5Gui REQUIRED)
-    find_package(Qt5Widgets REQUIRED)
-    if(BUILD_DBUS)
-        find_package(Qt5DBus REQUIRED)
-    endif()
-    find_package(Qt5LinguistTools REQUIRED)
-    set(QT_LIBRARIES ${Qt5Widgets_LIBRARIES} ${Qt5DBus_LIBRARIES} ${Qt5Gui_LIBRARIES} ${Qt5Core_LIBRARIES})
-    include_directories(${Qt5Core_INCLUDE_DIRS} ${Qt5DBus_INCLUDE_DIRS} ${Qt5Gui_INCLUDE_DIRS} ${Qt5Widgets_INCLUDE_DIRS} ${Qt5Gui_PRIVATE_INCLUDE_DIRS})
-
-    if(Qt5_POSITION_INDEPENDENT_CODE)
-        set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-    endif()
-
-    message(STATUS "Building with QT5 Support")
-
-    macro(qt_add_dbus_interface)
-        qt5_add_dbus_interface(${ARGN})
-    endmacro()
-
-    macro(qt_create_translation)
-        qt5_create_translation(${ARGN})
-    endmacro()
-
-    macro(qt_add_resources)
-        qt5_add_resources(${ARGN})
-    endmacro()
-
-    macro(qt_wrap_cpp)
-        qt5_wrap_cpp(${ARGN})
-    endmacro()
-
-    macro(qt_wrap_ui)
-        qt5_wrap_ui(${ARGN})
-    endmacro()
-    FIND_PROGRAM(QT_LUPDATE_EXECUTABLE NAMES lupdate-qt5 lupdate PATHS
-        $ENV{QTDIR}/bin
-    )
-    FIND_PROGRAM(QT_LRELEASE_EXECUTABLE NAMES lrelease-qt5 lrelease PATHS
-        $ENV{QTDIR}/bin
-    )
-else()
-    macro(qt_add_dbus_interface)
-        qt4_add_dbus_interface(${ARGN})
-    endmacro()
-
-    macro(qt_add_resources)
-        qt4_add_resources(${ARGN})
-    endmacro()
-
-    macro(qt_create_translation)
-        qt4_create_translation(${ARGN})
-    endmacro()
-
-    macro(qt_wrap_cpp)
-        qt4_wrap_cpp(${ARGN})
-    endmacro()
-
-    macro(qt_wrap_ui)
-        qt4_wrap_ui(${ARGN})
-    endmacro()
-
-    find_package(Qt4 4.8.0 COMPONENTS QtCore QtGui REQUIRED)
-    if(QT4_FOUND)
-        if(QTVERSION VERSION_GREATER "4.99.99")
-            set(QT5_FOUND true)
-        endif()
-        include(${QT_USE_FILE})
-        ADD_DEFINITIONS(-DQT_GUI_LIBS -DQT_CORE_LIB)
-        include_directories(${QT_QTCORE_INCLUDE_DIR} ${QT_QTGUI_INCLUDE_DIR} ${QT_QTGUI_INCLUDE_DIR}/../QtWidgets ${QT_QTGUI_INCLUDE_DIR}/${QTVERSION}/QtGui)
-        if(QT_IS_STATIC)
-            file(GLOB QT_PLUGINS ${QT_PLUGINS_DIR}/codecs/*${CMAKE_STATIC_LIBRARY_SUFFIX})
-        endif()
-
-    else()
-        message(ERROR "Building without QT")
-    endif()
-
-    # for qt5 we use mimeinfo...
+if(QT_CONFIG_CORE_LIBRARY STREQUAL "4")
     check_include_files(magic.h HAVE_MAGIC)
     if(HAVE_MAGIC)
         set(COASTAL_EXTRA_LIBS ${COASTAL_EXTRA_LIBS} magic)
@@ -171,53 +78,18 @@ if(UNIX AND NOT APPLE)
     endif()
 endif()
 
-check_include_files(windows.h HAVE_WINDOWS_H)
-check_include_files(unistd.h HAVE_UNISTD_H)
-check_include_files(magic.h HAVE_UNISTD_H)
-
 if(HAVE_LIBXSS)
     set(COASTAL_EXTRA_LIBS ${COASTAL_EXTRA_LIBS} Xss ${X11_LIBRARIES})
 endif()
 
-configure_file(coastal-qt-config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/coastal-qt-config.h)
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
-
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/${PACKAGE}.spec.cmake ${CMAKE_CURRENT_SOURCE_DIR}/${PACKAGE}.spec @ONLY)
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
-
-if(QT5_FOUND)
-    find_library(QT5_WIDGETS NAMES QtWidgets HINTS ${QT_LIBRARY_DIR})
-    set(QT_LIBRARIES ${QT_LIBRARIES} ${QT5_WIDGETS})
-endif()
+check_headers(windows.h unistd.h)
+create_headers()
+create_specfile()
 
 add_subdirectory(common)
 add_subdirectory(manpager)
 add_subdirectory(search)
 add_subdirectory(dialogs)
 
-if(CMAKE_GENERATOR MATCHES "Unix Makefiles")
-    add_custom_target(cleandist
-        WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
-        COMMAND rm -f "${CMAKE_CURRENT_BINARY_DIR}/${PACKAGE}[-_]*.gz"
-        COMMAND rm -f "${CMAKE_CURRENT_BINARY_DIR}/${PACKAGE}_*.dsc"
-        COMMAND rm -f "${CMAKE_CURRENT_BINARY_DIR}/${PACKAGE}-*.rpm"
-        COMMAND rm -f "${CMAKE_CURRENT_BINARY_DIR}/${PACKAGE}[-_]*.deb"
-        COMMAND rm -f "${CMAKE_CURRENT_BINARY_DIR}/*coastal*[-_]*.deb"
-        COMMAND rm -f "${CMAKE_CURRENT_BINARY_DIR}/${PACKAGE}-*.zip"
-        COMMAND rm -f "${CMAKE_CURRENT_BINARY_DIR}/*coastal*.changes"
-    )
-
-    add_custom_target(srpm
-        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-        COMMAND rm -f *.rpm
-        COMMAND rpmbuild  -bs --nodeps --define "_sourcedir ." --define "_srcrpmdir ." --sign coastal-qt.spec
-    )
-
-    add_custom_target(dist
-        DEPENDS cleandist
-        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-        COMMAND git archive --format tar --output="${CMAKE_CURRENT_BINARY_DIR}/${PACKAGE}-${VERSION}.tar" --prefix="${PACKAGE}-${VERSION}/" HEAD
-        COMMAND gzip "${CMAKE_CURRENT_BINARY_DIR}/${PACKAGE}-${VERSION}.tar"
-    )
-endif()
+add_cape_make_targets(coastal-qt ${VERSION})
 
