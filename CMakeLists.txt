@@ -52,10 +52,9 @@ if(UNIX AND NOT APPLE)
         include_directories(${X11_INCLUDE_DIRS})
         check_include_files(X11/extensions/scrnsaver.h HAVE_LIBXSS)
     endif()
-endif()
-
-if(HAVE_LIBXSS)
-    set(COASTAL_EXTRA_LIBS ${COASTAL_EXTRA_LIBS} Xss ${X11_LIBRARIES})
+    if(HAVE_LIBXSS)
+        set(COASTAL_EXTRA_LIBS ${COASTAL_EXTRA_LIBS} Xss ${X11_LIBRARIES})
+    endif()
 endif()
 
 check_headers(windows.h unistd.h)
