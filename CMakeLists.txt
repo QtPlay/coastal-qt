@@ -33,6 +33,7 @@ set (COASTAL_VERSION ${VERSION})
 INCLUDE(FindPkgConfig)
 INCLUDE(CheckIncludeFiles)
 INCLUDE(GNUInstallDirs)
+INCLUDE(CapeMakeTargets)
 INCLUDE(CoastalConfig)
 
 if( APPLE )
