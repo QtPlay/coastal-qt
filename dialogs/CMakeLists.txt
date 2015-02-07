@@ -13,16 +13,13 @@ file(GLOB qt_src *.cpp)
 file(GLOB qt_inc program.h)
 file(GLOB ui_src *.ui)
 
+create_languages(dialog)
+
 QT_ADD_RESOURCES(dialog_qrc dialog.qrc)
 QT_WRAP_CPP(icons_moc icons.h)
 QT_WRAP_CPP(dialog_moc dialog.h)
 QT_WRAP_UI(icons_ui icons.ui)
 
-#if(WIN32)
-#    set(qt_qrc ${qt_qrc} application.rc)
-#endif()
-
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
 set (ICONS_PROGNAME coastal-icons)
 set (DIALOG_PROGNAME coastal-dialog)
 
@@ -35,6 +32,4 @@ add_executable(${DIALOG_PROGNAME} WIN32 MACOSX_BUNDLE dialog.cpp dialog.h ${dial
 target_link_libraries(${DIALOG_PROGNAME} coastal ${QT_LIBRARIES} ${QT_PLUGINS})
 add_dependencies(${DIALOG_PROGNAME} coastal)
 install(TARGETS ${DIALOG_PROGNAME} DESTINATION ${CMAKE_INSTALL_BINDIR})
-
-create_languages(dialog)
 

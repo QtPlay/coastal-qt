@@ -20,19 +20,16 @@ else()
     set (PROGNAME coastal-search)
 endif()
 
-configure_file(search.rc.cmake ${CMAKE_CURRENT_SOURCE_DIR}/search.rc)
+create_rcfiles(rc_inc search)
+create_languages(search)
 
 QT_ADD_RESOURCES(qt_qrc search.qrc)
 QT_WRAP_CPP(qt_moc config.h index.h view.h main.h)
 QT_WRAP_UI(qt_ui ${ui_src})
 
-if(WIN32)
-    set(qt_qrc ${qt_qrc} search.rc)
-endif()
-
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
-add_executable(${PROGNAME} WIN32 MACOSX_BUNDLE ${qt_src} ${qt_inc} ${qt_moc} ${qt_qrc} ${qt_ui})
+add_executable(${PROGNAME} WIN32 MACOSX_BUNDLE ${qt_src} ${qt_inc} ${qt_moc} ${qt_qrc} ${qt_ui} ${rc_inc})
 target_link_libraries(${PROGNAME} coastal ${QT_LIBRARIES} ${QT_PLUGINS})
 add_dependencies(${PROGNAME} coastal)
 install(TARGETS ${PROGNAME} DESTINATION ${CMAKE_INSTALL_BINDIR})
@@ -55,6 +52,4 @@ if(UNIX AND NOT APPLE)
     install(FILES ${DESKTOP_PATH}/coastal-search.png DESTINATION ${CMAKE_INSTALL_DATADIR}/pixmaps)
     install(FILES ${DESKTOP_PATH}/coastal-search.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
 endif()
-
-create_languages(search)
 
