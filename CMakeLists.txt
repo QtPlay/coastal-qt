@@ -14,17 +14,12 @@ PROJECT(coastal-qt)
 set (VERSION 0.10.0)
 set (LIB_VERSION 0.0.10)
 
+MESSAGE( STATUS "Configuring ${PACKAGE} ${VERSION}...")
 INCLUDE(FindPkgConfig)
 INCLUDE(CheckIncludeFiles)
 INCLUDE(GNUInstallDirs)
 INCLUDE(CapeMakeTargets)
 INCLUDE(CoastalConfig)
-
-if(WIN32)
-    set(COASTAL_LIBRARY_TYPE "STATIC")
-else()
-    set(COASTAL_LIBRARY_TYPE "SHARED")
-endif()
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/common")
 
@@ -32,8 +27,6 @@ qt_config_core_library(any)
 qt_config_dbus_support()
 qt_config_gui_widgets()
 qt_config_coastal_macros()
-
-MESSAGE( STATUS "Configuring ${PACKAGE} ${VERSION}...")
 
 if(QT_CONFIG_CORE_LIBRARY STREQUAL "4")
     check_include_files(magic.h HAVE_MAGIC)
