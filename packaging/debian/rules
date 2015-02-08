@@ -15,8 +15,7 @@ DEB_INSTALL_CHANGELOG_ALL := ChangeLog
 DEB_CMAKE_OPTIONS ?= -DCMAKE_CXX_COMPILER="g++"
 
 %:
-	dh $@ 
-#--parallel
+	dh $@ --parallel
 
 .PHONY: override_dh_strip override_dh_auto_configure
 override_dh_strip:
