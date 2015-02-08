@@ -32,7 +32,7 @@ else()
 endif()
 
 create_languages(coastal)
-create_pcfiles(libcoastal)
+create_pcfiles(pc_files libcoastal)
 
 QT_ADD_RESOURCES(qt_qrc ${style})
 QT_WRAP_CPP(qt_moc coastal.h)
@@ -46,4 +46,4 @@ target_link_libraries(coastal ${QT_LIBRARIES} ${COASTAL_EXTRA_LIBS})
 
 install(TARGETS coastal DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(FILES coastal.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-
+install(FILES ${pc_files} DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
