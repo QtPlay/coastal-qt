@@ -20,6 +20,8 @@ QT_WRAP_CPP(icons_moc icons.h)
 QT_WRAP_CPP(dialog_moc dialog.h)
 QT_WRAP_UI(icons_ui icons.ui)
 
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+
 set (ICONS_PROGNAME coastal-icons)
 set (DIALOG_PROGNAME coastal-dialog)
 
