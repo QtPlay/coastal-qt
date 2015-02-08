@@ -13,22 +13,22 @@ file(GLOB qt_src about.cpp busy.cpp coastal.cpp dialog.cpp main.cpp notify.cpp v
 file(GLOB qt_inc coastal.h)
 file(GLOB ui_src *.ui)
 
-option(BUILD_RUNTIME "Set to OFF to build static runtime" ON)
-
 if(WIN32)
     set(style coastal_mingw.qrc)
+    set(COASTAL_LIBRARY_TYPE STATIC)
 else()
+    option(BUILD_RUNTIME "Set to OFF to build static runtime" ON)
+
+    if(BUILD_RUNTIME)
+        set(COASTAL_LIBRARY_TYPE SHARED)
+    else()
+        set(COASTAL_LIBRARY_TYPE STATIC)
+    endif()
     set(style coastal_default.qrc)
 endif()
 
 if(BUILD_DBUS)
     QT_ADD_DBUS_INTERFACE(qt_src ../dbus/org.freedesktop.Notifications.xml dbus_notify)
-endif()
-
-if(BUILD_RUNTIME)
-    set(COASTAL_LIBRARY_TYPE SHARED)
-else()
-    set(COASTAL_LIBRARY_TYPE STATIC)
 endif()
 
 create_languages(coastal)
