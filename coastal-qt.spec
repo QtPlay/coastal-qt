@@ -11,7 +11,7 @@
 Name: coastal-qt
 Group: Development/Libraries
 Summary: Runtime library support for coastal applications
-Version: 0.10.0
+Version: 0.10.1
 Release: 0%{?dist}
 License: GPLv3+
 URL: http://www.gnutelephony.org

@@ -11,8 +11,8 @@
 
 cmake_minimum_required(VERSION 2.6)
 PROJECT(coastal-qt)
-set (VERSION 0.10.0)
-set (LIB_VERSION 0.0.10)
+set (VERSION 0.10.1)
+set (LIB_VERSION 0.0.11)
 
 MESSAGE( STATUS "Configuring ${PACKAGE} ${VERSION}...")
 INCLUDE(FindPkgConfig)
