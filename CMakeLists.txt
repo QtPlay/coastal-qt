@@ -10,7 +10,7 @@
 #
 
 if(WIN32 OR APPLE)
-    cmake_minimum_required(VERSION 3.0)
+    cmake_minimum_required(VERSION 2.8.12)
 else()
     cmake_minimum_required(VERSION 2.6)
 endif()
