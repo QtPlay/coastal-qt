@@ -9,7 +9,7 @@
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 #
 
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8.11)
 PROJECT(coastal-qt)
 set (VERSION 0.10.1)
 set (LIB_VERSION 0.0.11)

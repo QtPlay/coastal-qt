@@ -15,16 +15,16 @@ file(GLOB ui_src *.ui)
 
 if(WIN32)
     set(style coastal_mingw.qrc)
-    set(COASTAL_LIBRARY_TYPE STATIC)
 else()
-    option(BUILD_RUNTIME "Set to OFF to build static runtime" ON)
-
-    if(BUILD_RUNTIME)
-        set(COASTAL_LIBRARY_TYPE SHARED)
-    else()
-        set(COASTAL_LIBRARY_TYPE STATIC)
-    endif()
     set(style coastal_default.qrc)
+endif()
+
+option(BUILD_RUNTIME "Set to OFF to build static runtime" ON)
+
+if(BUILD_RUNTIME)
+    set(COASTAL_LIBRARY_TYPE SHARED)
+else()
+    set(COASTAL_LIBRARY_TYPE STATIC)
 endif()
 
 if(BUILD_DBUS)
