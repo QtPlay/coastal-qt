@@ -9,7 +9,11 @@
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 #
 
-cmake_minimum_required(VERSION 2.8.11)
+if(WIN32 OR APPLE)
+    cmake_minimum_required(VERSION 3.0)
+else()
+    cmake_minimum_required(VERSION 2.6)
+endif()
 PROJECT(coastal-qt)
 set (VERSION 0.10.1)
 set (LIB_VERSION 0.0.11)
