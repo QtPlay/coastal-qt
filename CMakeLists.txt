@@ -19,10 +19,12 @@ set (VERSION 0.10.1)
 set (LIB_VERSION 0.0.11)
 
 MESSAGE( STATUS "Configuring ${PACKAGE} ${VERSION}...")
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
+
 INCLUDE(FindPkgConfig)
 INCLUDE(CheckIncludeFiles)
 INCLUDE(GNUInstallDirs)
-INCLUDE(CapeMakeTargets)
+INCLUDE(CoastalTargets)
 INCLUDE(CoastalConfig)
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/common")
@@ -57,11 +59,15 @@ endif()
 check_headers(windows.h unistd.h)
 create_headers()
 create_specfile()
+create_scripts(localscripts PKGBUILD)
+
+file(GLOB cmakes_inc cmake/Coastal*.cmake)
+install(FILES ${cmakes_inc} DESTINATION ${CMAKE_INSTALL_DATADIR}/coastal-qt/cmake)
 
 add_subdirectory(common)
 add_subdirectory(manpager)
 add_subdirectory(search)
 add_subdirectory(dialogs)
 
-add_cape_make_targets(coastal-qt ${VERSION})
+add_coastal_make_targets(coastal-qt ${VERSION})
 

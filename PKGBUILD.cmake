@@ -5,16 +5,16 @@
 
 # Maintainer: David Sugar <dyfet@gnutelephony.org>
 pkgname=coastal-qt
-pkgver=0.9.0
-pkgrel=1
-#epoch=
+pkgver=@VERSION@
+pkgrel=0
+epoch=9
 pkgdesc="QT extension library and some simple desktop applications"
 arch=('x86_64' 'i686')
 url="http://www.gnutelephony.org"
 license=('GPL3')
 groups=()
 depends=('qt4>=4.8.0' 'libxss' 'file')
-makedepends=('cmake>=2.6.0')
+makedepends=('cmake>=2.8.0')
 checkdepends=()
 optdepends=()
 provides=()
@@ -24,9 +24,9 @@ backup=()
 options=()
 install=
 changelog=
-source=(http://dev.gnutelephony.org/dist/tarballs/$pkgname-$pkgver.tar.gz)
+source=($pkgname-$pkgver.tar.gz)
 noextract=()
-md5sums=('f94ac1be5b3001c7bd9efcaf006fdcb1')
+md5sums=('SKIP')
 
 build() {
 	cd "$srcdir/$pkgname-$pkgver"

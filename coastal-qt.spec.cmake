@@ -1,4 +1,4 @@
-# Copyright (c) 2012 David Sugar, Tycho Softworks.
+# Copyright (c) 2012-2015 David Sugar, Tycho Softworks.
 # This file is free software; as a special exception the author gives
 # unlimited permission to copy and/or distribute it, with or without
 # modifications, as long as this notice is preserved.
@@ -8,57 +8,68 @@
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
 
-Name: coastal-qt
-Group: Development/Libraries
+# different distros may have different lib pkg naming conventions...
+
+%define libname libcoastal0
+Name:           coastal-qt
+Summary:        Coastal Qt default applications
+Version:        @VERSION@
+Release:        1
+License:        GPL-3.0+
+URL:            http://www.gnutelephony.org
+Source:         %{name}-%{version}.tar.gz
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
+BuildRequires:  libqt4-devel >= 4.8.0
+BuildRequires:  cmake >= 2.8.0
+BuildRequires:  gcc-c++
+BuildRequires:  update-desktop-files
+Requires:       %{libname} = %{version}-%{release}
+Group:          System/X11/Utilities
+Summary:        Stand-alone applications and utilities
+Obsoletes:      coastal-qt-apps
+
+%package -n %libname
+Group: System/Libraries
 Summary: Runtime library support for coastal applications
-Version: @VERSION@
-Release: 0%{?dist}
-License: GPLv3+
-URL: http://www.gnutelephony.org
-Source: http://dev.gnutelephony.org/dist/tarballs/coastal-qt-%{version}.tar.gz
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
-BuildRequires: qt4-devel >= 4.8.0
-BuildRequires: cmake >= 2.6.0
+
+%description -n %libname
+Runtime library required by coastal applications.  This offers extensions
+for the Qt framework that we use.
 
 %package devel
-Requires: %{name} = %{version}-%{release}
-Requires: qt4-devel >= 4.8.0
-Group: Development/Libraries
+Requires: %{libname} = %{version}-%{release}
+Requires: libqt4-devel >= 4.8.0
+Requires: gcc-c++ pkgconfig
+Group: Development/Libraries/C and C++
 Summary: Headers for building coastal applications
 
-%package apps
-Group: Applications/System
-Summary: Stand-alone applications and utilities
-Requires: %{name} = %{version}-%{release}
-
-%description apps
-This includes stand-alone applications built with coastal-qt and some helper
+%description
+Stand-alone applications built with coastal-qt and some helper
 applications. 
 
 %description devel
 Header files for building applications with coastal library.  Used in
 conjunction with Qt.
 
-%description
-Runtime library required by coastal applications.  This offers extensions
-for the Qt framework that we use.
-
 %prep
 %setup -q
 
 %build
-%cmake	.
+%cmake	-DCMAKE_INSTALL_SYSCONFDIR=%{_sysconfdir} \
+		-DCMAKE_INSTALL_LOCALSTATEDIR=%{_localstatedir}
+
 %{__make} %{?_smp_mflags}
 
 %install
-%{__rm} -rf %{buildroot}
-%{__make} install DESTDIR=%{buildroot}
+%cmake_install
 %{__rm} -rf %{buildroot}%{_libdir}/*.la
+%suse_update_desktop_file -r coastal-manpager Qt Utility DesktopUtility Office Viewer 
+%suse_update_desktop_file -r coastal-search Qt Utility DesktopUtility Filesystem
 
 %clean
 %{__rm} -rf %{buildroot}
 
-%files apps
+%files
 %defattr(-,root,root,-)
 %{_bindir}/coastal-manpager
 %{_datadir}/applications/coastal-manpager.desktop
@@ -69,7 +80,7 @@ for the Qt framework that we use.
 %{_bindir}/coastal-icons
 %{_bindir}/coastal-dialog
 
-%files
+%files -n %libname
 %doc README COPYING TODO ChangeLog
 %defattr(-,root,root,-)
 %{_libdir}/*.so.*
@@ -79,14 +90,13 @@ for the Qt framework that we use.
 %{_libdir}/*.so
 %{_includedir}/coastal.h
 %{_libdir}/pkgconfig/*.pc
+%{_datadir}/coastal-qt/cmake/*.cmake
 
-%post
-/sbin/ldconfig
+%post -n %libname -p /sbin/ldconfig
 
-%postun
-/sbin/ldconfig
+%postun -n %libname -p /sbin/ldconfig
 
 %changelog
-* Wed Mar 05 2014 David Sugar <dyfet@gnutelephony.org> - 0.8.1-0
-- Initial packaging for redhat/fedora submission policies.
+* Sun Mar 23 2014 David Sugar <dyfet@gnutelephony.org> - 0.9.0-0
+- Initial packaging for osc
 

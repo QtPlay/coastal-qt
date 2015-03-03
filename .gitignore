@@ -13,6 +13,7 @@ CMakeFiles/
 qrc_*.cxx
 cmake_install.cmake
 Makefile
+PKGBUILD
 moc_*
 ui_*
 qrc_*
