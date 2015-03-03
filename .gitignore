@@ -1,5 +1,6 @@
 CMakeFiles/
 *.tar.gz
+*.zip
 *.rpm
 *.dsc
 *.changes
