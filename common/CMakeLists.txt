@@ -41,7 +41,7 @@ QT_WRAP_UI(qt_ui ${ui_src})
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 add_library(coastal ${COASTAL_LIBRARY_TYPE} ${qt_src} ${qt_inc} ${qt_moc} ${qt_ui} ${qt_qrc})
-add_library_version(coastal ${LIB_VERSION})
+set_library_version(coastal ${LIB_VERSION})
 target_link_libraries(coastal ${QT_LIBRARIES} ${COASTAL_EXTRA_LIBS})
 
 install(TARGETS coastal DESTINATION ${CMAKE_INSTALL_LIBDIR})
