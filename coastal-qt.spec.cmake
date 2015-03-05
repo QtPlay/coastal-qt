@@ -90,6 +90,9 @@ conjunction with Qt.
 %{_libdir}/*.so
 %{_includedir}/coastal.h
 %{_libdir}/pkgconfig/*.pc
+
+%dir %{_datadir}/coastal-qt
+%dir %{_datadir}/coastal-qt/cmake
 %{_datadir}/coastal-qt/cmake/*.cmake
 
 %post -n %libname -p /sbin/ldconfig
