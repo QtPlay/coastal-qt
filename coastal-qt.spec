@@ -13,7 +13,7 @@
 %define libname libcoastal0
 Name:           coastal-qt
 Summary:        Coastal Qt default applications
-Version:        0.10.1
+Version:        0.10.2
 Release:        1
 License:        GPL-3.0+
 URL:            http://www.gnutelephony.org

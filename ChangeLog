@@ -1,3 +1,12 @@
+Changes from 0.10.1 to 0.10.2
+- new standardized coastal cmake macros
+- coastal win32 dll support
+- bug fix libcoastal.pc
+- cleanup of coastal runtime
+
+Changes from 0.10.0 to 0.10.1
+- standardized cmake with current cape-devtools
+
 Changes from 0.9.9 to 0.10.0
 - initial application translations
 - cleaner share path
