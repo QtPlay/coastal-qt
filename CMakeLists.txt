@@ -18,7 +18,7 @@ PROJECT(coastal-qt)
 set (VERSION 0.10.2)
 set (LIB_VERSION 0.0.12)
 
-MESSAGE( STATUS "Configuring ${PACKAGE} ${VERSION}...")
+MESSAGE( STATUS "Configuring coastal-qt ${VERSION}...")
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
 
 INCLUDE(FindPkgConfig)
