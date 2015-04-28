@@ -19,7 +19,13 @@ License:        GPL-3.0+
 URL:            http://www.gnutelephony.org
 Source:         %{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
+%if 0%{?suse_version} >= 1330
+BuildRequires:  libqt5-qtbase-devel
+BuildRequires:  libqt5-linguist-devel
+BuildRequires:  libQt5PlatformSupport-private-headers-devel
+%else
 BuildRequires:  libqt4-devel >= 4.8.0
+%endif
 BuildRequires:  cmake >= 2.8.0
 BuildRequires:  gcc-c++
 BuildRequires:  update-desktop-files
