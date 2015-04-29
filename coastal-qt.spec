@@ -25,6 +25,7 @@ BuildRequires:  libqt5-linguist-devel
 BuildRequires:  libQt5PlatformSupport-private-headers-devel
 %else
 BuildRequires:  libqt4-devel >= 4.8.0
+BuildRequires:  file-devel
 %endif
 BuildRequires:  cmake >= 2.8.0
 BuildRequires:  gcc-c++
