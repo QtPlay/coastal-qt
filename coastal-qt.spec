@@ -45,7 +45,12 @@ for the Qt framework that we use.
 
 %package devel
 Requires: %{libname} = %{version}-%{release}
+%if 0%{?suse_version} >= 1330
+Requires: libqt5-qtbase-devel
+Requires: libqt5-linguist-devel
+%else
 Requires: libqt4-devel >= 4.8.0
+%endif
 Requires: gcc-c++ pkgconfig
 Group: Development/Libraries/C and C++
 Summary: Headers for building coastal applications
