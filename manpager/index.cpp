@@ -131,17 +131,17 @@ QVariant Index::headerData(int section, Qt::Orientation orientation, int role) c
     }
 }
 
-QString Index::name(int row)
+QString Index::nameAt(int row) const
 {
     return names[map[row + first]] + "." + sections[map[row + first]];
 }
 
-Index::fileinfo Index::node(int row)
+Index::fileinfo Index::nodeAt(int row) const
 {
     return infos[map[row + first]];
 }
 
-void Index::select(int pos, const QString& name)
+void Index::selectAt(int pos, const QString& name)
 {
     int len = name.length();
 
@@ -152,7 +152,7 @@ void Index::select(int pos, const QString& name)
     }
 
     first = last = pos;
-    while(last < rows && name == names[map[last]].left(len))
+    while(last < rows && name == findFrom(last, len))
         ++last;
 
     // signal input combobox if single entry found
@@ -165,15 +165,15 @@ void Index::select(int pos, const QString& name)
     if(triggered)
         return;
 
-    emit selected(names[map[first]] + "." + sections[map[first]]);
+    emit selected(nameFrom(first));
     triggered = true;
 }
 
-int Index::search(const QString& name)
+int Index::search(const QString& name) const
 {
     unsigned diff = (last - first) / 2;
     unsigned pos = first + diff;
-    QString check = names[map[pos]] + "." + sections[map[pos]];
+    QString check = nameFrom(pos);
     unsigned len = name.length();
 
     while(diff > 0) {
@@ -199,17 +199,17 @@ int Index::search(const QString& name)
         if(pos >= last)
             pos = last - 1;
 
-        check = names[map[pos]] + "." + sections[map[pos]];
+        check = nameFrom(pos);
     }
 
     while(name < check.left(len) && pos > first) {
         --pos;
-        check = names[map[pos]] + "." + sections[map[pos]];
+        check = nameFrom(pos);
     }
 
     while(name > check.left(len) && pos < (last - 1)) {
         ++pos;
-        check = names[map[pos]] + "." + sections[map[pos]];
+        check = nameFrom(pos);
     }
 
     if(name != check.left(len))
@@ -219,7 +219,7 @@ int Index::search(const QString& name)
 }
 
 
-int Index::find(const QString& name)
+int Index::find(const QString& name) const
 {
     unsigned diff = rows / 2;
     unsigned pos = diff;
@@ -227,7 +227,7 @@ int Index::find(const QString& name)
     if(rows < 1)
         return -1;
 
-    QString check = names[map[pos]].left(len);
+    QString check = findFrom(pos, len);
 
     while(diff > 0) {
         diff /= 2;
@@ -251,19 +251,19 @@ int Index::find(const QString& name)
         if(pos >= rows)
             pos = rows - 1;
 
-        check = names[map[pos]].left(len);
+        check = findFrom(pos, len);
     }
 
     while(name < check && pos > 0)
-        check = names[map[--pos]].left(len);
+        check = findFrom(--pos, len);
 
     while(name > check && pos < rows - 1)
-        check = names[map[++pos]].left(len);
+        check = findFrom(++pos, len);
 
-    if(name != names[map[pos]].left(len))
+    if(name != findFrom(pos, len))
         return -1;
 
-    while(pos > 0 && name == names[map[pos - 1]].left(len))
+    while(pos > 0 && name == findFrom(pos - 1, len))
         --pos;
 
     return pos;

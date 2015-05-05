@@ -253,12 +253,12 @@ void Main::search(const QString& entry)
 
     if(text.length() < 1) {
         status(tr("ready"));
-        indexData->select(0, text);
+        indexData->selectAt(0, text);
         select = true;
     }
     else if(pos >= 0) {
         status(tr("searching ") + QChar('\"') + text + QChar('\"'));
-        indexData->select(pos, text);
+        indexData->selectAt(pos, text);
         select = true;
     }
     else {
@@ -306,8 +306,8 @@ void Main::load(const QModelIndex& index)
 void Main::open(void)
 {
     QModelIndex index = ui.indexView->currentIndex();
-    QString name = indexData->name(index.row());
-    Index::fileinfo node = indexData->node(index.row());
+    QString name = indexData->nameAt(index.row());
+    Index::fileinfo node = indexData->nodeAt(index.row());
     QString path = manpaths[node.path] + QDir::separator() + "man" + node.id + QDir::separator() + name;
     status(tr("opening ") + name);
 
@@ -320,8 +320,8 @@ void Main::open(void)
 
 void Main::load(int row)
 {
-    QString name = indexData->name(row);
-    Index::fileinfo node = indexData->node(row);
+    QString name = indexData->nameAt(row);
+    Index::fileinfo node = indexData->nodeAt(row);
     QString path = manpaths[node.path] + QDir::separator() + "man" + node.id + QDir::separator() + name;
 
     // if already loaded, select existing tab and exit...

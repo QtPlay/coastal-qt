@@ -35,6 +35,14 @@ private:
     unsigned rows, first, last;
     unsigned *map;
 
+    inline QString nameFrom(int pos) const {
+        return names[map[pos]] + "." + sections[map[pos]];
+    }
+
+    inline QString findFrom(int pos, int len) const {
+        return names[map[pos]].left(len);
+    }
+
 protected:
     virtual int rowCount(const QModelIndex& parent) const;
     virtual int columnCount(const QModelIndex& parent) const;
@@ -45,12 +53,12 @@ public:
     Index(QObject *parent = NULL);
     virtual ~Index();
 
-    QString name(int row);
-    fileinfo node(int row);
+    QString nameAt(int row) const;
+    fileinfo nodeAt(int row) const;
 
-    int search(const QString& name);
-    int find(const QString& name);
-    void select(int pos, const QString& name);
+    int search(const QString& name) const;
+    int find(const QString& name) const;
+    void selectAt(int pos, const QString& name);
 
 signals:
     void selected(const QString& text);
