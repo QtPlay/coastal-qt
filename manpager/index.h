@@ -22,25 +22,27 @@ class Index : public QAbstractTableModel
     Q_OBJECT
 
 public:
-    typedef struct {
+    class Item {
+    public:
         enum {NORMAL, GZIP} mode;
         unsigned path;
         char id;
-    }   fileinfo;
+        QString name;
+        QString section;
+    };
 
 private:
-    QStringList names, sections;
-    QList<Index::fileinfo> infos;
+    QList<Index::Item> items;
     bool triggered;
     unsigned rows, first, last;
     unsigned *map;
 
     inline QString nameFrom(int pos) const {
-        return names[map[pos]] + "." + sections[map[pos]];
+        return items[map[pos]].name + "." + items[map[pos]].section;
     }
 
     inline QString findFrom(int pos, int len) const {
-        return names[map[pos]].left(len);
+        return items[map[pos]].name.left(len);
     }
 
 protected:
@@ -54,7 +56,7 @@ public:
     virtual ~Index();
 
     QString nameAt(int row) const;
-    fileinfo nodeAt(int row) const;
+    const Item& itemAt(int row) const;
 
     int search(const QString& name) const;
     int find(const QString& name) const;

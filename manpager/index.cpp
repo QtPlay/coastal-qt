@@ -26,7 +26,7 @@ Index::Index(QObject *parent) :
 QAbstractTableModel(parent)
 {
     int ext;
-    Index::fileinfo info;
+    Index::Item item;
     QMap<QString, unsigned> byname;
 
     rows = first = last = 0;
@@ -41,14 +41,14 @@ QAbstractTableModel(parent)
             if(Main::hidden[section])
                 continue;
 
-            info.path = path;
-            info.mode = fileinfo::NORMAL;
-            info.id = cmap[section];
+            item.path = path;
+            item.mode = Item::NORMAL;
+            item.id = cmap[section];
 
             QStringList list = dir.entryList(QDir::Files);
             for(unsigned pos = 0; pos < (unsigned)list.size(); ++pos) {
                 QString entry = list[pos];
-                info.mode = fileinfo::GZIP;
+                item.mode = Item::GZIP;
                 ext = entry.lastIndexOf('.');
                 if(ext < 2)
                     continue;
@@ -60,9 +60,11 @@ QAbstractTableModel(parent)
                         continue;
                 }
 
-                names << entry.left(ext);
-                sections << entry.mid(++ext);
-                infos << info;
+//                names << entry.left(ext);
+//                sections << entry.mid(++ext);
+                item.name = entry.left(ext);
+                item.section = entry.mid(++ext);
+                items << item;
 
                 byname[entry] = rows;
                 ++rows;
@@ -108,9 +110,9 @@ QVariant Index::data(const QModelIndex& index, int role) const
 
     switch(index.column()) {
     case 0:
-        return names[map[row + first]];
+        return items[map[row + first]].name;
     case 1:
-        return sections[map[row + first]];
+        return items[map[row + first]].section;
     default:
         return QVariant();
     }
@@ -133,12 +135,13 @@ QVariant Index::headerData(int section, Qt::Orientation orientation, int role) c
 
 QString Index::nameAt(int row) const
 {
-    return names[map[row + first]] + "." + sections[map[row + first]];
+    const Item& item = itemAt(row);
+    return item.name + "." + item.section;
 }
 
-Index::fileinfo Index::nodeAt(int row) const
+const Index::Item& Index::itemAt(int row) const
 {
-    return infos[map[row + first]];
+    return items[map[row + first]];
 }
 
 void Index::selectAt(int pos, const QString& name)

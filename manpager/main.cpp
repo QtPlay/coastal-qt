@@ -307,11 +307,11 @@ void Main::open(void)
 {
     QModelIndex index = ui.indexView->currentIndex();
     QString name = indexData->nameAt(index.row());
-    Index::fileinfo node = indexData->nodeAt(index.row());
-    QString path = manpaths[node.path] + QDir::separator() + "man" + node.id + QDir::separator() + name;
+    const Index::Item& item = indexData->itemAt(index.row());
+    QString path = manpaths[item.path] + QDir::separator() + "man" + item.id + QDir::separator() + name;
     status(tr("opening ") + name);
 
-    if(node.mode == Index::fileinfo::GZIP)
+    if(item.mode == Index::Item::GZIP)
         path += ".gz";
 
     if(!Coastal::open(path))
@@ -321,8 +321,8 @@ void Main::open(void)
 void Main::load(int row)
 {
     QString name = indexData->nameAt(row);
-    Index::fileinfo node = indexData->nodeAt(row);
-    QString path = manpaths[node.path] + QDir::separator() + "man" + node.id + QDir::separator() + name;
+    const Index::Item& item = indexData->itemAt(row);
+    QString path = manpaths[item.path] + QDir::separator() + "man" + item.id + QDir::separator() + name;
 
     // if already loaded, select existing tab and exit...
     if(View::find(ui.tabs, name))
@@ -330,7 +330,7 @@ void Main::load(int row)
 
     status(tr("loading ") + name);
 
-    if(node.mode == Index::fileinfo::GZIP) {
+    if(item.mode == Index::Item::GZIP) {
         path += ".gz";
         QString cmd = "gunzip";
         QStringList args;
